@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "Practica0"
 include(":app")
 include(":Desktop")
+include(":Drawing")
