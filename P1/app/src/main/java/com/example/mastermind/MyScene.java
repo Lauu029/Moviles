@@ -22,6 +22,7 @@ package com.example.mastermind;
 
         public void update(double deltaTime){
             int maxX = this.renderClass.getWidth()-this.radius;
+//            int maxY = this.renderClass.()-this.radius;
 
             this.x += this.speed * deltaTime;
             this.y += 1;
@@ -36,6 +37,7 @@ package com.example.mastermind;
                     this.x = 2 * maxX - this.x;
                     this.speed *= -1;
                 }
+                if (this.y> )
             }
         }
 
