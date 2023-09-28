@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "MasterMind"
 include(":app")
+include(":ejemplo_hilos")
