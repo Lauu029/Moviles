@@ -14,5 +14,9 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "MasterMind"
-include(":app")
-include(":ejemplo_hilos")
+include(":GameLogic")
+include(":DesktopEngine")
+include(":DesktopGame")
+include(":AndroidEngine")
+include(":androidgame")
+include(":Engine")
