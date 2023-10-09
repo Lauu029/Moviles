@@ -68,7 +68,7 @@ public class Solution {
 
                     posCorrecta++;
                     //si ha sido combrobado antes es porque hay una casila con el mismo color pero no en la misma pos
-                    if (valor.get(i)) colorCorrecto--;
+
                     solution_.get(possible_sol[i]).put(i, true);
                 }
                 else {
@@ -80,13 +80,15 @@ public class Solution {
                         Map.Entry<Integer, Boolean> entrada = iterator.next();
                          int clave = entrada.getKey();
                          Boolean vas= entrada.getValue();
-                         if(!vas){
+                         if(!vas&&possible_sol[clave]!=sol[clave]){
                              solution_.get(possible_sol[i]).put(clave, true);
 
                              combrobado=false;
                          }
                     }
-                    if(!combrobado) colorCorrecto++;
+                    if(!combrobado){
+                        System.out.println("color correcto"+possible_sol[i]);
+                        colorCorrecto++;}
                 }
             }
         }
