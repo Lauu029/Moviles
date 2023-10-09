@@ -105,12 +105,21 @@ public class Solution {
     }
     private void resetearMap(){
 
-        for (Map<Integer, Boolean> mapaInterno : solution_.values()) {
 
-            for (Integer clave : mapaInterno.keySet()) {
-                mapaInterno.put(clave, false);
+        for (Map.Entry<Integer, Map<Integer, Boolean>> entradaExterna : solution_.entrySet()) {
+            Integer claveExterna = entradaExterna.getKey();
+            Map<Integer, Boolean> mapaInterno = entradaExterna.getValue();
+
+
+            for (Map.Entry<Integer, Boolean> entradaInterna : mapaInterno.entrySet()) {
+                Integer claveInterna = entradaInterna.getKey();
+
+                solution_.get(claveExterna).put(claveInterna, false);
+                Boolean valor = entradaInterna.getValue();
+
             }
         }
+
     }
     public void imprimeSolution() {
         for (Map.Entry<Integer, Map<Integer, Boolean>> entradaExterna : solution_.entrySet()) {
