@@ -1,10 +1,10 @@
 package com.example.desktopgame;
 
-import com.example.gamelogic.MasterMind;
+import com.example.gamelogic.Game;
 
 public class main {
     public static void main(String[] args) {
-        MasterMind g=new MasterMind();
-        g.init();
+        Game g=new Game();
+        g.run();
     }
 }
