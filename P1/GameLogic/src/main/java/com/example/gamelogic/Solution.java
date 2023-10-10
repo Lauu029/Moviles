@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 
-public class Solution {
+public class Solution  {
     private Map<Integer, Map<Integer, Boolean>> solution_ = new HashMap<>();
     int[] sol;
     boolean win=false;

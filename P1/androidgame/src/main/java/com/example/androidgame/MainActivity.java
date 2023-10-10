@@ -3,8 +3,10 @@ package com.example.androidgame;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.transition.Scene;
 
-import com.example.gamelogic.Game;
+
+import com.example.gamelogic.GameScene;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,7 +14,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Game g=new Game();
-        g.run();
+        GameScene g=new GameScene();
+        g.init();
+
     }
 }
