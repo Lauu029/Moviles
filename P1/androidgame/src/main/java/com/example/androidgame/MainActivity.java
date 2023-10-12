@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.transition.Scene;
 
 
+import com.example.androidengine.EngineAndroid;
+import com.example.engine.Engine;
 import com.example.gamelogic.GameScene;
 
 public class MainActivity extends AppCompatActivity {
@@ -14,7 +16,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        GameScene g=new GameScene();
+        Engine engineAndroid= new EngineAndroid();
+        GameScene g= new GameScene(engineAndroid);
+        engineAndroid.setScene(g);
         g.init();
 
     }

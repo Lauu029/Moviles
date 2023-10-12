@@ -3,10 +3,25 @@ package com.example.desktopengine;
 import com.example.engine.Color;
 import com.example.engine.Font;
 import com.example.engine.Image;
+import com.example.engine.Scene;
+
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferStrategy;
+
+import javax.swing.JFrame;
 
 public class GraphicsDesktop implements com.example.engine.Graphics {
-    private int width = 0, height = 0;
+    private JFrame myView_;
+    private BufferStrategy bufferStrategy_;
+    private Graphics2D graphics2D_;
+    private int width_ = 0, height_ = 0;
+    public GraphicsDesktop(JFrame myView){
+        this.myView_=myView;
 
+        this.bufferStrategy_ = this.myView_.getBufferStrategy();
+        this.graphics2D_ = (Graphics2D) bufferStrategy_.getDrawGraphics();
+    }
     @Override
     public Image newImage(String name) {
         return null;
@@ -34,7 +49,11 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
 
     @Override
     public void fillRectangle(int cX, int cY, int width, int height) {
+        this.graphics2D_.setColor(java.awt.Color.black);
+        this.graphics2D_.fillRect(cX, cY, width, height);
 
+        //this.graphics2D_.setColor();
+        //this.graphics2D_.setPaintMode();
     }
 
     @Override
@@ -69,11 +88,30 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
 
     @Override
     public int getWidth() {
-        return width;
+        return width_;
     }
 
     @Override
     public int getHeight() {
-        return height;
+        return height_;
+    }
+
+    @Override
+    public void render(Scene myScene) {
+        // Pintamos el frame
+        do {
+            do {
+                Graphics graphics = this.bufferStrategy_.getDrawGraphics();
+                try {
+                    //this.render(myScene);
+                    myScene.render();
+                }
+                finally {
+                    graphics.dispose(); //Elimina el contexto gráfico y libera recursos del sistema realacionado
+                }
+            } while(this.bufferStrategy_.contentsRestored());
+            this.bufferStrategy_.show();
+        } while(this.bufferStrategy_.contentsLost());
+
     }
 }

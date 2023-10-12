@@ -31,10 +31,11 @@ public class GameScene implements com.example.engine.Scene {
 
     @Override
     public void render() {
-        for(int i=0;i<gameObjects_.size();i++){
+       /* for(int i=0;i<gameObjects_.size();i++){
             gameObjects_.get(i).render();
-        }
+        }*/
 
+        engine_.getGraphics().fillRectangle(100,100,200,100);
     }
 
 

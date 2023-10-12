@@ -29,4 +29,6 @@ public interface Graphics {
 
     int getHeight();
 
+    void render(Scene myScene);
+
 }
