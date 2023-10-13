@@ -34,7 +34,7 @@ public class GameScene implements com.example.engine.Scene {
        /* for(int i=0;i<gameObjects_.size();i++){
             gameObjects_.get(i).render();
         }*/
-        engine_.getGraphics().drawRectangle(100,100,200,100);
+        engine_.getGraphics().drawRectangle(20,20,200,100);
     }
 
 

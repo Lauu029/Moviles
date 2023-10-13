@@ -102,7 +102,7 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
         while (!this.holder.getSurface().isValid());
 
         this.canvas = this.holder.lockCanvas();
-        clear(0xFF340001);
+      //clear(0xFF340001);
         myScene.render();
         this.holder.unlockCanvasAndPost(canvas);
     }
