@@ -8,7 +8,7 @@ import com.example.engine.Graphics;
 import com.example.engine.Input;
 import com.example.engine.Scene;
 
-public class EngineAndroid implements com.example.engine.Engine {
+public class EngineAndroid implements com.example.engine.Engine, Runnable {
     private Graphics myGraphics_;
     private SurfaceView myView_;
     private Thread renderThread;
