@@ -34,13 +34,13 @@ public class GameScene implements com.example.engine.Scene {
        /* for(int i=0;i<gameObjects_.size();i++){
             gameObjects_.get(i).render();
         }*/
-
+      System.out.println("Renderizo");
         engine_.getGraphics().fillRectangle(100,100,200,100);
     }
 
 
     @Override
-    public void update() {
+    public void update(double time) {
         for(int i=0;i<gameObjects_.size();i++){
             gameObjects_.get(i).render();
         }

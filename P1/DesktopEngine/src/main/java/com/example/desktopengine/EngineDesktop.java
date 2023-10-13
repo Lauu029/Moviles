@@ -74,7 +74,7 @@ public class EngineDesktop implements com.example.engine.Engine {
 
             // Informe de FPS
             double elapsedTime = (double) nanoElapsedTime / 1.0E9;
-            this.myScene_.update();//elapsedTime
+            this.myScene_.update(elapsedTime);//elapsedTime
             render();
             if (currentTime - informePrevio > 1000000000l) {
                 long fps = frames * 1000000000l / (currentTime - informePrevio);
@@ -111,6 +111,6 @@ public class EngineDesktop implements com.example.engine.Engine {
 
     @Override
     public Scene getScene() {
-        return null;
+        return this.myScene_;
     }
 }

@@ -1,11 +1,29 @@
 package com.example.androidengine;
 
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.util.Log;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
+
 import com.example.engine.Color;
 import com.example.engine.Font;
 import com.example.engine.Image;
+import com.example.engine.Scene;
 
 public class GraphicsAndroid implements com.example.engine.Graphics {
     private int width = 0, height = 0;
+    private SurfaceView myView;
+    private SurfaceHolder holder;
+    private Paint paint;
+    private Canvas canvas;
+    public GraphicsAndroid(SurfaceView view)  {
+        this.myView = view;
+        this.holder = this.myView.getHolder();
+        this.paint = new Paint();
+        this.canvas= new Canvas();
+        this.paint.setColor(0xFFFF0080);
+    }
 
     @Override
     public ImageAndroid newImage(String name) {
@@ -44,7 +62,8 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
 
     @Override
     public void drawRectangle(int cX, int cY, int width, int height) {
-
+        Log.d("MiTag", "Dibujando cuadrado...");
+        canvas.drawRect(cX,cY,width,height,this.paint);
     }
 
     @Override
@@ -69,11 +88,23 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
 
     @Override
     public int getWidth() {
-        return 0;
+        return width;
     }
 
     @Override
     public int getHeight() {
-        return 0;
+        return height;
     }
+
+    @Override
+    public void render(Scene myScene) {
+        this.canvas.drawColor(0xFF0000FF);
+        while (!this.holder.getSurface().isValid());
+
+        this.canvas = this.holder.lockCanvas();
+        myScene.render();
+        this.holder.unlockCanvasAndPost(canvas);
+    }
+
+
 }
