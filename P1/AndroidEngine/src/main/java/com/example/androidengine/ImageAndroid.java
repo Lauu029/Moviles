@@ -21,7 +21,9 @@ public class ImageAndroid implements com.example.engine.Image {
 ////        canvas.drawBitmap(bitmap, x, y, paint);
 //
 //    }
+    public ImageAndroid(String source){
 
+    }
     @Override
     public int getWidth() {
         return widht;

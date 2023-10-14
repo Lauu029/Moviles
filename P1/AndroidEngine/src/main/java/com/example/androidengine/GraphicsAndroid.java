@@ -17,27 +17,30 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
     private SurfaceHolder holder;
     private Paint paint;
     private Canvas canvas;
-    public GraphicsAndroid(SurfaceView view)  {
+    private Color color;
+
+    public GraphicsAndroid(SurfaceView view) {
         this.myView = view;
         this.holder = this.myView.getHolder();
         this.paint = new Paint();
-        this.canvas= new Canvas();
+        this.canvas = new Canvas();
+        this.color = new ColorAndroid();
         this.paint.setColor(0xFFFF0080);
     }
 
     @Override
     public ImageAndroid newImage(String name) {
-        return null;
+        return new ImageAndroid(name);
     }
 
     @Override
     public FontAndroid newFont(String filename, int size, boolean isBold) {
-        return null;
+        return new FontAndroid(filename, size, isBold);
     }
 
     @Override
     public void clear(int color) {
-
+        canvas.drawColor(color);
     }
 
     @Override
@@ -47,7 +50,7 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
 
     @Override
     public void setcolor(Color color) {
-
+        this.color = color;
     }
 
     @Override
@@ -62,8 +65,7 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
 
     @Override
     public void drawRectangle(int cX, int cY, int width, int height) {
-        Log.d("MiTag", "Dibujando cuadrado...");
-        canvas.drawRect(cX,cY,width,height,this.paint);
+        canvas.drawRect(cX, cY, width, height, this.paint);
     }
 
     @Override
@@ -73,17 +75,17 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
 
     @Override
     public void drawLine(int initX, int initY, int endX, int endY) {
-
+        canvas.drawLine(initX, initY, endX, endY, this.paint);
     }
 
     @Override
     public void drawCircle(float cx, float cy, float radius) {
-
+        canvas.drawCircle(cx, cy, radius, paint);
     }
 
     @Override
     public void drawText(String text, int x, int y, Font font) {
-
+//        canvas.drawText();
     }
 
     @Override
@@ -99,10 +101,9 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
     @Override
     public void render(Scene myScene) {
         this.canvas.drawColor(0xFF0000FF);
-        while (!this.holder.getSurface().isValid());
+        while (!this.holder.getSurface().isValid()) ;
 
         this.canvas = this.holder.lockCanvas();
-      //clear(0xFF340001);
         myScene.render();
         this.holder.unlockCanvasAndPost(canvas);
     }

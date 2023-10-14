@@ -14,12 +14,15 @@ public class EngineAndroid implements com.example.engine.Engine, Runnable {
     private Thread renderThread;
     private boolean running;
     private Scene scene;
+    private Audio audio;
+    private Input input;
 
     public EngineAndroid(SurfaceView myView) {
         myView_ = myView;
         myGraphics_ = new GraphicsAndroid(myView_);
         running = false;
-
+        audio= new AudioAndroid();
+        input = new InputAndroid();
     }
     @Override
     public void resume() {
@@ -99,12 +102,12 @@ public class EngineAndroid implements com.example.engine.Engine, Runnable {
 
     @Override
     public Input getInput() {
-        return null;
+        return this.input;
     }
 
     @Override
     public Audio getAudio() {
-        return null;
+        return this.audio;
     }
 
     @Override
