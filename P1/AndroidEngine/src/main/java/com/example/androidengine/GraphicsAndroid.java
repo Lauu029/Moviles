@@ -42,7 +42,10 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
     public void clear(int color) {
         canvas.drawColor(color);
     }
-
+    @Override
+    public void setStrokeWidth(int width) {
+        paint.setStrokeWidth(width);
+    }
     @Override
     public void drawImage(Image image, int posX, int posY, int height, int widht) {
 
@@ -71,14 +74,14 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
     @Override
     public void drawRectangle(int cX, int cY, int width, int height) {
         paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(3);
+
         canvas.drawRect(cX, cY, width, height, this.paint);
     }
 
     @Override
     public void drawRoundRectangle(int cX, int cY, int width, int height, int arc) {
         paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(3);
+
         RectF rect = new RectF(cX, cY, cX + width, cY + height);
         canvas.drawRoundRect(rect, arc, arc, paint);
     }

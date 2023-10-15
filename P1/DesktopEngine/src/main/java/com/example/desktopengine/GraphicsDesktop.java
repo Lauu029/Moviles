@@ -66,6 +66,11 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
     }
 
     @Override
+    public void setStrokeWidth(int width) {
+
+    }
+
+    @Override
     public void drawRoundRectangle(int cX, int cY, int width, int height, int arc) {
 
     }

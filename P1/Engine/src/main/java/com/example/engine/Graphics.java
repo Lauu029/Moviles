@@ -16,7 +16,7 @@ public interface Graphics {
     void fillRoundRectangle(int cX, int cY, int width, int height, int arc);
 
     void drawRectangle(int cX, int cY, int width, int height);
-
+    void setStrokeWidth(int width);
     void drawRoundRectangle(int cX, int cY, int width, int height, int arc);
 
     void drawLine(int initX, int initY, int endX, int endY);

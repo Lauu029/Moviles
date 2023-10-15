@@ -36,12 +36,13 @@ public class GameScene implements com.example.engine.Scene {
     public void render() {
         Graphics graph=engine_.getGraphics();
         graph.clear(0xFFFFFFFF);
+
        for(int i=0;i<gameObjects_.size();i++){
             gameObjects_.get(i).render(graph);
         }
 
 
-
+        graph.setStrokeWidth(15);
         graph.setcolor(0xFF23FD88);
         graph.drawRoundRectangle(80,80,200,100,25);
         graph.setcolor(0xFFED0F8D);
