@@ -2,6 +2,6 @@ package com.example.engine;
 
 public interface Color {
 
-    void setColor(String color);
-    String getColor();
+    void setColor(int color);
+    int getColor();
 }

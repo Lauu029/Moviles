@@ -2,7 +2,7 @@ package com.example.androidengine;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.util.Log;
+import android.graphics.RectF;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -25,7 +25,7 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
         this.paint = new Paint();
         this.canvas = new Canvas();
         this.color = new ColorAndroid();
-        this.paint.setColor(0xFFFF0080);
+       // this.paint.setColor(0x53ECDED3);
     }
 
     @Override
@@ -49,28 +49,38 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
     }
 
     @Override
-    public void setcolor(Color color) {
-        this.color = color;
+    public void setcolor(int color_) {
+        this.color.setColor(color_);
+        this.paint.setColor(color_);
+
     }
 
     @Override
     public void fillRectangle(int cX, int cY, int width, int height) {
-
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawRect(cX, cY, width, height, this.paint);
     }
 
     @Override
     public void fillRoundRectangle(int cX, int cY, int width, int height, int arc) {
-
+        paint.setStyle(Paint.Style.FILL);
+        RectF rect = new RectF(cX, cY, cX + width, cY + height);
+        canvas.drawRoundRect(rect, arc, arc, paint);
     }
 
     @Override
     public void drawRectangle(int cX, int cY, int width, int height) {
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(3);
         canvas.drawRect(cX, cY, width, height, this.paint);
     }
 
     @Override
     public void drawRoundRectangle(int cX, int cY, int width, int height, int arc) {
-
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(3);
+        RectF rect = new RectF(cX, cY, cX + width, cY + height);
+        canvas.drawRoundRect(rect, arc, arc, paint);
     }
 
     @Override
@@ -80,6 +90,7 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
 
     @Override
     public void drawCircle(float cx, float cy, float radius) {
+        paint.setStyle(Paint.Style.FILL);
         canvas.drawCircle(cx, cy, radius, paint);
     }
 
@@ -100,7 +111,7 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
 
     @Override
     public void render(Scene myScene) {
-        this.canvas.drawColor(0xFF0000FF);
+
         while (!this.holder.getSurface().isValid()) ;
 
         this.canvas = this.holder.lockCanvas();

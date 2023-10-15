@@ -1,15 +1,15 @@
 package com.example.androidengine;
 
 public class ColorAndroid implements com.example.engine.Color {
-    private String color;
+    private int color;
 
     @Override
-    public void setColor(String color) {
+    public void setColor(int color) {
         this.color = color;
     }
 
     @Override
-    public String getColor() {
+    public int getColor() {
         return color;
     }
 }

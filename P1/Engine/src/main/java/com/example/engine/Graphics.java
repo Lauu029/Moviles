@@ -9,7 +9,7 @@ public interface Graphics {
 
     void drawImage(Image image, int posX, int posY, int height, int widht);
 
-    void setcolor(Color color);
+    void setcolor(int color);
 
     void fillRectangle(int cX, int cY, int width, int height);
 

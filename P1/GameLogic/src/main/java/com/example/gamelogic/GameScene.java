@@ -2,6 +2,7 @@ package com.example.gamelogic;
 
 import com.example.engine.Engine;
 import com.example.engine.GameObject;
+import com.example.engine.Graphics;
 
 import java.util.ArrayList;
 
@@ -34,7 +35,15 @@ public class GameScene implements com.example.engine.Scene {
        /* for(int i=0;i<gameObjects_.size();i++){
             gameObjects_.get(i).render();
         }*/
-        engine_.getGraphics().drawRectangle(20,20,200,100);
+
+        Graphics graph=engine_.getGraphics();
+        graph.clear(0xFFFFFFFF);
+        graph.setcolor(0xFF23FD88);
+        graph.drawRoundRectangle(80,80,200,100,25);
+        graph.setcolor(0xFFED0F8D);
+
+        graph.drawCircle(80,300,50);
+
     }
 
 

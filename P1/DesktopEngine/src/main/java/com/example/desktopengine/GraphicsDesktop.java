@@ -1,6 +1,5 @@
 package com.example.desktopengine;
 
-import com.example.engine.Color;
 import com.example.engine.Font;
 import com.example.engine.Image;
 import com.example.engine.Scene;
@@ -43,7 +42,7 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
     }
 
     @Override
-    public void setcolor(Color color) {
+    public void setcolor(int color) {
 
     }
 
