@@ -95,8 +95,13 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
     }
 
     @Override
-    public void drawText(String text, int x, int y, Font font) {
+    public void drawText(String text, int x, int y,int size, Font font) {
 //        canvas.drawText();
+
+        paint.setStyle(Paint.Style.FILL);
+
+        paint.setTextSize(size);
+        canvas.drawText(text, x, y, paint);
     }
 
     @Override

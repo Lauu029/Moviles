@@ -1,5 +1,7 @@
 package com.example.gamelogic;
 
+import com.example.engine.GameObject;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -9,9 +11,11 @@ public class Solution  {
     private Map<Integer, Map<Integer, Boolean>> solution_ = new HashMap<>();
     int[] sol;
     boolean win=false;
-    private int posCorrecta, colorCorrecto;
+    int actualturno=0;
+    private int posCorrecta=0, colorCorrecto=0;
     int size_sol;
-    void createSolution(Boolean repeat, int color_game, int posible_color) {
+    int[][] registerdSols;
+    void createSolution(Boolean repeat, int color_game, int posible_color,int maxturnos) {
 
         size_sol=color_game;
         sol = new int[size_sol];
@@ -21,8 +25,9 @@ public class Solution  {
 
         // Crear una instancia de Random
         Random rand = new Random();
-
-
+        //aqui se guardan las soluciones para luego ser renderizadas,registerSols[x][0] hara ref a la posiciones correctas,
+        //registerSols[x][1] hara ref a lod colores correctos
+        registerdSols=new int[maxturnos][2];
         // Generar un número aleatorio en el rango
 
         for(int i=0;i<size_sol;i++){
@@ -93,15 +98,22 @@ public class Solution  {
             }
         }
         if(posCorrecta==size_sol)win=true;
+        registerdSols[actualturno][0]=posCorrecta;
+        registerdSols[actualturno][1]=colorCorrecto;
         imprimeSolution();
         resetearMap();
 
+        actualturno++;
+
     }
-    public int getposCorrecta(){
-        return  posCorrecta;
+    public int getTurno(){
+        return actualturno;
     }
-    public int getColorCorrecto(){
-        return  colorCorrecto;
+    public int getposCorrecta(int turno){
+        return  registerdSols[turno][0];
+    }
+    public int getColorCorrecto(int turno){
+        return  registerdSols[turno][1];
     }
     private void resetearMap(){
 
@@ -119,6 +131,8 @@ public class Solution  {
 
             }
         }
+        colorCorrecto=0;
+        posCorrecta=0;
 
     }
     public void imprimeSolution() {
@@ -136,7 +150,6 @@ public class Solution  {
             }
         }
     }
-
 
 
 

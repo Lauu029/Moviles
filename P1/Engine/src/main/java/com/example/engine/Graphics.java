@@ -23,7 +23,7 @@ public interface Graphics {
 
     void drawCircle(float cx, float cy, float radius);
 
-    void drawText(String text, int x, int y,Font font);
+    void drawText(String text, int x, int y,int size,Font font);
 
     int getWidth();
 
