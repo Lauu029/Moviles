@@ -50,12 +50,13 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
             scale_ = scaleH;
         }
 
+
         float resizeW, resizeH;
         resizeW = myScene.getWidth() * scale_;
         resizeH = myScene.getHeight() * scale_;
 
-        translateX_ = (width_ - resizeW) / 2;
-        translateY_ = (height_ - resizeH) / 2;
+        translateX_ = ((float)width_ - resizeW) / 2.0f;
+        translateY_ = ((float)height_ - resizeH) / 2.0f;
     }
     void setSize( ){}
     @Override
@@ -122,7 +123,7 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
 
     @Override
     public void drawCircle(int cx, int cy, int radius) {
-        this.graphics2D_.fillOval(cx,cy,radius,radius);
+        this.graphics2D_.fillOval(cx-radius,cy-radius,2*radius,2*radius);
 
     }
 
@@ -143,42 +144,41 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
 
     @Override
     public void render(Scene myScene) {
-        // Pintamos el frame
-
-
         do {
             do {
                 graphics2D_ = (Graphics2D) this.bufferStrategy_.getDrawGraphics();
                 try {
+                    // Establecer la escala y la traslación
                     graphics2D_.setTransform(af);
                     resizeCanvas(myScene);
+                    this.scale(scale_, scale_);
+                    this.translate(translateX_, translateY_);
+                    System.out.println("translateX: " + translateX_ + " translateY: " + translateY_ + " scale: " + scale_);
 
-                    this.scale(scale_,scale_);
-                    this.translate(translateX_,translateY_);
-                    System.out.println("translateX: "+translateX_+" translatey"+translateY_+" scale"+scale_);
+                    // Dibujar la escena
                     myScene.render();
-
-
+                } finally {
+                    graphics2D_.dispose();
                 }
-                finally {
-                    graphics2D_.dispose(); //Elimina el contexto gráfico y libera recursos del sistema realacionado
-                }
-            } while(this.bufferStrategy_.contentsRestored());
+            } while (this.bufferStrategy_.contentsRestored());
             this.bufferStrategy_.show();
-        } while(this.bufferStrategy_.contentsLost());
+        } while (this.bufferStrategy_.contentsLost());
 
+        // Restaurar la transformación original
+        //graphics2D_.setTransform(af);
     }
 
     @Override
     public void translate(float x, float y) {
         int left = myView_.getInsets().left;
         int up = myView_.getInsets().top;
-        this.graphics2D_.translate(x+left,y+up);
+        this.graphics2D_.translate(x,y);
     }
 
     @Override
     public void scale(float x, float y) {
-        this.graphics2D_.scale(x,y);
+
+        this.graphics2D_.scale((double)x,(double)y);
     }
 
 
