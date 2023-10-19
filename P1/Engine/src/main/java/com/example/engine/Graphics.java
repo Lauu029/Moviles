@@ -21,7 +21,7 @@ public interface Graphics {
 
     void drawLine(int initX, int initY, int endX, int endY);
 
-    void drawCircle(float cx, float cy, float radius);
+    void drawCircle(int cx, int cy, int radius);
 
     void drawText(String text, int x, int y,int size,Font font);
 
@@ -30,8 +30,8 @@ public interface Graphics {
     int getHeight();
 
     void render(Scene myScene);
-    void translate(int x,int y);
-    void scale(int x,int y);
+    void translate(float x,float y);
+    void scale(float x,float y);
     void save();
     void restore();
 

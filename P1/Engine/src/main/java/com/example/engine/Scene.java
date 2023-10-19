@@ -6,4 +6,7 @@ public interface Scene {
     void init();
 
     void addGameObject(GameObject gm);
+
+    int getHeight();
+    int getWidth();
 }

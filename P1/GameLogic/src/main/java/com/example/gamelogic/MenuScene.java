@@ -23,4 +23,14 @@ public class MenuScene implements Scene {
     public void addGameObject(GameObject gm) {
 
     }
+
+    @Override
+    public int getHeight() {
+        return 0;
+    }
+
+    @Override
+    public int getWidth() {
+        return 0;
+    }
 }

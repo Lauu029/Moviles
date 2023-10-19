@@ -11,8 +11,11 @@ public class GameScene implements com.example.engine.Scene {
     Solution sol;
     Engine engine_;
     ArrayList<GameObject> gameObjects_ = new ArrayList<>();
-    public GameScene(Engine engine){
+    private int width_,height_;
+    public GameScene(Engine engine, int w, int h){
         engine_=engine;
+        width_=w;
+        height_=h;
     }
     @Override
     public void init() {
@@ -33,9 +36,19 @@ public class GameScene implements com.example.engine.Scene {
     }
 
     @Override
+    public int getHeight() {
+        return height_;
+    }
+
+    @Override
+    public int getWidth() {
+        return width_;
+    }
+
+    @Override
     public void render() {
         Graphics graph=engine_.getGraphics();
-        graph.clear(0xFFFFFFFF);
+        /*graph.clear(0xFF000000);
 
        for(int i=0;i<gameObjects_.size();i++){
             gameObjects_.get(i).render(graph);
@@ -68,7 +81,8 @@ public class GameScene implements com.example.engine.Scene {
             }
         };
         graph.drawText("MasterMind",200, 700,100, fuente);
-        graph.drawCircle(80,300,50);
+        graph.drawCircle(80,300,50);*/
+        graph.fillRectangle(0,0,100,100);
 
     }
 

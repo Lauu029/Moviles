@@ -7,16 +7,16 @@ import com.example.engine.Scene;
 
 import javax.swing.JFrame;
 
-public class EngineDesktop implements com.example.engine.Engine {
+public class EngineDesktop implements com.example.engine.Engine, Runnable {
     private JFrame myView_;
     private Thread renderThread;
     private boolean running_=false;
     private Scene myScene_;
     private Graphics myGraphics_;
-    public EngineDesktop(JFrame myView, int resolutionX, int resolutionY)
+    public EngineDesktop(JFrame myView)
     {
         myView_=myView;
-        myGraphics_= new GraphicsDesktop(myView_,resolutionX,resolutionY);
+        myGraphics_= new GraphicsDesktop(myView_);
 
     }
 

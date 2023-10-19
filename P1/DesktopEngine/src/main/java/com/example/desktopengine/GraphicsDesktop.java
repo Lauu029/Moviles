@@ -18,41 +18,43 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
     private int width_ = 0, height_ = 0;
     private int resX_ = 0, resY_ = 0;
     float scale_=1;
-    int translateX_=0,translateY_=0;
-    public GraphicsDesktop(JFrame myView, int resX, int resY){
+    float translateX_=0,translateY_=0;
+    int sceneW_=0,sceneH=0;
+    public GraphicsDesktop(JFrame myView){
         this.myView_=myView;
-        myView_.setBackground(Color.BLUE);
-        resX_=resX;
-        resY_=resY;
+
         this.bufferStrategy_ = this.myView_.getBufferStrategy();
         this.graphics2D_ = (Graphics2D) bufferStrategy_.getDrawGraphics();
         //this.graphics2D_.getTransform();
 
         height_=myView_.getHeight();
         width_=myView_.getWidth();
-        refactorCanvas();
-    }
-    private void refactorCanvas(){
-        int possibleWidth;
-        int possibleHeight;
 
+    }
+    private void resizeCanvas(Scene myScene){
+        float scaleW;
+        float scaleH;
         height_=myView_.getHeight();
         width_=myView_.getWidth();
 
-        possibleWidth=height_*resX_/resY_;
-        possibleHeight=resY_*width_/resY_;
+        scaleW=width_/myScene.getWidth();
+        scaleH=height_/myScene.getHeight();
 
-        translateX_=0; translateY_=0;
+        if(scaleW<scaleH){
+            scale_=scaleW;
+        }else scale_=scaleH;
 
-        if(possibleWidth<width_){
-            translateX_=(possibleWidth-width_)/2;
-            scale_=height_/resY_;
+        int resizeW,resizeH;
+        resizeW=myScene.getWidth()*(int)scale_;
+        resizeH=myScene.getHeight()*(int)scale_;
+        translateX_=0.0f; translateY_=0.0f;
+        if(resizeH==height_){
+            translateX_=(width_-resizeW)/2;
         }else{
-            translateY_=(possibleHeight-height_)/2;
-            scale_=width_/resX_;
+            translateY_=(height_-resizeH)/2;
         }
-
     }
+    void setSize( ){}
     @Override
     public Image newImage(String name) {
         return null;
@@ -65,7 +67,7 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
 
     @Override
     public void clear(int color) {
-
+        //myView_.setBackground(color);
     }
 
     @Override
@@ -113,8 +115,8 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
     }
 
     @Override
-    public void drawCircle(float cx, float cy, float radius) {
-
+    public void drawCircle(int cx, int cy, int radius) {
+        this.graphics2D_.drawOval(cx,cy,radius,radius);
     }
 
     @Override
@@ -135,13 +137,13 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
     @Override
     public void render(Scene myScene) {
         // Pintamos el frame
-        refactorCanvas();
+        resizeCanvas(myScene);
         do {
             do {
                 Graphics graphics = this.bufferStrategy_.getDrawGraphics();
                 try {
-                    //this.render(myScene);
-                    this.scale((int)scale_,(int)scale_);
+
+                    this.scale(scale_,scale_);
                     this.translate(translateX_,translateY_);
                     myScene.render();
 
@@ -157,14 +159,16 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
     }
 
     @Override
-    public void translate(int x, int y) {
-
+    public void translate(float x, float y) {
+        this.graphics2D_.translate(x,y);
     }
 
     @Override
-    public void scale(int x, int y) {
+    public void scale(float x, float y) {
         this.graphics2D_.scale(x,y);
     }
+
+
 
     @Override
     public void save() {

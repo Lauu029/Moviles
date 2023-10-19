@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         this.renderView = new SurfaceView(this);
         setContentView(this.renderView);
         Engine engineAndroid= new EngineAndroid(renderView);
-        GameScene g= new GameScene(engineAndroid);
+        GameScene g= new GameScene(engineAndroid,400,600);
         engineAndroid.setScene(g);
         engineAndroid.resume();
         g.init();

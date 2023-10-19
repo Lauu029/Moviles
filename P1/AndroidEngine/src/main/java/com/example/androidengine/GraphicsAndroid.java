@@ -3,6 +3,7 @@ package com.example.androidengine;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.os.Build;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -12,7 +13,7 @@ import com.example.engine.Image;
 import com.example.engine.Scene;
 
 public class GraphicsAndroid implements com.example.engine.Graphics {
-    private int width = 0, height = 0;
+    private int width_ = 0, height_ = 0;
     private SurfaceView myView;
     private SurfaceHolder holder;
     private Paint paint;
@@ -20,36 +21,38 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
     private Color color;
     private int resX_ = 0, resY_ = 0;
     float scale_=1;
-    int translateX_=0,translateY_=0;
+    float translateX_=0,translateY_=0;
     public GraphicsAndroid(SurfaceView view) {
         this.myView = view;
         this.holder = this.myView.getHolder();
         this.paint = new Paint();
         this.canvas = new Canvas();
+
         this.color = new ColorAndroid();
        // this.paint.setColor(0x53ECDED3);
     }
-    private void refactorCanvas(){
+    private void resizeCanvas(Scene myScene){
+        float scaleW;
+        float scaleH;
+        height_=canvas.getHeight();
+        width_=canvas.getWidth();
 
-        int possibleWidth;
-        int possibleHeight;
+        scaleW=width_/myScene.getWidth();
+        scaleH=height_/myScene.getHeight();
 
-        height=canvas.getHeight();
-        width=canvas.getWidth();
+        if(scaleW<scaleH){
+            scale_=scaleW;
+        }else scale_=scaleH;
 
-        possibleWidth=height*resX_/resY_;
-        possibleHeight=resY_*width/resY_;
-
-        translateX_=0; translateY_=0;
-
-        if(possibleWidth<width){
-            translateX_=(possibleWidth-width)/2;
-            scale_=height/resY_;
+        int resizeW,resizeH;
+        resizeW=myScene.getWidth()*(int)scale_;
+        resizeH=myScene.getHeight()*(int)scale_;
+        translateX_=0.0f; translateY_=0.0f;
+        if(resizeH==height_){
+            translateX_=(width_-resizeW)/2;
         }else{
-            translateY_=(possibleHeight-height)/2;
-            scale_=width/resX_;
+            translateY_=(height_-resizeH)/2;
         }
-
     }
     @Override
     public ImageAndroid newImage(String name) {
@@ -115,7 +118,7 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
     }
 
     @Override
-    public void drawCircle(float cx, float cy, float radius) {
+    public void drawCircle(int cx, int cy, int radius) {
         paint.setStyle(Paint.Style.FILL);
         canvas.drawCircle(cx, cy, radius, paint);
     }
@@ -132,33 +135,39 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
 
     @Override
     public int getWidth() {
-        return width;
+        return width_;
     }
 
     @Override
     public int getHeight() {
-        return height;
+        return height_;
     }
 
     @Override
     public void render(Scene myScene) {
-
+        //prepare
         while (!this.holder.getSurface().isValid()) ;
-        refactorCanvas();
-        this.canvas = this.holder.lockCanvas();
-        this.scale((int)scale_,(int)scale_);
+        //resizeCanvas(myScene);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            this.canvas = this.holder.lockHardwareCanvas();
+        }
+        else this.canvas = this.holder.lockCanvas();
+        resizeCanvas(myScene);
+        this.scale(scale_,scale_);
         this.translate(translateX_,translateY_);
+        //engine
         myScene.render();
+        //endframe
         this.holder.unlockCanvasAndPost(canvas);
     }
 
     @Override
-    public void translate(int x, int y) {
+    public void translate(float x, float y) {
         this.canvas.translate(x,y);
     }
 
     @Override
-    public void scale(int x, int y) {
+    public void scale(float x, float y) {
         this.canvas.scale(x,y);
     }
 
