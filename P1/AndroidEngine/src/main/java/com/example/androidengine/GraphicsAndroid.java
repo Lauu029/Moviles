@@ -145,16 +145,7 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
 
     @Override
     public void render(Scene myScene) {
-        //prepare
-        while (!this.holder.getSurface().isValid()) ;
-        //resizeCanvas(myScene);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            this.canvas = this.holder.lockHardwareCanvas();
-        }
-        else this.canvas = this.holder.lockCanvas();
-        resizeCanvas(myScene);
-        this.scale(scale_,scale_);
-        this.translate(translateX_,translateY_);
+
         //engine
         myScene.render();
         //endframe
@@ -178,6 +169,16 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
 
     @Override
     public void restore() {
+
+    }
+
+    @Override
+    public void prepare() {
+
+    }
+
+    @Override
+    public void endFrame() {
 
     }
 

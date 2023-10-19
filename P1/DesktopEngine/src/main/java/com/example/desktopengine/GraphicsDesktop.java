@@ -7,6 +7,7 @@ import com.example.engine.Scene;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
@@ -20,6 +21,7 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
     float scale_=1;
     float translateX_=0,translateY_=0;
     int sceneW_=0,sceneH=0;
+    AffineTransform af;
     public GraphicsDesktop(JFrame myView){
         this.myView_=myView;
 
@@ -29,6 +31,9 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
 
         height_=myView_.getHeight();
         width_=myView_.getWidth();
+
+        af = graphics2D_.getTransform();
+
 
     }
     private void resizeCanvas(Scene myScene){
@@ -137,20 +142,25 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
     @Override
     public void render(Scene myScene) {
         // Pintamos el frame
-        resizeCanvas(myScene);
+
+
         do {
             do {
-                Graphics graphics = this.bufferStrategy_.getDrawGraphics();
+                graphics2D_ = (Graphics2D) this.bufferStrategy_.getDrawGraphics();
                 try {
+                    graphics2D_.setTransform(af);
+                    resizeCanvas(myScene);
 
                     this.scale(scale_,scale_);
-                    this.translate(translateX_,translateY_);
+                    System.out.println("SCALA: "+scale_);
+                    //this.translate(translateX_,translateY_);
+
                     myScene.render();
 
 
                 }
                 finally {
-                    graphics.dispose(); //Elimina el contexto gráfico y libera recursos del sistema realacionado
+                    graphics2D_.dispose(); //Elimina el contexto gráfico y libera recursos del sistema realacionado
                 }
             } while(this.bufferStrategy_.contentsRestored());
             this.bufferStrategy_.show();
@@ -177,6 +187,16 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
 
     @Override
     public void restore() {
+
+    }
+
+    @Override
+    public void prepare() {
+
+    }
+
+    @Override
+    public void endFrame() {
 
     }
 }
