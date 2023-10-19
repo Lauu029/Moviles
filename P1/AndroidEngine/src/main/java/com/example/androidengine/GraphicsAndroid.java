@@ -127,5 +127,24 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
         this.holder.unlockCanvasAndPost(canvas);
     }
 
+    @Override
+    public void translate(int x, int y) {
+
+    }
+
+    @Override
+    public void scale(int x, int y) {
+    }
+
+    @Override
+    public void save() {
+
+    }
+
+    @Override
+    public void restore() {
+
+    }
+
 
 }

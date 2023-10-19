@@ -30,5 +30,9 @@ public interface Graphics {
     int getHeight();
 
     void render(Scene myScene);
+    void translate(int x,int y);
+    void scale(int x,int y);
+    void save();
+    void restore();
 
 }

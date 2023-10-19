@@ -4,6 +4,7 @@ import com.example.engine.Font;
 import com.example.engine.Image;
 import com.example.engine.Scene;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
@@ -20,11 +21,37 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
     int translateX_=0,translateY_=0;
     public GraphicsDesktop(JFrame myView, int resX, int resY){
         this.myView_=myView;
+        myView_.setBackground(Color.BLUE);
         resX_=resX;
         resY_=resY;
         this.bufferStrategy_ = this.myView_.getBufferStrategy();
         this.graphics2D_ = (Graphics2D) bufferStrategy_.getDrawGraphics();
-        this.graphics2D_.getTransform();
+        //this.graphics2D_.getTransform();
+
+        height_=myView_.getHeight();
+        width_=myView_.getWidth();
+        refactorCanvas();
+    }
+    private void refactorCanvas(){
+        int possibleWidth;
+        int possibleHeight;
+
+        height_=myView_.getHeight();
+        width_=myView_.getWidth();
+
+        possibleWidth=height_*resX_/resY_;
+        possibleHeight=resY_*width_/resY_;
+
+        translateX_=0; translateY_=0;
+
+        if(possibleWidth<width_){
+            translateX_=(possibleWidth-width_)/2;
+            scale_=height_/resY_;
+        }else{
+            translateY_=(possibleHeight-height_)/2;
+            scale_=width_/resX_;
+        }
+
     }
     @Override
     public Image newImage(String name) {
@@ -121,6 +148,26 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
             } while(this.bufferStrategy_.contentsRestored());
             this.bufferStrategy_.show();
         } while(this.bufferStrategy_.contentsLost());
+
+    }
+
+    @Override
+    public void translate(int x, int y) {
+
+    }
+
+    @Override
+    public void scale(int x, int y) {
+        this.graphics2D_.scale(x,y);
+    }
+
+    @Override
+    public void save() {
+
+    }
+
+    @Override
+    public void restore() {
 
     }
 }
