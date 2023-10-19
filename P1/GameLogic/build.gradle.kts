@@ -8,4 +8,5 @@ java {
 }
 dependencies {
     implementation(project(mapOf("path" to ":Engine")))
+    implementation(project(mapOf("path" to ":GameLogic")))
 }
