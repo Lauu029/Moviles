@@ -135,12 +135,17 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
     @Override
     public void render(Scene myScene) {
         // Pintamos el frame
+        refactorCanvas();
         do {
             do {
                 Graphics graphics = this.bufferStrategy_.getDrawGraphics();
                 try {
                     //this.render(myScene);
+                    this.scale((int)scale_,(int)scale_);
+                    this.translate(translateX_,translateY_);
                     myScene.render();
+
+
                 }
                 finally {
                     graphics.dispose(); //Elimina el contexto gráfico y libera recursos del sistema realacionado

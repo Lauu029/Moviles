@@ -18,7 +18,9 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
     private Paint paint;
     private Canvas canvas;
     private Color color;
-
+    private int resX_ = 0, resY_ = 0;
+    float scale_=1;
+    int translateX_=0,translateY_=0;
     public GraphicsAndroid(SurfaceView view) {
         this.myView = view;
         this.holder = this.myView.getHolder();
@@ -27,7 +29,28 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
         this.color = new ColorAndroid();
        // this.paint.setColor(0x53ECDED3);
     }
+    private void refactorCanvas(){
 
+        int possibleWidth;
+        int possibleHeight;
+
+        height=canvas.getHeight();
+        width=canvas.getWidth();
+
+        possibleWidth=height*resX_/resY_;
+        possibleHeight=resY_*width/resY_;
+
+        translateX_=0; translateY_=0;
+
+        if(possibleWidth<width){
+            translateX_=(possibleWidth-width)/2;
+            scale_=height/resY_;
+        }else{
+            translateY_=(possibleHeight-height)/2;
+            scale_=width/resX_;
+        }
+
+    }
     @Override
     public ImageAndroid newImage(String name) {
         return new ImageAndroid(name);
@@ -121,19 +144,22 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
     public void render(Scene myScene) {
 
         while (!this.holder.getSurface().isValid()) ;
-
+        refactorCanvas();
         this.canvas = this.holder.lockCanvas();
+        this.scale((int)scale_,(int)scale_);
+        this.translate(translateX_,translateY_);
         myScene.render();
         this.holder.unlockCanvasAndPost(canvas);
     }
 
     @Override
     public void translate(int x, int y) {
-
+        this.canvas.translate(x,y);
     }
 
     @Override
     public void scale(int x, int y) {
+        this.canvas.scale(x,y);
     }
 
     @Override
