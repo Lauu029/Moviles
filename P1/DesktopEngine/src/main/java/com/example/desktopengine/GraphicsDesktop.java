@@ -4,6 +4,7 @@ import com.example.engine.Font;
 import com.example.engine.Image;
 import com.example.engine.Scene;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -37,27 +38,24 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
 
     }
     private void resizeCanvas(Scene myScene){
-        float scaleW;
-        float scaleH;
-        height_=myView_.getHeight();
-        width_=myView_.getWidth();
+        height_ = myView_.getHeight();
+        width_ = myView_.getWidth();
 
-        scaleW=width_/myScene.getWidth();
-        scaleH=height_/myScene.getHeight();
+        float scaleW = (float) width_ / (float) myScene.getWidth();
+        float scaleH = (float) height_ / (float) myScene.getHeight();
 
-        if(scaleW<scaleH){
-            scale_=scaleW;
-        }else scale_=scaleH;
-
-        int resizeW,resizeH;
-        resizeW=myScene.getWidth()*(int)scale_;
-        resizeH=myScene.getHeight()*(int)scale_;
-        translateX_=0.0f; translateY_=0.0f;
-        if(resizeH==height_){
-            translateX_=(width_-resizeW)/2;
-        }else{
-            translateY_=(height_-resizeH)/2;
+        if (scaleW < scaleH) {
+            scale_ = scaleW;
+        } else {
+            scale_ = scaleH;
         }
+
+        float resizeW, resizeH;
+        resizeW = myScene.getWidth() * scale_;
+        resizeH = myScene.getHeight() * scale_;
+
+        translateX_ = (width_ - resizeW) / 2;
+        translateY_ = (height_ - resizeH) / 2;
     }
     void setSize( ){}
     @Override
@@ -72,7 +70,8 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
 
     @Override
     public void clear(int color) {
-        //myView_.setBackground(color);
+        this.graphics2D_.setColor(new Color(color));
+        this.graphics2D_.fillRect(0, 0, width_, height_);
     }
 
     @Override
@@ -82,12 +81,14 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
 
     @Override
     public void setcolor(int color) {
+        Color color_=new Color(color);
 
+        this.graphics2D_.setColor(color_);
     }
 
     @Override
     public void fillRectangle(int cX, int cY, int width, int height) {
-        this.graphics2D_.setColor(java.awt.Color.black);
+
         this.graphics2D_.fillRect(cX, cY, width, height);
 
         //this.graphics2D_.setColor();
@@ -96,37 +97,38 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
 
     @Override
     public void fillRoundRectangle(int cX, int cY, int width, int height, int arc) {
-
+        this.graphics2D_.fillRoundRect(cX, cY, width, height, arc, arc);
     }
 
     @Override
     public void drawRectangle(int cX, int cY, int width, int height) {
-
+        this.graphics2D_.drawRect(cX, cY, width, height);
     }
 
     @Override
     public void setStrokeWidth(int width) {
-
+        this.graphics2D_.setStroke(new BasicStroke(width));
     }
 
     @Override
     public void drawRoundRectangle(int cX, int cY, int width, int height, int arc) {
-
+        this.graphics2D_.drawRoundRect(cX, cY, width, height, arc, arc);
     }
 
     @Override
     public void drawLine(int initX, int initY, int endX, int endY) {
-
+        this.graphics2D_.drawLine(initX, initY, endX, endY);
     }
 
     @Override
     public void drawCircle(int cx, int cy, int radius) {
-        this.graphics2D_.drawOval(cx,cy,radius,radius);
+        this.graphics2D_.fillOval(cx,cy,radius,radius);
+
     }
 
     @Override
     public void drawText(String text, int x, int y,int size, Font font) {
-
+        this.graphics2D_.drawString(text, x, y);
     }
 
     @Override
@@ -152,9 +154,8 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
                     resizeCanvas(myScene);
 
                     this.scale(scale_,scale_);
-                    System.out.println("SCALA: "+scale_);
-                    //this.translate(translateX_,translateY_);
-
+                    this.translate(translateX_,translateY_);
+                    System.out.println("translateX: "+translateX_+" translatey"+translateY_+" scale"+scale_);
                     myScene.render();
 
 
@@ -170,7 +171,9 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
 
     @Override
     public void translate(float x, float y) {
-        this.graphics2D_.translate(x,y);
+        int left = myView_.getInsets().left;
+        int up = myView_.getInsets().top;
+        this.graphics2D_.translate(x+left,y+up);
     }
 
     @Override

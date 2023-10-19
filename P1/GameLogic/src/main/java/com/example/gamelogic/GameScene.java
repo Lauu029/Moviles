@@ -48,7 +48,7 @@ public class GameScene implements com.example.engine.Scene {
     @Override
     public void render() {
         Graphics graph=engine_.getGraphics();
-        /*graph.clear(0xFF000000);
+        graph.clear(0xFF000000);
 
        for(int i=0;i<gameObjects_.size();i++){
             gameObjects_.get(i).render(graph);
@@ -81,7 +81,7 @@ public class GameScene implements com.example.engine.Scene {
             }
         };
         graph.drawText("MasterMind",200, 700,100, fuente);
-        graph.drawCircle(80,300,50);*/
+        graph.drawCircle(80,300,50);
         graph.fillRectangle(0,0,100,100);
 
     }

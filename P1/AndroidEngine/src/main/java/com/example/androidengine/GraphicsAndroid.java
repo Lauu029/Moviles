@@ -19,7 +19,7 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
     private Paint paint;
     private Canvas canvas;
     private Color color;
-    private int resX_ = 0, resY_ = 0;
+
     float scale_=1;
     float translateX_=0,translateY_=0;
     public GraphicsAndroid(SurfaceView view) {
@@ -32,27 +32,24 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
        // this.paint.setColor(0x53ECDED3);
     }
     private void resizeCanvas(Scene myScene){
-        float scaleW;
-        float scaleH;
-        height_=canvas.getHeight();
-        width_=canvas.getWidth();
+        height_ = canvas.getHeight();
+        width_ = canvas.getWidth();
 
-        scaleW=width_/myScene.getWidth();
-        scaleH=height_/myScene.getHeight();
+        float scaleW = (float) width_ / (float) myScene.getWidth();
+        float scaleH = (float) height_ / (float) myScene.getHeight();
 
-        if(scaleW<scaleH){
-            scale_=scaleW;
-        }else scale_=scaleH;
-
-        int resizeW,resizeH;
-        resizeW=myScene.getWidth()*(int)scale_;
-        resizeH=myScene.getHeight()*(int)scale_;
-        translateX_=0.0f; translateY_=0.0f;
-        if(resizeH==height_){
-            translateX_=(width_-resizeW)/2;
-        }else{
-            translateY_=(height_-resizeH)/2;
+        if (scaleW < scaleH) {
+            scale_ = scaleW;
+        } else {
+            scale_ = scaleH;
         }
+
+        float resizeW, resizeH;
+        resizeW = myScene.getWidth() * scale_;
+        resizeH = myScene.getHeight() * scale_;
+
+        translateX_ = (width_ - resizeW) / 2;
+        translateY_ = (height_ - resizeH) / 2;
     }
     @Override
     public ImageAndroid newImage(String name) {
@@ -145,6 +142,15 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
 
     @Override
     public void render(Scene myScene) {
+        while (!this.holder.getSurface().isValid()) ;
+        //resizeCanvas(myScene);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            this.canvas = this.holder.lockHardwareCanvas();
+        }
+        else this.canvas = this.holder.lockCanvas();
+        resizeCanvas(myScene);
+        this.scale(scale_,scale_);
+        this.translate(translateX_,translateY_);
 
         //engine
         myScene.render();
