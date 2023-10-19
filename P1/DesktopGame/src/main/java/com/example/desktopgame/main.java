@@ -34,7 +34,7 @@ public class main {
             //System.out.println("BufferStrategy tras " + (100 - intentos) + " intentos.");
         }
 
-        Engine engineDesktop= new EngineDesktop(myView);
+        Engine engineDesktop= new EngineDesktop(myView,400,600);
 
         GameScene gm=new GameScene(engineDesktop);
         engineDesktop.setScene(gm);

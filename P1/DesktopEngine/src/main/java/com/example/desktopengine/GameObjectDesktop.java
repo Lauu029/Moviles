@@ -1,13 +1,16 @@
 package com.example.desktopengine;
 
+import com.example.engine.Graphics;
+
 public class GameObjectDesktop implements com.example.engine.GameObject {
+
     @Override
-    public void update() {
+    public void update(double time) {
 
     }
 
     @Override
-    public void render() {
+    public void render(Graphics graph) {
 
     }
 

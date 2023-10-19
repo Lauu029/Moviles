@@ -13,10 +13,10 @@ public class EngineDesktop implements com.example.engine.Engine {
     private boolean running_=false;
     private Scene myScene_;
     private Graphics myGraphics_;
-    public EngineDesktop(JFrame myView)
+    public EngineDesktop(JFrame myView, int resolutionX, int resolutionY)
     {
         myView_=myView;
-        myGraphics_= new GraphicsDesktop(myView_);
+        myGraphics_= new GraphicsDesktop(myView_,resolutionX,resolutionY);
 
     }
 

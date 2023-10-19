@@ -15,11 +15,16 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
     private BufferStrategy bufferStrategy_;
     private Graphics2D graphics2D_;
     private int width_ = 0, height_ = 0;
-    public GraphicsDesktop(JFrame myView){
+    private int resX_ = 0, resY_ = 0;
+    float scale_=1;
+    int translateX_=0,translateY_=0;
+    public GraphicsDesktop(JFrame myView, int resX, int resY){
         this.myView_=myView;
-
+        resX_=resX;
+        resY_=resY;
         this.bufferStrategy_ = this.myView_.getBufferStrategy();
         this.graphics2D_ = (Graphics2D) bufferStrategy_.getDrawGraphics();
+        this.graphics2D_.getTransform();
     }
     @Override
     public Image newImage(String name) {
