@@ -3,7 +3,6 @@ package com.example.desktopengine;
 import com.example.engine.IFont;
 import com.example.engine.IGraphics;
 import com.example.engine.IImage;
-import com.example.engine.IScene;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -38,7 +37,7 @@ public class GraphicsDesktop implements IGraphics {
 
 
     }
-    private void resizeCanvas(IScene myIScene){
+    /*private void resizeCanvas(IScene myIScene){
         height_ = myView_.getHeight();
         width_ = myView_.getWidth();
 
@@ -58,7 +57,7 @@ public class GraphicsDesktop implements IGraphics {
 
         translateX_ = ((float)width_ - resizeW) / 2.0f;
         translateY_ = ((float)height_ - resizeH) / 2.0f;
-    }
+    }*/
     void setSize( ){}
     @Override
     public IImage newImage(String name) {
@@ -212,6 +211,11 @@ public class GraphicsDesktop implements IGraphics {
             this.myBufferStrategy_.show();
         } while (this.myBufferStrategy_.contentsLost());
 
+
+    }
+
+    @Override
+    public void resize(float sceneWidth, float sceneHeight) {
 
     }
 }

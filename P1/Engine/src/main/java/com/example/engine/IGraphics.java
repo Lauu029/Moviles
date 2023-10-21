@@ -26,9 +26,7 @@ public interface IGraphics {
     void drawText(String text, int x, int y, int size, IFont IFont);
 
     int getWidth();
-
     int getHeight();
-
     //void render();
     void translate(float x,float y);
     void scale(float x,float y);
@@ -36,5 +34,7 @@ public interface IGraphics {
     void restore();
     void prepareFrame();
     void endFrame();
+
+    void resize(float sceneWidth, float sceneHeight);
 
 }

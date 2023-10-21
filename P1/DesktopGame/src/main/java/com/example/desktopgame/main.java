@@ -12,7 +12,7 @@ public class main {
     public static void main(String[] args) {
 
         myView = new JFrame("Mastermind");
-        myView.setSize(600, 400);
+        myView.setSize(1280, 960);
         myView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myView.setIgnoreRepaint(true);
         myView.setVisible(true);

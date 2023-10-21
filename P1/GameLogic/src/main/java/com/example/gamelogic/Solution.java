@@ -7,16 +7,16 @@ import java.util.Random;
 
 public class Solution  {
     private Map<Integer, Map<Integer, Boolean>> solution_ = new HashMap<>();
-    int[] sol;
-    boolean win=false;
-    int actualturno=0;
-    private int posCorrecta=0, colorCorrecto=0;
-    int size_sol;
-    int[][] registerdSols;
+    int[] sol_;
+    boolean win_ =false;
+    int actualturno_ =0;
+    private int posCorrecta_ =0, colorCorrecto_ =0;
+    int solutionSize_;
+    int[][] registeredSols_;
     void createSolution(Boolean repeat, int color_game, int posible_color,int maxturnos) {
 
-        size_sol=color_game;
-        sol = new int[size_sol];
+        solutionSize_ =color_game;
+        sol_ = new int[solutionSize_];
         // Definir el rango (por ejemplo, de 1 a 100)
         int minimo = 0;
         int maximo = posible_color-1;
@@ -25,10 +25,10 @@ public class Solution  {
         Random rand = new Random();
         //aqui se guardan las soluciones para luego ser renderizadas,registerSols[x][0] hara ref a la posiciones correctas,
         //registerSols[x][1] hara ref a lod colores correctos
-        registerdSols=new int[maxturnos][2];
+        registeredSols_ =new int[maxturnos][2];
         // Generar un número aleatorio en el rango
 
-        for(int i=0;i<size_sol;i++){
+        for(int i = 0; i< solutionSize_; i++){
             int color = rand.nextInt(maximo - minimo + 1) + minimo;
             if(!repeat){
                 while(solution_.containsKey(color))color = rand.nextInt(maximo - minimo + 1) + minimo;
@@ -41,26 +41,26 @@ public class Solution  {
                 solution_.put(color, s);
             }
 
-            sol[i]=color;
+            sol_[i]=color;
         }
     }
     public int[] getSol(){
-        return sol;
+        return sol_;
     }
     public void imprimeSol(){
-        for(int i=0;i<sol.length;i++){
-            System.out.println(sol[i]);
+        for(int i = 0; i< sol_.length; i++){
+            System.out.println(sol_[i]);
         }
     }
     public void imprime(){
 
-            System.out.println("colorCorrecto "+colorCorrecto);
-            System.out.println("posCorrecto "+posCorrecta);
+            System.out.println("colorCorrecto "+ colorCorrecto_);
+            System.out.println("posCorrecto "+ posCorrecta_);
 
     }
     public void compureba(int[] possible_sol) {
-        posCorrecta = 0;
-        colorCorrecto = 0;
+        posCorrecta_ = 0;
+        colorCorrecto_ = 0;
         for (int i = 0; i < possible_sol.length; i++) {
             //si la solucion real contiene el color
             if (solution_.containsKey(possible_sol[i])) {
@@ -69,7 +69,7 @@ public class Solution  {
                 System.out.println("memeti "+i);
                 if (valor.containsKey(i)) {
 
-                    posCorrecta++;
+                    posCorrecta_++;
                     //si ha sido combrobado antes es porque hay una casila con el mismo color pero no en la misma pos
 
                     solution_.get(possible_sol[i]).put(i, true);
@@ -83,7 +83,7 @@ public class Solution  {
                         Map.Entry<Integer, Boolean> entrada = iterator.next();
                          int clave = entrada.getKey();
                          Boolean vas= entrada.getValue();
-                         if(!vas&&possible_sol[clave]!=sol[clave]){
+                         if(!vas&&possible_sol[clave]!= sol_[clave]){
                              solution_.get(possible_sol[i]).put(clave, true);
 
                              combrobado=false;
@@ -91,27 +91,27 @@ public class Solution  {
                     }
                     if(!combrobado){
                         System.out.println("color correcto"+possible_sol[i]);
-                        colorCorrecto++;}
+                        colorCorrecto_++;}
                 }
             }
         }
-        if(posCorrecta==size_sol)win=true;
-        registerdSols[actualturno][0]=posCorrecta;
-        registerdSols[actualturno][1]=colorCorrecto;
+        if(posCorrecta_ == solutionSize_) win_ =true;
+        registeredSols_[actualturno_][0]= posCorrecta_;
+        registeredSols_[actualturno_][1]= colorCorrecto_;
         imprimeSolution();
         resetearMap();
 
-        actualturno++;
+        actualturno_++;
 
     }
     public int getTurno(){
-        return actualturno;
+        return actualturno_;
     }
     public int getposCorrecta(int turno){
-        return  registerdSols[turno][0];
+        return  registeredSols_[turno][0];
     }
     public int getColorCorrecto(int turno){
-        return  registerdSols[turno][1];
+        return  registeredSols_[turno][1];
     }
     private void resetearMap(){
 
@@ -129,8 +129,8 @@ public class Solution  {
 
             }
         }
-        colorCorrecto=0;
-        posCorrecta=0;
+        colorCorrecto_ =0;
+        posCorrecta_ =0;
 
     }
     public void imprimeSolution() {

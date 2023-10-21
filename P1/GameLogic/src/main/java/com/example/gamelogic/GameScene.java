@@ -9,7 +9,7 @@ import com.example.engine.IScene;
 import java.util.ArrayList;
 
 public class GameScene implements IScene {
-    Solution sol;
+    Solution mySolution_;
     IEngine IEngine_;
     ArrayList<IGameObject> IGameObjects_ = new ArrayList<>();
     private int width_,height_;
@@ -21,13 +21,13 @@ public class GameScene implements IScene {
     @Override
     public void init() {
         //creacion de la solucion
-        sol=new Solution();
-        sol.createSolution(true,5,8,8);
-        sol.imprimeSol();
+        mySolution_ =new Solution();
+        mySolution_.createSolution(true,5,8,8);
+        mySolution_.imprimeSol();
         int[] miArray = {1,2, 3, 4, 0};
 
-        sol.compureba(miArray);
-        sol.imprime();
+        mySolution_.compureba(miArray);
+        mySolution_.imprime();
 
     }
 
@@ -84,7 +84,7 @@ public class GameScene implements IScene {
         graph.drawText("MasterMind",200, 700,100, fuente);
         graph.drawCircle(80,300,50);
         graph.fillRectangle(0,0,100,100);
-
+        graph.resize(width_,height_);
     }
 
 

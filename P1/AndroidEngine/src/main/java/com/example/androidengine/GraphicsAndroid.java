@@ -11,7 +11,6 @@ import com.example.engine.IColor;
 import com.example.engine.IFont;
 import com.example.engine.IGraphics;
 import com.example.engine.IImage;
-import com.example.engine.IScene;
 
 public class GraphicsAndroid implements IGraphics {
     private int width_ = 0, height_ = 0;
@@ -32,7 +31,7 @@ public class GraphicsAndroid implements IGraphics {
         this.myColor_ = new ColorAndroid();
        // this.paint.setColor(0x53ECDED3);
     }
-    private void resizeCanvas(IScene myIScene){
+    /*private void resizeCanvas(IScene myIScene){
         height_ = myCanvas_.getHeight();
         width_ = myCanvas_.getWidth();
 
@@ -51,7 +50,7 @@ public class GraphicsAndroid implements IGraphics {
 
         translateX_ = (width_ - resizeW) / 2;
         translateY_ = (height_ - resizeH) / 2;
-    }
+    }*/
     @Override
     public ImageAndroid newImage(String name) {
         return new ImageAndroid(name);
@@ -77,6 +76,7 @@ public class GraphicsAndroid implements IGraphics {
 
     @Override
     public void setColor(int color_) {
+
         this.myColor_.setColor(color_);
         this.myPaint_.setColor(color_);
 
@@ -158,6 +158,7 @@ public class GraphicsAndroid implements IGraphics {
 
     @Override
     public void translate(float x, float y) {
+
         this.myCanvas_.translate(x,y);
     }
 
@@ -178,6 +179,7 @@ public class GraphicsAndroid implements IGraphics {
 
     @Override
     public void prepareFrame() {
+
         while (!this.myHolder_.getSurface().isValid()) ;
         //resizeCanvas(myScene);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -188,7 +190,13 @@ public class GraphicsAndroid implements IGraphics {
 
     @Override
     public void endFrame() {
+
         this.myHolder_.unlockCanvasAndPost(myCanvas_);
+    }
+
+    @Override
+    public void resize(float sceneWidth, float sceneHeight) {
+
     }
 
 
