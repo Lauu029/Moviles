@@ -82,7 +82,7 @@ public class GraphicsDesktop implements IGraphics {
     }
 
     @Override
-    public void setcolor(int color) {
+    public void setColor(int color) {
         Color color_=new Color(color);
 
         this.myGraphics2D_.setColor(color_);

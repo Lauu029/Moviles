@@ -76,7 +76,7 @@ public class GraphicsAndroid implements IGraphics {
     }
 
     @Override
-    public void setcolor(int color_) {
+    public void setColor(int color_) {
         this.myColor_.setColor(color_);
         this.myPaint_.setColor(color_);
 

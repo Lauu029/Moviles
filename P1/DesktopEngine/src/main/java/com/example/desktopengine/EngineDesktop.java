@@ -19,6 +19,7 @@ public class EngineDesktop implements IEngine, Runnable {
     public EngineDesktop(JFrame myView)
     {
         myView_=myView;
+        running_=false;
         myGraphics_ = new GraphicsDesktop(myView_);
     }
 

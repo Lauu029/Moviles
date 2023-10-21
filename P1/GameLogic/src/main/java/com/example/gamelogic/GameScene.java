@@ -57,9 +57,9 @@ public class GameScene implements IScene {
 
 
         graph.setStrokeWidth(15);
-        graph.setcolor(0xFF23FD88);
+        graph.setColor(0xFF23FD88);
         graph.drawRoundRectangle(80,80,200,100,25);
-        graph.setcolor(0xFFED0F8D);
+        graph.setColor(0xFFED0F8D);
         IFont fuente= new IFont() {
             @Override
             public void setBold(boolean bold) {

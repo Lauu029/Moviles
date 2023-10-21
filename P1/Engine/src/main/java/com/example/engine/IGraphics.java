@@ -9,7 +9,7 @@ public interface IGraphics {
 
     void drawImage(IImage IImage, int posX, int posY, int height, int widht);
 
-    void setcolor(int color);
+    void setColor(int color);
 
     void fillRectangle(int cX, int cY, int width, int height);
 
