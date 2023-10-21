@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.SurfaceView;
+//import android.widget.RelativeLayout;
 
 
 import com.example.androidengine.EngineAndroid;
@@ -20,8 +21,10 @@ public class MainActivity extends AppCompatActivity {
         this.renderView = new SurfaceView(this);
         setContentView(this.renderView);
         IEngine IEngineAndroid = new EngineAndroid(renderView);
-        GameScene g= new GameScene(IEngineAndroid,400,600);
+        GameScene g= new GameScene(IEngineAndroid,10,20);
         IEngineAndroid.setScene(g);
+        //RelativeLayout relativeLayout=findViewById(R.id.rlVar1);;
+
         IEngineAndroid.resume();
         g.init();
 

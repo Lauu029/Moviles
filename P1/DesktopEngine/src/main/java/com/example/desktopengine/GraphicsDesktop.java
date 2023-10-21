@@ -206,6 +206,7 @@ public class GraphicsDesktop implements IGraphics {
     public void endFrame() {
         do {
             do {
+
                 myGraphics2D_.dispose();
             } while (this.myBufferStrategy_.contentsRestored());
             this.myBufferStrategy_.show();
@@ -216,6 +217,28 @@ public class GraphicsDesktop implements IGraphics {
 
     @Override
     public void resize(float sceneWidth, float sceneHeight) {
+        //System.out.print("Resize\n");
+        width_ =(int) myGraphics2D_.getTransform().getScaleX();
+        height_ = (int) myGraphics2D_.getTransform().getScaleY();
+
+        float scaleW = (float) width_ / (float) sceneWidth;
+        float scaleH = (float) height_ / (float) sceneHeight;
+
+        if (scaleW < scaleH) {
+            scale_ = scaleW;
+        } else {
+            scale_ = scaleH;
+        }
+
+        float resizeW, resizeH;
+        resizeW = sceneWidth * scale_;
+        resizeH = sceneHeight * scale_;
+
+        translateX_ = ((float)width_ - resizeW) / 2.0f;
+        translateY_ = ((float)height_ - resizeH) / 2.0f;
+
+        this.myGraphics2D_.scale((double)scale_,(double)scale_);
+        this.myGraphics2D_.translate((double)translateX_,(double)translateY_);
 
     }
 }

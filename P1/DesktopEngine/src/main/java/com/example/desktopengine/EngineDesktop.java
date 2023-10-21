@@ -21,6 +21,7 @@ public class EngineDesktop implements IEngine, Runnable {
         myView_=myView;
         running_=false;
         myGraphics_ = new GraphicsDesktop(myView_);
+        System.out.print("Window Width: "+myView_.getWidth()+" Window Height: "+myView_.getHeight()+"\n");
     }
 
     @Override
@@ -81,6 +82,7 @@ public class EngineDesktop implements IEngine, Runnable {
             //render();
             myGraphics_.prepareFrame();
             myScene_.render();
+            myGraphics_.resize(myScene_.getWidth(),myScene_.getHeight());
             myGraphics_.endFrame();
             if (currentTime - informePrevio > 1000000000l) {
                 long fps = frames * 1000000000l / (currentTime - informePrevio);

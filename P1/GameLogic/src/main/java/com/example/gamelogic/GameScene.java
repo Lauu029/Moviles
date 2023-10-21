@@ -17,6 +17,7 @@ public class GameScene implements IScene {
         IEngine_ = IEngine;
         width_=w;
         height_=h;
+        System.out.print("Scene Width: "+width_+" Scene Height: "+height_+"\n");
     }
     @Override
     public void init() {
@@ -28,6 +29,7 @@ public class GameScene implements IScene {
 
         mySolution_.compureba(miArray);
         mySolution_.imprime();
+
 
     }
 
@@ -49,12 +51,14 @@ public class GameScene implements IScene {
     @Override
     public void render() {
         IGraphics graph= IEngine_.getGraphics();
-        graph.clear(0xFF000000);
 
+        //graph.clear(0xFF000000); este metodo pinta toda la VENTANA, no toda la ESCENA
+        //Dibujamos un color de fondo para la escena
+        graph.setColor(0xFF000000);
+        graph.fillRectangle(0,0,width_,height_);
        for(int i = 0; i< IGameObjects_.size(); i++){
             IGameObjects_.get(i).render(graph);
         }
-
 
         graph.setStrokeWidth(15);
         graph.setColor(0xFF23FD88);
