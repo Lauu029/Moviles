@@ -29,12 +29,12 @@ public interface Graphics {
 
     int getHeight();
 
-    void render(Scene myScene);
+    //void render();
     void translate(float x,float y);
     void scale(float x,float y);
     void save();
     void restore();
-    void prepare();
+    void prepareFrame();
     void endFrame();
 
 }

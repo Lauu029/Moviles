@@ -142,8 +142,8 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
         return height_;
     }
 
-    @Override
-    public void render(Scene myScene) {
+    //@Override
+    /*public void render(Scene myScene) {
         do {
             do {
                 graphics2D_ = (Graphics2D) this.bufferStrategy_.getDrawGraphics();
@@ -166,7 +166,7 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
 
         // Restaurar la transformación original
         //graphics2D_.setTransform(af);
-    }
+    }*/
 
     @Override
     public void translate(float x, float y) {
@@ -194,12 +194,23 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
     }
 
     @Override
-    public void prepare() {
-
+    public void prepareFrame() {
+        do {
+            do {
+                graphics2D_ = (Graphics2D) this.bufferStrategy_.getDrawGraphics();
+            } while (this.bufferStrategy_.contentsRestored());
+        } while (this.bufferStrategy_.contentsLost());
     }
 
     @Override
     public void endFrame() {
+        do {
+            do {
+                graphics2D_.dispose();
+            } while (this.bufferStrategy_.contentsRestored());
+            this.bufferStrategy_.show();
+        } while (this.bufferStrategy_.contentsLost());
+
 
     }
 }

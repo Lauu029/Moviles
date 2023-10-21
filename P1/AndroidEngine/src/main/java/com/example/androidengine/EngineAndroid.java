@@ -86,7 +86,9 @@ public class EngineAndroid implements com.example.engine.Engine, Runnable {
                 informePrevio = currentTime;
             }
             ++frames;
-            myGraphics_.render(scene);
+            myGraphics_.prepareFrame();
+            scene.render();
+            myGraphics_.endFrame();
         }
     }
 

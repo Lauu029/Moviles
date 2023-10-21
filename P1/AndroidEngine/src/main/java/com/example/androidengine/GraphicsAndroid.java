@@ -122,7 +122,7 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
 
     @Override
     public void drawText(String text, int x, int y,int size, Font font) {
-//        canvas.drawText();
+        //canvas.drawText();
 
         paint.setStyle(Paint.Style.FILL);
 
@@ -140,23 +140,20 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
         return height_;
     }
 
-    @Override
-    public void render(Scene myScene) {
-        while (!this.holder.getSurface().isValid()) ;
-        //resizeCanvas(myScene);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            this.canvas = this.holder.lockHardwareCanvas();
-        }
-        else this.canvas = this.holder.lockCanvas();
-        resizeCanvas(myScene);
-        this.scale(scale_,scale_);
-        this.translate(translateX_,translateY_);
+    /*@Override
+    public void render() {
 
-        //engine
+        prepareFrame();
+        *//*resizeCanvas(myScene);
+        this.scale(scale_,scale_);
+        this.translate(translateX_,translateY_);*//*
+
+        //engine.scene.render
+
         myScene.render();
         //endframe
-        this.holder.unlockCanvasAndPost(canvas);
-    }
+        endFrame();
+    }*/
 
     @Override
     public void translate(float x, float y) {
@@ -179,13 +176,18 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
     }
 
     @Override
-    public void prepare() {
-
+    public void prepareFrame() {
+        while (!this.holder.getSurface().isValid()) ;
+        //resizeCanvas(myScene);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            this.canvas = this.holder.lockHardwareCanvas();
+        }
+        else this.canvas = this.holder.lockCanvas();
     }
 
     @Override
     public void endFrame() {
-
+        this.holder.unlockCanvasAndPost(canvas);
     }
 
 

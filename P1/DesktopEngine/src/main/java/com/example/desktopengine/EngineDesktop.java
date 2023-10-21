@@ -75,7 +75,10 @@ public class EngineDesktop implements com.example.engine.Engine, Runnable {
             // Informe de FPS
             double elapsedTime = (double) nanoElapsedTime / 1.0E9;
             this.myScene_.update(elapsedTime);//elapsedTime
-            render();
+            //render();
+            myGraphics_.prepareFrame();
+            myScene_.render();
+            myGraphics_.endFrame();
             if (currentTime - informePrevio > 1000000000l) {
                 long fps = frames * 1000000000l / (currentTime - informePrevio);
                 System.out.println("" + fps + " fps");
@@ -87,7 +90,7 @@ public class EngineDesktop implements com.example.engine.Engine, Runnable {
     }
 
     public void render(){
-        this.myGraphics_.render(myScene_);
+        //this.myGraphics_.render(myScene_);
     }
 
     @Override
