@@ -5,7 +5,7 @@ import com.example.engine.ISound;
 
 public class AudioDesktop implements IAudio {
     @Override
-    public ISound playSound(String file, boolean loop) {
+    public SoundDesktop playSound(String file, boolean loop) {
         return null;
     }
 

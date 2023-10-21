@@ -3,15 +3,15 @@ package com.example.androidengine;
 import com.example.engine.IColor;
 
 public class ColorAndroid implements IColor {
-    private int color;
+    private int color_;
 
     @Override
     public void setColor(int color) {
-        this.color = color;
+        this.color_ = color;
     }
 
     @Override
     public int getColor() {
-        return color;
+        return color_;
     }
 }

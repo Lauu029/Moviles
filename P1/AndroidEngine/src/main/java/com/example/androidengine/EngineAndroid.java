@@ -9,41 +9,41 @@ import com.example.engine.IInput;
 import com.example.engine.IScene;
 
 public class EngineAndroid implements IEngine, Runnable {
-    private IGraphics myIGraphics_;
+    private IGraphics myGraphics_;
     private SurfaceView myView_;
-    private Thread renderThread;
-    private boolean running;
-    private IScene IScene;
-    private IAudio IAudio;
-    private IInput IInput;
+    private Thread myRenderThread_;
+    private boolean running_;
+    private IScene myScene_;
+    private IAudio myAudio_;
+    private IInput myInput_;
 
     public EngineAndroid(SurfaceView myView) {
         myView_ = myView;
-        myIGraphics_ = new GraphicsAndroid(myView_);
-        running = false;
-        IAudio = new AudioAndroid();
-        IInput = new InputAndroid();
+        myGraphics_ = new GraphicsAndroid(myView_);
+        running_ = false;
+        myAudio_ = new AudioAndroid();
+        myInput_ = new InputAndroid();
     }
     @Override
     public void resume() {
-        if (!this.running) {
+        if (!this.running_) {
             // Solo hacemos algo si no nos estábamos ejecutando ya
             // (programación defensiva)
-            this.running = true;
+            this.running_ = true;
             // Lanzamos la ejecución de nuestro método run() en un nuevo Thread.
-            this.renderThread = new Thread(this);
-            this.renderThread.start();
+            this.myRenderThread_ = new Thread(this);
+            this.myRenderThread_.start();
         }
     }
 
     @Override
     public void pause() {
-        if (this.running) {
-            this.running = false;
+        if (this.running_) {
+            this.running_ = false;
             while (true) {
                 try {
-                    this.renderThread.join();
-                    this.renderThread = null;
+                    this.myRenderThread_.join();
+                    this.myRenderThread_ = null;
                     break;
                 } catch (InterruptedException ie) {
                     // Esto no debería ocurrir nunca...
@@ -54,7 +54,7 @@ public class EngineAndroid implements IEngine, Runnable {
 
     @Override
     public void run() {
-        if (renderThread != Thread.currentThread()) {
+        if (myRenderThread_ != Thread.currentThread()) {
             // Evita que cualquiera que no sea esta clase llame a este Runnable en un Thread
             // Programación defensiva
             throw new RuntimeException("run() should not be called directly");
@@ -62,7 +62,7 @@ public class EngineAndroid implements IEngine, Runnable {
 
         // Si el Thread se pone en marcha
         // muy rápido, la vista podría todavía no estar inicializada.
-        while (this.running && this.myView_.getWidth() == 0) ;
+        while (this.running_ && this.myView_.getWidth() == 0) ;
         // Espera activa. Sería más elegante al menos dormir un poco.
 
         long lastFrameTime = System.nanoTime();
@@ -71,14 +71,14 @@ public class EngineAndroid implements IEngine, Runnable {
         int frames = 0;
 
         // Bucle de juego principal.
-        while (running) {
+        while (running_) {
             long currentTime = System.nanoTime();
             long nanoElapsedTime = currentTime - lastFrameTime;
             lastFrameTime = currentTime;
 
             // Informe de FPS
             double elapsedTime = (double) nanoElapsedTime / 1.0E9;
-            this.IScene.update(elapsedTime);
+            this.myScene_.update(elapsedTime);
             if (currentTime - informePrevio > 1000000000l) {
                 long fps = frames * 1000000000l / (currentTime - informePrevio);
                 System.out.println("" + fps + " fps");
@@ -86,34 +86,34 @@ public class EngineAndroid implements IEngine, Runnable {
                 informePrevio = currentTime;
             }
             ++frames;
-            myIGraphics_.prepareFrame();
-            IScene.render();
-            myIGraphics_.endFrame();
+            myGraphics_.prepareFrame();
+            myScene_.render();
+            myGraphics_.endFrame();
         }
     }
 
     @Override
     public void setScene(IScene myIScene) {
-        this.IScene = myIScene;
+        this.myScene_ = myIScene;
     }
 
     @Override
     public IGraphics getGraphics() {
-        return myIGraphics_;
+        return myGraphics_;
     }
 
     @Override
     public IInput getInput() {
-        return this.IInput;
+        return this.myInput_;
     }
 
     @Override
     public IAudio getAudio() {
-        return this.IAudio;
+        return this.myAudio_;
     }
 
     @Override
     public IScene getScene() {
-        return this.IScene;
+        return this.myScene_;
     }
 }

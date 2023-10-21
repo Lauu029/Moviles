@@ -4,7 +4,7 @@ import com.example.engine.IImage;
 
 //Aquí tendrán que ir todos los métodos que implementen para generar una imagen en android, entiendo
 public class ImageAndroid implements IImage {
-    private int widht = 0, height = 0;
+    private int width_= 0, height_ = 0;
 
 
 //    ImageAndroid(String source, int h, int w) {
@@ -22,12 +22,12 @@ public class ImageAndroid implements IImage {
     }
     @Override
     public int getWidth() {
-        return widht;
+        return width_;
     }
 
     @Override
     public int getHeight() {
-        return height;
+        return height_;
     }
 
 }

@@ -10,15 +10,16 @@ import javax.swing.JFrame;
 
 public class EngineDesktop implements IEngine, Runnable {
     private JFrame myView_;
-    private Thread renderThread;
-    private boolean running_=false;
-    private IScene myIScene_;
-    private IGraphics myIGraphics_;
+    private Thread myRenderThread_;
+    private boolean running_;
+    private IScene myScene_;
+    private IGraphics myGraphics_;
+    private IAudio myAudio_;
+    private IInput myInput_;
     public EngineDesktop(JFrame myView)
     {
         myView_=myView;
-        myIGraphics_ = new GraphicsDesktop(myView_);
-
+        myGraphics_ = new GraphicsDesktop(myView_);
     }
 
     @Override
@@ -29,8 +30,8 @@ public class EngineDesktop implements IEngine, Runnable {
             this.running_ = true;
             // Lanzamos la ejecución de nuestro método run() en un nuevo Thread.
 
-            this.renderThread = new Thread(this);
-            this.renderThread.start();
+            this.myRenderThread_ = new Thread(this);
+            this.myRenderThread_.start();
 
         }
     }
@@ -40,8 +41,8 @@ public class EngineDesktop implements IEngine, Runnable {
             this.running_ = false;
             while (true) {
                 try {
-                    this.renderThread.join();
-                    this.renderThread = null;
+                    this.myRenderThread_.join();
+                    this.myRenderThread_ = null;
                     break;
                 } catch (InterruptedException ie) {
                     // Esto no debería ocurrir nunca...
@@ -51,7 +52,7 @@ public class EngineDesktop implements IEngine, Runnable {
     }
     @Override
     public void run() {
-        if (renderThread != Thread.currentThread()) {
+        if (myRenderThread_ != Thread.currentThread()) {
             // Evita que cualquiera que no sea esta clase llame a este Runnable en un Thread
             // Programación defensiva
             throw new RuntimeException("run() should not be called directly");
@@ -75,11 +76,11 @@ public class EngineDesktop implements IEngine, Runnable {
 
             // Informe de FPS
             double elapsedTime = (double) nanoElapsedTime / 1.0E9;
-            this.myIScene_.update(elapsedTime);//elapsedTime
+            this.myScene_.update(elapsedTime);//elapsedTime
             //render();
-            myIGraphics_.prepareFrame();
-            myIScene_.render();
-            myIGraphics_.endFrame();
+            myGraphics_.prepareFrame();
+            myScene_.render();
+            myGraphics_.endFrame();
             if (currentTime - informePrevio > 1000000000l) {
                 long fps = frames * 1000000000l / (currentTime - informePrevio);
                 System.out.println("" + fps + " fps");
@@ -96,25 +97,25 @@ public class EngineDesktop implements IEngine, Runnable {
 
     @Override
     public void setScene(IScene myIScene) {
-        this.myIScene_ = myIScene;
+        this.myScene_ = myIScene;
     }
     @Override
     public IGraphics getGraphics() {
-        return this.myIGraphics_;
+        return this.myGraphics_;
     }
 
     @Override
     public IInput getInput() {
-        return null;
+        return this.myInput_;
     }
 
     @Override
     public IAudio getAudio() {
-        return null;
+        return this.myAudio_;
     }
 
     @Override
     public IScene getScene() {
-        return this.myIScene_;
+        return this.myScene_;
     }
 }

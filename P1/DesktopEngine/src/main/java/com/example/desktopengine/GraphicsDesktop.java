@@ -14,26 +14,27 @@ import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 
 public class GraphicsDesktop implements IGraphics {
+
     private JFrame myView_;
-    private BufferStrategy bufferStrategy_;
-    private Graphics2D graphics2D_;
-    private int width_ = 0, height_ = 0;
+    private BufferStrategy myBufferStrategy_;
+    private Graphics2D myGraphics2D_;
     private int resX_ = 0, resY_ = 0;
     float scale_=1;
     float translateX_=0,translateY_=0;
+    private int width_ = 0, height_ = 0;
     int sceneW_=0,sceneH=0;
     AffineTransform af;
     public GraphicsDesktop(JFrame myView){
         this.myView_=myView;
 
-        this.bufferStrategy_ = this.myView_.getBufferStrategy();
-        this.graphics2D_ = (Graphics2D) bufferStrategy_.getDrawGraphics();
+        this.myBufferStrategy_ = this.myView_.getBufferStrategy();
+        this.myGraphics2D_ = (Graphics2D) myBufferStrategy_.getDrawGraphics();
         //this.graphics2D_.getTransform();
 
         height_=myView_.getHeight();
         width_=myView_.getWidth();
 
-        af = graphics2D_.getTransform();
+        af = myGraphics2D_.getTransform();
 
 
     }
@@ -71,8 +72,8 @@ public class GraphicsDesktop implements IGraphics {
 
     @Override
     public void clear(int color) {
-        this.graphics2D_.setColor(new Color(color));
-        this.graphics2D_.fillRect(0, 0, width_, height_);
+        this.myGraphics2D_.setColor(new Color(color));
+        this.myGraphics2D_.fillRect(0, 0, width_, height_);
     }
 
     @Override
@@ -84,13 +85,13 @@ public class GraphicsDesktop implements IGraphics {
     public void setcolor(int color) {
         Color color_=new Color(color);
 
-        this.graphics2D_.setColor(color_);
+        this.myGraphics2D_.setColor(color_);
     }
 
     @Override
     public void fillRectangle(int cX, int cY, int width, int height) {
 
-        this.graphics2D_.fillRect(cX, cY, width, height);
+        this.myGraphics2D_.fillRect(cX, cY, width, height);
 
         //this.graphics2D_.setColor();
         //this.graphics2D_.setPaintMode();
@@ -98,38 +99,38 @@ public class GraphicsDesktop implements IGraphics {
 
     @Override
     public void fillRoundRectangle(int cX, int cY, int width, int height, int arc) {
-        this.graphics2D_.fillRoundRect(cX, cY, width, height, arc, arc);
+        this.myGraphics2D_.fillRoundRect(cX, cY, width, height, arc, arc);
     }
 
     @Override
     public void drawRectangle(int cX, int cY, int width, int height) {
-        this.graphics2D_.drawRect(cX, cY, width, height);
+        this.myGraphics2D_.drawRect(cX, cY, width, height);
     }
 
     @Override
     public void setStrokeWidth(int width) {
-        this.graphics2D_.setStroke(new BasicStroke(width));
+        this.myGraphics2D_.setStroke(new BasicStroke(width));
     }
 
     @Override
     public void drawRoundRectangle(int cX, int cY, int width, int height, int arc) {
-        this.graphics2D_.drawRoundRect(cX, cY, width, height, arc, arc);
+        this.myGraphics2D_.drawRoundRect(cX, cY, width, height, arc, arc);
     }
 
     @Override
     public void drawLine(int initX, int initY, int endX, int endY) {
-        this.graphics2D_.drawLine(initX, initY, endX, endY);
+        this.myGraphics2D_.drawLine(initX, initY, endX, endY);
     }
 
     @Override
     public void drawCircle(int cx, int cy, int radius) {
-        this.graphics2D_.fillOval(cx-radius,cy-radius,2*radius,2*radius);
+        this.myGraphics2D_.fillOval(cx-radius,cy-radius,2*radius,2*radius);
 
     }
 
     @Override
     public void drawText(String text, int x, int y,int size, IFont IFont) {
-        this.graphics2D_.drawString(text, x, y);
+        this.myGraphics2D_.drawString(text, x, y);
     }
 
     @Override
@@ -172,13 +173,13 @@ public class GraphicsDesktop implements IGraphics {
     public void translate(float x, float y) {
         int left = myView_.getInsets().left;
         int up = myView_.getInsets().top;
-        this.graphics2D_.translate(x,y);
+        this.myGraphics2D_.translate(x,y);
     }
 
     @Override
     public void scale(float x, float y) {
 
-        this.graphics2D_.scale((double)x,(double)y);
+        this.myGraphics2D_.scale((double)x,(double)y);
     }
 
 
@@ -197,19 +198,19 @@ public class GraphicsDesktop implements IGraphics {
     public void prepareFrame() {
         do {
             do {
-                graphics2D_ = (Graphics2D) this.bufferStrategy_.getDrawGraphics();
-            } while (this.bufferStrategy_.contentsRestored());
-        } while (this.bufferStrategy_.contentsLost());
+                myGraphics2D_ = (Graphics2D) this.myBufferStrategy_.getDrawGraphics();
+            } while (this.myBufferStrategy_.contentsRestored());
+        } while (this.myBufferStrategy_.contentsLost());
     }
 
     @Override
     public void endFrame() {
         do {
             do {
-                graphics2D_.dispose();
-            } while (this.bufferStrategy_.contentsRestored());
-            this.bufferStrategy_.show();
-        } while (this.bufferStrategy_.contentsLost());
+                myGraphics2D_.dispose();
+            } while (this.myBufferStrategy_.contentsRestored());
+            this.myBufferStrategy_.show();
+        } while (this.myBufferStrategy_.contentsLost());
 
 
     }

@@ -1,17 +1,23 @@
 package com.example.androidengine;
 
+import com.example.engine.IGameObject;
+import com.example.engine.IGraphics;
 import com.example.engine.IImage;
 
-public class GameObjectAndroid implements IImage {
-    private int with = 0, height = 0;
+public class GameObjectAndroid implements IGameObject {
 
     @Override
-    public int getWidth() {
-        return with;
+    public void update(double time) {
+
     }
 
     @Override
-    public int getHeight() {
-        return height;
+    public void render(IGraphics graph) {
+
+    }
+
+    @Override
+    public void init() {
+
     }
 }
