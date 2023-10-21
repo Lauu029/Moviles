@@ -3,13 +3,11 @@ package com.example.androidgame;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.transition.Scene;
-import android.util.Log;
 import android.view.SurfaceView;
 
 
 import com.example.androidengine.EngineAndroid;
-import com.example.engine.Engine;
+import com.example.engine.IEngine;
 import com.example.gamelogic.GameScene;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,10 +19,10 @@ public class MainActivity extends AppCompatActivity {
 
         this.renderView = new SurfaceView(this);
         setContentView(this.renderView);
-        Engine engineAndroid= new EngineAndroid(renderView);
-        GameScene g= new GameScene(engineAndroid,400,600);
-        engineAndroid.setScene(g);
-        engineAndroid.resume();
+        IEngine IEngineAndroid = new EngineAndroid(renderView);
+        GameScene g= new GameScene(IEngineAndroid,400,600);
+        IEngineAndroid.setScene(g);
+        IEngineAndroid.resume();
         g.init();
 
     }

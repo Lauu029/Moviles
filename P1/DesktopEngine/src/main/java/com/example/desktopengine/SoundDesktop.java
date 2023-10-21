@@ -1,4 +1,6 @@
 package com.example.desktopengine;
 
-public class SoundDesktop implements com.example.engine.Sound {
+import com.example.engine.ISound;
+
+public class SoundDesktop implements ISound {
 }

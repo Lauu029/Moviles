@@ -1,6 +1,8 @@
 package com.example.desktopengine;
 
-public class ColorDesktop implements com.example.engine.Color {
+import com.example.engine.IColor;
+
+public class ColorDesktop implements IColor {
     private int color;
     @Override
     public void setColor(int color) {

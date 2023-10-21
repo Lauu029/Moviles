@@ -2,7 +2,7 @@ package com.example.desktopgame;
 
 
 import com.example.desktopengine.EngineDesktop;
-import com.example.engine.Engine;
+import com.example.engine.IEngine;
 import com.example.gamelogic.GameScene;
 
 import javax.swing.JFrame;
@@ -34,12 +34,12 @@ public class main {
             //System.out.println("BufferStrategy tras " + (100 - intentos) + " intentos.");
         }
 
-        Engine engineDesktop= new EngineDesktop(myView);
+        IEngine IEngineDesktop = new EngineDesktop(myView);
 
-        GameScene gm=new GameScene(engineDesktop,400,600);
-        engineDesktop.setScene(gm);
+        GameScene gm=new GameScene(IEngineDesktop,400,600);
+        IEngineDesktop.setScene(gm);
         gm.init();
 
-        engineDesktop.resume();
+        IEngineDesktop.resume();
     }
 }

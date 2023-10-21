@@ -1,6 +1,8 @@
 package com.example.androidengine;
 
-public class ColorAndroid implements com.example.engine.Color {
+import com.example.engine.IColor;
+
+public class ColorAndroid implements IColor {
     private int color;
 
     @Override

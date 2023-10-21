@@ -1,28 +1,28 @@
 package com.example.androidengine;
 
-import android.util.Log;
 import android.view.SurfaceView;
 
-import com.example.engine.Audio;
-import com.example.engine.Graphics;
-import com.example.engine.Input;
-import com.example.engine.Scene;
+import com.example.engine.IAudio;
+import com.example.engine.IGraphics;
+import com.example.engine.IEngine;
+import com.example.engine.IInput;
+import com.example.engine.IScene;
 
-public class EngineAndroid implements com.example.engine.Engine, Runnable {
-    private Graphics myGraphics_;
+public class EngineAndroid implements IEngine, Runnable {
+    private IGraphics myIGraphics_;
     private SurfaceView myView_;
     private Thread renderThread;
     private boolean running;
-    private Scene scene;
-    private Audio audio;
-    private Input input;
+    private IScene IScene;
+    private IAudio IAudio;
+    private IInput IInput;
 
     public EngineAndroid(SurfaceView myView) {
         myView_ = myView;
-        myGraphics_ = new GraphicsAndroid(myView_);
+        myIGraphics_ = new GraphicsAndroid(myView_);
         running = false;
-        audio= new AudioAndroid();
-        input = new InputAndroid();
+        IAudio = new AudioAndroid();
+        IInput = new InputAndroid();
     }
     @Override
     public void resume() {
@@ -78,7 +78,7 @@ public class EngineAndroid implements com.example.engine.Engine, Runnable {
 
             // Informe de FPS
             double elapsedTime = (double) nanoElapsedTime / 1.0E9;
-            this.scene.update(elapsedTime);
+            this.IScene.update(elapsedTime);
             if (currentTime - informePrevio > 1000000000l) {
                 long fps = frames * 1000000000l / (currentTime - informePrevio);
                 System.out.println("" + fps + " fps");
@@ -86,34 +86,34 @@ public class EngineAndroid implements com.example.engine.Engine, Runnable {
                 informePrevio = currentTime;
             }
             ++frames;
-            myGraphics_.prepareFrame();
-            scene.render();
-            myGraphics_.endFrame();
+            myIGraphics_.prepareFrame();
+            IScene.render();
+            myIGraphics_.endFrame();
         }
     }
 
     @Override
-    public void setScene(Scene myScene) {
-        this.scene = myScene;
+    public void setScene(IScene myIScene) {
+        this.IScene = myIScene;
     }
 
     @Override
-    public Graphics getGraphics() {
-        return myGraphics_;
+    public IGraphics getGraphics() {
+        return myIGraphics_;
     }
 
     @Override
-    public Input getInput() {
-        return this.input;
+    public IInput getInput() {
+        return this.IInput;
     }
 
     @Override
-    public Audio getAudio() {
-        return this.audio;
+    public IAudio getAudio() {
+        return this.IAudio;
     }
 
     @Override
-    public Scene getScene() {
-        return this.scene;
+    public IScene getScene() {
+        return this.IScene;
     }
 }

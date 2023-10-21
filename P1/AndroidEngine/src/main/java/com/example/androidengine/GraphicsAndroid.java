@@ -7,18 +7,19 @@ import android.os.Build;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.example.engine.Color;
-import com.example.engine.Font;
-import com.example.engine.Image;
-import com.example.engine.Scene;
+import com.example.engine.IColor;
+import com.example.engine.IFont;
+import com.example.engine.IGraphics;
+import com.example.engine.IImage;
+import com.example.engine.IScene;
 
-public class GraphicsAndroid implements com.example.engine.Graphics {
+public class GraphicsAndroid implements IGraphics {
     private int width_ = 0, height_ = 0;
     private SurfaceView myView;
     private SurfaceHolder holder;
     private Paint paint;
     private Canvas canvas;
-    private Color color;
+    private IColor IColor;
 
     float scale_=1;
     float translateX_=0,translateY_=0;
@@ -28,15 +29,15 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
         this.paint = new Paint();
         this.canvas = new Canvas();
 
-        this.color = new ColorAndroid();
+        this.IColor = new ColorAndroid();
        // this.paint.setColor(0x53ECDED3);
     }
-    private void resizeCanvas(Scene myScene){
+    private void resizeCanvas(IScene myIScene){
         height_ = canvas.getHeight();
         width_ = canvas.getWidth();
 
-        float scaleW = (float) width_ / (float) myScene.getWidth();
-        float scaleH = (float) height_ / (float) myScene.getHeight();
+        float scaleW = (float) width_ / (float) myIScene.getWidth();
+        float scaleH = (float) height_ / (float) myIScene.getHeight();
 
         if (scaleW < scaleH) {
             scale_ = scaleW;
@@ -45,8 +46,8 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
         }
 
         float resizeW, resizeH;
-        resizeW = myScene.getWidth() * scale_;
-        resizeH = myScene.getHeight() * scale_;
+        resizeW = myIScene.getWidth() * scale_;
+        resizeH = myIScene.getHeight() * scale_;
 
         translateX_ = (width_ - resizeW) / 2;
         translateY_ = (height_ - resizeH) / 2;
@@ -70,13 +71,13 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
         paint.setStrokeWidth(width);
     }
     @Override
-    public void drawImage(Image image, int posX, int posY, int height, int widht) {
+    public void drawImage(IImage IImage, int posX, int posY, int height, int widht) {
 
     }
 
     @Override
     public void setcolor(int color_) {
-        this.color.setColor(color_);
+        this.IColor.setColor(color_);
         this.paint.setColor(color_);
 
     }
@@ -121,7 +122,7 @@ public class GraphicsAndroid implements com.example.engine.Graphics {
     }
 
     @Override
-    public void drawText(String text, int x, int y,int size, Font font) {
+    public void drawText(String text, int x, int y,int size, IFont IFont) {
         //canvas.drawText();
 
         paint.setStyle(Paint.Style.FILL);

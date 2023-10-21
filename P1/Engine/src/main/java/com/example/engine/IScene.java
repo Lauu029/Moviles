@@ -1,11 +1,11 @@
 package com.example.engine;
 
-public interface Scene {
+public interface IScene {
     void render();
     void update(double time);
     void init();
 
-    void addGameObject(GameObject gm);
+    void addGameObject(IGameObject gm);
 
     int getHeight();
     int getWidth();

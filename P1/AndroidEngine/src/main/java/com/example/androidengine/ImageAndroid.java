@@ -1,13 +1,9 @@
 package com.example.androidengine;
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-
-import java.io.InputStream;
+import com.example.engine.IImage;
 
 //Aquí tendrán que ir todos los métodos que implementen para generar una imagen en android, entiendo
-public class ImageAndroid implements com.example.engine.Image {
+public class ImageAndroid implements IImage {
     private int widht = 0, height = 0;
 
 

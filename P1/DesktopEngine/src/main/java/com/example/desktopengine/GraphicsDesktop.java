@@ -1,19 +1,19 @@
 package com.example.desktopengine;
 
-import com.example.engine.Font;
-import com.example.engine.Image;
-import com.example.engine.Scene;
+import com.example.engine.IFont;
+import com.example.engine.IGraphics;
+import com.example.engine.IImage;
+import com.example.engine.IScene;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
-public class GraphicsDesktop implements com.example.engine.Graphics {
+public class GraphicsDesktop implements IGraphics {
     private JFrame myView_;
     private BufferStrategy bufferStrategy_;
     private Graphics2D graphics2D_;
@@ -37,12 +37,12 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
 
 
     }
-    private void resizeCanvas(Scene myScene){
+    private void resizeCanvas(IScene myIScene){
         height_ = myView_.getHeight();
         width_ = myView_.getWidth();
 
-        float scaleW = (float) width_ / (float) myScene.getWidth();
-        float scaleH = (float) height_ / (float) myScene.getHeight();
+        float scaleW = (float) width_ / (float) myIScene.getWidth();
+        float scaleH = (float) height_ / (float) myIScene.getHeight();
 
         if (scaleW < scaleH) {
             scale_ = scaleW;
@@ -52,20 +52,20 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
 
 
         float resizeW, resizeH;
-        resizeW = myScene.getWidth() * scale_;
-        resizeH = myScene.getHeight() * scale_;
+        resizeW = myIScene.getWidth() * scale_;
+        resizeH = myIScene.getHeight() * scale_;
 
         translateX_ = ((float)width_ - resizeW) / 2.0f;
         translateY_ = ((float)height_ - resizeH) / 2.0f;
     }
     void setSize( ){}
     @Override
-    public Image newImage(String name) {
+    public IImage newImage(String name) {
         return null;
     }
 
     @Override
-    public Font newFont(String filename, int size, boolean isBold) {
+    public IFont newFont(String filename, int size, boolean isBold) {
         return null;
     }
 
@@ -76,7 +76,7 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
     }
 
     @Override
-    public void drawImage(Image image, int posX, int posY, int height, int widht) {
+    public void drawImage(IImage IImage, int posX, int posY, int height, int widht) {
 
     }
 
@@ -128,7 +128,7 @@ public class GraphicsDesktop implements com.example.engine.Graphics {
     }
 
     @Override
-    public void drawText(String text, int x, int y,int size, Font font) {
+    public void drawText(String text, int x, int y,int size, IFont IFont) {
         this.graphics2D_.drawString(text, x, y);
     }
 

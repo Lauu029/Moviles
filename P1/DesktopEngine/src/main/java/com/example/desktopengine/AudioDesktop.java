@@ -1,10 +1,11 @@
 package com.example.desktopengine;
 
-import com.example.engine.Sound;
+import com.example.engine.IAudio;
+import com.example.engine.ISound;
 
-public class AudioDesktop implements com.example.engine.Audio{
+public class AudioDesktop implements IAudio {
     @Override
-    public Sound playSound(String file, boolean loop) {
+    public ISound playSound(String file, boolean loop) {
         return null;
     }
 

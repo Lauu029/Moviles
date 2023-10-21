@@ -1,6 +1,8 @@
 package com.example.androidengine;
 
-public class FontAndroid implements com.example.engine.Font {
+import com.example.engine.IFont;
+
+public class FontAndroid implements IFont {
     private String name;
     private int size;
     private boolean bold;

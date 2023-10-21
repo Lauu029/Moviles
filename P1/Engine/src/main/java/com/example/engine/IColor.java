@@ -1,6 +1,6 @@
 package com.example.engine;
 
-public interface Color {
+public interface IColor {
 
     void setColor(int color);
     int getColor();

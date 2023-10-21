@@ -1,6 +1,6 @@
 package com.example.engine;
 
-public interface Input {
+public interface IInput {
 //    class TouchEvent;
 //
 }

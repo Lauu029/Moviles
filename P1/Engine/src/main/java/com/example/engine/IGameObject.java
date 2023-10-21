@@ -1,7 +1,7 @@
 package com.example.engine;
 
-public interface GameObject {
+public interface IGameObject {
     void update(double time);
-    void render(Graphics graph);
+    void render(IGraphics graph);
     void init();
 }

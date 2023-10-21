@@ -1,6 +1,8 @@
 package com.example.desktopengine;
 
-public class FontDesktop implements com.example.engine.Font {
+import com.example.engine.IFont;
+
+public class FontDesktop implements IFont {
     @Override
     public void setBold(boolean bold) {
 

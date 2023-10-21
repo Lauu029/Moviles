@@ -1,7 +1,5 @@
 package com.example.gamelogic;
 
-import com.example.engine.GameObject;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;

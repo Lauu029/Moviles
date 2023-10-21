@@ -1,4 +1,6 @@
 package com.example.desktopengine;
 
-public class InputDesktop implements com.example.engine.Input {
+import com.example.engine.IInput;
+
+public class InputDesktop implements IInput {
 }

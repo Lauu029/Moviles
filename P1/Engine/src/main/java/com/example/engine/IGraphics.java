@@ -1,13 +1,13 @@
 package com.example.engine;
 
-public interface Graphics {
-    Image newImage(String name);
+public interface IGraphics {
+    IImage newImage(String name);
 
-    Font newFont(String filename, int size, boolean isBold);
+    IFont newFont(String filename, int size, boolean isBold);
 
     void clear(int color);
 
-    void drawImage(Image image, int posX, int posY, int height, int widht);
+    void drawImage(IImage IImage, int posX, int posY, int height, int widht);
 
     void setcolor(int color);
 
@@ -23,7 +23,7 @@ public interface Graphics {
 
     void drawCircle(int cx, int cy, int radius);
 
-    void drawText(String text, int x, int y,int size,Font font);
+    void drawText(String text, int x, int y, int size, IFont IFont);
 
     int getWidth();
 

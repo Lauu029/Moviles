@@ -1,19 +1,20 @@
 package com.example.gamelogic;
 
-import com.example.engine.Engine;
-import com.example.engine.Font;
-import com.example.engine.GameObject;
-import com.example.engine.Graphics;
+import com.example.engine.IEngine;
+import com.example.engine.IFont;
+import com.example.engine.IGameObject;
+import com.example.engine.IGraphics;
+import com.example.engine.IScene;
 
 import java.util.ArrayList;
 
-public class GameScene implements com.example.engine.Scene {
+public class GameScene implements IScene {
     Solution sol;
-    Engine engine_;
-    ArrayList<GameObject> gameObjects_ = new ArrayList<>();
+    IEngine IEngine_;
+    ArrayList<IGameObject> IGameObjects_ = new ArrayList<>();
     private int width_,height_;
-    public GameScene(Engine engine, int w, int h){
-        engine_=engine;
+    public GameScene(IEngine IEngine, int w, int h){
+        IEngine_ = IEngine;
         width_=w;
         height_=h;
     }
@@ -31,8 +32,8 @@ public class GameScene implements com.example.engine.Scene {
     }
 
     @Override
-    public void addGameObject(GameObject gm) {
-        gameObjects_.add(gm);
+    public void addGameObject(IGameObject gm) {
+        IGameObjects_.add(gm);
     }
 
     @Override
@@ -47,11 +48,11 @@ public class GameScene implements com.example.engine.Scene {
 
     @Override
     public void render() {
-        Graphics graph=engine_.getGraphics();
+        IGraphics graph= IEngine_.getGraphics();
         graph.clear(0xFF000000);
 
-       for(int i=0;i<gameObjects_.size();i++){
-            gameObjects_.get(i).render(graph);
+       for(int i = 0; i< IGameObjects_.size(); i++){
+            IGameObjects_.get(i).render(graph);
         }
 
 
@@ -59,7 +60,7 @@ public class GameScene implements com.example.engine.Scene {
         graph.setcolor(0xFF23FD88);
         graph.drawRoundRectangle(80,80,200,100,25);
         graph.setcolor(0xFFED0F8D);
-        Font fuente= new Font() {
+        IFont fuente= new IFont() {
             @Override
             public void setBold(boolean bold) {
 
@@ -89,8 +90,8 @@ public class GameScene implements com.example.engine.Scene {
 
     @Override
     public void update(double time) {
-        for(int i=0;i<gameObjects_.size();i++){
-            gameObjects_.get(i).update(time);
+        for(int i = 0; i< IGameObjects_.size(); i++){
+            IGameObjects_.get(i).update(time);
         }
     }
 

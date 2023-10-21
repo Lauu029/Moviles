@@ -1,4 +1,4 @@
 package com.example.engine;
 
-public interface Sound {
+public interface ISound {
 }

@@ -1,4 +1,6 @@
 package com.example.androidengine;
 
-public class InputAndroid implements com.example.engine.Input {
+import com.example.engine.IInput;
+
+public class InputAndroid implements IInput {
 }

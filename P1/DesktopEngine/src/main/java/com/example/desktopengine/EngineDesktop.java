@@ -1,22 +1,23 @@
 package com.example.desktopengine;
 
-import com.example.engine.Audio;
-import com.example.engine.Graphics;
-import com.example.engine.Input;
-import com.example.engine.Scene;
+import com.example.engine.IAudio;
+import com.example.engine.IGraphics;
+import com.example.engine.IEngine;
+import com.example.engine.IInput;
+import com.example.engine.IScene;
 
 import javax.swing.JFrame;
 
-public class EngineDesktop implements com.example.engine.Engine, Runnable {
+public class EngineDesktop implements IEngine, Runnable {
     private JFrame myView_;
     private Thread renderThread;
     private boolean running_=false;
-    private Scene myScene_;
-    private Graphics myGraphics_;
+    private IScene myIScene_;
+    private IGraphics myIGraphics_;
     public EngineDesktop(JFrame myView)
     {
         myView_=myView;
-        myGraphics_= new GraphicsDesktop(myView_);
+        myIGraphics_ = new GraphicsDesktop(myView_);
 
     }
 
@@ -74,11 +75,11 @@ public class EngineDesktop implements com.example.engine.Engine, Runnable {
 
             // Informe de FPS
             double elapsedTime = (double) nanoElapsedTime / 1.0E9;
-            this.myScene_.update(elapsedTime);//elapsedTime
+            this.myIScene_.update(elapsedTime);//elapsedTime
             //render();
-            myGraphics_.prepareFrame();
-            myScene_.render();
-            myGraphics_.endFrame();
+            myIGraphics_.prepareFrame();
+            myIScene_.render();
+            myIGraphics_.endFrame();
             if (currentTime - informePrevio > 1000000000l) {
                 long fps = frames * 1000000000l / (currentTime - informePrevio);
                 System.out.println("" + fps + " fps");
@@ -94,26 +95,26 @@ public class EngineDesktop implements com.example.engine.Engine, Runnable {
     }
 
     @Override
-    public void setScene(Scene myScene) {
-        this.myScene_=myScene;
+    public void setScene(IScene myIScene) {
+        this.myIScene_ = myIScene;
     }
     @Override
-    public Graphics getGraphics() {
-        return this.myGraphics_;
+    public IGraphics getGraphics() {
+        return this.myIGraphics_;
     }
 
     @Override
-    public Input getInput() {
+    public IInput getInput() {
         return null;
     }
 
     @Override
-    public Audio getAudio() {
+    public IAudio getAudio() {
         return null;
     }
 
     @Override
-    public Scene getScene() {
-        return this.myScene_;
+    public IScene getScene() {
+        return this.myIScene_;
     }
 }

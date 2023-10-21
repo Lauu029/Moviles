@@ -1,4 +1,6 @@
 package com.example.androidengine;
 
-public class SoundAndroid implements com.example.engine.Sound {
+import com.example.engine.ISound;
+
+public class SoundAndroid implements ISound {
 }

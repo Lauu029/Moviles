@@ -1,8 +1,9 @@
 package com.example.desktopengine;
 
-import com.example.engine.Graphics;
+import com.example.engine.IGraphics;
+import com.example.engine.IGameObject;
 
-public class GameObjectDesktop implements com.example.engine.GameObject {
+public class GameObjectDesktop implements IGameObject {
 
     @Override
     public void update(double time) {
@@ -10,7 +11,7 @@ public class GameObjectDesktop implements com.example.engine.GameObject {
     }
 
     @Override
-    public void render(Graphics graph) {
+    public void render(IGraphics graph) {
 
     }
 

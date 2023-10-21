@@ -1,6 +1,8 @@
 package com.example.desktopengine;
 
-public class ImageDesktop implements com.example.engine.Image {
+import com.example.engine.IImage;
+
+public class ImageDesktop implements IImage {
     private int width = 0, height = 0;
 
     @Override

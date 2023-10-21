@@ -1,6 +1,6 @@
 package com.example.engine;
 
-public interface Font {
+public interface IFont {
     void setBold(boolean bold);
     boolean isBold();
     int getSize();

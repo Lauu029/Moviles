@@ -1,9 +1,9 @@
 package com.example.gamelogic;
 
-import com.example.engine.GameObject;
-import com.example.engine.Scene;
+import com.example.engine.IGameObject;
+import com.example.engine.IScene;
 
-public class MenuScene implements Scene {
+public class MenuScene implements IScene {
     @Override
     public void render() {
 
@@ -20,7 +20,7 @@ public class MenuScene implements Scene {
     }
 
     @Override
-    public void addGameObject(GameObject gm) {
+    public void addGameObject(IGameObject gm) {
 
     }
 

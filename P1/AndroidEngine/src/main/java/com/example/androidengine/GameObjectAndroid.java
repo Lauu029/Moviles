@@ -1,6 +1,8 @@
 package com.example.androidengine;
 
-public class GameObjectAndroid implements com.example.engine.Image {
+import com.example.engine.IImage;
+
+public class GameObjectAndroid implements IImage {
     private int with = 0, height = 0;
 
     @Override
