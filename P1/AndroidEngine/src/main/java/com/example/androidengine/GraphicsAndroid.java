@@ -52,9 +52,10 @@ public class GraphicsAndroid implements IGraphics {
         translateX_ = (width_ - resizeW) / 2;
         translateY_ = (height_ - resizeH) / 2;
         System.out.println("" + scale_ + " scasle");
-        System.out.println("tranx " + translateY_ + " trany "+translateY_);
-        this.scale(scale_,scale_);
+        System.out.println("tranx " + translateX_ + " trany "+translateY_);
         this.translate(translateX_,translateY_);
+        this.scale(scale_,scale_);
+
     }
 
 
