@@ -11,6 +11,7 @@ import com.example.engine.IColor;
 import com.example.engine.IFont;
 import com.example.engine.IGraphics;
 import com.example.engine.IImage;
+import com.example.engine.IScene;
 
 public class GraphicsAndroid implements IGraphics {
     private int width_ = 0, height_ = 0;
@@ -186,7 +187,10 @@ public class GraphicsAndroid implements IGraphics {
         this.myHolder_.unlockCanvasAndPost(myCanvas_);
     }
 
+    @Override
+    public void render(IScene scene) {
 
+    }
 
 
 }

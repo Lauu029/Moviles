@@ -128,8 +128,8 @@ public class GraphicsDesktop implements IGraphics {
     @Override
     public void translate(float x, float y) {
         int left = myView_.getInsets().left;
-        int up = myView_.getInsets().top;
-        this.myGraphics2D_.translate(x,y+up);
+
+        this.myGraphics2D_.translate(x,y);
     }
 
     @Override
@@ -199,7 +199,7 @@ public class GraphicsDesktop implements IGraphics {
 
         float scaleW = (float) width_ / (float) sceneWidth;
         float scaleH = (float) height_ / (float) sceneHeight;
-
+        int up = myView_.getInsets().top;
         if (scaleW < scaleH) {
             scale_ = scaleW;
         } else {
@@ -212,6 +212,7 @@ public class GraphicsDesktop implements IGraphics {
 
         translateX_ = ((float)width_ - resizeW) / 2.0f;
         translateY_ = ((float)height_ - resizeH) / 2.0f;
+        if(translateY_==0.0f)translateY_+=up;
         this.myGraphics2D_.setTransform(af);
         this.translate(translateX_,translateY_);
         this.scale(scale_,scale_);
