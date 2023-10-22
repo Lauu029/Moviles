@@ -3,6 +3,7 @@ package com.example.desktopengine;
 import com.example.engine.IFont;
 import com.example.engine.IGraphics;
 import com.example.engine.IImage;
+import com.example.engine.IScene;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -168,6 +169,25 @@ public class GraphicsDesktop implements IGraphics {
             this.myBufferStrategy_.show();
         } while (this.myBufferStrategy_.contentsLost());
 
+
+    }
+
+    @Override
+    public void render(IScene scene) {
+        do {
+            do {
+                myGraphics2D_ = (Graphics2D) this.myBufferStrategy_.getDrawGraphics();
+                try {
+                    // Establecer la escala y la traslación
+                    resize(scene.getWidth(), scene.getHeight());
+                    // Dibujar la escena
+                    scene.render();
+                } finally {
+                    myGraphics2D_.dispose();
+                }
+            } while (this.myBufferStrategy_.contentsRestored());
+            this.myBufferStrategy_.show();
+        } while (this.myBufferStrategy_.contentsLost());
 
     }
 

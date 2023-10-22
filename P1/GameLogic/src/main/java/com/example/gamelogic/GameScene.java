@@ -56,9 +56,6 @@ public class GameScene implements IScene {
         //Dibujamos un color de fondo para la escena
         graph.setColor(0xFF000000);
         graph.fillRectangle(0,0,width_,height_);
-       for(int i = 0; i< IGameObjects_.size(); i++){
-            IGameObjects_.get(i).render(graph);
-        }
 
         graph.setStrokeWidth(15);
         graph.setColor(0xFF23FD88);
@@ -89,6 +86,7 @@ public class GameScene implements IScene {
         graph.drawCircle(80,300,50);
         graph.fillRectangle(0,0,100,100);
         graph.resize(width_,height_);
+
     }
 
 
