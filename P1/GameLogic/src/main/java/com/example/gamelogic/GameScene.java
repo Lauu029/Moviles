@@ -52,7 +52,7 @@ public class GameScene implements IScene {
     public void render() {
         IGraphics graph= IEngine_.getGraphics();
 
-        //graph.clear(0xFF000000); este metodo pinta toda la VENTANA, no toda la ESCENA
+        graph.clear(0xFF000000); //este metodo pinta toda la VENTANA, no toda la ESCENA
         //Dibujamos un color de fondo para la escena
         graph.setColor(0xFF000000);
         graph.fillRectangle(0,0,width_,height_);

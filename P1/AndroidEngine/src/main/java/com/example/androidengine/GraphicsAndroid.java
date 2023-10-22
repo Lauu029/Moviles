@@ -31,12 +31,13 @@ public class GraphicsAndroid implements IGraphics {
         this.myColor_ = new ColorAndroid();
        // this.paint.setColor(0x53ECDED3);
     }
-    /*private void resizeCanvas(IScene myIScene){
+    @Override
+    public void resize(float sceneWidth, float sceneHeight) {
         height_ = myCanvas_.getHeight();
         width_ = myCanvas_.getWidth();
 
-        float scaleW = (float) width_ / (float) myIScene.getWidth();
-        float scaleH = (float) height_ / (float) myIScene.getHeight();
+        float scaleW = (float) width_ / (float) sceneWidth;
+        float scaleH = (float) height_ / (float) sceneHeight;
 
         if (scaleW < scaleH) {
             scale_ = scaleW;
@@ -45,12 +46,19 @@ public class GraphicsAndroid implements IGraphics {
         }
 
         float resizeW, resizeH;
-        resizeW = myIScene.getWidth() * scale_;
-        resizeH = myIScene.getHeight() * scale_;
+        resizeW =sceneWidth* scale_;
+        resizeH = sceneHeight * scale_;
 
         translateX_ = (width_ - resizeW) / 2;
         translateY_ = (height_ - resizeH) / 2;
-    }*/
+        System.out.println("" + scale_ + " scasle");
+        System.out.println("tranx " + translateY_ + " trany "+translateY_);
+        this.scale(scale_,scale_);
+        this.translate(translateX_,translateY_);
+    }
+
+
+
     @Override
     public ImageAndroid newImage(String name) {
         return new ImageAndroid(name);
@@ -194,10 +202,7 @@ public class GraphicsAndroid implements IGraphics {
         this.myHolder_.unlockCanvasAndPost(myCanvas_);
     }
 
-    @Override
-    public void resize(float sceneWidth, float sceneHeight) {
 
-    }
 
 
 }

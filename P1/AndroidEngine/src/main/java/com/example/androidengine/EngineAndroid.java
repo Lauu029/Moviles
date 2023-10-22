@@ -87,6 +87,7 @@ public class EngineAndroid implements IEngine, Runnable {
             }
             ++frames;
             myGraphics_.prepareFrame();
+            myGraphics_.resize(myScene_.getWidth(),myScene_.getHeight());
             myScene_.render();
             myGraphics_.endFrame();
         }

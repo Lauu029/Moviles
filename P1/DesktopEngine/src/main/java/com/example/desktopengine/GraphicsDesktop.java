@@ -59,6 +59,9 @@ public class GraphicsDesktop implements IGraphics {
         translateY_ = ((float)height_ - resizeH) / 2.0f;
     }*/
     void setSize( ){}
+
+
+
     @Override
     public IImage newImage(String name) {
         return null;
@@ -237,8 +240,8 @@ public class GraphicsDesktop implements IGraphics {
         translateX_ = ((float)width_ - resizeW) / 2.0f;
         translateY_ = ((float)height_ - resizeH) / 2.0f;
 
-        this.myGraphics2D_.scale((double)scale_,(double)scale_);
-        this.myGraphics2D_.translate((double)translateX_,(double)translateY_);
+        this.scale(scale_,scale_);
+        this.translate(translateX_,translateY_);
 
     }
 }

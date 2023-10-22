@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         this.renderView = new SurfaceView(this);
         setContentView(this.renderView);
         IEngine IEngineAndroid = new EngineAndroid(renderView);
-        GameScene g= new GameScene(IEngineAndroid,10,20);
+        GameScene g= new GameScene(IEngineAndroid,400,600);
         IEngineAndroid.setScene(g);
         //RelativeLayout relativeLayout=findViewById(R.id.rlVar1);;
 
