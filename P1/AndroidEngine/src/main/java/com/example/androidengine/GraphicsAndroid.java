@@ -195,7 +195,7 @@ public class GraphicsAndroid implements IGraphics {
     }
 
     @Override
-    public void resize(float sceneWidth, float sceneHeight) {
+    public void resize(int sceneWidth, int sceneHeight) {
 
     }
 

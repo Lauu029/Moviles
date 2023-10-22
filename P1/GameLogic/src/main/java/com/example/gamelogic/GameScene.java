@@ -13,10 +13,8 @@ public class GameScene implements IScene {
     IEngine IEngine_;
     ArrayList<IGameObject> IGameObjects_ = new ArrayList<>();
     private int width_,height_;
-    public GameScene(IEngine IEngine, int w, int h){
+    public GameScene(IEngine IEngine){
         IEngine_ = IEngine;
-        width_=w;
-        height_=h;
         System.out.print("Scene Width: "+width_+" Scene Height: "+height_+"\n");
     }
     @Override
@@ -88,7 +86,7 @@ public class GameScene implements IScene {
         graph.drawText("MasterMind",200, 700,100, fuente);
         graph.drawCircle(80,300,50);
         graph.fillRectangle(0,0,100,100);
-        graph.resize(width_,height_);
+        //graph.resize(width_,height_);
     }
 
 

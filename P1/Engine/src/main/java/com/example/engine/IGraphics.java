@@ -35,6 +35,6 @@ public interface IGraphics {
     void prepareFrame();
     void endFrame();
 
-    void resize(float sceneWidth, float sceneHeight);
+    void resize(int sceneWidth, int sceneHeight);
 
 }

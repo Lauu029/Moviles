@@ -7,6 +7,8 @@ import com.example.engine.IImage;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
 
@@ -21,17 +23,22 @@ public class GraphicsDesktop implements IGraphics {
     float scale_=1;
     float translateX_=0,translateY_=0;
     private int width_ = 0, height_ = 0;
-    int sceneW_=0,sceneH=0;
+    int sceneW_=0,sceneH_=0;
     AffineTransform af;
-    public GraphicsDesktop(JFrame myView){
+    public GraphicsDesktop(JFrame myView,int sceneW,int sceneH){
         this.myView_=myView;
 
         this.myBufferStrategy_ = this.myView_.getBufferStrategy();
         this.myGraphics2D_ = (Graphics2D) myBufferStrategy_.getDrawGraphics();
         //this.graphics2D_.getTransform();
+        this.sceneW_=sceneW;
+        this.sceneH_=sceneH;
 
-        height_=myView_.getHeight();
-        width_=myView_.getWidth();
+        myView_.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent e) {
+                resize(myView_.getWidth(), myView_.getHeight());
+            }
+        });
 
         af = myGraphics2D_.getTransform();
 
@@ -216,18 +223,19 @@ public class GraphicsDesktop implements IGraphics {
     }
 
     @Override
-    public void resize(float sceneWidth, float sceneHeight) {
+    public void resize(int sceneWidth, int sceneHeight) {
         //System.out.print("Resize\n");
-        width_ =(int) myGraphics2D_.getTransform().getScaleX();
-        height_ = (int) myGraphics2D_.getTransform().getScaleY();
+        int desiredWidth =(int) (( sceneW_ * sceneWidth)/ (float)sceneW_);
+        int desiredHeight = (int) (( sceneH_ * sceneHeight)/ (float)sceneH_);
 
-        float scaleW = (float) width_ / (float) sceneWidth;
-        float scaleH = (float) height_ / (float) sceneHeight;
-
-        if (scaleW < scaleH) {
-            scale_ = scaleW;
+        //float scaleW = (float) width_ / (float) sceneWidth;
+        //float scaleH = (float) height_ / (float) sceneHeight;
+        
+        int bandWidth = 0, bandHeight = 0;
+        if (desiredWidth < desiredHeight) {
+            scale_ = desiredWidth;
         } else {
-            scale_ = scaleH;
+            scale_ = desiredHeight;
         }
 
         float resizeW, resizeH;

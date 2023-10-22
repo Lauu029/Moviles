@@ -16,11 +16,11 @@ public class EngineDesktop implements IEngine, Runnable {
     private IGraphics myGraphics_;
     private IAudio myAudio_;
     private IInput myInput_;
-    public EngineDesktop(JFrame myView)
+    public EngineDesktop(JFrame myView, int resolutionW,int resolutionH)
     {
         myView_=myView;
         running_=false;
-        myGraphics_ = new GraphicsDesktop(myView_);
+        myGraphics_ = new GraphicsDesktop(myView_,resolutionW,resolutionH);
         System.out.print("Window Width: "+myView_.getWidth()+" Window Height: "+myView_.getHeight()+"\n");
     }
 
