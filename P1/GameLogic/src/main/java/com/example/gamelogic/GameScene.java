@@ -29,8 +29,6 @@ public class GameScene implements IScene {
 
         mySolution_.compureba(miArray);
         mySolution_.imprime();
-
-
     }
 
     @Override

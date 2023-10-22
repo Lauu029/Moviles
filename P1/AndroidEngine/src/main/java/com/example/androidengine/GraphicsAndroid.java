@@ -51,8 +51,6 @@ public class GraphicsAndroid implements IGraphics {
 
         translateX_ = (width_ - resizeW) / 2;
         translateY_ = (height_ - resizeH) / 2;
-        System.out.println("" + scale_ + " scasle");
-        System.out.println("tranx " + translateX_ + " trany "+translateY_);
         this.translate(translateX_,translateY_);
         this.scale(scale_,scale_);
 
@@ -149,21 +147,6 @@ public class GraphicsAndroid implements IGraphics {
     public int getHeight() {
         return height_;
     }
-
-    /*@Override
-    public void render() {
-
-        prepareFrame();
-        *//*resizeCanvas(myScene);
-        this.scale(scale_,scale_);
-        this.translate(translateX_,translateY_);*//*
-
-        //engine.scene.render
-
-        myScene.render();
-        //endframe
-        endFrame();
-    }*/
 
     @Override
     public void translate(float x, float y) {
