@@ -7,6 +7,8 @@ import com.example.engine.IImage;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
 
@@ -21,7 +23,7 @@ public class GraphicsDesktop implements IGraphics {
     float scale_=1;
     float translateX_=0,translateY_=0;
     private int width_ = 0, height_ = 0;
-    int sceneW_=0,sceneH=0;
+
     AffineTransform af;
     public GraphicsDesktop(JFrame myView){
         this.myView_=myView;
@@ -37,30 +39,7 @@ public class GraphicsDesktop implements IGraphics {
 
 
     }
-    /*private void resizeCanvas(IScene myIScene){
-        height_ = myView_.getHeight();
-        width_ = myView_.getWidth();
-
-        float scaleW = (float) width_ / (float) myIScene.getWidth();
-        float scaleH = (float) height_ / (float) myIScene.getHeight();
-
-        if (scaleW < scaleH) {
-            scale_ = scaleW;
-        } else {
-            scale_ = scaleH;
-        }
-
-
-        float resizeW, resizeH;
-        resizeW = myIScene.getWidth() * scale_;
-        resizeH = myIScene.getHeight() * scale_;
-
-        translateX_ = ((float)width_ - resizeW) / 2.0f;
-        translateY_ = ((float)height_ - resizeH) / 2.0f;
-    }*/
     void setSize( ){}
-
-
 
     @Override
     public IImage newImage(String name) {
@@ -145,37 +124,11 @@ public class GraphicsDesktop implements IGraphics {
         return height_;
     }
 
-    //@Override
-    /*public void render(Scene myScene) {
-        do {
-            do {
-                graphics2D_ = (Graphics2D) this.bufferStrategy_.getDrawGraphics();
-                try {
-                    // Establecer la escala y la traslación
-                    graphics2D_.setTransform(af);
-                    resizeCanvas(myScene);
-                    this.scale(scale_, scale_);
-                    this.translate(translateX_, translateY_);
-                    System.out.println("translateX: " + translateX_ + " translateY: " + translateY_ + " scale: " + scale_);
-
-                    // Dibujar la escena
-                    myScene.render();
-                } finally {
-                    graphics2D_.dispose();
-                }
-            } while (this.bufferStrategy_.contentsRestored());
-            this.bufferStrategy_.show();
-        } while (this.bufferStrategy_.contentsLost());
-
-        // Restaurar la transformación original
-        //graphics2D_.setTransform(af);
-    }*/
-
     @Override
     public void translate(float x, float y) {
         int left = myView_.getInsets().left;
         int up = myView_.getInsets().top;
-        this.myGraphics2D_.translate(x,y);
+        this.myGraphics2D_.translate(x,y+up);
     }
 
     @Override
@@ -221,8 +174,8 @@ public class GraphicsDesktop implements IGraphics {
     @Override
     public void resize(float sceneWidth, float sceneHeight) {
         //System.out.print("Resize\n");
-        width_ =(int) myGraphics2D_.getTransform().getScaleX();
-        height_ = (int) myGraphics2D_.getTransform().getScaleY();
+        width_ =(int) myView_.getWidth();
+        height_ = (int) myView_.getHeight();
 
         float scaleW = (float) width_ / (float) sceneWidth;
         float scaleH = (float) height_ / (float) sceneHeight;
@@ -239,9 +192,10 @@ public class GraphicsDesktop implements IGraphics {
 
         translateX_ = ((float)width_ - resizeW) / 2.0f;
         translateY_ = ((float)height_ - resizeH) / 2.0f;
-
-        this.scale(scale_,scale_);
+        this.myGraphics2D_.setTransform(af);
         this.translate(translateX_,translateY_);
+        this.scale(scale_,scale_);
+
 
     }
 }

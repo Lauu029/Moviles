@@ -81,8 +81,8 @@ public class EngineDesktop implements IEngine, Runnable {
             this.myScene_.update(elapsedTime);//elapsedTime
             //render();
             myGraphics_.prepareFrame();
-            myScene_.render();
             myGraphics_.resize(myScene_.getWidth(),myScene_.getHeight());
+            myScene_.render();
             myGraphics_.endFrame();
             if (currentTime - informePrevio > 1000000000l) {
                 long fps = frames * 1000000000l / (currentTime - informePrevio);
