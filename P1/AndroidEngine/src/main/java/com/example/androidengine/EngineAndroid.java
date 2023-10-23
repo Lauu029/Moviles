@@ -22,7 +22,7 @@ public class EngineAndroid implements IEngine, Runnable {
         myGraphics_ = new GraphicsAndroid(myView_);
         running_ = false;
         myAudio_ = new AudioAndroid();
-        myInput_ = new InputAndroid();
+        myInput_ = new InputAndroid(myView_);
     }
     @Override
     public void resume() {
@@ -78,6 +78,7 @@ public class EngineAndroid implements IEngine, Runnable {
 
             // Informe de FPS
             double elapsedTime = (double) nanoElapsedTime / 1.0E9;
+            this.myScene_.handleInput(myInput_.getTouchEvent());
             this.myScene_.update(elapsedTime);
             if (currentTime - informePrevio > 1000000000l) {
                 long fps = frames * 1000000000l / (currentTime - informePrevio);
