@@ -1,5 +1,7 @@
 package com.example.engine;
 
+import java.util.ArrayList;
+
 public interface IScene {
     void render();
     void update(double time);
@@ -9,4 +11,5 @@ public interface IScene {
 
     int getHeight();
     int getWidth();
+    void handleInput(ArrayList<TouchEvent> events);
 }

@@ -21,6 +21,7 @@ public class EngineDesktop implements IEngine, Runnable {
         myView_=myView;
         running_=false;
         myGraphics_ = new GraphicsDesktop(myView_);
+        myInput_=new InputDesktop(myView_);
         System.out.print("Window Width: "+myView_.getWidth()+" Window Height: "+myView_.getHeight()+"\n");
     }
 
@@ -78,6 +79,7 @@ public class EngineDesktop implements IEngine, Runnable {
 
             // Informe de FPS
             double elapsedTime = (double) nanoElapsedTime / 1.0E9;
+            myScene_.handleInput(myInput_.getTouchEvent());
             this.myScene_.update(elapsedTime);//elapsedTime
             //render();
             //myGraphics_.prepareFrame();

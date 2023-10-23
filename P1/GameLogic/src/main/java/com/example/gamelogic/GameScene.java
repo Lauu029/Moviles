@@ -5,6 +5,7 @@ import com.example.engine.IFont;
 import com.example.engine.IGameObject;
 import com.example.engine.IGraphics;
 import com.example.engine.IScene;
+import com.example.engine.TouchEvent;
 
 import java.util.ArrayList;
 
@@ -44,6 +45,11 @@ public class GameScene implements IScene {
     @Override
     public int getWidth() {
         return width_;
+    }
+
+    @Override
+    public void handleInput(ArrayList<TouchEvent> events) {
+        if(events.size()!=0)System.out.println("inpuuut");
     }
 
     @Override

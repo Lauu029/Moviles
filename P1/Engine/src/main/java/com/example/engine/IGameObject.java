@@ -4,4 +4,5 @@ public interface IGameObject {
     void update(double time);
     void render(IGraphics graph);
     void init();
+    boolean handleInput(TouchEvent event);
 }

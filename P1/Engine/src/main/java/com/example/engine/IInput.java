@@ -1,6 +1,8 @@
 package com.example.engine;
 
+import java.util.ArrayList;
+
 public interface IInput {
-//    class TouchEvent;
-//
+
+    public ArrayList<TouchEvent>  getTouchEvent();
 }
