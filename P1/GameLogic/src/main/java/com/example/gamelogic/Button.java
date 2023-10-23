@@ -35,7 +35,7 @@ public class Button implements IGameObject {
         yText = this.posY + this.height / 2 + 5;
         graph.setColor(this.color);
         graph.fillRoundRectangle(this.posX, this.posY, this.width, this.height, this.arc);
-        graph.setColor(0xFFFFFFFF);
+        graph.setColor(0xFF000000);
         graph.drawText(this.text, xText, yText, this.height / 2, this.font);
 
     }

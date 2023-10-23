@@ -7,6 +7,7 @@ import com.example.engine.IScene;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -112,6 +113,8 @@ public class GraphicsDesktop implements IGraphics {
 
     @Override
     public void drawText(String text, int x, int y,int size, IFont IFont) {
+
+        this.myGraphics2D_.setFont(new Font("Arial", Font.PLAIN, size));
         this.myGraphics2D_.drawString(text, x, y);
     }
 
