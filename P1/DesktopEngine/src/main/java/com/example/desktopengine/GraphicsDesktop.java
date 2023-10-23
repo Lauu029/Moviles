@@ -219,4 +219,19 @@ public class GraphicsDesktop implements IGraphics {
 
 
     }
+
+    @Override
+    public float getScale_() {
+        return scale_;
+    }
+
+    @Override
+    public float getTranslateX_() {
+        return translateX_;
+    }
+
+    @Override
+    public float getTranslateY_() {
+        return translateY_;
+    }
 }

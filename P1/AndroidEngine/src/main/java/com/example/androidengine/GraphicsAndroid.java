@@ -56,7 +56,15 @@ public class GraphicsAndroid implements IGraphics {
         this.scale(scale_,scale_);
 
     }
-
+    public float getScale_(){
+        return scale_;
+    }
+    public float getTranslateX_(){
+        return translateX_;
+    }
+    public float getTranslateY_(){
+        return translateY_;
+    }
 
 
     @Override

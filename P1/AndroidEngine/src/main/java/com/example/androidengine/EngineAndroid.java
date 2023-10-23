@@ -7,6 +7,7 @@ import com.example.engine.IGraphics;
 import com.example.engine.IEngine;
 import com.example.engine.IInput;
 import com.example.engine.IScene;
+import com.example.engine.TouchEvent;
 
 public class EngineAndroid implements IEngine, Runnable {
     private IGraphics myGraphics_;
@@ -78,6 +79,13 @@ public class EngineAndroid implements IEngine, Runnable {
 
             // Informe de FPS
             double elapsedTime = (double) nanoElapsedTime / 1.0E9;
+            /*for(TouchEvent event:myInput_.getTouchEvent()){
+                event.x-=myGraphics_.getTranslateX_();
+                event.y-=myGraphics_.getTranslateY_();
+                event.x/=myGraphics_.getScale_();
+                event.y/=myGraphics_.getScale_();
+
+            }*/
             this.myScene_.handleInput(myInput_.getTouchEvent());
             this.myScene_.update(elapsedTime);
             if (currentTime - informePrevio > 1000000000l) {
