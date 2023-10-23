@@ -1,3 +1,5 @@
+package com.example.gamelogic;
+
 public class Board {
     private int colores, intentos, colores_usar;
     private int intentoActual;
