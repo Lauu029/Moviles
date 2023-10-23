@@ -58,6 +58,7 @@ public class GameScene implements IScene {
         };
         this.button = new Button("Boton chuli", this.font,
                  0xFFFFE906 ,150,50, 5,this.width_/2, this.height_/2);
+        addGameObject(button);
     }
 
     @Override
@@ -78,7 +79,13 @@ public class GameScene implements IScene {
     @Override
     public void handleInput(ArrayList<TouchEvent> events) {
         if (events.size() != 0) System.out.println("inpuuut");
+        for (IGameObject g : IGameObjects_) {
+            for (TouchEvent event: events) {
+                if(g.handleInput(event))
+                    return;
+            }
 
+        }
     }
 
     @Override
