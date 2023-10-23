@@ -50,6 +50,7 @@ public class GameScene implements IScene {
     @Override
     public void handleInput(ArrayList<TouchEvent> events) {
         if(events.size()!=0)System.out.println("inpuuut");
+
     }
 
     @Override
