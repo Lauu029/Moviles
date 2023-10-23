@@ -9,55 +9,32 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-public class InputDesktop implements IInput, MouseListener {
+public class InputDesktop implements IInput {
     private ArrayList<TouchEvent> myTouchEvent_;
     private ArrayList<TouchEvent> myPendingEvents_;
+    private InputHandler myInputHandler_;
     InputDesktop(JFrame jframe){
-        jframe.addMouseListener(this);
+        myInputHandler_=new InputHandler(jframe);
         myTouchEvent_=new ArrayList<TouchEvent>();
         myPendingEvents_=new ArrayList<TouchEvent>();
     }
     @Override
     public synchronized ArrayList<TouchEvent> getTouchEvent() {
         this.myTouchEvent_.clear();
-        this.myTouchEvent_.addAll(myPendingEvents_);
-
-        myPendingEvents_.clear();
-
+        this.myTouchEvent_.addAll(myInputHandler_.getMyPendingEvents_());
+        myInputHandler_.myPendingEventsClear();
         return myTouchEvent_;
     }
 
     @Override
-    public void mouseClicked(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-        //hay que hacer una pull de events
-        TouchEvent event=new TouchEvent();
-        event.x=mouseEvent.getX();
-        event.y=mouseEvent.getY();
-        event.type= TouchEvent.TouchEventType.TOUCH_DOWN;
-        synchronized (this){
-            myPendingEvents_.add(event);
+    public void resizeInput(float scale, float tranlateX, float tranlateY) {
+        for(TouchEvent event:myInputHandler_.getMyPendingEvents_()){
+            event.x-=tranlateX;
+            event.y-=tranlateY;
+            event.x/=scale;
+            event.y/=scale;
         }
-
-
     }
 
-    @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
 
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent mouseEvent) {
-
-    }
 }
