@@ -58,7 +58,7 @@ public class GameScene implements IScene {
             }
         };*/
         //IEngine_.getGraphics().setColor(0xFF000000);
-        this.font_=IEngine_.getGraphics().newFont("orangeJuice.ttf",200,false,false);
+        this.font_=IEngine_.getGraphics().newFont("orangeJuice.ttf",20,false,false);
         this.IEngine_.getGraphics().setFont(font_);
         this.button = new Button("Boton chuli", this.font_,
                 0xFF000000 ,150,50, 5,this.width_/2, this.height_/2);
@@ -108,7 +108,8 @@ public class GameScene implements IScene {
         graph.setColor(0xFFED0F8D);
         //graph.drawText("MasterMind", width_/2, 700, 100, this.font);
         graph.drawCircle(80, 300, 50);
-        graph.drawText("HOLAAAAAAAAAAAAAAAA",200,200);
+        this.IEngine_.getGraphics().setFont(font_);
+        graph.drawText("HOLAAAAAAAAAAAAAAAA",10,250);
         graph.fillRectangle(0, 0, 100, 100);
         graph.resize(width_, height_);
 
