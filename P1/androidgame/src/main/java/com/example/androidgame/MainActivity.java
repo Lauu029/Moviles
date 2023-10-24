@@ -14,6 +14,7 @@ import com.example.gamelogic.MenuScene;
 
 public class MainActivity extends AppCompatActivity {
     private SurfaceView renderView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
         this.renderView = new SurfaceView(this);
         setContentView(this.renderView);
         IEngine IEngineAndroid = new EngineAndroid(renderView);
-        MenuScene gm=new MenuScene(IEngineAndroid,400,600);
+        //MenuScene gm = new MenuScene(IEngineAndroid, 400, 600);
+        GameScene gm = new GameScene(IEngineAndroid,400,600);
         IEngineAndroid.setScene(gm);
 
         //RelativeLayout relativeLayout=findViewById(R.id.rlVar1);;

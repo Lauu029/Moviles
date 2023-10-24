@@ -83,11 +83,13 @@ public class LevelScene implements IScene {
 
     @Override
     public void handleInput(ArrayList<TouchEvent> events) {
-        if (events.size() != 0) System.out.println("inpuuut");
+        //if (events.size() != 0) System.out.println("inpuuut");
         for (IGameObject g : IGameObjects_) {
             for (TouchEvent event: events) {
-                if(g.handleInput(event))
+                if(g.handleInput(event)){
                     return;
+                }
+
             }
 
         }

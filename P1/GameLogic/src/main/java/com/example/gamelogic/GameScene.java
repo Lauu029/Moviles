@@ -13,15 +13,19 @@ import java.util.ArrayList;
 public class GameScene implements IScene {
     private Solution mySolution_;
     private IEngine IEngine_;
-   private ArrayList<IGameObject> IGameObjects_ = new ArrayList<>();
+    private ArrayList<IGameObject> IGameObjects_ = new ArrayList<>();
     private int width_, height_;
     private Button button;
+    private Board gameBoard;
     private IFont font;
+
+    private Circle prueba;
 
     public GameScene(IEngine IEngine, int w, int h) {
         IEngine_ = IEngine;
         width_ = w;
         height_ = h;
+
         System.out.print("Scene Width: " + width_ + " Scene Height: " + height_ + "\n");
     }
 
@@ -33,32 +37,13 @@ public class GameScene implements IScene {
         mySolution_.imprimeSol();
         int[] miArray = {1, 2, 3, 4, 0};
 
+        this.gameBoard = new Board(4, 6, 4, false);
+        this.prueba = new Circle(30, 50, 50);
+        //addGameObject(gameBoard);
+        addGameObject(prueba);
         mySolution_.compureba(miArray);
         mySolution_.imprime();
-        this.font= new IFont() {
-            @Override
-            public void setBold(boolean bold) {
 
-            }
-
-            @Override
-            public boolean isBold() {
-                return false;
-            }
-
-            @Override
-            public int getSize() {
-                return 0;
-            }
-
-            @Override
-            public void setSize(int size) {
-
-            }
-        };
-        this.button = new Button("Boton chuli", this.font,
-                 0xFFFFE906 ,150,50, 5,this.width_/2, this.height_/2);
-        addGameObject(button);
     }
 
     @Override
@@ -80,8 +65,8 @@ public class GameScene implements IScene {
     public void handleInput(ArrayList<TouchEvent> events) {
         if (events.size() != 0) System.out.println("inpuuut");
         for (IGameObject g : IGameObjects_) {
-            for (TouchEvent event: events) {
-                if(g.handleInput(event))
+            for (TouchEvent event : events) {
+                if (g.handleInput(event))
                     return;
             }
 
@@ -96,18 +81,12 @@ public class GameScene implements IScene {
         //Dibujamos un color de fondo para la escena
         graph.setColor(0xFF000000);
         graph.fillRectangle(0, 0, width_, height_);
+      //  gameBoard.render(graph);
+        for (IGameObject g : IGameObjects_) {
+            g.render(graph);
+        }
 
-        graph.setStrokeWidth(15);
-        graph.setColor(0xFF23FD88);
-        graph.drawRoundRectangle(80, 80, 200, 100, 25);
-        //this.button.render(graph);
-        graph.setColor(0xFFED0F8D);
-        graph.drawText("MasterMind", width_/2, 700, 100, this.font);
-        graph.drawCircle(80, 300, 50);
-
-        graph.fillRectangle(0, 0, 100, 100);
         graph.resize(width_, height_);
-
     }
 
 

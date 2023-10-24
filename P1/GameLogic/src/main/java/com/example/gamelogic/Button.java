@@ -54,8 +54,6 @@ public class Button implements IGameObject {
         graph.fillRoundRectangle(this.posX, this.posY, this.width, this.height, this.arc);
         graph.setColor(0xFFFFFFFF);
         graph.drawText(this.text, xText, yText, this.height / 2, this.font);
-
-
     }
 
     @Override
@@ -65,13 +63,13 @@ public class Button implements IGameObject {
 
     @Override
     public boolean handleInput(TouchEvent event) {
-        System.out.println("He llegado aqui x: " + event.x + " y: " + event.y);
-        System.out.println("mi posx: " + this.posX + " mi posy: " + this.posY+ " alto: "+ this.height);
+//        System.out.println("He llegado aqui x: " + event.x + " y: " + event.y);
+//        System.out.println("mi posx: " + this.posX + " mi posy: " + this.posY+ " alto: "+ this.height);
 
         if (this.posX < event.x && this.posX + this.width > event.x
                 && this.posY < event.y && this.posY + this.height > event.y) {
             // && this.posY < event.y && this.posY + this.height > event.y
-            System.out.println("Boton tocado");
+          //  System.out.println("Boton tocado");
             actualcolor_=pressedColor_;
             if(iEngine_!=null)iEngine_.setScene(new LevelScene(iEngine_,400,600));
 
