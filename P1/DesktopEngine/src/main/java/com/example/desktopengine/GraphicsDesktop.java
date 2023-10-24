@@ -58,8 +58,11 @@ public class GraphicsDesktop implements IGraphics {
 
     @Override
     public void clear(int color) {
+        AffineTransform temp=this.myGraphics2D_.getTransform();
+        this.myGraphics2D_.setTransform(af);
         this.myGraphics2D_.setColor(new Color(color));
-        this.myGraphics2D_.fillRect(0, 0, width_, height_);
+        this.myGraphics2D_.fillRect(0, 0, myView_.getWidth(), myView_.getHeight());
+        this.myGraphics2D_.setTransform(temp);
     }
 
     @Override
