@@ -1,17 +1,19 @@
 package com.example.gamelogic;
 
 import com.example.engine.IColor;
+import com.example.engine.IEngine;
 import com.example.engine.IFont;
 import com.example.engine.IGameObject;
 import com.example.engine.IGraphics;
 import com.example.engine.TouchEvent;
 
 public class Button implements IGameObject {
-    String text;
-    IFont font;
-    boolean pressed_;
-    int color,actualcolor_,pressedColor_;
-    int width = 0, height = 0, posX = 0, posY = 0, arc = 0;
+    private String text;
+    private IFont font;
+    private IEngine iEngine_;
+    private boolean pressed_;
+    private int color,actualcolor_,pressedColor_;
+    private int width = 0, height = 0, posX = 0, posY = 0, arc = 0;
 
     Button(String t, IFont f, int c, int w, int h, int a, int x, int y) {
         this.text = t;
@@ -35,7 +37,9 @@ public class Button implements IGameObject {
         pressedColor_= ALPHA |(red << 16) | (green << 8) | blue;
         pressedColor_=0xFF000000;
     }
-
+    void getIEngine(IEngine iengine){
+        iEngine_=iengine;
+    }
     @Override
     public void update(double time) {
 
@@ -69,6 +73,7 @@ public class Button implements IGameObject {
             // && this.posY < event.y && this.posY + this.height > event.y
             System.out.println("Boton tocado");
             actualcolor_=pressedColor_;
+            if(iEngine_!=null)iEngine_.setScene(new LevelScene(iEngine_,400,600));
 
             return true;
         }

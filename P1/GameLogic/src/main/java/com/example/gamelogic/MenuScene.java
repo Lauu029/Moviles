@@ -50,8 +50,9 @@ public class MenuScene implements IScene {
 
             }
         };
-        this.button = new Button("JUGAR", this.font,0xFFAA77C3
+        this.button = new Button("JUGAR", this.font,0XFFDDB5DF
                  ,150,50, 5,this.width_/2-150/2, this.height_/2-25);
+        button.getIEngine(IEngine_);
         addGameObject(button);
     }
 
@@ -86,12 +87,12 @@ public class MenuScene implements IScene {
     public void render() {
         IGraphics graph = IEngine_.getGraphics();
         //Dibujamos un color de fondo para la escena
-        graph.setColor(0xFFFFFFF);
+        graph.setColor(0xFFe3fcf3);
         graph.fillRectangle(0, 0, width_, height_);
         for (int i = 0; i < IGameObjects_.size(); i++) {
             IGameObjects_.get(i).render(graph);
         }
-        graph.setColor(0xFF5D58D7);
+        graph.setColor(0xFF58B2E6);
         graph.drawText("MasterMind", width_/2, 100, 57, this.font);
 
     }

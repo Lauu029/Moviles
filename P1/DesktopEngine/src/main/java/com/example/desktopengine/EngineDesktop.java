@@ -99,6 +99,7 @@ public class EngineDesktop implements IEngine, Runnable {
             }
 
             myScene_.handleInput(myInput_.getTouchEvent());
+            myInput_.myEventsClear();
             this.myScene_.update(elapsedTime);//elapsedTime
             //render();
             myGraphics_.prepareFrame();
@@ -124,6 +125,7 @@ public class EngineDesktop implements IEngine, Runnable {
     @Override
     public void setScene(IScene myIScene) {
         this.myScene_ = myIScene;
+        myScene_.init();
     }
     @Override
     public IGraphics getGraphics() {

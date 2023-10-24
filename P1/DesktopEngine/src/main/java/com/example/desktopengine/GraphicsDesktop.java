@@ -167,6 +167,8 @@ public class GraphicsDesktop implements IGraphics {
     @Override
     public void prepareFrame() {
         myGraphics2D_ = (Graphics2D) this.myBufferStrategy_.getDrawGraphics();
+        this.translate(translateX_,translateY_);
+        this.scale(scale_,scale_);
     }
 
     @Override
@@ -231,8 +233,7 @@ public class GraphicsDesktop implements IGraphics {
         if(translateY_==0.0f)translateY_+=up;
         if(translateX_==0.0f) translateX_+=left;
         this.myGraphics2D_.setTransform(af);
-        this.translate(translateX_,translateY_);
-        this.scale(scale_,scale_);
+
 
 
     }

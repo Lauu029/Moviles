@@ -1,5 +1,7 @@
 package com.example.gamelogic;
 
+
+
 import com.example.engine.IEngine;
 import com.example.engine.IFont;
 import com.example.engine.IGameObject;
@@ -10,15 +12,15 @@ import com.example.engine.TouchEvent;
 import java.awt.Color;
 import java.util.ArrayList;
 
-public class GameScene implements IScene {
-    private Solution mySolution_;
+public class LevelScene implements IScene {
+
     private IEngine IEngine_;
-   private ArrayList<IGameObject> IGameObjects_ = new ArrayList<>();
+    private ArrayList<IGameObject> IGameObjects_ = new ArrayList<>();
     private int width_, height_;
-    private Button button;
+
     private IFont font;
 
-    public GameScene(IEngine IEngine, int w, int h) {
+    public LevelScene(IEngine IEngine, int w, int h) {
         IEngine_ = IEngine;
         width_ = w;
         height_ = h;
@@ -28,13 +30,7 @@ public class GameScene implements IScene {
     @Override
     public void init() {
         //creacion de la solucion
-        mySolution_ = new Solution();
-        mySolution_.createSolution(true, 5, 8, 8);
-        mySolution_.imprimeSol();
-        int[] miArray = {1, 2, 3, 4, 0};
 
-        mySolution_.compureba(miArray);
-        mySolution_.imprime();
         this.font= new IFont() {
             @Override
             public void setBold(boolean bold) {
@@ -56,9 +52,18 @@ public class GameScene implements IScene {
 
             }
         };
-        this.button = new Button("Boton chuli", this.font,
-                 0xFFFFE906 ,150,50, 5,this.width_/2, this.height_/2);
-        addGameObject(button);
+        String [] nombres={"FACIL" ,
+                "MEDIO" ,
+                "DIFICIL" ,
+                "IMPOSIBLE"};
+        int [] colores={0xFF58B2E6,0XFFA9B2EC,0XFFDDB5DF,0XFFF6C0CF};
+        for(int i=0;i< 4;i++){
+            Button but=new Button(nombres[i], this.font,
+                    colores[i] ,150,50, 5,this.width_/2-150/2,90*i+80);
+            but.getIEngine(IEngine_);
+            this.addGameObject(but);
+        }
+
     }
 
     @Override
@@ -91,22 +96,12 @@ public class GameScene implements IScene {
     @Override
     public void render() {
         IGraphics graph = IEngine_.getGraphics();
-
-
-        //Dibujamos un color de fondo para la escena
-        graph.setColor(0xFF000000);
+        graph.setColor(0xFFe3fcf3);
         graph.fillRectangle(0, 0, width_, height_);
+        for (int i = 0; i < IGameObjects_.size(); i++) {
+            IGameObjects_.get(i).render(graph);
+        }
 
-        graph.setStrokeWidth(15);
-        graph.setColor(0xFF23FD88);
-        graph.drawRoundRectangle(80, 80, 200, 100, 25);
-        //this.button.render(graph);
-        graph.setColor(0xFFED0F8D);
-        graph.drawText("MasterMind", width_/2, 700, 100, this.font);
-        graph.drawCircle(80, 300, 50);
-
-        graph.fillRectangle(0, 0, 100, 100);
-        graph.resize(width_, height_);
 
     }
 
