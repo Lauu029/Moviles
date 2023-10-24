@@ -28,15 +28,7 @@ public class InputDesktop implements IInput {
     public void myEventsClear(){
         myTouchEvent_.clear();
     }
-    @Override
-    public void resizeInput(float scale, float tranlateX, float tranlateY) {
-        for(TouchEvent event:myInputHandler_.getMyPendingEvents_()){
-            event.x-=tranlateX;
-            event.y-=tranlateY;
-            event.x/=scale;
-            event.y/=scale;
-        }
-    }
+
 
 
 }
