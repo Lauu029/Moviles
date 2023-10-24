@@ -1,9 +1,12 @@
 package com.example.engine;
 
+import java.io.IOException;
+
 public interface IGraphics {
-    IImage newImage(String name);
+    IImage newImage(String name) throws IOException;
 
     IFont newFont(String filename, int size, boolean isBold);
+
 
     void clear(int color);
 

@@ -1,7 +1,10 @@
 package com.example.androidengine;
 
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Build;
 import android.view.SurfaceHolder;
@@ -14,6 +17,8 @@ import com.example.engine.IImage;
 import com.example.engine.IInput;
 import com.example.engine.IScene;
 
+import java.io.InputStream;
+
 public class GraphicsAndroid implements IGraphics {
     private int width_ = 0, height_ = 0;
     private SurfaceView myView_;
@@ -24,12 +29,13 @@ public class GraphicsAndroid implements IGraphics {
 
     float scale_=1;
     float translateX_=0,translateY_=0;
-    public GraphicsAndroid(SurfaceView view) {
+    AssetManager asset_;
+    public GraphicsAndroid(SurfaceView view,  AssetManager asset) {
         this.myView_ = view;
         this.myHolder_ = this.myView_.getHolder();
         this.myPaint_ = new Paint();
         this.myCanvas_ = new Canvas();
-
+        asset_=asset;
         this.myColor_ = new ColorAndroid();
        // this.paint.setColor(0x53ECDED3);
     }
@@ -70,7 +76,12 @@ public class GraphicsAndroid implements IGraphics {
 
     @Override
     public ImageAndroid newImage(String name) {
-        return new ImageAndroid(name);
+
+        Bitmap bitmap =null;
+        InputStream is=null;
+        //is=asset_.open(name);
+        return  null;
+
     }
 
     @Override
@@ -87,8 +98,19 @@ public class GraphicsAndroid implements IGraphics {
         myPaint_.setStrokeWidth(width);
     }
     @Override
-    public void drawImage(IImage IImage, int posX, int posY, int height, int widht) {
-
+    public void drawImage(IImage iimage, int posX, int posY, int height, int widht) {
+        ImageAndroid imageAndroid=(ImageAndroid)iimage;
+        Rect src=new Rect();
+        src.left=0;
+        src.top=0;
+        src.right=imageAndroid.getWidth();
+        src.bottom=imageAndroid.getHeight();
+        Rect dst=new Rect();
+        dst.left=posX;
+        dst.top=posY;
+        dst.right=posX+widht;
+        dst.bottom=posY+height;
+        this.myCanvas_.drawBitmap(imageAndroid.getImage(),src,dst,this.myPaint_);
     }
 
     @Override

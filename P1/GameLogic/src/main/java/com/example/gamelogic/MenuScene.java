@@ -4,9 +4,11 @@ import com.example.engine.IEngine;
 import com.example.engine.IFont;
 import com.example.engine.IGameObject;
 import com.example.engine.IGraphics;
+import com.example.engine.IImage;
 import com.example.engine.IScene;
 import com.example.engine.TouchEvent;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MenuScene implements IScene {
@@ -16,6 +18,7 @@ public class MenuScene implements IScene {
     private int width_, height_;
     Button button;
     IFont font;
+    private IImage image_;
 
     public MenuScene(IEngine IEngine, int w, int h) {
         IEngine_ = IEngine;
@@ -26,7 +29,7 @@ public class MenuScene implements IScene {
 
 
     @Override
-    public void init() {
+    public void init()  {
         //creacion de la solucion
 
         this.font= new IFont() {
@@ -54,6 +57,7 @@ public class MenuScene implements IScene {
                  ,150,50, 5,this.width_/2-150/2, this.height_/2-25);
         button.getIEngine(IEngine_);
         addGameObject(button);
+       // this.image_=IEngine_.getGraphics().newImage("hola.png");
     }
 
     @Override

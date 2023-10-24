@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         IEngine IEngineAndroid = new EngineAndroid(renderView);
         MenuScene gm=new MenuScene(IEngineAndroid,400,600);
         IEngineAndroid.setScene(gm);
+
         //RelativeLayout relativeLayout=findViewById(R.id.rlVar1);;
 
         IEngineAndroid.resume();

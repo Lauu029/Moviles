@@ -9,18 +9,23 @@ import com.example.engine.TouchEvent;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 public class GraphicsDesktop implements IGraphics {
-
+    private String Imagesroute="";
     private JFrame myView_;
     private BufferStrategy myBufferStrategy_;
     private Graphics2D myGraphics2D_;
@@ -47,8 +52,12 @@ public class GraphicsDesktop implements IGraphics {
     void setSize( ){}
 
     @Override
-    public IImage newImage(String name) {
-        return null;
+    public IImage newImage(String name) throws IOException {
+        Image image=null;
+        image= ImageIO.read(new File(this.Imagesroute+name));
+
+        return new ImageDesktop(image);
+
     }
 
     @Override
@@ -66,8 +75,9 @@ public class GraphicsDesktop implements IGraphics {
     }
 
     @Override
-    public void drawImage(IImage IImage, int posX, int posY, int height, int widht) {
-
+    public void drawImage(IImage iimage, int posX, int posY, int height, int widht) {
+        ImageDesktop dimage=(ImageDesktop)iimage;
+        myGraphics2D_.drawImage(dimage.getImage(),posX,posY,posX+widht,posY+height,0,0,dimage.getWidth(),dimage.getHeight(),null);
     }
 
     @Override
