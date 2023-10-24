@@ -19,8 +19,6 @@ public class GameScene implements IScene {
     private Board gameBoard;
     private IFont font;
 
-    private Circle prueba;
-
     public GameScene(IEngine IEngine, int w, int h) {
         IEngine_ = IEngine;
         width_ = w;
@@ -38,9 +36,9 @@ public class GameScene implements IScene {
         int[] miArray = {1, 2, 3, 4, 0};
 
         this.gameBoard = new Board(4, 6, 4, false);
-        this.prueba = new Circle(30, 50, 50);
-        //addGameObject(gameBoard);
-        addGameObject(prueba);
+
+        addGameObject(gameBoard);
+
         mySolution_.compureba(miArray);
         mySolution_.imprime();
 
