@@ -61,9 +61,10 @@ public class GraphicsDesktop implements IGraphics {
     }
 
     @Override
-    public IFont newFont(String filename, int size, boolean isBold) {
+    public IFont newFont(String filename, int size, boolean isBold, boolean italic) {
         return null;
     }
+
 
     @Override
     public void clear(int color) {
@@ -122,12 +123,23 @@ public class GraphicsDesktop implements IGraphics {
     }
 
     @Override
+    public void setFont(IFont font) {
+        FontDesktop dfont=(FontDesktop)font;
+        this.myGraphics2D_.setFont(dfont.getFont());
+    }
+
+    @Override
     public void drawCircle(int cx, int cy, int radius) {
         this.myGraphics2D_.fillOval(cx-radius,cy-radius,2*radius,2*radius);
 
     }
 
     @Override
+    public void drawText(String text, int x, int y) {
+        
+    }
+
+   /* @Override
     public void drawText(String text, int x, int y,int size, IFont IFont) {
         Font font = new Font("Arial", Font.PLAIN, size);
         this.myGraphics2D_.setFont(font);
@@ -140,7 +152,7 @@ public class GraphicsDesktop implements IGraphics {
 
         this.myGraphics2D_.drawString(text, x, y);
         this.myGraphics2D_.drawString(text, x, y);
-    }
+    }*/
 
     @Override
     public int getWidth() {

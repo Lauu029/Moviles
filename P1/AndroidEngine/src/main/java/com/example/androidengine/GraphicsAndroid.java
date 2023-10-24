@@ -85,6 +85,11 @@ public class GraphicsAndroid implements IGraphics {
     }
 
     @Override
+    public IFont newFont(String filename, int size, boolean isBold, boolean italic) {
+        return null;
+    }
+
+    @Override
     public FontAndroid newFont(String filename, int size, boolean isBold) {
         return new FontAndroid(filename, size, isBold);
     }
@@ -155,9 +160,19 @@ public class GraphicsAndroid implements IGraphics {
     }
 
     @Override
+    public void setFont(IFont font) {
+
+    }
+
+    @Override
     public void drawCircle(int cx, int cy, int radius) {
         myPaint_.setStyle(Paint.Style.FILL);
         myCanvas_.drawCircle(cx, cy, radius, myPaint_);
+    }
+
+    @Override
+    public void drawText(String text, int x, int y) {
+
     }
 
     @Override

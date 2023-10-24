@@ -1,17 +1,22 @@
 package com.example.androidengine;
 
+import android.graphics.Typeface;
+
 import com.example.engine.IFont;
 
 public class FontAndroid implements IFont {
     private String name_;
+    Typeface font;
+
     private int size_;
     private boolean bold_;
 
-    public FontAndroid(String filename, int size, boolean isBold) {
-        this.size_ = size;
-        this.bold_ = isBold;
-    }
+    public FontAndroid(String filename,int size,boolean bold,boolean italic) {
 
+    }
+    public Typeface getFont(){
+        return font;
+    }
     @Override
     public void setBold(boolean bold) {
         this.bold_ = bold;

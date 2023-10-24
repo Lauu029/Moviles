@@ -5,7 +5,7 @@ import java.io.IOException;
 public interface IGraphics {
     IImage newImage(String name) throws IOException;
 
-    IFont newFont(String filename, int size, boolean isBold);
+    IFont newFont(String filename, int size, boolean isBold,boolean italic);
 
 
     void clear(int color);
@@ -23,10 +23,11 @@ public interface IGraphics {
     void drawRoundRectangle(int cX, int cY, int width, int height, int arc);
 
     void drawLine(int initX, int initY, int endX, int endY);
+    void setFont(IFont font);
 
     void drawCircle(int cx, int cy, int radius);
 
-    void drawText(String text, int x, int y, int size, IFont IFont);
+    void drawText(String text, int x, int y);
 
     int getWidth();
     int getHeight();
@@ -42,6 +43,7 @@ public interface IGraphics {
     public float getScale_();
     public float getTranslateX_();
     public float getTranslateY_();
+
 
 
 }
