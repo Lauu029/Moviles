@@ -22,6 +22,17 @@ public class InputAndroid implements IInput,View.OnTouchListener{
 
         return myTouchEvent_;
     }
+
+    @Override
+    public void resizeInput(float sclae, float tranlateX, float tranlateY) {
+
+    }
+
+    @Override
+    public void myEventsClear() {
+
+    }
+
     InputAndroid(SurfaceView view){
         myTouchEvent_=new ArrayList<TouchEvent>();
         myPendingEvents_=new ArrayList<TouchEvent>();

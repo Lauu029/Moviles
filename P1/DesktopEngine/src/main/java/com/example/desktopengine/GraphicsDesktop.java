@@ -3,7 +3,9 @@ package com.example.desktopengine;
 import com.example.engine.IFont;
 import com.example.engine.IGraphics;
 import com.example.engine.IImage;
+import com.example.engine.IInput;
 import com.example.engine.IScene;
+import com.example.engine.TouchEvent;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -176,14 +178,22 @@ public class GraphicsDesktop implements IGraphics {
     }
 
     @Override
-    public void render(IScene scene) {
+    public void render(IScene scene,IInput input) {
         do {
             do {
                 myGraphics2D_ = (Graphics2D) this.myBufferStrategy_.getDrawGraphics();
                 try {
                     // Establecer la escala y la traslación
                     resize(scene.getWidth(), scene.getHeight());
+                    for(TouchEvent event:input.getTouchEvent()){
+                        event.x-=getTranslateX_();
+                        event.y-=getTranslateY_();
+                        event.x/=getScale_();
+                        event.y/=getScale_();
 
+                    }
+                    scene.handleInput(input.getTouchEvent());
+                    input.myEventsClear();
                     // Dibujar la escena
                     scene.render();
                 } finally {

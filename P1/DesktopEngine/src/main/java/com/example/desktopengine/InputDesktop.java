@@ -20,12 +20,14 @@ public class InputDesktop implements IInput {
     }
     @Override
     public synchronized ArrayList<TouchEvent> getTouchEvent() {
-        this.myTouchEvent_.clear();
+        //this.myTouchEvent_.clear();
         this.myTouchEvent_.addAll(myInputHandler_.getMyPendingEvents_());
         myInputHandler_.myPendingEventsClear();
         return myTouchEvent_;
     }
-
+    public void myEventsClear(){
+        myTouchEvent_.clear();
+    }
     @Override
     public void resizeInput(float scale, float tranlateX, float tranlateY) {
         for(TouchEvent event:myInputHandler_.getMyPendingEvents_()){

@@ -6,4 +6,5 @@ public interface IInput {
 
     public ArrayList<TouchEvent>  getTouchEvent();
     public void resizeInput(float sclae,float tranlateX, float tranlateY);
+    public void myEventsClear();
 }

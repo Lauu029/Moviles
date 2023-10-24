@@ -26,6 +26,7 @@ public class InputHandler implements MouseListener {
     public void myPendingEventsClear(){
         myPendingEvents_.clear();
     }
+
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
         TouchEvent event=new TouchEvent();

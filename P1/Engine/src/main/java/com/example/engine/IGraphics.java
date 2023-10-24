@@ -34,7 +34,7 @@ public interface IGraphics {
     void restore();
     void prepareFrame();
     void endFrame();
-    void render(IScene scene);
+    void render(IScene scene, IInput input);
     void resize(float sceneWidth, float sceneHeight);
     public float getScale_();
     public float getTranslateX_();
