@@ -16,7 +16,7 @@ public class GameScene implements IScene {
    private ArrayList<IGameObject> IGameObjects_ = new ArrayList<>();
     private int width_, height_;
     private Button button;
-    private IFont font;
+    private IFont font_;
 
     public GameScene(IEngine IEngine, int w, int h) {
         IEngine_ = IEngine;
@@ -35,7 +35,8 @@ public class GameScene implements IScene {
 
         mySolution_.compureba(miArray);
         mySolution_.imprime();
-        this.font= new IFont() {
+
+        /*this.font_= new IFont() {
             @Override
             public void setBold(boolean bold) {
 
@@ -55,9 +56,12 @@ public class GameScene implements IScene {
             public void setSize(int size) {
 
             }
-        };
-        this.button = new Button("Boton chuli", this.font,
-                 0xFFFFE906 ,150,50, 5,this.width_/2, this.height_/2);
+        };*/
+        //IEngine_.getGraphics().setColor(0xFF000000);
+        this.font_=IEngine_.getGraphics().newFont("orangeJuice.ttf",200,false,false);
+        this.IEngine_.getGraphics().setFont(font_);
+        this.button = new Button("Boton chuli", this.font_,
+                0xFF000000 ,150,50, 5,this.width_/2, this.height_/2);
         addGameObject(button);
     }
 

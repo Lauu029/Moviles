@@ -46,7 +46,7 @@ public class GraphicsDesktop implements IGraphics {
         width_=myView_.getWidth();
 
         af = myGraphics2D_.getTransform();
-        //font_=newFont("assets/orangeJuice.ttf",40,false,false);
+        //font_=
         //setFont(font_);
     }
     void setSize( ){}

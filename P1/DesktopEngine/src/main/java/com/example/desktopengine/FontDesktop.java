@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class FontDesktop implements IFont {
-    private String name_;
+    private String name_="Assets/";
     private Font myFont_;
     private int size_;
     private boolean bold_;
@@ -26,19 +26,19 @@ public class FontDesktop implements IFont {
         myFont_=null;
 
         try {
-            is = new FileInputStream(filename);
+            is = new FileInputStream(name_+filename);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
         try {
             myFont_ = Font.createFont(Font.TRUETYPE_FONT, is);
-            myFont_=myFont_.deriveFont(Font.TRUETYPE_FONT,size_);
+
         } catch (FontFormatException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
+        myFont_=myFont_.deriveFont(Font.TRUETYPE_FONT,size_);
     }
     Font getFont(){
         return myFont_;
