@@ -86,7 +86,15 @@ public class EngineAndroid implements IEngine, Runnable {
                 event.y/=myGraphics_.getScale_();
 
             }*/
+            myGraphics_.resize(myScene_.getWidth(),myScene_.getHeight());
+            for(TouchEvent event:myInput_.getTouchEvent()){
+                event.x-=myGraphics_.getTranslateX_();
+                event.y-=myGraphics_.getTranslateY_();
+                event.x/=myGraphics_.getScale_();
+                event.y/=myGraphics_.getScale_();
+            }
             this.myScene_.handleInput(myInput_.getTouchEvent());
+            myInput_.myEventsClear();
             this.myScene_.update(elapsedTime);
             if (currentTime - informePrevio > 1000000000l) {
                 long fps = frames * 1000000000l / (currentTime - informePrevio);
@@ -96,7 +104,6 @@ public class EngineAndroid implements IEngine, Runnable {
             }
             ++frames;
             myGraphics_.prepareFrame();
-            myGraphics_.resize(myScene_.getWidth(),myScene_.getHeight());
             myScene_.render();
             myGraphics_.endFrame();
         }

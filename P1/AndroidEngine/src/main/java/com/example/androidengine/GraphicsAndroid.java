@@ -11,6 +11,7 @@ import com.example.engine.IColor;
 import com.example.engine.IFont;
 import com.example.engine.IGraphics;
 import com.example.engine.IImage;
+import com.example.engine.IInput;
 import com.example.engine.IScene;
 
 public class GraphicsAndroid implements IGraphics {
@@ -52,8 +53,8 @@ public class GraphicsAndroid implements IGraphics {
 
         translateX_ = (width_ - resizeW) / 2;
         translateY_ = (height_ - resizeH) / 2;
-        this.translate(translateX_,translateY_);
-        this.scale(scale_,scale_);
+        /*this.translate(translateX_,translateY_);
+        this.scale(scale_,scale_);*/
 
     }
     public float getScale_(){
@@ -187,6 +188,8 @@ public class GraphicsAndroid implements IGraphics {
             this.myCanvas_ = this.myHolder_.lockHardwareCanvas();
         }
         else this.myCanvas_ = this.myHolder_.lockCanvas();
+        this.translate(translateX_,translateY_);
+        this.scale(scale_,scale_);
     }
 
     @Override
@@ -196,7 +199,7 @@ public class GraphicsAndroid implements IGraphics {
     }
 
     @Override
-    public void render(IScene scene) {
+    public void render(IScene scene, IInput input) {
 
     }
 

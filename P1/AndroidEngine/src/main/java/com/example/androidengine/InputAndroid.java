@@ -15,11 +15,8 @@ public class InputAndroid implements IInput,View.OnTouchListener{
 
     @Override
     public synchronized ArrayList<TouchEvent> getTouchEvent() {
-        this.myTouchEvent_.clear();
         this.myTouchEvent_.addAll(myPendingEvents_);
-
         myPendingEvents_.clear();
-
         return myTouchEvent_;
     }
 
@@ -30,7 +27,7 @@ public class InputAndroid implements IInput,View.OnTouchListener{
 
     @Override
     public void myEventsClear() {
-
+        myTouchEvent_.clear();
     }
 
     InputAndroid(SurfaceView view){
