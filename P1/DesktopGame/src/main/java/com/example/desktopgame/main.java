@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 
 public class main {
     static private JFrame myView;
+
     public static void main(String[] args) {
 
         myView = new JFrame("Mastermind");
@@ -19,28 +20,26 @@ public class main {
         myView.setIgnoreRepaint(true);
         myView.setVisible(true);
         int intentos = 100;
-        while(intentos-- > 0) {
+        while (intentos-- > 0) {
             try {
                 myView.createBufferStrategy(2);
                 break;
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
             }
         } // while pidiendo la creación de la buffeStrategy
         if (intentos == 0) {
             System.err.println("No pude crear la BufferStrategy");
             return;
-        }
-        else {
+        } else {
             // En "modo debug" podríamos querer escribir esto.
             //System.out.println("BufferStrategy tras " + (100 - intentos) + " intentos.");
         }
 
         IEngine IEngineDesktop = new EngineDesktop(myView);
 
-        MenuScene gm=new MenuScene(IEngineDesktop,400,600);
+       // MenuScene gm = new MenuScene(IEngineDesktop, 400, 600);
         //LevelScene gm=new LevelScene(IEngineDesktop,400,600);
-
+        GameScene gm = new GameScene(IEngineDesktop, 400, 600);
         IEngineDesktop.setScene(gm);
         gm.init();
 
