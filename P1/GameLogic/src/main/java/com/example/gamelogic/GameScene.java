@@ -102,9 +102,9 @@ public class GameScene implements IScene {
         graph.drawRoundRectangle(80, 80, 200, 100, 25);
         //this.button.render(graph);
         graph.setColor(0xFFED0F8D);
-        graph.drawText("MasterMind", width_/2, 700, 100, this.font);
+        //graph.drawText("MasterMind", width_/2, 700, 100, this.font);
         graph.drawCircle(80, 300, 50);
-
+        graph.drawText("HOLAAAAAAAAAAAAAAAA",200,200);
         graph.fillRectangle(0, 0, 100, 100);
         graph.resize(width_, height_);
 

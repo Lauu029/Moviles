@@ -33,7 +33,7 @@ public class GraphicsDesktop implements IGraphics {
     float scale_=1;
     float translateX_=0,translateY_=0;
     private int width_ = 0, height_ = 0;
-
+    IFont font_;
     AffineTransform af;
     public GraphicsDesktop(JFrame myView){
         this.myView_=myView;
@@ -46,8 +46,8 @@ public class GraphicsDesktop implements IGraphics {
         width_=myView_.getWidth();
 
         af = myGraphics2D_.getTransform();
-
-
+        //font_=newFont("assets/orangeJuice.ttf",40,false,false);
+        //setFont(font_);
     }
     void setSize( ){}
 
@@ -62,10 +62,19 @@ public class GraphicsDesktop implements IGraphics {
 
     @Override
     public IFont newFont(String filename, int size, boolean isBold, boolean italic) {
-        return null;
+
+        return new FontDesktop(filename,size,isBold,italic);
     }
 
-
+    @Override
+    public void drawText(String text, int x, int y) {
+        this.myGraphics2D_.drawString(text, x, y);
+    }
+    @Override
+    public void setFont(IFont font) {
+        FontDesktop dfont=(FontDesktop)font;
+        this.myGraphics2D_.setFont(dfont.getFont());
+    }
     @Override
     public void clear(int color) {
         AffineTransform temp=this.myGraphics2D_.getTransform();
@@ -122,11 +131,7 @@ public class GraphicsDesktop implements IGraphics {
         this.myGraphics2D_.drawLine(initX, initY, endX, endY);
     }
 
-    @Override
-    public void setFont(IFont font) {
-        FontDesktop dfont=(FontDesktop)font;
-        this.myGraphics2D_.setFont(dfont.getFont());
-    }
+
 
     @Override
     public void drawCircle(int cx, int cy, int radius) {
@@ -134,10 +139,6 @@ public class GraphicsDesktop implements IGraphics {
 
     }
 
-    @Override
-    public void drawText(String text, int x, int y) {
-        
-    }
 
    /* @Override
     public void drawText(String text, int x, int y,int size, IFont IFont) {

@@ -53,7 +53,7 @@ public class Button implements IGameObject {
         graph.setColor(this.actualcolor_);
         graph.fillRoundRectangle(this.posX, this.posY, this.width, this.height, this.arc);
         graph.setColor(0xFFFFFFFF);
-        graph.drawText(this.text, xText, yText, this.height / 2, this.font);
+        //graph.drawText(this.text, xText, yText, this.height / 2, this.font);
 
 
     }

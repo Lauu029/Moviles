@@ -89,10 +89,10 @@ public class GraphicsAndroid implements IGraphics {
         return null;
     }
 
-    @Override
+    /*@Override
     public FontAndroid newFont(String filename, int size, boolean isBold) {
         return new FontAndroid(filename, size, isBold);
-    }
+    }*/
 
     @Override
     public void clear(int color) {
@@ -172,14 +172,9 @@ public class GraphicsAndroid implements IGraphics {
 
     @Override
     public void drawText(String text, int x, int y) {
-
-    }
-
-    @Override
-    public void drawText(String text, int x, int y,int size, IFont IFont) {
         //canvas.drawText();
         myPaint_.setStyle(Paint.Style.FILL);
-        myPaint_.setTextSize(size);
+        //myPaint_.setTextSize(size);
         myPaint_.setTextAlign(Paint.Align.CENTER); // Establecer el alineamiento al centro
 
         float centerX = x;
