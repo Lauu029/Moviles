@@ -87,14 +87,25 @@ public class EngineDesktop implements IEngine, Runnable {
                 event.y/=myGraphics_.getScale_();
 
             }
+
             myScene_.handleInput(myInput_.getTouchEvent());*/
+            myGraphics_.resize(myScene_.getWidth(), myScene_.getHeight());
+            for(TouchEvent event:myInput_.getTouchEvent()){
+                event.x-=myGraphics_.getTranslateX_();
+                event.y-=myGraphics_.getTranslateY_();
+                event.x/=myGraphics_.getScale_();
+                event.y/=myGraphics_.getScale_();
+
+            }
+
+            myScene_.handleInput(myInput_.getTouchEvent());
             this.myScene_.update(elapsedTime);//elapsedTime
             //render();
-            //myGraphics_.prepareFrame();
-            //myGraphics_.resize(myScene_.getWidth(),myScene_.getHeight());
-            //myScene_.render();
-            //myGraphics_.endFrame();
-            myGraphics_.render(myScene_,myInput_);
+            myGraphics_.prepareFrame();
+
+            myScene_.render();
+            myGraphics_.endFrame();
+
 
             if (currentTime - informePrevio > 1000000000l) {
                 long fps = frames * 1000000000l / (currentTime - informePrevio);

@@ -79,13 +79,7 @@ public class EngineAndroid implements IEngine, Runnable {
 
             // Informe de FPS
             double elapsedTime = (double) nanoElapsedTime / 1.0E9;
-            /*for(TouchEvent event:myInput_.getTouchEvent()){
-                event.x-=myGraphics_.getTranslateX_();
-                event.y-=myGraphics_.getTranslateY_();
-                event.x/=myGraphics_.getScale_();
-                event.y/=myGraphics_.getScale_();
 
-            }*/
             myGraphics_.resize(myScene_.getWidth(),myScene_.getHeight());
             for(TouchEvent event:myInput_.getTouchEvent()){
                 event.x-=myGraphics_.getTranslateX_();

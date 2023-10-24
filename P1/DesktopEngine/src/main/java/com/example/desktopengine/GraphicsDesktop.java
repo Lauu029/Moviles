@@ -166,25 +166,17 @@ public class GraphicsDesktop implements IGraphics {
 
     @Override
     public void prepareFrame() {
-        do {
-            do {
-                myGraphics2D_ = (Graphics2D) this.myBufferStrategy_.getDrawGraphics();
-            } while (this.myBufferStrategy_.contentsRestored());
-        } while (this.myBufferStrategy_.contentsLost());
+        myGraphics2D_ = (Graphics2D) this.myBufferStrategy_.getDrawGraphics();
     }
 
     @Override
     public void endFrame() {
-        do {
-            do {
-
-                myGraphics2D_.dispose();
-            } while (this.myBufferStrategy_.contentsRestored());
-            this.myBufferStrategy_.show();
-        } while (this.myBufferStrategy_.contentsLost());
-
-
+        myGraphics2D_.dispose();
+        this.myBufferStrategy_.show();
     }
+
+
+
 
     @Override
     public void render(IScene scene,IInput input) {
