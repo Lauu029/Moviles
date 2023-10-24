@@ -4,6 +4,7 @@ package com.example.desktopgame;
 import com.example.desktopengine.EngineDesktop;
 import com.example.engine.IEngine;
 import com.example.gamelogic.GameScene;
+import com.example.gamelogic.MenuScene;
 
 import javax.swing.JFrame;
 
@@ -36,7 +37,7 @@ public class main {
 
         IEngine IEngineDesktop = new EngineDesktop(myView);
 
-        GameScene gm=new GameScene(IEngineDesktop,400,600);
+        MenuScene gm=new MenuScene(IEngineDesktop,400,600);
         IEngineDesktop.setScene(gm);
         gm.init();
 
