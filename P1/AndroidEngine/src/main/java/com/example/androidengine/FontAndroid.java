@@ -1,21 +1,28 @@
 package com.example.androidengine;
 
 import android.graphics.Typeface;
-
+import android.content.res.AssetManager;
 import com.example.engine.IFont;
 
+import java.io.InputStream;
+
 public class FontAndroid implements IFont {
-    private String name_;
-    Typeface font;
+    private String name_="Assets/";
+    Typeface myFont_;
 
     private int size_;
     private boolean bold_;
-
-    public FontAndroid(String filename,int size,boolean bold,boolean italic) {
+    private boolean italic_;
+    public FontAndroid(String filename,int size,boolean isBold,boolean italic, AssetManager assMan) {
+        this.size_ = size;
+        this.bold_ = isBold;
+        this.italic_=italic;
+        myFont_=null;
+        myFont_=Typeface.createFromAsset(assMan,name_+filename);
 
     }
     public Typeface getFont(){
-        return font;
+        return myFont_;
     }
     @Override
     public void setBold(boolean bold) {

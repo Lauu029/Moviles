@@ -61,7 +61,7 @@ public class GameScene implements IScene {
         this.font_=IEngine_.getGraphics().newFont("orangeJuice.ttf",20,false,false);
         this.IEngine_.getGraphics().setFont(font_);
         this.button = new Button("Boton chuli", this.font_,
-                0xFF000000 ,150,50, 5,this.width_/2, this.height_/2);
+                0xFF000000 ,150,50, 5,10, 10);
         addGameObject(button);
     }
 
@@ -104,12 +104,12 @@ public class GameScene implements IScene {
         graph.setStrokeWidth(15);
         graph.setColor(0xFF23FD88);
         graph.drawRoundRectangle(80, 80, 200, 100, 25);
-        //this.button.render(graph);
+        this.button.render(graph); //POR QUE NO SE VE?
         graph.setColor(0xFFED0F8D);
         //graph.drawText("MasterMind", width_/2, 700, 100, this.font);
         graph.drawCircle(80, 300, 50);
         this.IEngine_.getGraphics().setFont(font_);
-        graph.drawText("HOLAAAAAAAAAAAAAAAA",10,250);
+        graph.drawText("HOLAAAAAAAAAAAAAAAA",0,10);
         graph.fillRectangle(0, 0, 100, 100);
         graph.resize(width_, height_);
 

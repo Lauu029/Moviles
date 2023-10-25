@@ -18,7 +18,8 @@ public class EngineAndroid implements IEngine, Runnable {
     private IScene myScene_;
     private IAudio myAudio_;
     private IInput myInput_;
-    AssetManager asset;
+    private AssetManager myAssetManager_;
+
 
     public EngineAndroid(SurfaceView myView) {
         myView_ = myView;
@@ -26,8 +27,8 @@ public class EngineAndroid implements IEngine, Runnable {
         running_ = false;
         myAudio_ = new AudioAndroid();
         myInput_ = new InputAndroid(myView_);
-        asset=myView.getContext().getAssets();
-        myGraphics_ = new GraphicsAndroid(myView_,asset);
+        myAssetManager_=myView.getContext().getAssets();
+        myGraphics_ = new GraphicsAndroid(myView_,myAssetManager_);
 
     }
     @Override
