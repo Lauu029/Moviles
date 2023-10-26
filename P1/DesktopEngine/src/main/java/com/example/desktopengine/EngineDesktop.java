@@ -100,7 +100,7 @@ public class EngineDesktop implements IEngine, Runnable {
             myScene_.handleInput(myInput_.getTouchEvent());
             myInput_.myEventsClear();
             this.myScene_.update(elapsedTime);//elapsedTime
-            //render();
+            //render();q
             myGraphics_.prepareFrame();
 
             myScene_.render();

@@ -16,9 +16,9 @@ public class Board implements IGameObject {
     private Circle[][] circles;
     private int[] totalColors = new int[]{0xFFFFC0CB, 0xFF87CEEB, 0xFF98FB98, 0xFFFFFF99,
             0xFFE6E6FA, 0xFFFFDAB9, 0xFFE6E6FA, 0xFF00CED1, 0xFFD1E231};
-    private int radios = 25;
+    private int radios;
     private int espaciosTotales = 12;
-    private int divisiones;
+    private int []divisiones;
 
 
     Board(int c, int i, int u, boolean rep, int scW, int scH) {
@@ -29,7 +29,13 @@ public class Board implements IGameObject {
         this.intentoActual = 0;
         this.sceneWidth = scW;
         this.sceneHeight = scH;
-        this.divisiones = this.sceneHeight / this.espaciosTotales;
+        this.divisiones = new int[espaciosTotales];
+        int temp = sceneHeight/espaciosTotales;
+        this.radios=temp/2;
+        for (int j=0;j<espaciosTotales;j++){
+            divisiones[j]=j*temp;
+            System.out.print("Division "+j+" : "+divisiones[j] + "\n");
+        }
         this.tablero = new int[this.intentos][this.colores];
         createCircles();
     }
@@ -68,12 +74,11 @@ public class Board implements IGameObject {
         int spaceToEachSide = (w - totalWidth) / 2;
 
         graph.setColor(0xFF808080);
-        graph.fillRectangle(0, sceneHeight - divisiones  / 2, w, this.radios * 2 + 20);
+        graph.fillRectangle(0, divisiones[11], w, this.radios * 2 + 20);
 
         for (int i = 0; i < colores; i++) {
             int x = spaceToEachSide + i * (this.radios * 2);
-            possibleColors[i].setPositions(x, sceneHeight - divisiones);
-            //possibleColors[i].descubrir(true);
+            possibleColors[i].setPositions(x, divisiones[11]);
             possibleColors[i].render(graph);
         }
     }
