@@ -18,6 +18,7 @@ public class MenuScene implements IScene {
     private int width_, height_;
     Button button;
     IFont font;
+    IFont font_button;
     IImage oreo_;
     private IImage image_;
 
@@ -33,16 +34,16 @@ public class MenuScene implements IScene {
     public void init()  {
         //creacion de la solucion
         IGraphics graph = IEngine_.getGraphics();
-        this.font=graph.newFont("orangeJuice.ttf",40,false,false);
+        this.font=graph.newFont("Hexenkoetel-qZRv1.ttf",40,false,false);
         graph.setFont(this.font);
-
-        this.button = new Button("JUGAR", this.font,0XFFDDB5DF
-                ,150,50, 5,this.width_/2-150/2, this.height_/2-25);
+        font_button=graph.newFont("Hexenkoetel-qZRv1.ttf",20,false,false);
+        this.button = new Button("Jugar",font_button,0XFFFB839B
+                ,150,50, 35,this.width_/2-150/2, this.height_/2+20);
         button.getIEngine(IEngine_);
         addGameObject(button);
 
         try {
-            oreo_=graph.newImage("oreooo.jpg");
+            oreo_=graph.newImage("cerebro.png");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -82,16 +83,16 @@ public class MenuScene implements IScene {
 
         //Dibujamos un color de fondo para la escena
         graph.clear(0xFFe3fcf3);
-        graph.setColor(0xFF000000);
-        graph.fillRectangle(0, 0, width_, height_);
-        this.IEngine_.getGraphics().setFont(font);
+
+
 
         for (int i = 0; i < IGameObjects_.size(); i++) {
             IGameObjects_.get(i).render(graph);
         }
-        graph.setColor(0xFF58B2E6);
+        graph.setColor(0XFF222222);
+        this.IEngine_.getGraphics().setFont(font);
         graph.drawText("MasterMind", width_/2, 100);
-        graph.drawImage(oreo_,200,200,45,60);
+        graph.drawImage(oreo_,this.width_/2-80/2, this.height_/2-140,80,80);
     }
 
 

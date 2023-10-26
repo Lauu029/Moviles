@@ -50,9 +50,12 @@ public class Button implements IGameObject {
         int xText, yText;
         xText = this.posX +this.width / 2;
         yText = this.posY + this.height / 2 ;
+        graph.setColor(0XFF222222);
+        graph.fillRoundRectangle(this.posX-2, this.posY-2, this.width+4, this.height+4, this.arc);
         graph.setColor(this.actualcolor_);
         graph.fillRoundRectangle(this.posX, this.posY, this.width, this.height, this.arc);
         graph.setColor(0xFFFFFFFF);
+        graph.setFont(this.font);
         graph.drawText(this.text, xText, yText);
     }
 
