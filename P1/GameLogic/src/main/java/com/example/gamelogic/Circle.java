@@ -5,18 +5,20 @@ import com.example.engine.IGraphics;
 import com.example.engine.TouchEvent;
 
 public class Circle implements IGameObject {
-    boolean active, hasColor;
+    boolean is_selectionable, hasColor;
     int color, radius;
     int posX, posY;
     int id;
+    GameManager gm;
 
-    public Circle(boolean a, int r, int x, int y) {
-        this.active = a;
+    public Circle(boolean sel, int r, int x, int y) {
+        this.is_selectionable = sel;
         this.color = 0Xff808080;
         this.posX = x;
         this.posY = y;
         this.radius = r;
         this.hasColor = false;
+        gm=GameManager.getInstance();
     }
 
     public void setColor(int color) {
@@ -51,14 +53,17 @@ public class Circle implements IGameObject {
 
     @Override
     public boolean handleInput(TouchEvent event) {
-        if (this.posX < event.x && this.posX + this.radius*2 > event.x
-                && this.posY < event.y && this.posY + this.radius*2 > event.y) {
-            // && this.posY < event.y && this.posY + this.height > event.y
-             System.out.println("Me tocarooon\n");
-
+        if (this.posX < event.x && this.posX + this.radius * 2 > event.x
+                && this.posY < event.y && this.posY + this.radius * 2 > event.y) {
+            System.out.println("Me tocarooon\n");
+            if (this.is_selectionable) {
+                gm.takeColor(this.color);
+            } else if (gm.colorSelected()) {
+                this.color = gm.getSelectedColor();
+                this.hasColor=true;
+            }
             return true;
         }
-
         return false;
     }
 }

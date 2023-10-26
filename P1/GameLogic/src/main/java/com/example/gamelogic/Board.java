@@ -110,7 +110,6 @@ public class Board implements IGameObject {
 
     @Override
     public void render(IGraphics graph) {
-
         graph.setColor(0xFF000000);
         for (int i = 0; i < this.tries; i++) {
             graph.drawRoundRectangle(10, y_positions[i + 1], sceneWidth - 20, height_subdivisions - 10, 3);

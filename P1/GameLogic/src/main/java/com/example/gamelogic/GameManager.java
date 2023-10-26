@@ -7,6 +7,9 @@ public class GameManager {
     private IEngine myEngine_;
     private int width_;
     private int height_;
+    private int selectedColor;
+    private boolean hasSelectedColor;
+
     // Paso 2: Hacer el constructor privado para evitar la creación de instancias adicionales.
     private GameManager() {
         // Constructor privado
@@ -20,10 +23,11 @@ public class GameManager {
         }
         return instance;
     }
-    public static int init(IEngine engine,int width,int height){
-        instance.myEngine_=engine;
-        instance.width_=width;
-        instance.height_=height;
+
+    public static int init(IEngine engine, int width, int height) {
+        instance.myEngine_ = engine;
+        instance.width_ = width;
+        instance.height_ = height;
         return 1;
     }
 
@@ -31,5 +35,21 @@ public class GameManager {
     // Por ejemplo:
     public void changeScene() {
         System.out.println("Cambio de escena");
+    }
+
+    //para almacenar el color que ha cogido y quiere colocar en la matriz
+    public void takeColor(int color) {
+        this.hasSelectedColor = true;
+        this.selectedColor = color;
+        System.out.print("Han seleccionado un color: "+ color+"\n");
+    }
+
+    public boolean colorSelected() {
+        return this.hasSelectedColor;
+    }
+
+    public int getSelectedColor() {
+        this.hasSelectedColor = false;
+        return this.selectedColor;
     }
 }
