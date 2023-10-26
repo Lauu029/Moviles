@@ -46,10 +46,14 @@ public class GraphicsDesktop implements IGraphics {
     void setSize( ){}
 
     @Override
-    public IImage newImage(String name) throws IOException {
+    public IImage newImage(String name) {
         Image image=null;
-        image= ImageIO.read(new File(this.Imagesroute+name));
-
+        try{
+        image= ImageIO.read(new File(name));}
+        catch (IOException e){
+            System.out.println("No se cargo la imagen "+name);
+            throw new RuntimeException(e);
+        }
         return new ImageDesktop(image);
 
     }
@@ -83,6 +87,7 @@ public class GraphicsDesktop implements IGraphics {
     public void drawImage(IImage iimage, int posX, int posY, int height, int widht) {
         ImageDesktop dimage=(ImageDesktop)iimage;
         myGraphics2D_.drawImage(dimage.getImage(),posX,posY,posX+widht,posY+height,0,0,dimage.getWidth(),dimage.getHeight(),null);
+
     }
 
     @Override

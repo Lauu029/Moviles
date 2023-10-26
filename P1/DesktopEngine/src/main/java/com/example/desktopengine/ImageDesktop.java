@@ -8,23 +8,22 @@ import sun.font.GlyphRenderData;
 import sun.jvm.hotspot.utilities.BitMap;
 
 public class ImageDesktop implements IImage {
-    private int width_ = 0, height_ = 0;
-    private BitMap bitmap;
-    Image image;
-    ImageDesktop(Image bit){
-        image=bit;
+
+    Image image_;
+    ImageDesktop(Image image){
+        image_=image;
         
     }
     Image getImage(){
-        return image;
+        return image_;
     }
     @Override
     public int getWidth() {
-        return 0;
+        return image_.getWidth(null);
     }
 
     @Override
     public int getHeight() {
-        return 1;
+        return image_.getHeight(null);
     }
 }

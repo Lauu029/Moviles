@@ -18,6 +18,7 @@ public class MenuScene implements IScene {
     private int width_, height_;
     Button button;
     IFont font;
+    IImage oreo_;
     private IImage image_;
 
     public MenuScene(IEngine IEngine, int w, int h) {
@@ -57,7 +58,13 @@ public class MenuScene implements IScene {
                  ,150,50, 5,this.width_/2-150/2, this.height_/2-25);
         button.getIEngine(IEngine_);
         addGameObject(button);
-       // this.image_=IEngine_.getGraphics().newImage("hola.png");
+        IGraphics graph = IEngine_.getGraphics();
+        /*try {
+            oreo_=graph.newImage("C:\\Users\\miria\\OneDrive\\Documentos\\UNIVERSIDAD\\4TO\\MOVILES\\Moviles\\P1\\Assets\\oreooo.jpg");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }*/
+        // this.image_=IEngine_.getGraphics().newImage("hola.png");
     }
 
     @Override
@@ -90,6 +97,7 @@ public class MenuScene implements IScene {
     @Override
     public void render() {
         IGraphics graph = IEngine_.getGraphics();
+       /* graph.drawImage(oreo_,0,0,400,600);*/
         //Dibujamos un color de fondo para la escena
         graph.clear(0xFFe3fcf3);
 
