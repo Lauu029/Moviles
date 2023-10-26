@@ -220,13 +220,15 @@ public class GraphicsDesktop implements IGraphics {
     @Override
     public void resize(float sceneWidth, float sceneHeight) {
         //System.out.print("Resize\n");
-        width_ =(int) myView_.getWidth();
+        width_ = (int) myView_.getWidth();
         height_ = (int) myView_.getHeight();
 
-        float scaleW = (float) (width_-myView_.getInsets().left-myView_.getInsets().right )/ (float) sceneWidth;
-        float scaleH = (float) (height_-myView_.getInsets().top-myView_.getInsets().bottom) / (float) sceneHeight;
-        /*int up = myView_.getInsets().top;
-        int left = myView_.getInsets().left;*/
+        int viewWidth = width_ - myView_.getInsets().left - myView_.getInsets().right;
+        int viewHeight = height_ - myView_.getInsets().top - myView_.getInsets().bottom;
+
+        float scaleW = (float) viewWidth / (float) sceneWidth;
+        float scaleH = (float) viewHeight / (float) sceneHeight;
+
         if (scaleW < scaleH) {
             scale_ = scaleW;
         } else {
@@ -237,14 +239,19 @@ public class GraphicsDesktop implements IGraphics {
         resizeW = sceneWidth * scale_;
         resizeH = sceneHeight * scale_;
 
-        translateX_ = ((float)width_ - resizeW) / 2.0f;
-        translateY_ = ((float)height_ - resizeH) / 2.0f;
-        if(translateY_==0.0f){
-            translateY_+=myView_.getInsets().top;
-            
-        }
-        if(translateX_==0.0f) translateX_+=myView_.getInsets().left;
-        this.myGraphics2D_.setTransform(af);
+         translateX_ = ((float) viewWidth - resizeW) / 2.0f;
+         translateY_ = ((float) viewHeight - resizeH) / 2.0f;
+
+// Ajustar por los bordes
+        translateX_ += myView_.getInsets().left;
+        translateY_ += myView_.getInsets().top;
+
+// Configurar la transformación
+        AffineTransform af = new AffineTransform();
+        af.translate(translateX_, translateY_);
+        af.scale(scale_, scale_);
+        myGraphics2D_.setTransform(af);
+
 
 
 

@@ -73,8 +73,8 @@ public class Board implements IGameObject {
         int totalWidth = this.colores * this.radios * 2+10;
         int spaceToEachSide = (w - totalWidth) / 2;
 
-        graph.setColor(0xFF808080);
-        graph.fillRectangle(0, divisiones[11], w, this.radios * 2 + 20);
+        /*graph.setColor(0xFF808080);
+        graph.fillRectangle(0, divisiones[11], w, this.radios * 2 + 20);*/
 
         for (int i = 0; i < colores; i++) {
             int x = spaceToEachSide + i * (this.radios * 2);
