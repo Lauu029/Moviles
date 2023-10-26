@@ -7,7 +7,7 @@ import com.example.engine.IFont;
 import java.io.InputStream;
 
 public class FontAndroid implements IFont {
-    private String name_="Assets/";
+    private String name_="";
     Typeface myFont_;
 
     private int size_;
@@ -18,7 +18,7 @@ public class FontAndroid implements IFont {
         this.bold_ = isBold;
         this.italic_=italic;
         myFont_=null;
-        myFont_=Typeface.createFromAsset(assMan,name_+filename);
+        myFont_=Typeface.createFromAsset(assMan,filename);
 
     }
     public Typeface getFont(){

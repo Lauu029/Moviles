@@ -32,33 +32,15 @@ public class MenuScene implements IScene {
     @Override
     public void init()  {
         //creacion de la solucion
+        IGraphics graph = IEngine_.getGraphics();
+        this.font=graph.newFont("orangeJuice.ttf",40,false,false);
+        graph.setFont(this.font);
 
-        this.font= new IFont() {
-            @Override
-            public void setBold(boolean bold) {
-
-            }
-
-            @Override
-            public boolean isBold() {
-                return false;
-            }
-
-            @Override
-            public int getSize() {
-                return 0;
-            }
-
-            @Override
-            public void setSize(int size) {
-
-            }
-        };
         this.button = new Button("JUGAR", this.font,0XFFDDB5DF
-                 ,150,50, 5,this.width_/2-150/2, this.height_/2-25);
+                ,150,50, 5,this.width_/2-150/2, this.height_/2-25);
         button.getIEngine(IEngine_);
         addGameObject(button);
-        IGraphics graph = IEngine_.getGraphics();
+
         /*try {
             oreo_=graph.newImage("C:\\Users\\miria\\OneDrive\\Documentos\\UNIVERSIDAD\\4TO\\MOVILES\\Moviles\\P1\\Assets\\oreooo.jpg");
         } catch (IOException e) {
@@ -105,7 +87,7 @@ public class MenuScene implements IScene {
             IGameObjects_.get(i).render(graph);
         }
         graph.setColor(0xFF58B2E6);
-        //graph.drawText("MasterMind", width_/2, 100, 57, this.font);
+        graph.drawText("MasterMind", width_/2, 100);
 
     }
 
