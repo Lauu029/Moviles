@@ -31,7 +31,7 @@ public class EngineAndroid implements IEngine, Runnable {
         myGraphics_ = new GraphicsAndroid(myView_,myAssetManager_);
 
     }
-    @Override
+
     public void resume() {
         if (!this.running_) {
             // Solo hacemos algo si no nos estábamos ejecutando ya
@@ -43,7 +43,7 @@ public class EngineAndroid implements IEngine, Runnable {
         }
     }
 
-    @Override
+
     public void pause() {
         if (this.running_) {
             this.running_ = false;

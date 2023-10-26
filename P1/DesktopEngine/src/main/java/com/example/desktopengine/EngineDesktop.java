@@ -26,7 +26,6 @@ public class EngineDesktop implements IEngine, Runnable {
         System.out.print("Window Width: "+myView_.getWidth()+" Window Height: "+myView_.getHeight()+"\n");
     }
 
-    @Override
     public void resume() {
         if (!this.running_) {
             // Solo hacemos algo si no nos estábamos ejecutando ya
@@ -39,7 +38,7 @@ public class EngineDesktop implements IEngine, Runnable {
 
         }
     }
-    @Override
+
     public void pause() {
         if (this.running_) {
             this.running_ = false;

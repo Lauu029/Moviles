@@ -9,6 +9,7 @@ import com.example.engine.TouchEvent;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
@@ -67,6 +68,12 @@ public class GraphicsDesktop implements IGraphics {
     @Override
     public void drawText(String text, int x, int y) {
 
+        /*FontMetrics fm = this.myGraphics2D_.getFontMetrics(((FontDesktop)myFont_).getFont());
+        int textWidth = fm.stringWidth(text);
+        int textHeight = fm.getAscent();
+
+        x = x - (textWidth / 2);
+        y = y + (textHeight / 2);*/  // Cambia el signo para que el pivote sea el centro
         this.myGraphics2D_.drawString(text, x, y);
     }
     @Override
