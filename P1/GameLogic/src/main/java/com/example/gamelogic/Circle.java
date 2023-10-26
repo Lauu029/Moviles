@@ -8,6 +8,7 @@ public class Circle implements IGameObject {
     boolean active, hasColor;
     int color, radius;
     int posX, posY;
+    int id;
 
     public Circle(boolean a, int r, int x, int y) {
         this.active = a;
@@ -20,7 +21,7 @@ public class Circle implements IGameObject {
 
     public void setColor(int color) {
         this.color = color;
-        this.hasColor=true;
+        this.hasColor = true;
     }
 
     public void setPositions(int x, int y) {
@@ -35,13 +36,11 @@ public class Circle implements IGameObject {
 
     @Override
     public void render(IGraphics graph) {
-        if (this.active) {
-            graph.setColor(this.color);
-            graph.drawCircle(this.posX, this.posY, this.radius);
-            if (!this.hasColor) {
-                graph.setColor(0Xff332F2C);
-                graph.drawCircle(this.posX, this.posY, this.radius / 3);
-            }
+        graph.setColor(this.color);
+        graph.drawCircle(this.posX, this.posY, this.radius);
+        if (!this.hasColor) {
+            graph.setColor(0Xff332F2C);
+            graph.drawCircle(this.posX, this.posY, this.radius / 3);
         }
     }
 
@@ -52,6 +51,14 @@ public class Circle implements IGameObject {
 
     @Override
     public boolean handleInput(TouchEvent event) {
+        if (this.posX < event.x && this.posX + this.radius*2 > event.x
+                && this.posY < event.y && this.posY + this.radius*2 > event.y) {
+            // && this.posY < event.y && this.posY + this.height > event.y
+             System.out.println("Me tocarooon\n");
+
+            return true;
+        }
+
         return false;
     }
 }
