@@ -96,6 +96,10 @@ public class Board implements IGameObject {
             usable_colors_circles[i].setPositions(x, y_positions[11]);
         }
 
+        /*graph.setColor(0xFF808080);
+        graph.fillRectangle(0, divisiones[11], w, this.radios * 2 + 20);*/
+
+
         for (int i = 0; i < tries; i++) {
             for (int j = 0; j < code_colors; j++) {
                 int x = spaceToEachSide + j * (this.circle_rad * 2);

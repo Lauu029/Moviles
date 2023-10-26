@@ -30,36 +30,17 @@ public class LevelScene implements IScene {
     @Override
     public void init() {
         //creacion de la solucion
+        IGraphics graph = IEngine_.getGraphics();
 
-        this.font= new IFont() {
-            @Override
-            public void setBold(boolean bold) {
-
-            }
-
-            @Override
-            public boolean isBold() {
-                return false;
-            }
-
-            @Override
-            public int getSize() {
-                return 0;
-            }
-
-            @Override
-            public void setSize(int size) {
-
-            }
-        };
-        String [] nombres={"FACIL" ,
-                "MEDIO" ,
-                "DIFICIL" ,
-                "IMPOSIBLE"};
-        int [] colores={0xFF58B2E6,0XFFA9B2EC,0XFFDDB5DF,0XFFF6C0CF};
+        String [] nombres={"Facil" ,
+                "Medio" ,
+                "Dificil" ,
+                "Imposible"};
+        int [] colores={0XFFF6C0CF,0XFFDDB5DF,0XFFA9B2EC,0xFF58B2E6};
+        font=graph.newFont("Hexenkoetel-qZRv1.ttf",20,false,false);
         for(int i=0;i< 4;i++){
-            Button but=new Button(nombres[i], this.font,
-                    colores[i] ,150,50, 5,this.width_/2-150/2,90*i+80);
+            Button but=new Button(nombres[i],font,
+                    colores[i] ,150,50, 35,this.width_/2-150/2,100*i+100);
             but.getIEngine(IEngine_);
             this.addGameObject(but);
         }
@@ -98,11 +79,14 @@ public class LevelScene implements IScene {
     @Override
     public void render() {
         IGraphics graph = IEngine_.getGraphics();
-        graph.setColor(0xFFe3fcf3);
-        graph.fillRectangle(0, 0, width_, height_);
+
+        graph.clear(0xFFe3fcf3);
         for (int i = 0; i < IGameObjects_.size(); i++) {
             IGameObjects_.get(i).render(graph);
         }
+        this.IEngine_.getGraphics().setFont(font);
+        graph.setColor(0xFF000000);
+        graph.drawText("¿En que dificultad quieres jugar?", width_/2, 50);
 
 
     }
