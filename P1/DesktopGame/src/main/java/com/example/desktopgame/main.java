@@ -3,6 +3,7 @@ package com.example.desktopgame;
 
 import com.example.desktopengine.EngineDesktop;
 import com.example.engine.IEngine;
+import com.example.gamelogic.GameManager;
 import com.example.gamelogic.GameScene;
 import com.example.gamelogic.LevelScene;
 import com.example.gamelogic.MenuScene;
@@ -36,7 +37,7 @@ public class main {
         }
 
         EngineDesktop IEngineDesktop = new EngineDesktop(myView);
-
+        GameManager.init(IEngineDesktop,400,600);
         //LevelScene gm=new LevelScene(IEngineDesktop,400,600);
         MenuScene gm = new MenuScene(IEngineDesktop, 400, 600);
         //GameScene gm = new GameScene(IEngineDesktop,400,600);
