@@ -2,6 +2,7 @@ package com.example.androidengine;
 
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -17,6 +18,7 @@ import com.example.engine.IImage;
 import com.example.engine.IInput;
 import com.example.engine.IScene;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 public class GraphicsAndroid implements IGraphics {
@@ -80,8 +82,15 @@ public class GraphicsAndroid implements IGraphics {
 
         Bitmap bitmap =null;
         InputStream is=null;
-        //is=asset_.open(name);
-        return  null;
+        try {
+            is=this.myAssetManager_.open(name);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        if(is!=null)
+        bitmap= BitmapFactory.decodeStream(is);
+
+        return new ImageAndroid(bitmap);
 
     }
 

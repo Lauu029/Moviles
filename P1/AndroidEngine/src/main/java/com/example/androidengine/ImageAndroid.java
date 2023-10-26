@@ -8,22 +8,11 @@ import com.example.engine.IImage;
 //Aquí tendrán que ir todos los métodos que implementen para generar una imagen en android, entiendo
 public class ImageAndroid implements IImage {
     private int width_= 0, height_ = 0;
-    Image image;
-    Bitmap bitmap_;
-    public ImageAndroid(Image image_){
-        image=image_;
-    }
 
-//    ImageAndroid(String source, int h, int w) {
-//        height = h;
-//        widht = w;
-////        InputStream is = assetManager.open(source);
-////        Bitmap bitmap = BitmapFactory.decodeStream(is);
-////        Canvas canvas = holder.lockCanvas();
-////        Paint paint = new Paint();
-////        canvas.drawBitmap(bitmap, x, y, paint);
-//
-//    }
+    Bitmap bitmap_;
+    public ImageAndroid(Bitmap image_){
+        bitmap_=image_;
+    }
     public ImageAndroid(String source){
 
     }
@@ -32,12 +21,12 @@ public class ImageAndroid implements IImage {
     }
     @Override
     public int getWidth() {
-        return image.getWidth();
+        return bitmap_.getWidth();
     }
 
     @Override
     public int getHeight() {
-        return image.getHeight();
+        return bitmap_.getHeight();
     }
 
 }

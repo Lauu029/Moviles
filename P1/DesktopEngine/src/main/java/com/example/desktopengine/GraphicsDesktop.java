@@ -20,7 +20,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 public class GraphicsDesktop implements IGraphics {
-    private String Imagesroute="";
+    private String Imagesroute="Assets/";
     private JFrame myView_;
     private BufferStrategy myBufferStrategy_;
     private Graphics2D myGraphics2D_;
@@ -49,7 +49,7 @@ public class GraphicsDesktop implements IGraphics {
     public IImage newImage(String name) {
         Image image=null;
         try{
-        image= ImageIO.read(new File(name));}
+        image= ImageIO.read(new File(Imagesroute+name));}
         catch (IOException e){
             System.out.println("No se cargo la imagen "+name);
             throw new RuntimeException(e);

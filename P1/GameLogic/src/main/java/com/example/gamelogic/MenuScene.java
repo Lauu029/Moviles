@@ -41,11 +41,11 @@ public class MenuScene implements IScene {
         button.getIEngine(IEngine_);
         addGameObject(button);
 
-        /*try {
-            oreo_=graph.newImage("C:\\Users\\miria\\OneDrive\\Documentos\\UNIVERSIDAD\\4TO\\MOVILES\\Moviles\\P1\\Assets\\oreooo.jpg");
+        try {
+            oreo_=graph.newImage("oreooo.jpg");
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }*/
+        }
         // this.image_=IEngine_.getGraphics().newImage("hola.png");
     }
 
@@ -79,7 +79,7 @@ public class MenuScene implements IScene {
     @Override
     public void render() {
         IGraphics graph = IEngine_.getGraphics();
-       /* graph.drawImage(oreo_,0,0,400,600);*/
+
         //Dibujamos un color de fondo para la escena
         graph.clear(0xFFe3fcf3);
 
@@ -88,7 +88,7 @@ public class MenuScene implements IScene {
         }
         graph.setColor(0xFF58B2E6);
         graph.drawText("MasterMind", width_/2, 100);
-
+        graph.drawImage(oreo_,200,200,45,60);
     }
 
 
