@@ -74,7 +74,8 @@ public class Button implements IGameObject {
             // && this.posY < event.y && this.posY + this.height > event.y
           //  System.out.println("Boton tocado");
             actualcolor_=pressedColor_;
-            if(iEngine_!=null)iEngine_.setScene(new LevelScene(iEngine_,400,600));
+            GameManager.getInstance().changeScene(new LevelScene(iEngine_,  GameManager.getInstance().getwidth(),  GameManager.getInstance().getHeight()));
+
 
             return true;
         }
