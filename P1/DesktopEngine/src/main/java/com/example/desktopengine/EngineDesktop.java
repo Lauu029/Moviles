@@ -14,7 +14,7 @@ public class EngineDesktop implements IEngine, Runnable {
     private Thread myRenderThread_;
     private boolean running_;
     private IScene myScene_;
-    private IGraphics myGraphics_;
+    private GraphicsDesktop myGraphics_;
     private IAudio myAudio_;
     private IInput myInput_;
     public EngineDesktop(JFrame myView)

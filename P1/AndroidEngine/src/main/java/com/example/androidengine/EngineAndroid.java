@@ -11,7 +11,7 @@ import com.example.engine.IScene;
 import com.example.engine.TouchEvent;
 
 public class EngineAndroid implements IEngine, Runnable {
-    private IGraphics myGraphics_;
+    private GraphicsAndroid myGraphics_;
     private SurfaceView myView_;
     private Thread myRenderThread_;
     private boolean running_;
