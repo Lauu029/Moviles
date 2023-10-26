@@ -173,9 +173,9 @@ public class GraphicsAndroid implements IGraphics {
     public void setFont(IFont font) {
         FontAndroid aFont=(FontAndroid) font;
         //Canvas canvas = holder.lockCanvas();
-        myFontPaint_ = new Paint();
-        myFontPaint_ .setTypeface(aFont.getFont());
-        myFontPaint_ .setTextSize(aFont.getSize());
+
+        myPaint_ .setTypeface(aFont.getFont());
+        myPaint_ .setTextSize(aFont.getSize());
     }
 
     @Override
@@ -186,13 +186,13 @@ public class GraphicsAndroid implements IGraphics {
 
     @Override
     public void drawText(String text, int x, int y) {
-        myFontPaint_.setStyle(Paint.Style.FILL);
-        myFontPaint_.setTextAlign(Paint.Align.CENTER); // Establecer el alineamiento al centro
+        myPaint_.setStyle(Paint.Style.FILL);
+        myPaint_.setTextAlign(Paint.Align.CENTER); // Establecer el alineamiento al centro
 
         float centerX = x;
         float centerY = y;
 
-        myCanvas_.drawText(text, centerX, centerY, myFontPaint_);
+        myCanvas_.drawText(text, centerX, centerY, myPaint_);
     }
 
     @Override
