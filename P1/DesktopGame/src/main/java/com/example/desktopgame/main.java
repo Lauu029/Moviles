@@ -38,13 +38,9 @@ public class main {
         EngineDesktop IEngineDesktop = new EngineDesktop(myView);
 
         //LevelScene gm=new LevelScene(IEngineDesktop,400,600);
-<<<<<<< Updated upstream
-        MenuScene gm = new MenuScene(IEngineDesktop, 400, 600);
-       // GameScene gm = new GameScene(IEngineDesktop,400,600);
-=======
        // MenuScene gm = new MenuScene(IEngineDesktop, 400, 600);
         GameScene gm = new GameScene(IEngineDesktop,1000,1000);
->>>>>>> Stashed changes
+
         IEngineDesktop.setScene(gm);
         gm.init();
 
