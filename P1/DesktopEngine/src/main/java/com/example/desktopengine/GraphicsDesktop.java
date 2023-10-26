@@ -9,13 +9,8 @@ import com.example.engine.TouchEvent;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Desktop;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
 import java.io.File;
@@ -33,7 +28,7 @@ public class GraphicsDesktop implements IGraphics {
     float scale_=1;
     float translateX_=0,translateY_=0;
     private int width_ = 0, height_ = 0;
-
+    IFont myFont_;
     AffineTransform af;
     public GraphicsDesktop(JFrame myView){
         this.myView_=myView;
@@ -46,7 +41,6 @@ public class GraphicsDesktop implements IGraphics {
         width_=myView_.getWidth();
 
         af = myGraphics2D_.getTransform();
-
 
     }
     void setSize( ){}
@@ -61,10 +55,21 @@ public class GraphicsDesktop implements IGraphics {
     }
 
     @Override
-    public IFont newFont(String filename, int size, boolean isBold) {
-        return null;
+    public IFont newFont(String filename, int size, boolean isBold, boolean italic) {
+
+        return new FontDesktop(filename,size,isBold,italic);
     }
 
+    @Override
+    public void drawText(String text, int x, int y) {
+
+        this.myGraphics2D_.drawString(text, x, y);
+    }
+    @Override
+    public void setFont(IFont font) {
+        FontDesktop dfont=(FontDesktop)font;
+        this.myGraphics2D_.setFont(dfont.getFont());
+    }
     @Override
     public void clear(int color) {
         AffineTransform temp=this.myGraphics2D_.getTransform();
@@ -121,13 +126,16 @@ public class GraphicsDesktop implements IGraphics {
         this.myGraphics2D_.drawLine(initX, initY, endX, endY);
     }
 
+
+
     @Override
     public void drawCircle(int cx, int cy, int radius) {
         this.myGraphics2D_.fillOval(cx-radius,cy-radius,2*radius,2*radius);
 
     }
 
-    @Override
+
+   /* @Override
     public void drawText(String text, int x, int y,int size, IFont IFont) {
         Font font = new Font("Arial", Font.PLAIN, size);
         this.myGraphics2D_.setFont(font);
@@ -140,7 +148,7 @@ public class GraphicsDesktop implements IGraphics {
 
         this.myGraphics2D_.drawString(text, x, y);
         this.myGraphics2D_.drawString(text, x, y);
-    }
+    }*/
 
     @Override
     public int getWidth() {

@@ -2,14 +2,46 @@ package com.example.desktopengine;
 
 import com.example.engine.IFont;
 
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+
 public class FontDesktop implements IFont {
-    private String name_;
+    private String name_="Assets/";
+    private Font myFont_;
     private int size_;
     private boolean bold_;
+    private boolean italic_;
 
-    public FontDesktop(String filename, int size, boolean isBold) {
+    public FontDesktop(String filename, int size, boolean isBold,boolean italic) {
+
         this.size_ = size;
         this.bold_ = isBold;
+        this.italic_=italic;
+
+        InputStream is=null;
+        myFont_=null;
+
+        try {
+            is = new FileInputStream(name_+filename);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            myFont_ = Font.createFont(Font.TRUETYPE_FONT, is);
+
+        } catch (FontFormatException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        myFont_=myFont_.deriveFont(Font.TRUETYPE_FONT,size_);
+    }
+    Font getFont(){
+        return myFont_;
     }
 
     @Override

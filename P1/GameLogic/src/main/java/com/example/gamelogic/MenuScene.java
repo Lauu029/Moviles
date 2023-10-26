@@ -97,7 +97,7 @@ public class MenuScene implements IScene {
             IGameObjects_.get(i).render(graph);
         }
         graph.setColor(0xFF58B2E6);
-        graph.drawText("MasterMind", width_/2, 100, 57, this.font);
+        //graph.drawText("MasterMind", width_/2, 100, 57, this.font);
 
     }
 

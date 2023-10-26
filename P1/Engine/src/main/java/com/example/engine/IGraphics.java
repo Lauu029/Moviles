@@ -5,9 +5,9 @@ import java.io.IOException;
 public interface IGraphics {
     IImage newImage(String name) throws IOException;
 
-    IFont newFont(String filename, int size, boolean isBold);
-
-
+    IFont newFont(String fontname, int size, boolean isBold,boolean italic);
+    void setFont(IFont font);
+    void drawText(String text, int x, int y);
     void clear(int color);
 
     void drawImage(IImage IImage, int posX, int posY, int height, int widht);
@@ -26,8 +26,6 @@ public interface IGraphics {
 
     void drawCircle(int cx, int cy, int radius);
 
-    void drawText(String text, int x, int y, int size, IFont IFont);
-
     int getWidth();
     int getHeight();
     //void render();
@@ -42,6 +40,7 @@ public interface IGraphics {
     public float getScale_();
     public float getTranslateX_();
     public float getTranslateY_();
+
 
 
 }

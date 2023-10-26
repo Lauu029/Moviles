@@ -18,6 +18,7 @@ public class GameScene implements IScene {
     private Button button;
     private Board gameBoard;
     private IFont font;
+    private IFont font_;
 
     public GameScene(IEngine IEngine, int w, int h) {
         IEngine_ = IEngine;
@@ -42,6 +43,33 @@ public class GameScene implements IScene {
         mySolution_.compureba(miArray);
         mySolution_.imprime();
 
+        /*this.font_= new IFont() {
+            @Override
+            public void setBold(boolean bold) {
+
+            }
+
+            @Override
+            public boolean isBold() {
+                return false;
+            }
+
+            @Override
+            public int getSize() {
+                return 0;
+            }
+
+            @Override
+            public void setSize(int size) {
+
+            }
+        };*/
+        //IEngine_.getGraphics().setColor(0xFF000000);
+        this.font_=IEngine_.getGraphics().newFont("orangeJuice.ttf",20,false,false);
+        this.IEngine_.getGraphics().setFont(font_);
+        this.button = new Button("Boton chuli", this.font_,
+                0xFF000000 ,150,50, 5,10, 10);
+        addGameObject(button);
     }
 
     @Override
@@ -84,6 +112,16 @@ public class GameScene implements IScene {
             g.render(graph);
         }
 
+        graph.setStrokeWidth(15);
+        graph.setColor(0xFF23FD88);
+        graph.drawRoundRectangle(80, 80, 200, 100, 25);
+        this.button.render(graph); //POR QUE NO SE VE?
+        graph.setColor(0xFFED0F8D);
+        //graph.drawText("MasterMind", width_/2, 700, 100, this.font);
+        graph.drawCircle(80, 300, 50);
+        this.IEngine_.getGraphics().setFont(font_);
+        graph.drawText("HOLAAAAAAAAAAAAAAAA",0,10);
+        graph.fillRectangle(0, 0, 100, 100);
         graph.resize(width_, height_);
     }
 

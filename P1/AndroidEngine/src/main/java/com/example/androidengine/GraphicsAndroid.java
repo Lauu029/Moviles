@@ -26,16 +26,17 @@ public class GraphicsAndroid implements IGraphics {
     private Paint myPaint_;
     private Canvas myCanvas_;
     private IColor myColor_;
-
     float scale_=1;
     float translateX_=0,translateY_=0;
-    AssetManager asset_;
+    IFont myFont_;
+    AssetManager myAssetManager_;
+    Paint myFontPaint_;
     public GraphicsAndroid(SurfaceView view,  AssetManager asset) {
         this.myView_ = view;
         this.myHolder_ = this.myView_.getHolder();
         this.myPaint_ = new Paint();
         this.myCanvas_ = new Canvas();
-        asset_=asset;
+        myAssetManager_=asset;
         this.myColor_ = new ColorAndroid();
        // this.paint.setColor(0x53ECDED3);
     }
@@ -85,9 +86,14 @@ public class GraphicsAndroid implements IGraphics {
     }
 
     @Override
+    public IFont newFont(String filename, int size, boolean isBold, boolean italic) {
+        return new FontAndroid(filename,size,isBold,italic,myAssetManager_);
+    }
+
+    /*@Override
     public FontAndroid newFont(String filename, int size, boolean isBold) {
         return new FontAndroid(filename, size, isBold);
-    }
+    }*/
 
     @Override
     public void clear(int color) {
@@ -155,22 +161,29 @@ public class GraphicsAndroid implements IGraphics {
     }
 
     @Override
+    public void setFont(IFont font) {
+        FontAndroid aFont=(FontAndroid) font;
+        //Canvas canvas = holder.lockCanvas();
+        myFontPaint_ = new Paint();
+        myFontPaint_ .setTypeface(aFont.getFont());
+        myFontPaint_ .setTextSize(aFont.getSize());
+    }
+
+    @Override
     public void drawCircle(int cx, int cy, int radius) {
         myPaint_.setStyle(Paint.Style.FILL);
         myCanvas_.drawCircle(cx, cy, radius, myPaint_);
     }
 
     @Override
-    public void drawText(String text, int x, int y,int size, IFont IFont) {
-        //canvas.drawText();
-        myPaint_.setStyle(Paint.Style.FILL);
-        myPaint_.setTextSize(size);
-        myPaint_.setTextAlign(Paint.Align.CENTER); // Establecer el alineamiento al centro
+    public void drawText(String text, int x, int y) {
+        myFontPaint_.setStyle(Paint.Style.FILL);
+        myFontPaint_.setTextAlign(Paint.Align.CENTER); // Establecer el alineamiento al centro
 
         float centerX = x;
         float centerY = y;
 
-        myCanvas_.drawText(text, centerX, centerY, myPaint_);
+        myCanvas_.drawText(text, centerX, centerY, myFontPaint_);
     }
 
     @Override
