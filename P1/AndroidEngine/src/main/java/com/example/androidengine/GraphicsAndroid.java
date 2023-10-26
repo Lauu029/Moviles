@@ -226,7 +226,7 @@ public class GraphicsAndroid implements IGraphics {
 
     }
 
-    @Override
+
     public void prepareFrame() {
 
         while (!this.myHolder_.getSurface().isValid()) ;
@@ -239,16 +239,13 @@ public class GraphicsAndroid implements IGraphics {
         this.scale(scale_,scale_);
     }
 
-    @Override
+
     public void endFrame() {
 
         this.myHolder_.unlockCanvasAndPost(myCanvas_);
     }
 
-    @Override
-    public void render(IScene scene, IInput input) {
 
-    }
 
 
 }

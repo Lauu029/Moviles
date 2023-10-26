@@ -49,7 +49,7 @@ public class MenuScene implements IScene {
         // this.image_=IEngine_.getGraphics().newImage("hola.png");
     }
 
-    @Override
+
     public void addGameObject(IGameObject gm) {
         IGameObjects_.add(gm);
     }

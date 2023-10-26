@@ -197,14 +197,14 @@ public class GraphicsDesktop implements IGraphics {
 
     }
 
-    @Override
+
     public void prepareFrame() {
         myGraphics2D_ = (Graphics2D) this.myBufferStrategy_.getDrawGraphics();
         this.translate(translateX_,translateY_);
         this.scale(scale_,scale_);
     }
 
-    @Override
+
     public void endFrame() {
         myGraphics2D_.dispose();
         this.myBufferStrategy_.show();
@@ -213,33 +213,7 @@ public class GraphicsDesktop implements IGraphics {
 
 
 
-    @Override
-    public void render(IScene scene,IInput input) {
-        do {
-            do {
-                myGraphics2D_ = (Graphics2D) this.myBufferStrategy_.getDrawGraphics();
-                try {
-                    // Establecer la escala y la traslación
-                    resize(scene.getWidth(), scene.getHeight());
-                    for(TouchEvent event:input.getTouchEvent()){
-                        event.x-=getTranslateX_();
-                        event.y-=getTranslateY_();
-                        event.x/=getScale_();
-                        event.y/=getScale_();
 
-                    }
-                    scene.handleInput(input.getTouchEvent());
-                    input.myEventsClear();
-                    // Dibujar la escena
-                    scene.render();
-                } finally {
-                    myGraphics2D_.dispose();
-                }
-            } while (this.myBufferStrategy_.contentsRestored());
-            this.myBufferStrategy_.show();
-        } while (this.myBufferStrategy_.contentsLost());
-
-    }
 
     @Override
     public void resize(float sceneWidth, float sceneHeight) {
