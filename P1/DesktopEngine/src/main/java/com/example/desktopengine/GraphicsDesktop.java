@@ -67,14 +67,15 @@ public class GraphicsDesktop implements IGraphics {
 
     @Override
     public void drawText(String text, int x, int y) {
-
-        /*FontMetrics fm = this.myGraphics2D_.getFontMetrics(((FontDesktop)myFont_).getFont());
+        FontMetrics fm = this.myGraphics2D_.getFontMetrics();
         int textWidth = fm.stringWidth(text);
-        int textHeight = fm.getAscent();
+        int textHeight = fm.getHeight();
 
-        x = x - (textWidth / 2);
-        y = y + (textHeight / 2);*/  // Cambia el signo para que el pivote sea el centro
-        this.myGraphics2D_.drawString(text, x, y);
+        int centerX = x - textWidth / 2;
+        int centerY = y + textHeight / 2;
+
+
+        this.myGraphics2D_.drawString(text, centerX,centerY);
     }
     @Override
     public void setFont(IFont font) {

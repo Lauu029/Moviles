@@ -187,10 +187,13 @@ public class GraphicsAndroid implements IGraphics {
     @Override
     public void drawText(String text, int x, int y) {
         myPaint_.setStyle(Paint.Style.FILL);
-        myPaint_.setTextAlign(Paint.Align.CENTER); // Establecer el alineamiento al centro
 
-        float centerX = x;
-        float centerY = y;
+        // Medir el ancho del texto
+        float textWidth = myPaint_.measureText(text);
+        float textHeight = myPaint_.getTextSize(); // Altura de la fuente
+        // Calcular las coordenadas para centrar el texto
+        float centerX = x - (textWidth / 2);
+        float centerY = y + (textHeight / 2);
 
         myCanvas_.drawText(text, centerX, centerY, myPaint_);
     }
