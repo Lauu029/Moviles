@@ -39,8 +39,7 @@ public class main {
 
         //LevelScene gm=new LevelScene(IEngineDesktop,400,600);
        // MenuScene gm = new MenuScene(IEngineDesktop, 400, 600);
-        GameScene gm = new GameScene(IEngineDesktop,1000,1000);
-
+        GameScene gm = new GameScene(IEngineDesktop,400,600);
         IEngineDesktop.setScene(gm);
         gm.init();
 

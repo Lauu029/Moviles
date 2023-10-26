@@ -82,6 +82,8 @@ public class MenuScene implements IScene {
 
         //Dibujamos un color de fondo para la escena
         graph.clear(0xFFe3fcf3);
+        graph.setColor(0xFF000000);
+        graph.fillRectangle(0, 0, width_, height_);
         this.IEngine_.getGraphics().setFont(font);
 
         for (int i = 0; i < IGameObjects_.size(); i++) {

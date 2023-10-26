@@ -238,7 +238,10 @@ public class GraphicsDesktop implements IGraphics {
 
         translateX_ = ((float)width_ - resizeW) / 2.0f;
         translateY_ = ((float)height_ - resizeH) / 2.0f;
-        if(translateY_==0.0f)translateY_+=up;
+        if(translateY_==0.0f){
+            translateY_+=up;
+            
+        }
         if(translateX_==0.0f) translateX_+=left;
         this.myGraphics2D_.setTransform(af);
 
