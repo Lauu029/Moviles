@@ -200,6 +200,7 @@ public class GraphicsDesktop implements IGraphics {
 
 
     public void prepareFrame() {
+
         myGraphics2D_ = (Graphics2D) this.myBufferStrategy_.getDrawGraphics();
         this.translate(translateX_,translateY_);
         this.scale(scale_,scale_);
@@ -222,10 +223,10 @@ public class GraphicsDesktop implements IGraphics {
         width_ =(int) myView_.getWidth();
         height_ = (int) myView_.getHeight();
 
-        float scaleW = (float) width_ / (float) sceneWidth;
-        float scaleH = (float) height_ / (float) sceneHeight;
-        int up = myView_.getInsets().top;
-        int left = myView_.getInsets().left;
+        float scaleW = (float) (width_-myView_.getInsets().left-myView_.getInsets().right )/ (float) sceneWidth;
+        float scaleH = (float) (height_-myView_.getInsets().top-myView_.getInsets().bottom) / (float) sceneHeight;
+        /*int up = myView_.getInsets().top;
+        int left = myView_.getInsets().left;*/
         if (scaleW < scaleH) {
             scale_ = scaleW;
         } else {
@@ -239,10 +240,10 @@ public class GraphicsDesktop implements IGraphics {
         translateX_ = ((float)width_ - resizeW) / 2.0f;
         translateY_ = ((float)height_ - resizeH) / 2.0f;
         if(translateY_==0.0f){
-            translateY_+=up;
+            translateY_+=myView_.getInsets().top;
             
         }
-        if(translateX_==0.0f) translateX_+=left;
+        if(translateX_==0.0f) translateX_+=myView_.getInsets().left;
         this.myGraphics2D_.setTransform(af);
 
 
