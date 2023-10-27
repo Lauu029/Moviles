@@ -41,9 +41,11 @@ public class LevelScene implements IScene {
         for(int i=0;i< 4;i++){
             ButtonLevel but=new ButtonLevel(nombres[i],font,
                     colores[i] ,150,50, 35,this.width_/2-150/2,100*i+100);
-            but.getIEngine(IEngine_);
+
             this.addGameObject(but);
         }
+        ButtonFlecha but2=new ButtonFlecha("flecha.png",40,40, 0,0);
+        this.addGameObject(but2);
 
     }
 

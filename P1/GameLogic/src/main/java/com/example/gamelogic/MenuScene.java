@@ -39,7 +39,7 @@ public class MenuScene implements IScene {
         font_button=graph.newFont("Hexenkoetel-qZRv1.ttf",20,false,false);
         this.button = new Button("Jugar",font_button,0XFFFB839B
                 ,150,50, 35,this.width_/2-150/2, this.height_/2+20);
-        button.getIEngine(IEngine_);
+
         addGameObject(button);
 
         try {

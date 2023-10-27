@@ -10,7 +10,7 @@ import com.example.engine.TouchEvent;
 public class Button implements IGameObject {
     private String text;
     private IFont font;
-    private IEngine iEngine_;
+
     private boolean pressed_;
     private int color,actualcolor_,pressedColor_;
     private int width = 0, height = 0, posX = 0, posY = 0, arc = 0;
@@ -37,9 +37,7 @@ public class Button implements IGameObject {
         pressedColor_= ALPHA |(red << 16) | (green << 8) | blue;
         pressedColor_=0xFF000000;
     }
-    void getIEngine(IEngine iengine){
-        iEngine_=iengine;
-    }
+
     @Override
     public void update(double time) {
 
@@ -74,7 +72,7 @@ public class Button implements IGameObject {
             // && this.posY < event.y && this.posY + this.height > event.y
           //  System.out.println("Boton tocado");
             actualcolor_=pressedColor_;
-            GameManager.getInstance().changeScene(new LevelScene(iEngine_,  GameManager.getInstance().getwidth(),  GameManager.getInstance().getHeight()));
+            GameManager.getInstance().changeScene(new LevelScene(GameManager.getInstance().getIEngine(),  GameManager.getInstance().getwidth(),  GameManager.getInstance().getHeight()));
 
 
             return true;

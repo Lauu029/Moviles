@@ -4,25 +4,30 @@ import com.example.engine.IEngine;
 import com.example.engine.IFont;
 import com.example.engine.IGameObject;
 import com.example.engine.IGraphics;
+import com.example.engine.IImage;
 import com.example.engine.TouchEvent;
 
-public class ButtonLevel implements IGameObject {
-    private String text;
-    private IFont font;
+import java.io.IOException;
 
 
-    private int color;
+public class ButtonFlecha implements IGameObject {
+
+
+    IImage buttonImage_;
     private int width = 0, height = 0, posX = 0, posY = 0, arc = 0;
 
-    ButtonLevel(String t, IFont f, int c, int w, int h, int a, int x, int y) {
-        this.text = t;
-        this.font = f;
-        this.color = c;
+    ButtonFlecha(String image, int w, int h, int x, int y) {
+
         this.width = w;
         this.height = h;
-        this.arc = a;
+
         this.posX = x;
         this.posY = y;
+        try {
+            buttonImage_=GameManager.getInstance().getIEngine().getGraphics().newImage(image);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -34,15 +39,10 @@ public class ButtonLevel implements IGameObject {
     @Override
     public void render(IGraphics graph) {
         int xText, yText;
-        xText = this.posX +this.width / 2;
-        yText = this.posY + this.height / 2 ;
-        graph.setColor(0XFF222222);
-        graph.fillRoundRectangle(this.posX-2, this.posY-2, this.width+4, this.height+4, this.arc);
-        graph.setColor(this.color);
-        graph.fillRoundRectangle(this.posX, this.posY, this.width, this.height, this.arc);
-        graph.setColor(0xFFFFFFFF);
-        graph.setFont(this.font);
-        graph.drawText(this.text, xText, yText);
+        xText = this.posX ;
+        yText = this.posY ;
+        graph.drawImage(buttonImage_,xText, yText,width,height);
+
     }
 
     @Override
@@ -60,7 +60,7 @@ public class ButtonLevel implements IGameObject {
             // && this.posY < event.y && this.posY + this.height > event.y
             //  System.out.println("Boton tocado");
 
-            GameScene game=new GameScene(GameManager.getInstance().getIEngine(),  GameManager.getInstance().getwidth(),  GameManager.getInstance().getHeight());
+            MenuScene game=new MenuScene(GameManager.getInstance().getIEngine(),  GameManager.getInstance().getwidth(),  GameManager.getInstance().getHeight());
             GameManager.getInstance().changeScene(game);
 
 

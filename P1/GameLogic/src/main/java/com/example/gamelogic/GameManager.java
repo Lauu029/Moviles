@@ -54,7 +54,9 @@ public class GameManager {
     public boolean colorSelected() {
         return this.hasSelectedColor;
     }
-
+    public IEngine getIEngine(){
+        return  myEngine_;
+    }
     public int getSelectedColor() {
         this.hasSelectedColor = false;
         return this.selectedColor;
