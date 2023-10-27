@@ -56,30 +56,30 @@ class Difficulty
 public class GameInit {
     private Difficulty level_;
 
-    GameInit(int difficulty){
+    GameInit(LevelDifficulty difficulty){
         switch(difficulty){
-            case 0:
+            case FACIL:
                 level_.setLevelDiff(LevelDifficulty.FACIL);
                 level_.setSolutionColors(4);
                 level_.setPosibleColors(4);
                 level_.setRepeat(false);
                 level_.setTries(6);
                 break;
-            case 1:
+            case MEDIO:
                 level_.setLevelDiff(LevelDifficulty.MEDIO);
                 level_.setSolutionColors(4);
                 level_.setPosibleColors(6);
                 level_.setRepeat(false);
                 level_.setTries(8);
                 break;
-            case 2:
+            case DIFICIL:
                 level_.setLevelDiff(LevelDifficulty.DIFICIL);
                 level_.setSolutionColors(5);
                 level_.setPosibleColors(8);
                 level_.setRepeat(true);
                 level_.setTries(10);
                 break;
-            case 3:
+            case IMPOSIBLE:
                 level_.setLevelDiff(LevelDifficulty.IMPOSIBLE);
                 level_.setSolutionColors(6);
                 level_.setPosibleColors(9);
@@ -87,5 +87,8 @@ public class GameInit {
                 level_.setTries(10);
                 break;
         }
+    }
+    public Difficulty getDifficulty(){
+        return  level_;
     }
 }

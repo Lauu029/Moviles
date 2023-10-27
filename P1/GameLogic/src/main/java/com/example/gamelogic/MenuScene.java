@@ -38,7 +38,7 @@ public class MenuScene implements IScene {
         graph.setFont(this.font);
         font_button=graph.newFont("Hexenkoetel-qZRv1.ttf",20,false,false);
         this.button = new Button("Jugar",font_button,0XFFFB839B
-                ,150,50, 35,this.width_/2-150/2, this.height_/2+20);
+                ,150,50, 35,this.width_/2-150/2, this.height_/2+20,SceneNames.LEVEL);
 
         addGameObject(button);
 
