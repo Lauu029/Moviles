@@ -73,7 +73,7 @@ public class GameScene implements IScene {
     @Override
     public void render() {
         IGraphics graph = IEngine_.getGraphics();
-
+        graph.clear(0xFFe3fcf3);
         for (IGameObject g : IGameObjects_) {
             g.render(graph);
         }

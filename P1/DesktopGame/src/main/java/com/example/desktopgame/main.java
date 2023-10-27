@@ -39,8 +39,8 @@ public class main {
         EngineDesktop IEngineDesktop = new EngineDesktop(myView);
         GameManager.init(IEngineDesktop,400,600);
         //LevelScene gm=new LevelScene(IEngineDesktop,400,600);
-        //MenuScene gm = new MenuScene(IEngineDesktop, 400, 600);
-        GameScene gm = new GameScene(IEngineDesktop,400,600);
+        MenuScene gm = new MenuScene(IEngineDesktop, 400, 600);
+        //GameScene gm = new GameScene(IEngineDesktop,400,600);
         IEngineDesktop.setScene(gm);
         gm.init();
 

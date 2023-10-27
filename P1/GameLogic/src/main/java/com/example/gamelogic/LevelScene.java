@@ -39,7 +39,7 @@ public class LevelScene implements IScene {
         int [] colores={0XFFF6C0CF,0XFFDDB5DF,0XFFA9B2EC,0xFF58B2E6};
         font=graph.newFont("Hexenkoetel-qZRv1.ttf",20,false,false);
         for(int i=0;i< 4;i++){
-            Button but=new Button(nombres[i],font,
+            ButtonLevel but=new ButtonLevel(nombres[i],font,
                     colores[i] ,150,50, 35,this.width_/2-150/2,100*i+100);
             but.getIEngine(IEngine_);
             this.addGameObject(but);
