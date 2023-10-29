@@ -44,8 +44,6 @@ public class Circle implements IGameObject {
 
     @Override
     public void render(IGraphics graph) {
-        graph.setColor(0xFFFF0000);
-        graph.drawRectangle(this.posX - this.radius, this.posY - this.radius, this.width, this.height);
         graph.setColor(this.color);
         graph.drawCircle(this.posX, this.posY, this.radius);
         if (!this.hasColor) {
