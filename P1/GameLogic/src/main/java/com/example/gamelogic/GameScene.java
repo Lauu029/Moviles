@@ -24,8 +24,6 @@ public class GameScene implements IScene {
         IEngine_ = IEngine;
         width_ = w;
         height_ = h;
-
-        System.out.print("Scene Width: " + width_ + " Scene Height: " + height_ + "\n");
     }
 
     @Override

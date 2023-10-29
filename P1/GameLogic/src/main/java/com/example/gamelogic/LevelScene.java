@@ -50,7 +50,6 @@ public class LevelScene implements IScene {
         }
         ButtonFlecha but2=new ButtonFlecha("flecha.png",40,40, 0,0);
         this.addGameObject(but2);
-
     }
 
 
@@ -70,15 +69,12 @@ public class LevelScene implements IScene {
 
     @Override
     public void handleInput(ArrayList<TouchEvent> events) {
-        //if (events.size() != 0) System.out.println("inpuuut");
         for (IGameObject g : IGameObjects_) {
             for (TouchEvent event: events) {
                 if(g.handleInput(event)){
                     return;
                 }
-
             }
-
         }
     }
 
@@ -93,10 +89,7 @@ public class LevelScene implements IScene {
         this.IEngine_.getGraphics().setFont(font);
         graph.setColor(0xFF000000);
         graph.drawText("¿En que dificultad quieres jugar?", width_/2, 50);
-
-
     }
-
 
     @Override
     public void update(double time) {
@@ -104,6 +97,4 @@ public class LevelScene implements IScene {
             IGameObjects_.get(i).update(time);
         }
     }
-
-
 }

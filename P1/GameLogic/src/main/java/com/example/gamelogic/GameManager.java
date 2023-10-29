@@ -48,7 +48,6 @@ public class GameManager {
     public void takeColor(int color) {
         this.hasSelectedColor = true;
         this.selectedColor = color;
-        System.out.print("Han seleccionado un color: "+ color+"\n");
     }
 
     public boolean colorSelected() {

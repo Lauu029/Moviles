@@ -9,10 +9,12 @@ public class Circle implements IGameObject {
     int color, radius;
     int width, height;
     int posX, posY;
-    int id;
+    int id_color;
+    int row;
+    int game_try;
     GameManager gm;
 
-    public Circle(boolean sel, int r, int x, int y) {
+    public Circle(boolean sel, int r, int x, int y, int row_) {
         this.is_selectionable = sel;
         this.color = 0Xff808080;
         this.posX = x;
@@ -21,6 +23,7 @@ public class Circle implements IGameObject {
         this.width = 2 * radius;
         this.height = 2 * radius;
         this.hasColor = false;
+        this.row = row_;
         gm = GameManager.getInstance();
     }
 
@@ -42,7 +45,7 @@ public class Circle implements IGameObject {
     @Override
     public void render(IGraphics graph) {
         graph.setColor(0xFFFF0000);
-        graph.drawRectangle(this.posX- this.radius,this.posY-this.radius,this.width,this.height);
+        graph.drawRectangle(this.posX - this.radius, this.posY - this.radius, this.width, this.height);
         graph.setColor(this.color);
         graph.drawCircle(this.posX, this.posY, this.radius);
         if (!this.hasColor) {
@@ -56,23 +59,26 @@ public class Circle implements IGameObject {
 
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdColor(int id) {
+        this.id_color = id;
     }
 
     @Override
     public boolean handleInput(TouchEvent event) {
-        if (this.posX- this.radius < event.x && this.posX + this.radius > event.x
-                && this.posY-this.radius < event.y && this.posY + this.radius > event.y) {
-            System.out.println("Circulo " + id + " X del circulo: " + this.posX + " Y del circulo: " + this.posY + "\n" + "X del raton: " + event.x + " Y del raton: " + event.y + "\n");
+        if (this.posX - this.radius < event.x && this.posX + this.radius > event.x
+                && this.posY - this.radius < event.y && this.posY + this.radius > event.y) {
             if (this.is_selectionable) {
                 gm.takeColor(this.color);
-            } else if (gm.colorSelected()) {
+            } else if (gm.colorSelected() && this.row == this.game_try) {
                 this.color = gm.getSelectedColor();
                 this.hasColor = true;
             }
             return true;
         }
         return false;
+    }
+
+    public void setGameTry(int t) {
+        this.game_try = t;
     }
 }
