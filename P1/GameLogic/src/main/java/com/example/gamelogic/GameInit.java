@@ -1,12 +1,13 @@
 package com.example.gamelogic;
+
 enum LevelDifficulty {
     FACIL,
     MEDIO,
     DIFICIL,
     IMPOSIBLE
 }
-class Difficulty
-{
+
+class Difficulty {
     LevelDifficulty levelDiff_;
     boolean repeat_;
     int tries_;
@@ -53,11 +54,13 @@ class Difficulty
         this.tries_ = tries_;
     }
 };
+
 public class GameInit {
     private Difficulty level_;
 
-    GameInit(LevelDifficulty difficulty){
-        switch(difficulty){
+    GameInit(LevelDifficulty difficulty) {
+        level_ = new Difficulty();
+        switch (difficulty) {
             case FACIL:
                 level_.setLevelDiff(LevelDifficulty.FACIL);
                 level_.setSolutionColors(4);
@@ -88,7 +91,8 @@ public class GameInit {
                 break;
         }
     }
-    public Difficulty getDifficulty(){
-        return  level_;
+
+    public Difficulty getDifficulty() {
+        return level_;
     }
 }

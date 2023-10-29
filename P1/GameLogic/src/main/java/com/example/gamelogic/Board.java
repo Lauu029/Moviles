@@ -46,7 +46,7 @@ public class Board implements IGameObject {
             this.y_positions[i] = i * this.height_subdivisions;
         }
 
-        this.circle_rad = this.height_subdivisions / 2 - (this.height_subdivisions / 5);
+        this.circle_rad = this.height_subdivisions / 2 -3;
 
         //Inicialización de los circulos de la solucion y la matriz de intentos
         createCircles();
@@ -59,12 +59,14 @@ public class Board implements IGameObject {
     void createCircles() {
         this.usable_colors_circles = new Circle[this.usable_colors];
         this.player_tries = new Circle[this.tries][this.code_colors];
-
+        int id_circles=0;
         //Inicializa los colores que se puedan usar
         for (int i = 0; i < usable_colors; i++) {
-            usable_colors_circles[i] = new Circle(true, this.circle_rad, 0, y_positions[11]);
-            usable_colors_circles[i].setColor(total_possible_colors[i]);
+            usable_colors_circles[i] = new Circle(true, this.circle_rad, 0,0);
+            usable_colors_circles[i].setColor(total_possible_colors[i+1]);
+            usable_colors_circles[i].setId(id_circles);
             game_objects_table.add(usable_colors_circles[i]);
+            id_circles++;
         }
         this.player_tries = new Circle[this.tries][this.code_colors];
         for (int i = 0; i < this.tries; i++) {
@@ -93,12 +95,8 @@ public class Board implements IGameObject {
 
         for (int i = 0; i < usable_colors; i++) {
             int x = spaceToEachSide + i * (this.circle_rad * 2);
-            usable_colors_circles[i].setPositions(x, y_positions[11]);
+            usable_colors_circles[i].setPositions(x, y_positions[11]+this.circle_rad);
         }
-
-        /*graph.setColor(0xFF808080);
-        graph.fillRectangle(0, divisiones[11], w, this.radios * 2 + 20);*/
-
 
         for (int i = 0; i < tries; i++) {
             for (int j = 0; j < code_colors; j++) {
@@ -111,9 +109,9 @@ public class Board implements IGameObject {
     @Override
     public void render(IGraphics graph) {
         graph.setColor(0xFF000000);
-        for (int i = 0; i < this.tries; i++) {
-            graph.drawRoundRectangle(10, y_positions[i + 1], sceneWidth - 20, height_subdivisions - 10, 3);
-        }
+//        for (int i = 0; i < this.tries; i++) {
+//            graph.drawRoundRectangle(10, y_positions[i + 1], sceneWidth - 20, height_subdivisions - 10, 3);
+//        }
         graph.setColor(0xFF808080);
         graph.fillRectangle(0, y_positions[11], sceneWidth, height_subdivisions);
         for (IGameObject g : game_objects_table) {
@@ -131,6 +129,7 @@ public class Board implements IGameObject {
     public boolean handleInput(TouchEvent event) {
         for (IGameObject g : game_objects_table) {
             if (g.handleInput(event)) {
+                System.out.print("Se ha tocado un circulo\n");
                 return true;
             }
         }
