@@ -10,6 +10,7 @@ public class GameManager {
     private int height_;
     private int selectedColor;
     private boolean hasSelectedColor;
+    private Difficulty levelDificulty;
 
     // Paso 2: Hacer el constructor privado para evitar la creación de instancias adicionales.
     private GameManager() {
@@ -24,11 +25,11 @@ public class GameManager {
     }
 
 
-    public static int init(IEngine engine,int width,int height){
+    public static int init(IEngine engine, int width, int height) {
         instance = new GameManager();
-        instance.myEngine_=engine;
-        instance.width_=width;
-        instance.height_=height;
+        instance.myEngine_ = engine;
+        instance.width_ = width;
+        instance.height_ = height;
         return 1;
     }
 
@@ -37,9 +38,11 @@ public class GameManager {
     public void changeScene(IScene scene) {
         myEngine_.setScene(scene);
     }
+
     public int getwidth() {
-       return width_;
+        return width_;
     }
+
     public int getHeight() {
         return height_;
     }
@@ -53,11 +56,21 @@ public class GameManager {
     public boolean colorSelected() {
         return this.hasSelectedColor;
     }
-    public IEngine getIEngine(){
-        return  myEngine_;
+
+    public IEngine getIEngine() {
+        return myEngine_;
     }
+
     public int getSelectedColor() {
         this.hasSelectedColor = false;
         return this.selectedColor;
+    }
+
+    public void setLevel(Difficulty dif) {
+        this.levelDificulty = dif;
+    }
+
+    public Difficulty getLevel(){
+        return this.levelDificulty;
     }
 }

@@ -19,6 +19,7 @@ public class GameScene implements IScene {
     private Board gameBoard;
     private IFont font;
     private IFont font_;
+    private GameManager gm;
 
     public GameScene(IEngine IEngine, int w, int h) {
         IEngine_ = IEngine;
@@ -28,12 +29,14 @@ public class GameScene implements IScene {
 
     @Override
     public void init() {
+
+        this.gm= GameManager.getInstance();
         mySolution_ = new Solution();
         mySolution_.createSolution(true, 5, 8, 8);
         mySolution_.imprimeSol();
         int[] miArray = {1, 2, 3, 4, 0};
-
-        this.gameBoard = new Board(4, 6, 4, false, width_, height_);
+        Difficulty lev= this.gm.getLevel();
+        this.gameBoard = new Board(lev.solutionColors_, lev.tries_, lev.posibleColors_, lev.repeat_, width_, height_);
 
         addGameObject(gameBoard);
 

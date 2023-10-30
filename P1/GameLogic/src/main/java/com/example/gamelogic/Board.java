@@ -25,7 +25,7 @@ public class Board implements IGameObject {
 
     //Colores totales que puede llegar a haber en una partida
     private int[] total_possible_colors = new int[]{0xFFFFC0CB, 0xFF87CEEB, 0xFF98FB98, 0xFFFFFF99,
-            0xFFE6E6FA, 0xFFFFDAB9, 0xFFE6E6FA, 0xFF00CED1, 0xFFD1E231};
+            0xFFE6E6FA, 0xFFFFDAB9, 0xFFE7FFAC, 0xFFFF8FAB, 0xFF6FC0AB};
 
     //para gestionar todos los inputs y renders de la clase tablero
     private ArrayList<IGameObject> game_objects_table = new ArrayList<>();
@@ -63,7 +63,7 @@ public class Board implements IGameObject {
         //Inicializa los colores que se puedan usar
         for (int i = 0; i < usable_colors; i++) {
             usable_colors_circles[i] = new Circle(true, this.circle_rad, 0, 0, -1);
-            usable_colors_circles[i].setColor(total_possible_colors[i + 1]);
+            usable_colors_circles[i].setColor(total_possible_colors[i]);
             usable_colors_circles[i].setIdColor(i);
             game_objects_table.add(usable_colors_circles[i]);
         }
@@ -95,19 +95,23 @@ public class Board implements IGameObject {
     private void setCirclesPositions() {
         int totalWidth = this.usable_colors * this.circle_rad * 2;
         int spaceToEachSide = (sceneWidth - totalWidth) / 2;
-
+        int x = 10+ this.circle_rad;
         for (int i = 0; i < usable_colors; i++) {
-            int x = spaceToEachSide + i * (this.circle_rad * 2);
+            // int x = spaceToEachSide + i * (this.circle_rad * 2);
             usable_colors_circles[i].setPositions(x, y_positions[11] + this.circle_rad);
+            x += (this.circle_rad * 2);
         }
 
         for (int i = 0; i < tries; i++) {
+            x =  10+ this.circle_rad;
             for (int j = 0; j < code_colors; j++) {
-                int x = spaceToEachSide + j * (this.circle_rad * 2);
+                //int x = spaceToEachSide + j * (this.circle_rad * 2);
                 player_tries[i][j].setPositions(x, y_positions[i + 1] + this.circle_rad / 2);
+                x += 5+ (this.circle_rad * 2);
             }
         }
     }
+
     @Override
     public void render(IGraphics graph) {
 //        graph.setColor(0xFF000000);
@@ -120,9 +124,11 @@ public class Board implements IGameObject {
             g.render(graph);
         }
     }
+
     @Override
     public void init() {
     }
+
     @Override
     public boolean handleInput(TouchEvent event) {
         for (IGameObject g : game_objects_table)

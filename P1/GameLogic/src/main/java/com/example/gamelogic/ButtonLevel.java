@@ -14,8 +14,11 @@ public class ButtonLevel extends Button {
     }
     @Override
     void actionButton(){
-        GameScene gameScene=(GameScene)scene;
-        GameInit gameInit=new GameInit(level_);
+        System.out.print("Hola???\n");
+        GameScene gameScene = (GameScene) scene;
+        GameInit gameInit = new GameInit(level_);
+        GameManager.getInstance().setLevel(gameInit.getDifficulty());
+        System.out.print("Nivel colores: "+ GameManager.getInstance().getLevel().solutionColors_+"\n");
     }
 
 

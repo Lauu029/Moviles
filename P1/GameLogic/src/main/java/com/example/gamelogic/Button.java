@@ -76,8 +76,8 @@ public class Button implements IGameObject {
                     scene=new LevelScene(engine_, sceneWidth, sceneHeight);
                     break;
             }
-            GameManager.getInstance().changeScene(scene);
             actionButton();
+            GameManager.getInstance().changeScene(scene);
 
             return true;
         }
