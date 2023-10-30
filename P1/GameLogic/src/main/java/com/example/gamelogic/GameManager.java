@@ -11,6 +11,8 @@ public class GameManager {
     private int selectedColor;
     private boolean hasSelectedColor;
     private Difficulty levelDificulty;
+    private int temporal_id;
+    private int[] levelSolution;
 
     // Paso 2: Hacer el constructor privado para evitar la creación de instancias adicionales.
     private GameManager() {
@@ -20,7 +22,6 @@ public class GameManager {
     // Paso 3: Crear un método público para obtener la única instancia de la clase.
     public static GameManager getInstance() {
         // Si la instancia no ha sido creada, la creamos.
-
         return instance;
     }
 
@@ -30,6 +31,9 @@ public class GameManager {
         instance.myEngine_ = engine;
         instance.width_ = width;
         instance.height_ = height;
+        instance.temporal_id = -1;
+        instance.selectedColor = 0;
+        instance.hasSelectedColor = false;
         return 1;
     }
 
@@ -48,9 +52,10 @@ public class GameManager {
     }
 
     //para almacenar el color que ha cogido y quiere colocar en la matriz
-    public void takeColor(int color) {
+    public void takeColor(int color, int id) {
         this.hasSelectedColor = true;
         this.selectedColor = color;
+        this.temporal_id = id;
     }
 
     public boolean colorSelected() {
@@ -66,11 +71,40 @@ public class GameManager {
         return this.selectedColor;
     }
 
-    public void setLevel(Difficulty dif) {
-        this.levelDificulty = dif;
+    public int getTemporalId() {
+        return this.temporal_id;
     }
 
-    public Difficulty getLevel(){
+    public void resetTemporalId() {
+        this.temporal_id = -1;
+    }
+
+    public void setLevel(Difficulty dif) {
+        this.levelDificulty = dif;
+        this.levelSolution = new int[dif.solutionColors_];
+        resetLevelSolution();
+    }
+
+    public Difficulty getLevel() {
         return this.levelDificulty;
+    }
+
+    public int[] getLevelSolution() {
+        return this.levelSolution;
+    }
+
+    public void resetLevelSolution() {
+        for (int i = 0; i < levelSolution.length; i++) {
+            this.levelSolution[i] = -1;
+        }
+    }
+
+    public void putColorSolution(int id, int color_id) {
+        System.out.print("Poniendo color " + color_id + "en la posicion" + id + "\n");
+        this.levelSolution[id] = color_id;
+        for (int i = 0; i < levelSolution.length; i++) {
+            System.out.print(this.levelSolution[i] + " ");
+        }
+        System.out.println();
     }
 }

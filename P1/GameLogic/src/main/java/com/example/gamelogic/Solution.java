@@ -48,9 +48,11 @@ public class Solution  {
         return sol_;
     }
     public void imprimeSol(){
+        System.out.print("Solucion: ");
         for(int i = 0; i< sol_.length; i++){
-            System.out.println(sol_[i]);
+            System.out.print(sol_[i]);
         }
+        System.out.println();
     }
     public void imprime(){
 
@@ -66,7 +68,6 @@ public class Solution  {
             if (solution_.containsKey(possible_sol[i])) {
                 //vemos si el color esta en la misma posicion que la solucion real
                 Map<Integer, Boolean> valor = solution_.get(possible_sol[i]);
-                System.out.println("memeti "+i);
                 if (valor.containsKey(i)) {
 
                     posCorrecta_++;
@@ -90,7 +91,6 @@ public class Solution  {
                          }
                     }
                     if(!combrobado){
-                        System.out.println("color correcto"+possible_sol[i]);
                         colorCorrecto_++;}
                 }
             }

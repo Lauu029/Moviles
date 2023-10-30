@@ -30,12 +30,12 @@ public class GameScene implements IScene {
     @Override
     public void init() {
 
-        this.gm= GameManager.getInstance();
+        this.gm = GameManager.getInstance();
+        Difficulty lev = this.gm.getLevel();
         mySolution_ = new Solution();
-        mySolution_.createSolution(true, 5, 8, 8);
+        mySolution_.createSolution(lev.repeat_, lev.solutionColors_, lev.posibleColors_, lev.tries_);
         mySolution_.imprimeSol();
         int[] miArray = {1, 2, 3, 4, 0};
-        Difficulty lev= this.gm.getLevel();
         this.gameBoard = new Board(lev.solutionColors_, lev.tries_, lev.posibleColors_, lev.repeat_, width_, height_);
 
         addGameObject(gameBoard);
@@ -82,8 +82,21 @@ public class GameScene implements IScene {
 
     @Override
     public void update(double time) {
-        for (int i = 0; i < IGameObjects_.size(); i++) {
-            IGameObjects_.get(i).update(time);
+        int[] tempSol = gm.getLevelSolution();
+        int i = 0;
+        boolean isComplete = true;
+        while (i < tempSol.length && isComplete) {
+            if (tempSol[i] == -1)
+                isComplete = false;
+            i++;
+        }
+        if (isComplete) {
+            System.out.print("Me Compruebo\n");
+            mySolution_.compureba(tempSol);
+            gameBoard.nexTry();
+        }
+        for (int j = 0; j < IGameObjects_.size(); j++) {
+            IGameObjects_.get(j).update(time);
         }
     }
 }

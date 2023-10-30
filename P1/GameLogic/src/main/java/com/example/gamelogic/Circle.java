@@ -5,7 +5,7 @@ import com.example.engine.IGraphics;
 import com.example.engine.TouchEvent;
 
 public class Circle implements IGameObject {
-    boolean is_selectionable, hasColor;
+    boolean hasColor;
     int color, radius;
     int width, height;
     int posX, posY;
@@ -14,8 +14,7 @@ public class Circle implements IGameObject {
     int game_try;
     GameManager gm;
 
-    public Circle(boolean sel, int r, int x, int y, int row_) {
-        this.is_selectionable = sel;
+    public Circle(int r, int x, int y, int row_) {
         this.color = 0Xff808080;
         this.posX = x;
         this.posY = y;
@@ -63,17 +62,7 @@ public class Circle implements IGameObject {
 
     @Override
     public boolean handleInput(TouchEvent event) {
-        if (this.posX - this.radius < event.x && this.posX + this.radius > event.x
-                && this.posY - this.radius < event.y && this.posY + this.radius > event.y) {
-            if (this.is_selectionable) {
-                gm.takeColor(this.color);
-            } else if (gm.colorSelected() && this.row == this.game_try) {
-                this.color = gm.getSelectedColor();
-                this.hasColor = true;
-            }
-            return true;
-        }
-        return false;
+        return true;
     }
 
     public void setGameTry(int t) {

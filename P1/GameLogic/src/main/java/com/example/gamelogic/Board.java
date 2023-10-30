@@ -20,8 +20,8 @@ public class Board implements IGameObject {
     private int[] y_positions;
 
     //Objetos de la partida
-    private Circle[] usable_colors_circles;
-    private Circle[][] player_tries;
+    private SolutionCircle[] usable_colors_circles;
+    private TryCircle[][] player_tries;
 
     //Colores totales que puede llegar a haber en una partida
     private int[] total_possible_colors = new int[]{0xFFFFC0CB, 0xFF87CEEB, 0xFF98FB98, 0xFFFFFF99,
@@ -53,24 +53,19 @@ public class Board implements IGameObject {
         createCircles();
     }
 
-//    void putColor(int pos, int ficha) {
-//        tablero[intentoActual][pos] = ficha;
-//    }
-
     void createCircles() {
-        this.usable_colors_circles = new Circle[this.usable_colors];
-        this.player_tries = new Circle[this.tries][this.code_colors];
+        this.usable_colors_circles = new SolutionCircle[this.usable_colors];
+        this.player_tries = new TryCircle[this.tries][this.code_colors];
         //Inicializa los colores que se puedan usar
         for (int i = 0; i < usable_colors; i++) {
-            usable_colors_circles[i] = new Circle(true, this.circle_rad, 0, 0, -1);
+            usable_colors_circles[i] = new SolutionCircle( this.circle_rad, 0, 0, -1);
             usable_colors_circles[i].setColor(total_possible_colors[i]);
             usable_colors_circles[i].setIdColor(i);
             game_objects_table.add(usable_colors_circles[i]);
         }
-        this.player_tries = new Circle[this.tries][this.code_colors];
         for (int i = 0; i < this.tries; i++) {
             for (int j = 0; j < code_colors; j++) {
-                player_tries[i][j] = new Circle(false, this.circle_rad, 0, y_positions[i + 1], i);
+                player_tries[i][j] = new TryCircle( this.circle_rad, 0, y_positions[i + 1], i,j);
                 player_tries[i][j].setGameTry(acutal_try);
                 game_objects_table.add(player_tries[i][j]);
             }
@@ -81,6 +76,7 @@ public class Board implements IGameObject {
 
     void nexTry() {
         acutal_try++;
+        GameManager.getInstance().resetLevelSolution();
         for (int i = 0; i < this.tries; i++) {
             for (int j = 0; j < code_colors; j++) {
                 player_tries[i][j].setGameTry(acutal_try);
@@ -90,6 +86,7 @@ public class Board implements IGameObject {
 
     @Override
     public void update(double time) {
+
     }
 
     private void setCirclesPositions() {
