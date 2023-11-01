@@ -6,6 +6,7 @@ import com.example.engine.IGameObject;
 import com.example.engine.IGraphics;
 import com.example.engine.IImage;
 import com.example.engine.IScene;
+import com.example.engine.ISound;
 import com.example.engine.TouchEvent;
 
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class MenuScene implements IScene {
     IFont font_button;
     IImage oreo_;
     private IImage image_;
-
+    ISound overSound_;
     public MenuScene(IEngine IEngine, int w, int h) {
         IEngine_ = IEngine;
         width_ = w;
@@ -48,7 +49,7 @@ public class MenuScene implements IScene {
             throw new RuntimeException(e);
         }
         // this.image_=IEngine_.getGraphics().newImage("hola.png");
-        IEngine_.getAudio().newSound("over.wav","pruebaMenu");
+        overSound_=IEngine_.getAudio().newSound("over.wav","overMenu");
 
     }
 
@@ -71,7 +72,7 @@ public class MenuScene implements IScene {
     public void handleInput(ArrayList<TouchEvent> events) {
         if (events.size() != 0) {
             System.out.println("inpuuut");
-            IEngine_.getAudio().playSound("pruebaMenu",false);
+            IEngine_.getAudio().playSound(overSound_,false);
         }
         for (IGameObject g : IGameObjects_) {
             for (TouchEvent event: events) {
