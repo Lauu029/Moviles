@@ -34,7 +34,7 @@ public class MenuScene implements IScene {
     public void init()  {
         //creacion de la solucion
         IGraphics graph = IEngine_.getGraphics();
-        this.font=graph.newFont("Hexenkoetel-qZRv1.ttf",40,false,false);
+        this.font=graph.newFont("Hexenkoetel-qZRv1.ttf",40,true,true);
         graph.setFont(this.font);
         font_button=graph.newFont("Hexenkoetel-qZRv1.ttf",20,false,false);
         this.button = new Button("Jugar",font_button,0XFFFB839B

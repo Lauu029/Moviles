@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -176,6 +177,9 @@ public class GraphicsAndroid implements IGraphics {
 
         myPaint_ .setTypeface(aFont.getFont());
         myPaint_ .setTextSize(aFont.getSize());
+
+        myPaint_.setFakeBoldText(aFont.isBold());
+        myPaint_.setTextSkewX(aFont.isItalic()? -0.25f : 0.0f);
     }
 
     @Override

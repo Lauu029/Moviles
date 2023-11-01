@@ -30,8 +30,18 @@ public class FontAndroid implements IFont {
     }
 
     @Override
+    public void setItalic(boolean italic) {
+        italic_=italic;
+    }
+
+    @Override
     public boolean isBold() {
         return this.bold_;
+    }
+
+    @Override
+    public boolean isItalic() {
+        return italic_;
     }
 
     @Override

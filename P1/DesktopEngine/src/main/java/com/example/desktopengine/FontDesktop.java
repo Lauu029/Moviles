@@ -38,7 +38,15 @@ public class FontDesktop implements IFont {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        myFont_=myFont_.deriveFont(Font.TRUETYPE_FONT,size_);
+
+        int style = Font.PLAIN;
+        if (bold_) {
+            style |= Font.BOLD;
+        }
+        if (italic_) {
+            style |= Font.ITALIC;
+        }
+        myFont_=myFont_.deriveFont(style,size_);
     }
     Font getFont(){
         return myFont_;
@@ -50,8 +58,18 @@ public class FontDesktop implements IFont {
     }
 
     @Override
+    public void setItalic(boolean italic) {
+        italic_=italic;
+    }
+
+    @Override
     public boolean isBold() {
         return this.bold_;
+    }
+
+    @Override
+    public boolean isItalic() {
+        return italic_;
     }
 
     @Override
