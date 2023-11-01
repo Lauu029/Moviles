@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class FontDesktop implements IFont {
-    private String name_="Assets/";
+    private String path_ ="Assets/";
     private Font myFont_;
     private int size_;
     private boolean bold_;
@@ -26,7 +26,7 @@ public class FontDesktop implements IFont {
         myFont_=null;
 
         try {
-            is = new FileInputStream(name_+filename);
+            is = new FileInputStream(path_ +filename);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }

@@ -48,6 +48,8 @@ public class MenuScene implements IScene {
             throw new RuntimeException(e);
         }
         // this.image_=IEngine_.getGraphics().newImage("hola.png");
+        IEngine_.getAudio().newSound("over.wav","pruebaMenu");
+
     }
 
 
@@ -67,7 +69,10 @@ public class MenuScene implements IScene {
 
     @Override
     public void handleInput(ArrayList<TouchEvent> events) {
-        if (events.size() != 0) System.out.println("inpuuut");
+        if (events.size() != 0) {
+            System.out.println("inpuuut");
+            IEngine_.getAudio().playSound("pruebaMenu",false);
+        }
         for (IGameObject g : IGameObjects_) {
             for (TouchEvent event: events) {
                 if(g.handleInput(event))
