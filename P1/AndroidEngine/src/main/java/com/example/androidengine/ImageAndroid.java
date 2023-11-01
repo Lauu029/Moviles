@@ -13,9 +13,6 @@ public class ImageAndroid implements IImage {
     public ImageAndroid(Bitmap image_){
         bitmap_=image_;
     }
-    public ImageAndroid(String source){
-
-    }
     public Bitmap getImage(){
         return bitmap_;
     }

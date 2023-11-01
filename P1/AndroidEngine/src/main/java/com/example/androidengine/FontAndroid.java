@@ -13,12 +13,12 @@ public class FontAndroid implements IFont {
     private int size_;
     private boolean bold_;
     private boolean italic_;
-    public FontAndroid(String filename,int size,boolean isBold,boolean italic, AssetManager assMan) {
+    public FontAndroid(String filename,int size,boolean isBold,boolean italic, AssetManager assetManager) {
         this.size_ = size;
         this.bold_ = isBold;
         this.italic_=italic;
         myFont_=null;
-        myFont_=Typeface.createFromAsset(assMan,filename);
+        myFont_=Typeface.createFromAsset(assetManager,filename);
 
     }
     public Typeface getFont(){

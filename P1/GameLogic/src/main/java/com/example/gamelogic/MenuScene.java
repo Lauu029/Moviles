@@ -71,8 +71,8 @@ public class MenuScene implements IScene {
     public void handleInput(ArrayList<TouchEvent> events) {
         if (events.size() != 0) {
             System.out.println("inpuuut");
-            IEngine_.getAudio().playSound(overSound_,false);
-            IEngine_.getAudio().playSound(alarmSound_,false);
+            IEngine_.getAudio().playSound(overSound_,0);
+            IEngine_.getAudio().playSound(alarmSound_,0);
         }
         for (IGameObject g : IGameObjects_) {
             for (TouchEvent event: events) {

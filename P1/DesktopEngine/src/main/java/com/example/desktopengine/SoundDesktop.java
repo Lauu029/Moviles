@@ -13,7 +13,7 @@ public class SoundDesktop implements ISound {
     private HashMap<String, Clip> mySounds_;
     private String path_="Assets/";
     private Clip myClip_;
-    SoundDesktop(String file, String id){
+    public SoundDesktop(String file, String id){
         mySounds_ = new HashMap<>();
         myClip_=null;
         try {

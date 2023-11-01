@@ -1,6 +1,7 @@
 package com.example.androidengine;
 
 import android.content.res.AssetManager;
+import android.media.SoundPool;
 import android.view.SurfaceView;
 
 import com.example.engine.IAudio;
@@ -16,20 +17,20 @@ public class EngineAndroid implements IEngine, Runnable {
     private Thread myRenderThread_;
     private boolean running_;
     private IScene myScene_;
-    private IAudio myAudio_;
+    private AudioAndroid myAudio_;
     private IInput myInput_;
     private AssetManager myAssetManager_;
-
+    private SoundPool mySoundPool_;
 
     public EngineAndroid(SurfaceView myView) {
         myView_ = myView;
 
         running_ = false;
-        myAudio_ = new AudioAndroid();
+
         myInput_ = new InputAndroid(myView_);
         myAssetManager_=myView.getContext().getAssets();
         myGraphics_ = new GraphicsAndroid(myView_,myAssetManager_);
-
+        myAudio_= new AudioAndroid(myAssetManager_,mySoundPool_);
     }
 
     public void resume() {
