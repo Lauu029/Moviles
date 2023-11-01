@@ -10,7 +10,7 @@ public class AudioAndroid implements IAudio {
     }
 
     @Override
-    public void playSound(String id) {
+    public void playSound(String id,boolean loop) {
 
     }
 
