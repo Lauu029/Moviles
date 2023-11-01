@@ -4,13 +4,19 @@ import com.example.engine.IAudio;
 import com.example.engine.ISound;
 
 public class AudioDesktop implements IAudio {
+
     @Override
-    public SoundDesktop playSound(String file, boolean loop) {
-        return null;
+    public void newSound(String file, String id) {
+
     }
 
     @Override
-    public void stopSound(String file) {
+    public void playSound(String id) {
+
+    }
+
+    @Override
+    public void stopSound(String id) {
 
     }
 }

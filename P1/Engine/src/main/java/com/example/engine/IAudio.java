@@ -1,7 +1,7 @@
 package com.example.engine;
 
 public interface IAudio {
-    ISound playSound(String file, boolean loop);
-
-    void stopSound(String file);
+    void newSound (String file, String id);
+    void playSound(String id);
+    void stopSound(String id);
 }
