@@ -1,5 +1,6 @@
 package com.example.gamelogic;
 
+import com.example.engine.IFont;
 import com.example.engine.IGraphics;
 import com.example.engine.TouchEvent;
 
@@ -7,8 +8,8 @@ public class TryCircle extends Circle {
     private int id_row;
     boolean hasColor;
 
-    public TryCircle(int r, int x, int y, int row_, int id) {
-        super(r, x, y, row_);
+    public TryCircle(String t, IFont f,int r, int x, int y, int row_, int id) {
+        super(t,f,r, x, y, row_);
         this.id_row = id;
         this.hasColor = false;
     }
@@ -27,6 +28,7 @@ public class TryCircle extends Circle {
             if (gm.colorSelected() && this.row == this.game_try) {
                 this.color = gm.getSelectedColor();
                 this.id_color = gm.getTemporalId();
+                this.text= Integer.toString(id_color);
                 gm.resetTemporalId();
                 this.hasColor = true;
                 System.out.print("Color " + id_color + " en la fila\n");

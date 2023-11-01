@@ -16,7 +16,8 @@ public class Button implements IGameObject {
     private int color;
     private int width = 0, height = 0, posX = 0, posY = 0, arc = 0;
     SceneNames sceneName_;
-    Button(String t, IFont f, int c, int w, int h, int a, int x, int y,SceneNames sceneNames) {
+
+    Button(String t, IFont f, int c, int w, int h, int a, int x, int y, SceneNames sceneNames) {
         this.text = t;
         this.font = f;
         this.color = c;
@@ -25,7 +26,7 @@ public class Button implements IGameObject {
         this.arc = a;
         this.posX = x;
         this.posY = y;
-        sceneName_=sceneNames;
+        sceneName_ = sceneNames;
     }
 
     @Override
@@ -36,10 +37,10 @@ public class Button implements IGameObject {
     @Override
     public void render(IGraphics graph) {
         int xText, yText;
-        xText = this.posX +this.width / 2;
-        yText = this.posY + this.height / 2 ;
+        xText = this.posX + this.width / 2;
+        yText = this.posY + this.height / 2;
         graph.setColor(0XFF222222);
-        graph.fillRoundRectangle(this.posX-2, this.posY-2, this.width+4, this.height+4, this.arc);
+        graph.fillRoundRectangle(this.posX - 2, this.posY - 2, this.width + 4, this.height + 4, this.arc);
         graph.setColor(this.color);
         graph.fillRoundRectangle(this.posX, this.posY, this.width, this.height, this.arc);
         graph.setColor(0xFFFFFFFF);
@@ -51,29 +52,25 @@ public class Button implements IGameObject {
     public void init() {
 
     }
-    void actionButton(){
+
+    void actionButton() {
 
     }
 
     @Override
     public boolean handleInput(TouchEvent event) {
-//        System.out.println("He llegado aqui x: " + event.x + " y: " + event.y);
-//        System.out.println("mi posx: " + this.posX + " mi posy: " + this.posY+ " alto: "+ this.height);
-
         if (this.posX < event.x && this.posX + this.width > event.x
                 && this.posY < event.y && this.posY + this.height > event.y) {
-
-
-
-            IEngine engine_=GameManager.getInstance().getIEngine();
-            int sceneWidth=GameManager.getInstance().getwidth();
-            int sceneHeight=GameManager.getInstance().getHeight();
-            switch (sceneName_){
+            IEngine engine_ = GameManager.getInstance().getIEngine();
+            int sceneWidth = GameManager.getInstance().getwidth();
+            int sceneHeight = GameManager.getInstance().getHeight();
+            switch (sceneName_) {
                 case GAME:
-                    scene=new GameScene(engine_, sceneWidth, sceneHeight);break;
+                    scene = new GameScene(engine_, sceneWidth, sceneHeight);
+                    break;
 
                 case LEVEL:
-                    scene=new LevelScene(engine_, sceneWidth, sceneHeight);
+                    scene = new LevelScene(engine_, sceneWidth, sceneHeight);
                     break;
             }
             actionButton();
@@ -81,9 +78,6 @@ public class Button implements IGameObject {
 
             return true;
         }
-
         return false;
-
-
     }
 }

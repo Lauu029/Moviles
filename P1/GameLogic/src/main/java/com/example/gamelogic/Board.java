@@ -13,6 +13,7 @@ public class Board implements IGameObject {
     private boolean can_repeat;
 
     private int acutal_try;
+    private IFont font;
     //Lógica de espacio y dimensiones en la pantalla
     private int sceneWidth, sceneHeight;
     private int subdivisions_screen, height_subdivisions;
@@ -31,7 +32,8 @@ public class Board implements IGameObject {
     //para gestionar todos los inputs y renders de la clase tablero
     private ArrayList<IGameObject> game_objects_table = new ArrayList<>();
 
-    Board(int codeColors_, int tries_, int usableColors, boolean canRepeat_, int scW, int scH) {
+    Board(IFont font, int codeColors_, int tries_, int usableColors, boolean canRepeat_, int scW, int scH) {
+        this.font = font;
         this.code_colors = codeColors_;
         this.tries = tries_;
         this.usable_colors = usableColors;
@@ -60,17 +62,17 @@ public class Board implements IGameObject {
         this.hints = new HintsCircle[this.tries][this.code_colors];
         //Inicializa los colores que se puedan usar
         for (int i = 0; i < usable_colors; i++) {
-            usable_colors_circles[i] = new SolutionCircle(this.circle_rad, 0, 0, -1);
+            usable_colors_circles[i] = new SolutionCircle(Integer.toString(i),this.font,this.circle_rad, 0, 0, -1);
             usable_colors_circles[i].setColor(total_possible_colors[i]);
             usable_colors_circles[i].setIdColor(i);
             game_objects_table.add(usable_colors_circles[i]);
         }
         for (int i = 0; i < this.tries; i++) {
             for (int j = 0; j < code_colors; j++) {
-                player_tries[i][j] = new TryCircle(this.circle_rad, 0, y_positions[i + 1], i, j);
+                player_tries[i][j] = new TryCircle("",this.font,this.circle_rad, 0, y_positions[i + 1], i, j);
                 player_tries[i][j].setGameTry(acutal_try);
                 game_objects_table.add(player_tries[i][j]);
-                hints[i][j] = new HintsCircle(this.circle_rad / 3, 0, y_positions[i + 1], i);
+                hints[i][j] = new HintsCircle("",this.font,this.circle_rad / 3, 0, y_positions[i + 1], i);
             }
         }
         //Seteo las posiciones de los circulos en la escena (como no se mueven solo tengo que hacerlo una vez

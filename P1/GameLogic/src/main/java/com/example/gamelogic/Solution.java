@@ -100,7 +100,6 @@ public class Solution {
         if (posCorrecta_ == solutionSize_) win_ = true;
         registeredSols_[actualturno_][0] = posCorrecta_;
         registeredSols_[actualturno_][1] = colorCorrecto_;
-        GameManager.getInstance().setNewHints(actualturno_,posCorrecta_,colorCorrecto_);
         imprimeSolution();
         resetearMap();
 

@@ -1,11 +1,13 @@
 package com.example.gamelogic;
 
+import com.example.engine.IFont;
 import com.example.engine.IGraphics;
 import com.example.engine.TouchEvent;
 
 public class SolutionCircle extends Circle {
-    public SolutionCircle( int r, int x, int y, int row_) {
-        super( r, x, y, row_);
+
+    public SolutionCircle(String t, IFont f, int r, int x, int y, int row_) {
+        super(t,f, r, x, y, row_);
     }
 
     public boolean handleInput(TouchEvent event) {
@@ -16,5 +18,4 @@ public class SolutionCircle extends Circle {
         }
         return false;
     }
-
 }
