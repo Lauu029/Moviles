@@ -107,4 +107,8 @@ public class GameManager {
         }
         System.out.println();
     }
+
+    public void setNewHints( int turn , int correctPos,int correctColor){
+
+    }
 }

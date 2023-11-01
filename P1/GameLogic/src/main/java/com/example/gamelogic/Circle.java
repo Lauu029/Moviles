@@ -5,7 +5,6 @@ import com.example.engine.IGraphics;
 import com.example.engine.TouchEvent;
 
 public class Circle implements IGameObject {
-    boolean hasColor;
     int color, radius;
     int width, height;
     int posX, posY;
@@ -21,14 +20,11 @@ public class Circle implements IGameObject {
         this.radius = r;
         this.width = 2 * radius;
         this.height = 2 * radius;
-        this.hasColor = false;
         this.row = row_;
         gm = GameManager.getInstance();
     }
-
     public void setColor(int color) {
         this.color = color;
-        this.hasColor = true;
     }
 
     public void setPositions(int x, int y) {
@@ -43,12 +39,11 @@ public class Circle implements IGameObject {
 
     @Override
     public void render(IGraphics graph) {
+        //Para debug
+//        graph.setColor(0xFFFF0000);
+//        graph.drawRectangle(this.posX-this.radius,this.posY-this.radius,this.radius*2, this.radius*2);
         graph.setColor(this.color);
         graph.drawCircle(this.posX, this.posY, this.radius);
-        if (!this.hasColor) {
-            graph.setColor(0Xff332F2C);
-            graph.drawCircle(this.posX, this.posY, this.radius / 3);
-        }
     }
 
     @Override

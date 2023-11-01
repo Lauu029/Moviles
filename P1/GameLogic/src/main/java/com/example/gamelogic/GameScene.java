@@ -35,13 +35,10 @@ public class GameScene implements IScene {
         mySolution_ = new Solution();
         mySolution_.createSolution(lev.repeat_, lev.solutionColors_, lev.posibleColors_, lev.tries_);
         mySolution_.imprimeSol();
-        int[] miArray = {1, 2, 3, 4, 0};
         this.gameBoard = new Board(lev.solutionColors_, lev.tries_, lev.posibleColors_, lev.repeat_, width_, height_);
 
         addGameObject(gameBoard);
 
-        mySolution_.compureba(miArray);
-        mySolution_.imprime();
         IEngine_.getGraphics().setColor(0xFF000000);
     }
 
@@ -91,8 +88,8 @@ public class GameScene implements IScene {
             i++;
         }
         if (isComplete) {
-            System.out.print("Me Compruebo\n");
             mySolution_.compureba(tempSol);
+            gameBoard.setNewHints(mySolution_.getposCorrecta(gameBoard.getAcutalTry()), mySolution_.getColorCorrecto(gameBoard.getAcutalTry()));
             gameBoard.nexTry();
         }
         for (int j = 0; j < IGameObjects_.size(); j++) {
