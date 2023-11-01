@@ -18,30 +18,23 @@ public class GameScene implements IScene {
     private Button button;
     private Board gameBoard;
     private IFont font;
-    private IFont font_;
     private GameManager gm;
 
     public GameScene(IEngine IEngine, int w, int h) {
-        IEngine_ = IEngine;
-        width_ = w;
-        height_ = h;
+        this.IEngine_ = IEngine;
+        this.width_ = w;
+        this.height_ = h;
     }
 
     @Override
     public void init() {
-
+        this.font = this.IEngine_.getGraphics().newFont("Hexenkoetel-qZRv1.ttf", 40, false, false);
         this.gm = GameManager.getInstance();
         Difficulty lev = this.gm.getLevel();
         mySolution_ = new Solution();
         mySolution_.createSolution(lev.repeat_, lev.solutionColors_, lev.posibleColors_, lev.tries_);
-        mySolution_.imprimeSol();
-        int[] miArray = {1, 2, 3, 4, 0};
-        this.gameBoard = new Board(lev.solutionColors_, lev.tries_, lev.posibleColors_, lev.repeat_, width_, height_);
-
+        this.gameBoard = new Board(this.font,lev.solutionColors_, lev.tries_, lev.posibleColors_, lev.repeat_, width_, height_);
         addGameObject(gameBoard);
-
-        mySolution_.compureba(miArray);
-        mySolution_.imprime();
         IEngine_.getGraphics().setColor(0xFF000000);
     }
 
@@ -61,13 +54,11 @@ public class GameScene implements IScene {
 
     @Override
     public void handleInput(ArrayList<TouchEvent> events) {
-        if (events.size() != 0) System.out.println("inpuuut");
         for (IGameObject g : IGameObjects_) {
             for (TouchEvent event : events) {
                 if (g.handleInput(event))
                     return;
             }
-
         }
     }
 
@@ -91,8 +82,8 @@ public class GameScene implements IScene {
             i++;
         }
         if (isComplete) {
-            System.out.print("Me Compruebo\n");
             mySolution_.compureba(tempSol);
+            gameBoard.setNewHints(mySolution_.getposCorrecta(gameBoard.getAcutalTry()), mySolution_.getColorCorrecto(gameBoard.getAcutalTry()));
             gameBoard.nexTry();
         }
         for (int j = 0; j < IGameObjects_.size(); j++) {

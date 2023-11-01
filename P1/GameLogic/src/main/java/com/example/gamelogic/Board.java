@@ -13,6 +13,7 @@ public class Board implements IGameObject {
     private boolean can_repeat;
 
     private int acutal_try;
+    private IFont font;
     //Lógica de espacio y dimensiones en la pantalla
     private int sceneWidth, sceneHeight;
     private int subdivisions_screen, height_subdivisions;
@@ -22,6 +23,7 @@ public class Board implements IGameObject {
     //Objetos de la partida
     private SolutionCircle[] usable_colors_circles;
     private TryCircle[][] player_tries;
+    private HintsCircle[][] hints;
 
     //Colores totales que puede llegar a haber en una partida
     private int[] total_possible_colors = new int[]{0xFFFFC0CB, 0xFF87CEEB, 0xFF98FB98, 0xFFFFFF99,
@@ -30,7 +32,8 @@ public class Board implements IGameObject {
     //para gestionar todos los inputs y renders de la clase tablero
     private ArrayList<IGameObject> game_objects_table = new ArrayList<>();
 
-    Board(int codeColors_, int tries_, int usableColors, boolean canRepeat_, int scW, int scH) {
+    Board(IFont font, int codeColors_, int tries_, int usableColors, boolean canRepeat_, int scW, int scH) {
+        this.font = font;
         this.code_colors = codeColors_;
         this.tries = tries_;
         this.usable_colors = usableColors;
@@ -56,18 +59,20 @@ public class Board implements IGameObject {
     void createCircles() {
         this.usable_colors_circles = new SolutionCircle[this.usable_colors];
         this.player_tries = new TryCircle[this.tries][this.code_colors];
+        this.hints = new HintsCircle[this.tries][this.code_colors];
         //Inicializa los colores que se puedan usar
         for (int i = 0; i < usable_colors; i++) {
-            usable_colors_circles[i] = new SolutionCircle( this.circle_rad, 0, 0, -1);
+            usable_colors_circles[i] = new SolutionCircle(Integer.toString(i),this.font,this.circle_rad, 0, 0, -1);
             usable_colors_circles[i].setColor(total_possible_colors[i]);
             usable_colors_circles[i].setIdColor(i);
             game_objects_table.add(usable_colors_circles[i]);
         }
         for (int i = 0; i < this.tries; i++) {
             for (int j = 0; j < code_colors; j++) {
-                player_tries[i][j] = new TryCircle( this.circle_rad, 0, y_positions[i + 1], i,j);
+                player_tries[i][j] = new TryCircle("",this.font,this.circle_rad, 0, y_positions[i + 1], i, j);
                 player_tries[i][j].setGameTry(acutal_try);
                 game_objects_table.add(player_tries[i][j]);
+                hints[i][j] = new HintsCircle("",this.font,this.circle_rad / 3, 0, y_positions[i + 1], i);
             }
         }
         //Seteo las posiciones de los circulos en la escena (como no se mueven solo tengo que hacerlo una vez
@@ -84,6 +89,18 @@ public class Board implements IGameObject {
         }
     }
 
+    public void setNewHints(int correctPositions, int correctColors) {
+        int array_pos = 0;
+        for (int i = 0; i < correctPositions; i++) {
+            hints[acutal_try][array_pos].putHintColor(true);
+            array_pos++;
+        }
+        for (int i = 0; i < correctColors; i++) {
+            hints[acutal_try][array_pos].putHintColor(false);
+            array_pos++;
+        }
+    }
+
     @Override
     public void update(double time) {
 
@@ -92,33 +109,37 @@ public class Board implements IGameObject {
     private void setCirclesPositions() {
         int totalWidth = this.usable_colors * this.circle_rad * 2;
         int spaceToEachSide = (sceneWidth - totalWidth) / 2;
-        int x = 10+ this.circle_rad;
+        int x = 10 + this.circle_rad;
         for (int i = 0; i < usable_colors; i++) {
-            // int x = spaceToEachSide + i * (this.circle_rad * 2);
             usable_colors_circles[i].setPositions(x, y_positions[11] + this.circle_rad);
             x += (this.circle_rad * 2);
         }
-
         for (int i = 0; i < tries; i++) {
-            x =  10+ this.circle_rad;
+            x = 10 + this.circle_rad;
             for (int j = 0; j < code_colors; j++) {
-                //int x = spaceToEachSide + j * (this.circle_rad * 2);
                 player_tries[i][j].setPositions(x, y_positions[i + 1] + this.circle_rad / 2);
-                x += 5+ (this.circle_rad * 2);
+                x += 5 + (this.circle_rad * 2);
+            }
+            // Dibujo los circulos de las pistas
+            x += 10;
+            for (int j = 0; j < code_colors; j++) {
+                hints[i][j].setPositions(x, y_positions[i + 1] + this.circle_rad / 2);
+                x += 5 + (this.circle_rad / 3 * 2);
             }
         }
     }
 
     @Override
     public void render(IGraphics graph) {
-//        graph.setColor(0xFF000000);
-//        for (int i = 0; i < this.tries; i++) {
-//            graph.drawRoundRectangle(10, y_positions[i + 1], sceneWidth - 20, height_subdivisions - 10, 3);
-//        }
         graph.setColor(0xFF808080);
         graph.fillRectangle(0, y_positions[11], sceneWidth, height_subdivisions);
         for (IGameObject g : game_objects_table) {
             g.render(graph);
+        }
+        for (int i = 0; i < this.tries; i++) {
+            for (int j = 0; j < code_colors; j++) {
+                hints[i][j].render(graph);
+            }
         }
     }
 
@@ -132,5 +153,9 @@ public class Board implements IGameObject {
             if (g.handleInput(event))
                 return true;
         return false;
+    }
+
+    public int getAcutalTry() {
+        return acutal_try;
     }
 }

@@ -13,6 +13,7 @@ public class GameManager {
     private Difficulty levelDificulty;
     private int temporal_id;
     private int[] levelSolution;
+    private boolean daltonics;
 
     // Paso 2: Hacer el constructor privado para evitar la creación de instancias adicionales.
     private GameManager() {
@@ -34,6 +35,7 @@ public class GameManager {
         instance.temporal_id = -1;
         instance.selectedColor = 0;
         instance.hasSelectedColor = false;
+        instance.daltonics = false;
         return 1;
     }
 
@@ -100,11 +102,13 @@ public class GameManager {
     }
 
     public void putColorSolution(int id, int color_id) {
-        System.out.print("Poniendo color " + color_id + "en la posicion" + id + "\n");
         this.levelSolution[id] = color_id;
-        for (int i = 0; i < levelSolution.length; i++) {
-            System.out.print(this.levelSolution[i] + " ");
-        }
-        System.out.println();
+    }
+
+    public void changeDaltonicsMode() {
+        this.daltonics = !this.daltonics;
+    }
+    public boolean isDaltonics(){
+        return daltonics;
     }
 }
