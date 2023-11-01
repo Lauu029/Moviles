@@ -31,7 +31,7 @@ public class SoundDesktop implements ISound {
     }
     public Clip getClip(){
         Clip currClip=myClip_;
-        if(mySounds_.containsValue(currClip)&& currClip.isOpen()){
+        if(mySounds_.containsValue(currClip) && currClip.isOpen()){
             return currClip;
         }
         else{

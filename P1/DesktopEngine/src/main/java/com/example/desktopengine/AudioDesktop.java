@@ -21,18 +21,21 @@ public class AudioDesktop implements IAudio {
     public void playSound(ISound sound,boolean loop) {
         SoundDesktop dSound=(SoundDesktop) sound;
         Clip clip=dSound.getClip();
-        if(loop)
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-        clip.setFramePosition(0);
-        clip.start();
+        if(clip!=null){
+            if(loop)
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
+            clip.setFramePosition(0);
+            clip.start();
+        }
     }
 
     @Override
     public void stopSound(ISound sound) {
         SoundDesktop dSound=(SoundDesktop) sound;
         Clip clip=dSound.getClip();
-        clip.stop();
-        clip.close();
-
+        if(clip!=null){
+            clip.stop();
+            clip.close();
+        }
     }
 }

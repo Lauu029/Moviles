@@ -22,15 +22,14 @@ public class MenuScene implements IScene {
     IFont font_button;
     IImage oreo_;
     private IImage image_;
-    ISound overSound_;
+    ISound overSound_,alarmSound_;
+
     public MenuScene(IEngine IEngine, int w, int h) {
         IEngine_ = IEngine;
         width_ = w;
         height_ = h;
         System.out.print("Scene Width: " + width_ + " Scene Height: " + height_ + "\n");
     }
-
-
     @Override
     public void init()  {
         //creacion de la solucion
@@ -50,7 +49,7 @@ public class MenuScene implements IScene {
         }
         // this.image_=IEngine_.getGraphics().newImage("hola.png");
         overSound_=IEngine_.getAudio().newSound("over.wav","overMenu");
-
+        alarmSound_=IEngine_.getAudio().newSound("alarm.wav","alarmMenu");
     }
 
 
@@ -73,6 +72,7 @@ public class MenuScene implements IScene {
         if (events.size() != 0) {
             System.out.println("inpuuut");
             IEngine_.getAudio().playSound(overSound_,false);
+            IEngine_.getAudio().playSound(alarmSound_,false);
         }
         for (IGameObject g : IGameObjects_) {
             for (TouchEvent event: events) {
