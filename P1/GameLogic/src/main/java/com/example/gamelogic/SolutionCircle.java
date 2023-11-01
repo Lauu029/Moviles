@@ -1,5 +1,6 @@
 package com.example.gamelogic;
 
+import com.example.engine.IGraphics;
 import com.example.engine.TouchEvent;
 
 public class SolutionCircle extends Circle {
@@ -15,4 +16,5 @@ public class SolutionCircle extends Circle {
         }
         return false;
     }
+
 }
