@@ -31,7 +31,6 @@ public class TryCircle extends Circle {
                 this.text= Integer.toString(id_color);
                 gm.resetTemporalId();
                 this.hasColor = true;
-                System.out.print("Color " + id_color + " en la fila\n");
                 gm.putColorSolution(this.id_row, this.id_color);
             }
             return true;
