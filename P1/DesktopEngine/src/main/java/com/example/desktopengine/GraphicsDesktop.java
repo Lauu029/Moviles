@@ -200,10 +200,13 @@ public class GraphicsDesktop implements IGraphics {
 
 
     public void prepareFrame() {
+        synchronized (this) {
+            // Código crítico
+            myGraphics2D_ = (Graphics2D) this.myBufferStrategy_.getDrawGraphics();
+            this.translate(translateX_,translateY_);
+            this.scale(scale_,scale_);
+        }
 
-        myGraphics2D_ = (Graphics2D) this.myBufferStrategy_.getDrawGraphics();
-        this.translate(translateX_,translateY_);
-        this.scale(scale_,scale_);
     }
 
 
