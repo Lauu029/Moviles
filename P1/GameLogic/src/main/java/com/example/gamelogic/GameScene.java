@@ -91,10 +91,10 @@ public class GameScene implements IScene {
             mySolution_.compureba(tempSol);
             int try_ = this.gameBoard.getAcutalTry();
             if (mySolution_.getposCorrecta(try_) == this.lev.solutionColors_) {
-                EndScene end = new EndScene(this.IEngine_, this.width_, this.height_, true, tempSol, try_);
+                EndScene end = new EndScene(this.IEngine_, this.width_, this.height_, true, mySolution_.getSol(), try_);
                 this.gm.changeScene(end);
             } else if (try_ == lev.tries_-1) {
-                EndScene end = new EndScene(this.IEngine_, this.width_, this.height_, false, tempSol, try_);
+                EndScene end = new EndScene(this.IEngine_, this.width_, this.height_, false, mySolution_.getSol(), try_);
                 this.gm.changeScene(end);
             } else {
                 gameBoard.setNewHints(mySolution_.getposCorrecta(try_), mySolution_.getColorCorrecto(try_));
