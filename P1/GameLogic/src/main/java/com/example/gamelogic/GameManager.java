@@ -85,10 +85,7 @@ public class GameManager {
 
     public void changeDaltonicsMode() {
         this.daltonics = !this.daltonics;
-    }
-
-    public boolean isDaltonics() {
-        return this.daltonics;
+        this.board.changeDaltonics(this.daltonics);
     }
 
     public void setBoard(Board b) {

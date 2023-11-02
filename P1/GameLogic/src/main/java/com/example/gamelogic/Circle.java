@@ -42,17 +42,12 @@ public class Circle implements IGameObject {
 
     @Override
     public void update(double time) {
-        this.isDaltonics = gm.isDaltonics();
     }
 
     @Override
     public void render(IGraphics graph) {
-        //Para debug
-//        graph.setColor(0xFFFF0000);
-//        graph.drawRectangle(this.posX-this.radius,this.posY-this.radius,this.radius*2, this.radius*2);
         graph.setColor(this.color);
         graph.drawCircle(this.posX, this.posY, this.radius);
-
     }
 
     @Override
@@ -70,6 +65,10 @@ public class Circle implements IGameObject {
 
     public void setGameTry(int t) {
         this.game_try = t;
+    }
+
+    public void setDaltonics(boolean d){
+        this.isDaltonics=d;
     }
 
 }
