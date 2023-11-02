@@ -50,7 +50,7 @@ public class Board implements IGameObject {
             this.y_positions[i] = i * this.height_subdivisions;
         }
 
-        this.circle_rad = this.height_subdivisions / 2 - 3;
+        this.circle_rad = this.height_subdivisions / 2 - 8;
 
         //Inicialización de los circulos de la solucion y la matriz de intentos
         createCircles();
@@ -110,9 +110,18 @@ public class Board implements IGameObject {
         int totalWidth = this.usable_colors * this.circle_rad * 2;
         int spaceToEachSide = (sceneWidth - totalWidth) / 2;
         int x = 10 + this.circle_rad;
+        int offset=4;
+
+
+        int width_=GameManager.getInstance().getwidth();
+        int height_=GameManager.getInstance().getHeight();
+        int totalCircleWidth =usable_colors* (this.circle_rad * 2+offset); // Ancho total de todos los círculos
+        int x_ = (width_ - totalCircleWidth) / 2;
+
+
         for (int i = 0; i < usable_colors; i++) {
-            usable_colors_circles[i].setPositions(x, y_positions[11] + this.circle_rad);
-            x += (this.circle_rad * 2);
+            usable_colors_circles[i].setPositions(x_+i*(this.circle_rad*2+offset)+this.circle_rad, y_positions[11] + this.circle_rad);
+
         }
         for (int i = 0; i < tries; i++) {
             x = 10 + this.circle_rad;
@@ -122,16 +131,21 @@ public class Board implements IGameObject {
             }
             // Dibujo los circulos de las pistas
             x += 10;
+            int mitad=code_colors/2;
+            int offsty=this.circle_rad+2;
             for (int j = 0; j < code_colors; j++) {
                 hints[i][j].setPositions(x, y_positions[i + 1] + this.circle_rad / 2);
                 x += 5 + (this.circle_rad / 3 * 2);
+                if(j==mitad){
+
+                }
             }
         }
     }
 
     @Override
     public void render(IGraphics graph) {
-        graph.setColor(0xFF808080);
+        graph.setColor(0xFFacb5b4);
         graph.fillRectangle(0, y_positions[11], sceneWidth, height_subdivisions);
         for (IGameObject g : game_objects_table) {
             g.render(graph);

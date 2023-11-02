@@ -20,7 +20,7 @@ public class Circle implements IGameObject {
     public Circle(String t, IFont f, int r, int x, int y, int row_) {
         this.font = f;
         this.text = t;
-        this.color = 0Xff808080;
+        this.color = 0xFFacb5b4;
         this.posX = x;
         this.posY = y;
         this.radius = r;

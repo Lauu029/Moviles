@@ -14,15 +14,15 @@ import java.util.ArrayList;
 
 public class MenuScene implements IScene {
 
-    IEngine IEngine_;
-    ArrayList<IGameObject> IGameObjects_ = new ArrayList<>();
+    private IEngine IEngine_;
+    private ArrayList<IGameObject> IGameObjects_ = new ArrayList<>();
     private int width_, height_;
-    Button button;
-    IFont font;
-    IFont font_button;
-    IImage oreo_;
+    private Button button;
+    private IFont font;
+    private IFont font_button;
+    private IImage oreo_;
     private IImage image_;
-    ISound overSound_,alarmSound_;
+    private ISound overSound_,alarmSound_;
 
     public MenuScene(IEngine IEngine, int w, int h) {
         IEngine_ = IEngine;

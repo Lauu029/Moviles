@@ -40,7 +40,13 @@ public class InputHandler implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
-
+        TouchEvent event=new TouchEvent();
+        event.x=mouseEvent.getX();
+        event.y=mouseEvent.getY();
+        event.type= TouchEvent.TouchEventType.TOUCH_UP;
+        synchronized (this){
+            myPendingEvents_.add(event);
+        }
     }
 
     @Override

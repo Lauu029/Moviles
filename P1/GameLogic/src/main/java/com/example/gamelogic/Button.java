@@ -59,25 +59,28 @@ public class Button implements IGameObject {
 
     @Override
     public boolean handleInput(TouchEvent event) {
-        if (this.posX < event.x && this.posX + this.width > event.x
-                && this.posY < event.y && this.posY + this.height > event.y) {
-            IEngine engine_ = GameManager.getInstance().getIEngine();
-            int sceneWidth = GameManager.getInstance().getwidth();
-            int sceneHeight = GameManager.getInstance().getHeight();
-            switch (sceneName_) {
-                case GAME:
-                    scene = new GameScene(engine_, sceneWidth, sceneHeight);
-                    break;
+        if(event.type== TouchEvent.TouchEventType.TOUCH_UP){
+            if (this.posX < event.x && this.posX + this.width > event.x
+                    && this.posY < event.y && this.posY + this.height > event.y) {
+                IEngine engine_ = GameManager.getInstance().getIEngine();
+                int sceneWidth = GameManager.getInstance().getwidth();
+                int sceneHeight = GameManager.getInstance().getHeight();
+                switch (sceneName_) {
+                    case GAME:
+                        scene = new GameScene(engine_, sceneWidth, sceneHeight);
+                        break;
 
-                case LEVEL:
-                    scene = new LevelScene(engine_, sceneWidth, sceneHeight);
-                    break;
+                    case LEVEL:
+                        scene = new LevelScene(engine_, sceneWidth, sceneHeight);
+                        break;
+                }
+                actionButton();
+                GameManager.getInstance().changeScene(scene);
+
+                return true;
             }
-            actionButton();
-            GameManager.getInstance().changeScene(scene);
-
-            return true;
         }
+
         return false;
     }
 }

@@ -48,12 +48,15 @@ public class ButtonFlecha implements IGameObject {
 
     @Override
     public boolean handleInput(TouchEvent event) {
-        if (this.posX < event.x && this.posX + this.width > event.x
-                && this.posY < event.y && this.posY + this.height > event.y) {
-            MenuScene game = new MenuScene(GameManager.getInstance().getIEngine(), GameManager.getInstance().getwidth(), GameManager.getInstance().getHeight());
-            GameManager.getInstance().changeScene(game);
-            return true;
+        if(event.type== TouchEvent.TouchEventType.TOUCH_UP){
+            if (this.posX < event.x && this.posX + this.width > event.x
+                    && this.posY < event.y && this.posY + this.height > event.y) {
+                MenuScene game = new MenuScene(GameManager.getInstance().getIEngine(), GameManager.getInstance().getwidth(), GameManager.getInstance().getHeight());
+                GameManager.getInstance().changeScene(game);
+                return true;
+            }
         }
+
         return false;
     }
 }

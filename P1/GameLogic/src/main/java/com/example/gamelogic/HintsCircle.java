@@ -5,7 +5,7 @@ import com.example.engine.IGraphics;
 
 public class HintsCircle extends Circle {
     private boolean active;
-    private int inactiveColor = 0xFF959595, rightPosition = 0xFF000000, justRightColor = 0xFFFFFFFF;
+    private int inactiveColor = 0xFF718280, rightPosition = 0xFF000000, justRightColor = 0xFFFFFFFF;
 
     public HintsCircle(String t, IFont f,int r, int x, int y, int row_) {
         super(t,f,r, x, y, row_);
