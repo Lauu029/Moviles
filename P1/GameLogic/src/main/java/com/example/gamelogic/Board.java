@@ -168,9 +168,8 @@ public class Board implements IGameObject {
         int posx = (sceneWidth - (sceneWidth - 8)) / 2;
         for (int i = 0; i < this.tries; i++) {
             graph.setColor(0xFF455657);
-
             graph.setStrokeWidth(2);
-            graph.drawRoundRectangle(posx,y_positions[i + 2]- this.circle_rad / 2-offsety/2,sceneWidth-8,circle_rad*2+offsety,10);
+            graph.drawRoundRectangle(posx, y_positions[i + 2] - this.circle_rad / 2 - offsety / 2, sceneWidth - 8, circle_rad * 2 + offsety, 10);
 
             graph.setFont(fuente);
             graph.drawText(i + 1 + "", 30, y_positions[i + 2]);
@@ -198,14 +197,18 @@ public class Board implements IGameObject {
         return acutal_try;
     }
 
+    public void changeDaltonics(boolean dalt) {
+        for (Circle c:game_objects_table) {
+            c.setDaltonics(dalt);
+        }
+    }
+
     public void putNewColor(int id, int color) {
-        //int i = 0;
-        boolean color_written = false;
-        for(int i=0;i<this.code_colors;i++){
+        for (int i = 0; i < this.code_colors; i++) {
             if (!player_tries[acutal_try][i].hasColor()) {
-                player_tries[acutal_try][i].setColor(color,id);
+                player_tries[acutal_try][i].setColor(color, id);
                 this.gm.putColorSolution(i, id);
-                System.out.println("He puesto un color en la posicion "+ i);
+                System.out.println("He puesto un color en la posicion " + i);
                 break;
             }
         }
