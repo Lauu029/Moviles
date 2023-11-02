@@ -9,7 +9,6 @@ import com.example.engine.IGraphics;
 import com.example.engine.IScene;
 import com.example.engine.TouchEvent;
 
-import java.awt.Color;
 import java.util.ArrayList;
 
 public class LevelScene implements IScene {
@@ -48,7 +47,7 @@ public class LevelScene implements IScene {
 
             this.addGameObject(but);
         }
-        ButtonFlecha but2=new ButtonFlecha("flecha.png",40,40, 0,0);
+        ButtonImage but2=new ButtonImage("flecha.png",40,40, 0,0,SceneNames.MENU);
         this.addGameObject(but2);
     }
 

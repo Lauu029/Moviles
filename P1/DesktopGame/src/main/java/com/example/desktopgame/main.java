@@ -40,10 +40,12 @@ public class main {
         EngineDesktop IEngineDesktop = new EngineDesktop(myView);
         GameManager.init(IEngineDesktop,400,600);
         //LevelScene gm=new LevelScene(IEngineDesktop,400,600);
-        //MenuScene gm = new MenuScene(IEngineDesktop, 400, 600);
+        //
+        //
+        MenuScene gm = new MenuScene(IEngineDesktop, 400, 600);
         //GameScene gm = new GameScene(IEngineDesktop,400,600);
-        int[] intentos_ = {0, 1, 2, 3};
-        EndScene gm=new EndScene(IEngineDesktop,400,600,true,intentos_,0);
+       /* int[] intentos_ = {0, 1, 2, 3};
+        EndScene gm=new EndScene(IEngineDesktop,400,600,true,intentos_,0);*/
         IEngineDesktop.setScene(gm);
         gm.init();
 
