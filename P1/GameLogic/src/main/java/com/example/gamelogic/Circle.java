@@ -27,8 +27,8 @@ public class Circle implements IGameObject {
         this.width = 2 * radius;
         this.height = 2 * radius;
         this.row = row_;
-        this.isDaltonics = true;
         gm = GameManager.getInstance();
+        this.isDaltonics = gm.getDaltonic();
     }
 
     public void setColor(int color) {
@@ -48,6 +48,12 @@ public class Circle implements IGameObject {
     public void render(IGraphics graph) {
         graph.setColor(this.color);
         graph.drawCircle(this.posX, this.posY, this.radius);
+        if (this.isDaltonics) {
+            graph.setColor(0xFF000000);
+            graph.setFont(this.font);
+            int fontSize = this.font.getSize();
+            graph.drawText(this.text, this.posX, this.posY-fontSize/4);
+        }
     }
 
     @Override
@@ -67,8 +73,8 @@ public class Circle implements IGameObject {
         this.game_try = t;
     }
 
-    public void setDaltonics(boolean d){
-        this.isDaltonics=d;
+    public void setDaltonics(boolean d) {
+        this.isDaltonics = d;
     }
 
 }

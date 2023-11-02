@@ -29,7 +29,7 @@ public class GameScene implements IScene {
 
     @Override
     public void init() {
-        this.font = this.IEngine_.getGraphics().newFont("Hexenkoetel-qZRv1.ttf", 40, false, false);
+        this.font = this.IEngine_.getGraphics().newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
         this.gm = GameManager.getInstance();
         this.lev = this.gm.getLevel();
         mySolution_ = new Solution();
