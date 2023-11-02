@@ -111,34 +111,37 @@ public class Board implements IGameObject {
         int spaceToEachSide = (sceneWidth - totalWidth) / 2;
         int x = 10 + this.circle_rad;
         int offset=4;
-
-
         int width_=GameManager.getInstance().getwidth();
         int height_=GameManager.getInstance().getHeight();
         int totalCircleWidth =usable_colors* (this.circle_rad * 2+offset); // Ancho total de todos los círculos
         int x_ = (width_ - totalCircleWidth) / 2;
-
-
         for (int i = 0; i < usable_colors; i++) {
             usable_colors_circles[i].setPositions(x_+i*(this.circle_rad*2+offset)+this.circle_rad, y_positions[11] + this.circle_rad);
 
         }
+        offset=2;
+        totalCircleWidth=code_colors* (this.circle_rad * 2+offset)+(code_colors/2)*(this.circle_rad+offset);
+         x_ = (width_ - totalCircleWidth) / 2;
         for (int i = 0; i < tries; i++) {
-            x = 10 + this.circle_rad;
+            x_ = (width_ - totalCircleWidth) / 2;
             for (int j = 0; j < code_colors; j++) {
-                player_tries[i][j].setPositions(x, y_positions[i + 1] + this.circle_rad / 2);
-                x += 5 + (this.circle_rad * 2);
+                player_tries[i][j].setPositions(x_+j*(this.circle_rad*2+offset)+this.circle_rad, y_positions[i + 1] + this.circle_rad / 2);
             }
             // Dibujo los circulos de las pistas
-            x += 10;
+            x_=x_+(code_colors-1)*(this.circle_rad*2+offset)+this.circle_rad+offset+this.circle_rad*2;
+            int xused=x_;
             int mitad=code_colors/2;
-            int offsty=this.circle_rad+2;
+            int offsty=this.circle_rad;
+            int c=0;
             for (int j = 0; j < code_colors; j++) {
-                hints[i][j].setPositions(x, y_positions[i + 1] + this.circle_rad / 2);
-                x += 5 + (this.circle_rad / 3 * 2);
                 if(j==mitad){
-
+                    offsty=0;
+                    x_=xused;
+                    c=0;
                 }
+                hints[i][j].setPositions(x_+c*(this.circle_rad+offset)+this.circle_rad/2, y_positions[i + 1]-offsty+this.circle_rad/2 + this.circle_rad / 2);
+
+                c++;
             }
         }
     }
