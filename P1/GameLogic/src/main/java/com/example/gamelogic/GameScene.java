@@ -36,6 +36,9 @@ public class GameScene implements IScene {
         this.gameBoard = new Board(this.font,lev.solutionColors_, lev.tries_, lev.posibleColors_, lev.repeat_, width_, height_);
         addGameObject(gameBoard);
         IEngine_.getGraphics().setColor(0xFF000000);
+        for (IGameObject g : IGameObjects_) {
+            g.init();
+        }
     }
 
     public void addGameObject(IGameObject gm) {

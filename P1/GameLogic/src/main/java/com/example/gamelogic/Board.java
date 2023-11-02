@@ -31,7 +31,7 @@ public class Board implements IGameObject {
 
     //para gestionar todos los inputs y renders de la clase tablero
     private ArrayList<IGameObject> game_objects_table = new ArrayList<>();
-
+    IFont fuente;
     Board(IFont font, int codeColors_, int tries_, int usableColors, boolean canRepeat_, int scW, int scH) {
         this.font = font;
         this.code_colors = codeColors_;
@@ -43,7 +43,7 @@ public class Board implements IGameObject {
         this.sceneHeight = scH;
 
         //Inicialización de las subdivisiones de la pantalla para repartir el espacio entre los objetos
-        this.subdivisions_screen = 12;
+        this.subdivisions_screen = 13;
         this.height_subdivisions = this.sceneHeight / subdivisions_screen;
         this.y_positions = new int[this.subdivisions_screen];
         for (int i = 0; i < this.subdivisions_screen; i++) {
@@ -69,10 +69,10 @@ public class Board implements IGameObject {
         }
         for (int i = 0; i < this.tries; i++) {
             for (int j = 0; j < code_colors; j++) {
-                player_tries[i][j] = new TryCircle("",this.font,this.circle_rad, 0, y_positions[i + 1], i, j);
+                player_tries[i][j] = new TryCircle("",this.font,this.circle_rad, 0, y_positions[i + 2], i, j);
                 player_tries[i][j].setGameTry(acutal_try);
                 game_objects_table.add(player_tries[i][j]);
-                hints[i][j] = new HintsCircle("",this.font,this.circle_rad / 3, 0, y_positions[i + 1], i);
+                hints[i][j] = new HintsCircle("",this.font,this.circle_rad / 3, 0, y_positions[i + 2], i);
             }
         }
         //Seteo las posiciones de los circulos en la escena (como no se mueven solo tengo que hacerlo una vez
@@ -91,6 +91,7 @@ public class Board implements IGameObject {
 
     public void setNewHints(int correctPositions, int correctColors) {
         int array_pos = 0;
+
         for (int i = 0; i < correctPositions; i++) {
             hints[acutal_try][array_pos].putHintColor(true);
             array_pos++;
@@ -116,16 +117,17 @@ public class Board implements IGameObject {
         int totalCircleWidth =usable_colors* (this.circle_rad * 2+offset); // Ancho total de todos los círculos
         int x_ = (width_ - totalCircleWidth) / 2;
         for (int i = 0; i < usable_colors; i++) {
-            usable_colors_circles[i].setPositions(x_+i*(this.circle_rad*2+offset)+this.circle_rad, y_positions[11] + this.circle_rad);
+            usable_colors_circles[i].setPositions(x_+i*(this.circle_rad*2+offset)+this.circle_rad, y_positions[12] + this.circle_rad);
 
         }
         offset=2;
         totalCircleWidth=code_colors* (this.circle_rad * 2+offset)+(code_colors/2)*(this.circle_rad+offset);
          x_ = (width_ - totalCircleWidth) / 2;
         for (int i = 0; i < tries; i++) {
+
             x_ = (width_ - totalCircleWidth) / 2;
             for (int j = 0; j < code_colors; j++) {
-                player_tries[i][j].setPositions(x_+j*(this.circle_rad*2+offset)+this.circle_rad, y_positions[i + 1] + this.circle_rad / 2);
+                player_tries[i][j].setPositions(x_+j*(this.circle_rad*2+offset)+this.circle_rad, y_positions[i + 2] + this.circle_rad / 2);
             }
             // Dibujo los circulos de las pistas
             x_=x_+(code_colors-1)*(this.circle_rad*2+offset)+this.circle_rad+offset+this.circle_rad*2;
@@ -139,7 +141,7 @@ public class Board implements IGameObject {
                     x_=xused;
                     c=0;
                 }
-                hints[i][j].setPositions(x_+c*(this.circle_rad+offset)+this.circle_rad/2, y_positions[i + 1]-offsty+this.circle_rad/2 + this.circle_rad / 2);
+                hints[i][j].setPositions(x_+c*(this.circle_rad+offset)+this.circle_rad/2, y_positions[i + 2]-offsty+this.circle_rad/2 + this.circle_rad / 2);
 
                 c++;
             }
@@ -149,11 +151,19 @@ public class Board implements IGameObject {
     @Override
     public void render(IGraphics graph) {
         graph.setColor(0xFFacb5b4);
-        graph.fillRectangle(0, y_positions[11], sceneWidth, height_subdivisions);
+        graph.fillRectangle(0, y_positions[12], sceneWidth, height_subdivisions);
+        graph.setFont(fuente);
+        graph.setColor(0xFF272b2b);
+        graph.drawText("Averigua el codigo",sceneWidth/2,y_positions[0]+6);
         for (IGameObject g : game_objects_table) {
             g.render(graph);
         }
+        int offsety=5;
         for (int i = 0; i < this.tries; i++) {
+            graph.setColor(0xFF455657);
+            graph.drawRoundRectangle(0,y_positions[i + 2]- this.circle_rad / 2-offsety/2,GameManager.getInstance().getwidth(),circle_rad*2+offsety,10);
+            graph.setFont(fuente);
+            graph.drawText(i+1+"",30,y_positions[i + 2]);
             for (int j = 0; j < code_colors; j++) {
                 hints[i][j].render(graph);
             }
@@ -162,6 +172,7 @@ public class Board implements IGameObject {
 
     @Override
     public void init() {
+        fuente=GameManager.getInstance().getIEngine().getGraphics().newFont("Alice.ttf",25,true,false);
     }
 
     @Override
