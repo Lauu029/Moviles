@@ -10,11 +10,12 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 public class SoundDesktop implements ISound {
-    private HashMap<String, Clip> mySounds_;
+    //private HashMap<String, Clip> mySounds_;
+    
     private String path_="Assets/";
     private Clip myClip_;
     public SoundDesktop(String file, String id){
-        mySounds_ = new HashMap<>();
+        //mySounds_ = new HashMap<>();
         myClip_=null;
         try {
             File audioFile = new File(path_+file);
@@ -22,7 +23,7 @@ public class SoundDesktop implements ISound {
                     AudioSystem.getAudioInputStream(audioFile);
             myClip_ = AudioSystem.getClip();
             myClip_.open(audioStream);
-            mySounds_.put(id,myClip_);
+            //mySounds_.put(id,myClip_);
 
         } catch (Exception e) {
             System.err.println("Couldn't load audio file");
@@ -31,7 +32,7 @@ public class SoundDesktop implements ISound {
     }
     public Clip getClip(){
         Clip currClip=myClip_;
-        if(mySounds_.containsValue(currClip) && currClip.isOpen()){
+        if(currClip.isOpen()){
             return currClip;
         }
         else{

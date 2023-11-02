@@ -2,6 +2,8 @@ package com.example.androidgame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.SurfaceView;
 //import android.widget.RelativeLayout;
@@ -21,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         this.renderView = new SurfaceView(this);
         setContentView(this.renderView);
         EngineAndroid IEngineAndroid = new EngineAndroid(renderView);
