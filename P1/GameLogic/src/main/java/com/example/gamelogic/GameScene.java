@@ -15,7 +15,7 @@ public class GameScene implements IScene {
     private IEngine IEngine_;
     private ArrayList<IGameObject> IGameObjects_ = new ArrayList<>();
     private int width_, height_;
-    private Button button;
+    private ButtonDaltonics button_dalt;
     private Board gameBoard;
     private IFont font;
     private GameManager gm;
@@ -35,6 +35,8 @@ public class GameScene implements IScene {
         mySolution_.createSolution(lev.repeat_, lev.solutionColors_, lev.posibleColors_, lev.tries_);
         this.gameBoard = new Board(this.font,lev.solutionColors_, lev.tries_, lev.posibleColors_, lev.repeat_, width_, height_);
         addGameObject(gameBoard);
+        this.button_dalt=new ButtonDaltonics("Dalt",this.font,0xff268974,70,50,3,this.width_-80,0,SceneNames.GAME);
+        addGameObject(button_dalt);
         IEngine_.getGraphics().setColor(0xFF000000);
         for (IGameObject g : IGameObjects_) {
             g.init();

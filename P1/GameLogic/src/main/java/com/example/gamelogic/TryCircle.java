@@ -19,6 +19,10 @@ public class TryCircle extends Circle {
         if (!this.hasColor) {
             graph.setColor(0Xff332F2C);
             graph.drawCircle(this.posX, this.posY, this.radius / 3);
+        } else if (this.isDaltonics) {
+            graph.setColor(0xFF000000);
+            graph.setFont(this.font);
+            graph.drawText(this.text, this.posX, this.posY);
         }
     }
 
@@ -31,7 +35,6 @@ public class TryCircle extends Circle {
                 this.text= Integer.toString(id_color);
                 gm.resetTemporalId();
                 this.hasColor = true;
-                System.out.print("Color " + id_color + " en la fila\n");
                 gm.putColorSolution(this.id_row, this.id_color);
             }
             return true;

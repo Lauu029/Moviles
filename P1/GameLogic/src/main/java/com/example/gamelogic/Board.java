@@ -11,7 +11,7 @@ public class Board implements IGameObject {
     //Relativo a la dificultad del nivel
     private int code_colors, usable_colors, tries;
     private boolean can_repeat;
-
+    private boolean daltonics;
     private int acutal_try;
     private IFont font;
     //Lógica de espacio y dimensiones en la pantalla
@@ -41,7 +41,7 @@ public class Board implements IGameObject {
         this.acutal_try = 0;
         this.sceneWidth = scW;
         this.sceneHeight = scH;
-
+        this.daltonics=false;
         //Inicialización de las subdivisiones de la pantalla para repartir el espacio entre los objetos
         this.subdivisions_screen = 13;
         this.height_subdivisions = this.sceneHeight / subdivisions_screen;
@@ -104,7 +104,9 @@ public class Board implements IGameObject {
 
     @Override
     public void update(double time) {
-
+        for(Circle g: game_objects_table){
+            g.update(time);
+        }
     }
 
     private void setCirclesPositions() {
@@ -177,7 +179,7 @@ public class Board implements IGameObject {
 
     @Override
     public boolean handleInput(TouchEvent event) {
-        for (IGameObject g : game_objects_table)
+        for (Circle g : game_objects_table)
             if (g.handleInput(event))
                 return true;
         return false;
@@ -186,4 +188,5 @@ public class Board implements IGameObject {
     public int getAcutalTry() {
         return acutal_try;
     }
+
 }

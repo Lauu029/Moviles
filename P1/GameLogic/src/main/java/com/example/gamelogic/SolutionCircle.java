@@ -18,4 +18,12 @@ public class SolutionCircle extends Circle {
         }
         return false;
     }
+    public void render(IGraphics graph) {
+        super.render(graph);
+        if (this.isDaltonics) {
+            graph.setColor(0xFF000000);
+            graph.setFont(this.font);
+            graph.drawText(this.text, this.posX, this.posY);
+        }
+    }
 }

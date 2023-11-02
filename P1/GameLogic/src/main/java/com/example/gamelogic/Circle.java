@@ -7,7 +7,7 @@ import com.example.engine.TouchEvent;
 
 public class Circle implements IGameObject {
     protected String text;
-    private IFont font;
+    protected IFont font;
     int color, radius;
     int width, height;
     int posX, posY;
@@ -27,7 +27,7 @@ public class Circle implements IGameObject {
         this.width = 2 * radius;
         this.height = 2 * radius;
         this.row = row_;
-        this.isDaltonics = false;
+        this.isDaltonics = true;
         gm = GameManager.getInstance();
     }
 
@@ -42,6 +42,7 @@ public class Circle implements IGameObject {
 
     @Override
     public void update(double time) {
+        this.isDaltonics=gm.isDaltonics();
     }
 
     @Override
@@ -51,11 +52,7 @@ public class Circle implements IGameObject {
 //        graph.drawRectangle(this.posX-this.radius,this.posY-this.radius,this.radius*2, this.radius*2);
         graph.setColor(this.color);
         graph.drawCircle(this.posX, this.posY, this.radius);
-        if (isDaltonics) {
-            graph.setColor(0xFF000000);
-            graph.setFont(this.font);
-            graph.drawText(this.text, this.posX, this.posY);
-        }
+
     }
 
     @Override
@@ -74,4 +71,5 @@ public class Circle implements IGameObject {
     public void setGameTry(int t) {
         this.game_try = t;
     }
+
 }

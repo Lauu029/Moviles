@@ -6,6 +6,7 @@ import com.example.engine.IScene;
 public class GameManager {
     private static GameManager instance;
     private IEngine myEngine_;
+    private IScene actual_scene;
     private int width_;
     private int height_;
     private int selectedColor;
@@ -42,6 +43,7 @@ public class GameManager {
     // Ahora, puedes agregar métodos y propiedades a tu clase Singleton.
     // Por ejemplo:
     public void changeScene(IScene scene) {
+        this.actual_scene=scene;
         myEngine_.setScene(scene);
     }
 
