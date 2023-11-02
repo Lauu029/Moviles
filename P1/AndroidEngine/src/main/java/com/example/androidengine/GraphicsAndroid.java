@@ -140,7 +140,7 @@ public class GraphicsAndroid implements IGraphics {
     @Override
     public void fillRectangle(int cX, int cY, int width, int height) {
         myPaint_.setStyle(Paint.Style.FILL);
-        myCanvas_.drawRect(cX, cY, width, height, this.myPaint_);
+        myCanvas_.drawRect(cX, cY, width+cX, height+cY, this.myPaint_);
     }
 
     @Override

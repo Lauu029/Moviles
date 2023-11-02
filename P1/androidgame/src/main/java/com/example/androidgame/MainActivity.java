@@ -41,4 +41,9 @@ public class MainActivity extends AppCompatActivity {
         gm.init();
 
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 }

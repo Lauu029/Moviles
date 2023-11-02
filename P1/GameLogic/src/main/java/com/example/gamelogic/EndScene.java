@@ -15,7 +15,8 @@ public class EndScene implements IScene {
     int[] sol_;
     private ArrayList<IGameObject> IGameObjects_ = new ArrayList<>();
     private int width_, height_;
-    private Button button1,button2;
+    private Button button2;
+    private ButtonLevel button1;
     private IFont font;
     private IFont font1,font2;
     int intentos_;
@@ -44,12 +45,12 @@ public class EndScene implements IScene {
         graph.setFont(this.font);
         font1 =graph.newFont("Hexenkoetel-qZRv1.ttf",20,false,false);
         font2 =graph.newFont("Hexenkoetel-qZRv1.ttf",30,false,false);
-//        this.button1 = new Button("Volver Jugar", font1, 0XFFFB839B
-//                , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 20, SceneNames.GAME);
+        this.button1 = new ButtonLevel("Volver Jugar", font1, 0XFFFB839B
+                , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 20, SceneNames.GAME, GameManager.getInstance().getLevel().getLevelDiff());
         this.button2 = new Button("Elegir Dificultad", font1,0XFFFB839B
                 ,150,50, 35,this.width_/2-(150/2), this.height_/2+90,SceneNames.LEVEL);
 
-//       addGameObject(button1);
+        addGameObject(button1);
         addGameObject(button2);
 
 

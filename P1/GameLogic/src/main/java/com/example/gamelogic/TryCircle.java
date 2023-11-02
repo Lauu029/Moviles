@@ -27,6 +27,7 @@ public class TryCircle extends Circle {
     }
 
     public boolean handleInput(TouchEvent event) {
+        if(event.type== TouchEvent.TouchEventType.TOUCH_UP)
         if (this.posX - this.radius < event.x && this.posX + this.radius > event.x
                 && this.posY - this.radius < event.y && this.posY + this.radius > event.y) {
             if (gm.colorSelected() && this.row == this.game_try) {

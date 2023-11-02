@@ -11,6 +11,7 @@ public class SolutionCircle extends Circle {
     }
 
     public boolean handleInput(TouchEvent event) {
+        if(event.type== TouchEvent.TouchEventType.TOUCH_UP)
         if (this.posX - this.radius < event.x && this.posX + this.radius > event.x
                 && this.posY - this.radius < event.y && this.posY + this.radius > event.y) {
             gm.takeColor(this.color, this.id_color);

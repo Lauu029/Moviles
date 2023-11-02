@@ -166,6 +166,7 @@ public class Board implements IGameObject {
         int posx=(sceneWidth-(sceneWidth-8))/2;
         for (int i = 0; i < this.tries; i++) {
             graph.setColor(0xFF455657);
+            graph.setStrokeWidth(2);
             graph.drawRoundRectangle(posx,y_positions[i + 2]- this.circle_rad / 2-offsety/2,sceneWidth-8,circle_rad*2+offsety,10);
             graph.setFont(fuente);
             graph.drawText(i+1+"",30,y_positions[i + 2]);
