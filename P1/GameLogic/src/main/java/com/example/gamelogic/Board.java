@@ -30,8 +30,8 @@ public class Board implements IGameObject {
             0xFFE6E6FA, 0xFFFFDAB9, 0xFFE7FFAC, 0xFFFF8FAB, 0xFF6FC0AB};
 
     //para gestionar todos los inputs y renders de la clase tablero
-    private ArrayList<IGameObject> game_objects_table = new ArrayList<>();
-    IFont fuente;
+    private ArrayList<Circle> game_objects_table = new ArrayList<>();
+    IFont fuente,fuente2;
     Board(IFont font, int codeColors_, int tries_, int usableColors, boolean canRepeat_, int scW, int scH) {
         this.font = font;
         this.code_colors = codeColors_;
@@ -153,17 +153,20 @@ public class Board implements IGameObject {
     @Override
     public void render(IGraphics graph) {
         graph.setColor(0xFFacb5b4);
-        graph.fillRectangle(0, y_positions[12], sceneWidth, height_subdivisions);
+        graph.fillRectangle(0, y_positions[12], sceneWidth, height_subdivisions+8);
         graph.setFont(fuente);
         graph.setColor(0xFF272b2b);
         graph.drawText("Averigua el codigo",sceneWidth/2,y_positions[0]+6);
+        graph.setFont(fuente2);
+        graph.drawText("Te quedan "+(this.tries-acutal_try)+" intentos",sceneWidth/2,y_positions[1]+6);
         for (IGameObject g : game_objects_table) {
             g.render(graph);
         }
         int offsety=5;
+        int posx=(sceneWidth-(sceneWidth-8))/2;
         for (int i = 0; i < this.tries; i++) {
             graph.setColor(0xFF455657);
-            graph.drawRoundRectangle(0,y_positions[i + 2]- this.circle_rad / 2-offsety/2,GameManager.getInstance().getwidth(),circle_rad*2+offsety,10);
+            graph.drawRoundRectangle(posx,y_positions[i + 2]- this.circle_rad / 2-offsety/2,sceneWidth-8,circle_rad*2+offsety,10);
             graph.setFont(fuente);
             graph.drawText(i+1+"",30,y_positions[i + 2]);
             for (int j = 0; j < code_colors; j++) {
@@ -174,7 +177,8 @@ public class Board implements IGameObject {
 
     @Override
     public void init() {
-        fuente=GameManager.getInstance().getIEngine().getGraphics().newFont("Alice.ttf",25,true,false);
+        fuente=GameManager.getInstance().getIEngine().getGraphics().newFont("Lexendt.ttf",20,true,false);
+        fuente2=GameManager.getInstance().getIEngine().getGraphics().newFont("Lexendt.ttf",17,false,false);
     }
 
     @Override
