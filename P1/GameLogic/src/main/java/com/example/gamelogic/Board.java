@@ -37,6 +37,7 @@ public class Board implements IGameObject {
 
     Board(IFont font, int codeColors_, int tries_, int usableColors, boolean canRepeat_, int scW, int scH) {
         this.font = font;
+
         this.code_colors = codeColors_;
         this.tries = tries_;
         this.usable_colors = usableColors;

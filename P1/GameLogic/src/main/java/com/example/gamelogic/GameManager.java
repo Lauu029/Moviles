@@ -91,4 +91,8 @@ public class GameManager {
     public void setBoard(Board b) {
         this.board = b;
     }
+
+    public boolean getDaltonic(){
+        return this.daltonics;
+    }
 }
