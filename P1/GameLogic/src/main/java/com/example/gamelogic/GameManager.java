@@ -111,6 +111,6 @@ public class GameManager {
         this.daltonics = !this.daltonics;
     }
     public boolean isDaltonics(){
-        return daltonics;
+        return this.daltonics;
     }
 }

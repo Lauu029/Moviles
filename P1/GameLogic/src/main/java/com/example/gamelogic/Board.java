@@ -104,7 +104,7 @@ public class Board implements IGameObject {
 
     @Override
     public void update(double time) {
-        for(Circle g: game_objects_table){
+        for(IGameObject g: game_objects_table){
             g.update(time);
         }
     }
@@ -183,7 +183,7 @@ public class Board implements IGameObject {
 
     @Override
     public boolean handleInput(TouchEvent event) {
-        for (Circle g : game_objects_table)
+        for (IGameObject g : game_objects_table)
             if (g.handleInput(event))
                 return true;
         return false;
