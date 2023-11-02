@@ -18,6 +18,7 @@ public class GameScene implements IScene {
     private ButtonDaltonics button_dalt;
     private Board gameBoard;
     private IFont font;
+    private Difficulty lev;
     private GameManager gm;
 
     public GameScene(IEngine IEngine, int w, int h) {
@@ -30,12 +31,12 @@ public class GameScene implements IScene {
     public void init() {
         this.font = this.IEngine_.getGraphics().newFont("Hexenkoetel-qZRv1.ttf", 40, false, false);
         this.gm = GameManager.getInstance();
-        Difficulty lev = this.gm.getLevel();
+        this.lev = this.gm.getLevel();
         mySolution_ = new Solution();
         mySolution_.createSolution(lev.repeat_, lev.solutionColors_, lev.posibleColors_, lev.tries_);
-        this.gameBoard = new Board(this.font,lev.solutionColors_, lev.tries_, lev.posibleColors_, lev.repeat_, width_, height_);
+        this.gameBoard = new Board(this.font, lev.solutionColors_, lev.tries_, lev.posibleColors_, lev.repeat_, width_, height_);
         addGameObject(gameBoard);
-        this.button_dalt=new ButtonDaltonics("Dalt",this.font,0xff268974,70,50,3,this.width_-80,0,SceneNames.GAME);
+        this.button_dalt = new ButtonDaltonics("Dalt", this.font, 0xff268974, 70, 50, 3, this.width_ - 80, 0, SceneNames.GAME);
         addGameObject(button_dalt);
         IEngine_.getGraphics().setColor(0xFF000000);
         for (IGameObject g : IGameObjects_) {
@@ -88,8 +89,17 @@ public class GameScene implements IScene {
         }
         if (isComplete) {
             mySolution_.compureba(tempSol);
-            gameBoard.setNewHints(mySolution_.getposCorrecta(gameBoard.getAcutalTry()), mySolution_.getColorCorrecto(gameBoard.getAcutalTry()));
-            gameBoard.nexTry();
+            int try_ = this.gameBoard.getAcutalTry();
+            if (mySolution_.getposCorrecta(try_) == this.lev.solutionColors_) {
+                EndScene end = new EndScene(this.IEngine_, this.width_, this.height_, true, tempSol, try_);
+                this.gm.changeScene(end);
+            } else if (try_ == lev.tries_-1) {
+                EndScene end = new EndScene(this.IEngine_, this.width_, this.height_, false, tempSol, try_);
+                this.gm.changeScene(end);
+            } else {
+                gameBoard.setNewHints(mySolution_.getposCorrecta(try_), mySolution_.getColorCorrecto(try_));
+                gameBoard.nexTry();
+            }
         }
         for (int j = 0; j < IGameObjects_.size(); j++) {
             IGameObjects_.get(j).update(time);

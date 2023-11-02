@@ -42,7 +42,7 @@ public class Circle implements IGameObject {
 
     @Override
     public void update(double time) {
-        this.isDaltonics=gm.isDaltonics();
+        this.isDaltonics = gm.isDaltonics();
     }
 
     @Override
