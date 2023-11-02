@@ -36,6 +36,7 @@ public class GameScene implements IScene {
         mySolution_.createSolution(lev.repeat_, lev.solutionColors_, lev.posibleColors_, lev.tries_);
         this.gameBoard = new Board(this.font, lev.solutionColors_, lev.tries_, lev.posibleColors_, lev.repeat_, width_, height_);
         addGameObject(gameBoard);
+        gm.setBoard(this.gameBoard);
         this.button_dalt=new ButtonDaltonics(70,50,this.width_-70,1);
         addGameObject(button_dalt);
         IEngine_.getGraphics().setColor(0xFF000000);

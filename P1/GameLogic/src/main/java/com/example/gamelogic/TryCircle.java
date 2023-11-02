@@ -8,8 +8,8 @@ public class TryCircle extends Circle {
     private int id_row;
     boolean hasColor;
 
-    public TryCircle(String t, IFont f,int r, int x, int y, int row_, int id) {
-        super(t,f,r, x, y, row_);
+    public TryCircle(String t, IFont f, int r, int x, int y, int row_, int id) {
+        super(t, f, r, x, y, row_);
         this.id_row = id;
         this.hasColor = false;
     }
@@ -30,16 +30,23 @@ public class TryCircle extends Circle {
         if(event.type== TouchEvent.TouchEventType.TOUCH_UP)
         if (this.posX - this.radius < event.x && this.posX + this.radius > event.x
                 && this.posY - this.radius < event.y && this.posY + this.radius > event.y) {
-            if (gm.colorSelected() && this.row == this.game_try) {
-                this.color = gm.getSelectedColor();
-                this.id_color = gm.getTemporalId();
-                this.text= Integer.toString(id_color);
-                gm.resetTemporalId();
-                this.hasColor = true;
-                gm.putColorSolution(this.id_row, this.id_color);
+            if (this.hasColor&& this.row == this.game_try) {
+//              this.text = Integer.toString(id_color);
+                this.color = 0xFFacb5b4;
+                this.hasColor = false;
+                gm.putColorSolution(this.id_row, -1);
             }
             return true;
         }
         return false;
+    }
+    public void setColor(int color, int id) {
+        super.setColor(color);
+        this.id_color=id;
+        this.text = Integer.toString(id_color);
+        this.hasColor=true;
+    }
+    public boolean hasColor() {
+        return this.hasColor;
     }
 }

@@ -9,10 +9,8 @@ public class GameManager {
     private IScene actual_scene;
     private int width_;
     private int height_;
-    private int selectedColor;
-    private boolean hasSelectedColor;
     private Difficulty levelDificulty;
-    private int temporal_id;
+    private Board board;
     private int[] levelSolution;
     private boolean daltonics;
 
@@ -33,9 +31,6 @@ public class GameManager {
         instance.myEngine_ = engine;
         instance.width_ = width;
         instance.height_ = height;
-        instance.temporal_id = -1;
-        instance.selectedColor = 0;
-        instance.hasSelectedColor = false;
         instance.daltonics = false;
         return 1;
     }
@@ -43,7 +38,7 @@ public class GameManager {
     // Ahora, puedes agregar métodos y propiedades a tu clase Singleton.
     // Por ejemplo:
     public void changeScene(IScene scene) {
-        this.actual_scene=scene;
+        this.actual_scene = scene;
         myEngine_.setScene(scene);
     }
 
@@ -57,30 +52,11 @@ public class GameManager {
 
     //para almacenar el color que ha cogido y quiere colocar en la matriz
     public void takeColor(int color, int id) {
-        this.hasSelectedColor = true;
-        this.selectedColor = color;
-        this.temporal_id = id;
-    }
-
-    public boolean colorSelected() {
-        return this.hasSelectedColor;
+        board.putNewColor(id, color);
     }
 
     public IEngine getIEngine() {
         return myEngine_;
-    }
-
-    public int getSelectedColor() {
-        this.hasSelectedColor = false;
-        return this.selectedColor;
-    }
-
-    public int getTemporalId() {
-        return this.temporal_id;
-    }
-
-    public void resetTemporalId() {
-        this.temporal_id = -1;
     }
 
     public void setLevel(Difficulty dif) {
@@ -110,7 +86,12 @@ public class GameManager {
     public void changeDaltonicsMode() {
         this.daltonics = !this.daltonics;
     }
-    public boolean isDaltonics(){
+
+    public boolean isDaltonics() {
         return this.daltonics;
+    }
+
+    public void setBoard(Board b) {
+        this.board = b;
     }
 }
