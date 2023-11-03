@@ -30,7 +30,6 @@ public class SoundDesktop implements ISound {
         myFreeSounds_= new ArrayList<Clip>(); //inicializa la lista que contiene los sonidos disponibles
         myUsedSounds_= new ArrayList<Clip>(); //inicializa la lista donde esten los sonidos en uso
 
-
         try {
             File audioFile = new File(path_ + file); // Crea un objeto File para el archivo de sonido
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile); // Obtiene un flujo de audio a partir del archivo
@@ -57,6 +56,7 @@ public class SoundDesktop implements ISound {
     public Clip getFreeClip(){
         if(!myFreeSounds_.isEmpty()) { //Si hay hueco para crear un nuevo sonido
             Clip c=myFreeSounds_.remove(myFreeSounds_.size() - 1);
+            myUsedSounds_.add(c);
             return c; //Quitamos el hueco disponible
         } else {
             return null;
@@ -65,7 +65,7 @@ public class SoundDesktop implements ISound {
     private void returnClip(Clip c) {
         if (myUsedSounds_.contains(c)) {
             myUsedSounds_.remove(c);
-            myUsedSounds_.add(c);
+            myFreeSounds_.add(c);
         } else {
             throw new IllegalArgumentException("El objeto no está en uso.");
         }
