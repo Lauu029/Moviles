@@ -19,12 +19,11 @@ import javax.sound.sampled.LineUnavailableException;
 
 public class SoundDesktop implements ISound {
     private String path_ = "Assets/"; // Ruta predeterminada para buscar archivos de sonido
-    private Clip myClip_; // Objeto Clip para representar el sonido
 
     // Constructor de la clase
     private ArrayList<Clip> myFreeSounds_;  // Lista de sonidos libres
     private ArrayList<Clip> myUsedSounds_;  // Lista de sonidos en uso
-
+    private AudioInputStream myAudioStream_;
     public SoundDesktop(String file, String id) {
 
         int maxSounds=5;
@@ -35,9 +34,9 @@ public class SoundDesktop implements ISound {
             File audioFile = new File(path_ + file); // Crea un objeto File para el archivo de sonido
 
             for(int i=0;i<maxSounds;i++){
-                AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile); // Obtiene un flujo de audio a partir del archivo
+                myAudioStream_= AudioSystem.getAudioInputStream(audioFile); // Obtiene un flujo de audio a partir del archivo
                 Clip c=AudioSystem.getClip();
-                c.open(audioStream); // Abre el Clip y carga el audio desde el flujo
+                c.open(myAudioStream_); // Abre el Clip y carga el audio desde el flujo
 
                 if(c.isOpen())
                     myFreeSounds_.add(c);
@@ -47,16 +46,7 @@ public class SoundDesktop implements ISound {
             e.printStackTrace(); // Imprime la traza de la excepcion
         }
     }
-    // Método para obtener el Clip de sonido
-    /*public Clip getUsedClip() {
-
-        if (myClip_.isOpen()) {
-            return myClip_; // Devuelve el Clip si está abierto y listo para su reproducción
-        }
-        else {
-            throw new IllegalStateException("No hay ningún clip de est sonido en uso.");
-        }
-    }*/
+    // Método para obtener un Clip de sonido que no este en uso
     public Clip getFreeClip(){
         if(!myFreeSounds_.isEmpty()) { //Si hay hueco para crear un nuevo sonido
             Clip c=myFreeSounds_.remove(myFreeSounds_.size() - 1);
@@ -67,10 +57,19 @@ public class SoundDesktop implements ISound {
             return null;
         }
     }
-    private void returnClip(Clip c) {
+    // Método para devolver un Clip de sonido que se haya usado
+    public void returnClip(Clip c){
         if (myUsedSounds_.contains(c)) {
             myUsedSounds_.remove(c);
-            myFreeSounds_.add(c);
+            try {
+                c.open(myAudioStream_);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            if(c.isOpen())
+                myFreeSounds_.add(c);
         } else {
             throw new IllegalArgumentException("El objeto no está en uso.");
         }
