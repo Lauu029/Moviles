@@ -21,22 +21,23 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 public class GraphicsDesktop implements IGraphics {
-    private String Imagesroute="Assets/";
-    private JFrame myView_;
-    private BufferStrategy myBufferStrategy_;
-    private Graphics2D myGraphics2D_;
+    private String Imagesroute = "Assets/"; // Ruta base para las imagenes
+    private JFrame myView_; // JFrame que representa la vista
+    private BufferStrategy myBufferStrategy_; // Estrategia de buffer
+    private Graphics2D myGraphics2D_; // Gráficos 2D
     private int resX_ = 0, resY_ = 0;
-    float scale_=1;
-    float translateX_=0,translateY_=0;
+    float scale_ = 1; // Escala actual
+    float translateX_ = 0, translateY_ = 0; // Desplazamiento
     private int width_ = 0, height_ = 0;
-    IFont myFont_;
+    IFont myFont_; // Fuente utilizada
     AffineTransform af;
+
+    // Constructor de la clase, recibe un JFrame como argumento
     public GraphicsDesktop(JFrame myView){
         this.myView_=myView;
 
         this.myBufferStrategy_ = this.myView_.getBufferStrategy();
         this.myGraphics2D_ = (Graphics2D) myBufferStrategy_.getDrawGraphics();
-        //this.graphics2D_.getTransform();
 
         height_=myView_.getHeight();
         width_=myView_.getWidth();
@@ -44,7 +45,7 @@ public class GraphicsDesktop implements IGraphics {
         af = myGraphics2D_.getTransform();
 
     }
-    void setSize( ){}
+
 
     @Override
     public IImage newImage(String name) {
@@ -109,9 +110,6 @@ public class GraphicsDesktop implements IGraphics {
     public void fillRectangle(int cX, int cY, int width, int height) {
 
         this.myGraphics2D_.fillRect(cX, cY, width, height);
-
-        //this.graphics2D_.setColor();
-        //this.graphics2D_.setPaintMode();
     }
 
     @Override
@@ -147,21 +145,6 @@ public class GraphicsDesktop implements IGraphics {
 
     }
 
-
-   /* @Override
-    public void drawText(String text, int x, int y,int size, IFont IFont) {
-        Font font = new Font("Arial", Font.PLAIN, size);
-        this.myGraphics2D_.setFont(font);
-        FontMetrics fm = this.myGraphics2D_.getFontMetrics(font);
-        int textWidth = fm.stringWidth(text);
-        int textHeight = fm.getAscent();
-
-       x = x - (textWidth / 2);
-       y = y + (textHeight / 2);  // Cambia el signo para que el pivote sea el centro
-
-        this.myGraphics2D_.drawString(text, x, y);
-        this.myGraphics2D_.drawString(text, x, y);
-    }*/
 
     @Override
     public int getWidth() {
@@ -222,16 +205,16 @@ public class GraphicsDesktop implements IGraphics {
 
     @Override
     public void resize(float sceneWidth, float sceneHeight) {
-        //System.out.print("Resize\n");
+        //cogemos el width y height del myview
         width_ = (int) myView_.getWidth();
         height_ = (int) myView_.getHeight();
 
         int viewWidth = width_ - myView_.getInsets().left - myView_.getInsets().right;
         int viewHeight = height_ - myView_.getInsets().top - myView_.getInsets().bottom;
-
+        //calculamos la escana vertica y horizontal
         float scaleW = (float) viewWidth / (float) sceneWidth;
         float scaleH = (float) viewHeight / (float) sceneHeight;
-
+        //elegimos la mas pequeña
         if (scaleW < scaleH) {
             scale_ = scaleW;
         } else {
@@ -239,17 +222,18 @@ public class GraphicsDesktop implements IGraphics {
         }
 
         float resizeW, resizeH;
+        //calculamos el tamaño que tendra
         resizeW = sceneWidth * scale_;
         resizeH = sceneHeight * scale_;
-
+        //trasladamos
          translateX_ = ((float) viewWidth - resizeW) / 2.0f;
          translateY_ = ((float) viewHeight - resizeH) / 2.0f;
 
-// Ajustar por los bordes
+        // Ajustar por los bordes
         translateX_ += myView_.getInsets().left;
         translateY_ += myView_.getInsets().top;
 
-// Configurar la transformación
+        // Configurar la transformación
         AffineTransform af = new AffineTransform();
         af.translate(translateX_, translateY_);
         af.scale(scale_, scale_);

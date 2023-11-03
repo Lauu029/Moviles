@@ -28,7 +28,7 @@ public class GraphicsAndroid implements IGraphics {
     private SurfaceHolder myHolder_;
     private Paint myPaint_;
     private Canvas myCanvas_;
-    private IColor myColor_;
+
     float scale_=1;
     float translateX_=0,translateY_=0;
     IFont myFont_;
@@ -40,7 +40,7 @@ public class GraphicsAndroid implements IGraphics {
         this.myPaint_ = new Paint();
         this.myCanvas_ = new Canvas();
         myAssetManager_=asset;
-        this.myColor_ = new ColorAndroid();
+
        // this.paint.setColor(0x53ECDED3);
     }
     @Override
@@ -132,7 +132,7 @@ public class GraphicsAndroid implements IGraphics {
     @Override
     public void setColor(int color_) {
 
-        this.myColor_.setColor(color_);
+
         this.myPaint_.setColor(color_);
 
     }

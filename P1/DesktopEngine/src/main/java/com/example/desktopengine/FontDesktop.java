@@ -10,35 +10,37 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class FontDesktop implements IFont {
-    private String path_ ="Assets/";
-    private Font myFont_;
-    private int size_;
-    private boolean bold_;
-    private boolean italic_;
+    // Ruta predeterminada para buscar fuentes en la carpeta "Assets/"
+    private String path_ = "Assets/";
+    private Font myFont_; // Almacena la fuente
+    private int size_; // Tamaño de la fuente
+    private boolean bold_; // Indica si la fuente es negrita
+    private boolean italic_; // Indica si la fuente es cursiva
 
-    public FontDesktop(String filename, int size, boolean isBold,boolean italic) {
-
+    // Constructor de la clase
+    public FontDesktop(String filename, int size, boolean isBold, boolean italic) {
         this.size_ = size;
         this.bold_ = isBold;
-        this.italic_=italic;
+        this.italic_ = italic;
 
-        InputStream is=null;
-        myFont_=null;
+        InputStream is = null;
+        myFont_ = null;
 
         try {
-            is = new FileInputStream(path_ +filename);
+            // Intenta abrir un archivo de fuente en la carpeta especificada
+            is = new FileInputStream(path_ + filename);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); // Lanza una excepción en caso de error
         }
+
         try {
+            // Crea una fuente a partir del archivo TrueType especificado
             myFont_ = Font.createFont(Font.TRUETYPE_FONT, is);
-
-        } catch (FontFormatException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (FontFormatException | IOException e) {
+            throw new RuntimeException(e); // Lanza excepciones en caso de error
         }
 
+        // Determina el estilo de la fuente en función de las opciones de negrita y cursiva
         int style = Font.PLAIN;
         if (bold_) {
             style |= Font.BOLD;
@@ -46,9 +48,13 @@ public class FontDesktop implements IFont {
         if (italic_) {
             style |= Font.ITALIC;
         }
-        myFont_=myFont_.deriveFont(style,size_);
+
+        // Deriva la fuente con el estilo y tamaño especificados
+        myFont_ = myFont_.deriveFont(style, size_);
     }
-    Font getFont(){
+
+    // Método para obtener la fuente
+    Font getFont() {
         return myFont_;
     }
 
@@ -59,7 +65,7 @@ public class FontDesktop implements IFont {
 
     @Override
     public void setItalic(boolean italic) {
-        italic_=italic;
+        italic_ = italic;
     }
 
     @Override

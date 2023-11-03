@@ -9,73 +9,78 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 public class InputHandler implements MouseListener {
-    private ArrayList<TouchEvent> myTouchEvent_;
-    private ArrayList<TouchEvent> myPendingEvents_;
-    private ArrayList<TouchEvent> usedEvnets;
-    private ArrayList<TouchEvent> freeEvnets;
-    private int maxEvents=10;
-    InputHandler(JFrame jframe){
-        jframe.addMouseListener(this);
-        myTouchEvent_=new ArrayList<TouchEvent>();
-        myPendingEvents_=new ArrayList<TouchEvent>();
-        usedEvnets=new ArrayList<TouchEvent>();
-        freeEvnets=new ArrayList<TouchEvent>();
+    private ArrayList<TouchEvent> myTouchEvent_;  // Lista de eventos táctiles
+    private ArrayList<TouchEvent> myPendingEvents_;  // Lista de eventos pendientes
+    private ArrayList<TouchEvent> usedEvnets;  // Lista de eventos en uso
+    private ArrayList<TouchEvent> freeEvnets;  // Lista de eventos libres
+    private int maxEvents = 10;  // Numero máximo de eventos en el pool
 
-        for(int i=0;i<maxEvents;i++){
+    // Constructor de la clase, recibe un JFrame como argumento
+    InputHandler(JFrame jframe) {
+        jframe.addMouseListener(this);  // Registra esta instancia como MouseListener en el JFrame
+        myTouchEvent_ = new ArrayList<TouchEvent>();  // Inicializa la lista de eventos táctiles
+        myPendingEvents_ = new ArrayList<TouchEvent>();  // Inicializa la lista de eventos pendientes
+        usedEvnets = new ArrayList<TouchEvent>();  // Inicializa la lista de eventos en uso
+        freeEvnets = new ArrayList<TouchEvent>();  // Inicializa la lista de eventos libres
+
+        // Llena el pool de eventos con objetos TouchEvent
+        for (int i = 0; i < maxEvents; i++) {
             freeEvnets.add(new TouchEvent());
         }
     }
+
+    // Obtiene un objeto TouchEvent del pool
     private TouchEvent getEvent() {
         if (!freeEvnets.isEmpty()) {
             TouchEvent obj = freeEvnets.remove(freeEvnets.size() - 1);
             usedEvnets.add(obj);
             return obj;
         } else {
-            throw new IllegalStateException("No available objects in the pool.");
+            throw new IllegalStateException("No hay objetos disponibles en el pool.");
         }
     }
+
+    // Devuelve un objeto TouchEvent al pool
     private void returnObject(TouchEvent obj) {
         if (usedEvnets.contains(obj)) {
             usedEvnets.remove(obj);
             freeEvnets.add(obj);
         } else {
-            throw new IllegalArgumentException("The object is not in use.");
+            throw new IllegalArgumentException("El objeto no está en uso.");
         }
     }
+
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
 
     }
-    public ArrayList<TouchEvent>getMyPendingEvents_(){
-        return myPendingEvents_;
-    }
-    public void myPendingEventsClear(){
-        myPendingEvents_.clear();
-    }
 
+    // Obtiene eventos cuando se presiona el boton del mouse
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
-        TouchEvent event=getEvent();
-        event.x=mouseEvent.getX();
-        event.y=mouseEvent.getY();
-        event.type= TouchEvent.TouchEventType.TOUCH_DOWN;
-        synchronized (this){
+        TouchEvent event = getEvent();
+        event.x = mouseEvent.getX();
+        event.y = mouseEvent.getY();
+        event.type = TouchEvent.TouchEventType.TOUCH_DOWN;
+        synchronized (this) {
             myPendingEvents_.add(event);
         }
         returnObject(event);
     }
 
+    // Obtiene eventos cuando se libera el boton del mouse
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
-        TouchEvent event=getEvent();
-        event.x=mouseEvent.getX();
-        event.y=mouseEvent.getY();
-        event.type= TouchEvent.TouchEventType.TOUCH_UP;
-        synchronized (this){
+        TouchEvent event = getEvent();
+        event.x = mouseEvent.getX();
+        event.y = mouseEvent.getY();
+        event.type = TouchEvent.TouchEventType.TOUCH_UP;
+        synchronized (this) {
             myPendingEvents_.add(event);
         }
         returnObject(event);
     }
+
 
     @Override
     public void mouseEntered(MouseEvent mouseEvent) {
@@ -85,5 +90,15 @@ public class InputHandler implements MouseListener {
     @Override
     public void mouseExited(MouseEvent mouseEvent) {
 
+    }
+
+    // Devuelve la lista de eventos pendientes
+    public ArrayList<TouchEvent> getMyPendingEvents_() {
+        return myPendingEvents_;
+    }
+
+    // Limpia la lista de eventos pendientes
+    public void myPendingEventsClear() {
+        myPendingEvents_.clear();
     }
 }
