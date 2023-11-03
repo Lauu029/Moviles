@@ -15,12 +15,11 @@ public class SoundAndroid implements ISound {
 
     public SoundAndroid(String filename, String id,AssetManager assetManager, SoundPool soundPool) {
         myStreamId_ = -1;
-        //mySounds_ = new HashMap<>();
         try {
             AssetFileDescriptor assetDescriptor =
                     assetManager.openFd(filename);
             myStreamId_ = soundPool.load(assetDescriptor, 1);
-            //mySounds_.put(id,myStreamId_);
+ 
         } catch (IOException e) {
             throw new RuntimeException("Couldn't load sound.");
         }

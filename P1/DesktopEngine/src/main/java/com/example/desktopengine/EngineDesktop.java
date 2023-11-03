@@ -17,13 +17,14 @@ public class EngineDesktop implements IEngine, Runnable {
     private GraphicsDesktop myGraphics_; // Clase para graficos
     private AudioDesktop myAudio_; // Clase para audio
     private IInput myInput_; // Clase para la entrada (input)
-
+    private int maxDesktopSounds_;
     // Constructor de la clase
     public EngineDesktop(JFrame myView) {
+        maxDesktopSounds_=10; //Número máximo de sonidos que pueden sonar de forma simultánea para desktop
         myView_ = myView; // Asigna la ventana proporcionada
         running_ = false; // Inicializa el motor como no en funcionamiento
         myGraphics_ = new GraphicsDesktop(myView_); // Inicializa la clase de graficos
-        myAudio_ = new AudioDesktop(); // Inicializa la clase de audio
+        myAudio_ = new AudioDesktop(maxDesktopSounds_); // Inicializa la clase de audio
         myInput_ = new InputDesktop(myView_); // Inicializa la clase de entrada (input)
         System.out.print("Window Width: " + myView_.getWidth() + " Window Height: " + myView_.getHeight() + "\n"); // Imprime las dimensiones de la ventana
     }
