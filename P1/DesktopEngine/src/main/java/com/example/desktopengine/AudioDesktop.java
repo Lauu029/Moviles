@@ -19,7 +19,7 @@ public class AudioDesktop implements IAudio {
     // Implementacion de la interfaz IAudio
 
     // Metodo para crear un nuevo objeto de sonido (SoundDesktop)
-
+    int i=1;
 
     @Override
     public SoundDesktop newSound(String file, String id) {
@@ -31,6 +31,7 @@ public class AudioDesktop implements IAudio {
     // Método para reproducir un sonido
     @Override
     public void playSound(ISound sound, int loop) {
+
         SoundDesktop dSound = (SoundDesktop) sound; // Convierte el objeto ISound a SoundDesktop
         Clip clip = dSound.getFreeClip(); // Obtiene el clip de sonido asociado
 
@@ -39,7 +40,11 @@ public class AudioDesktop implements IAudio {
                 clip.loop(Clip.LOOP_CONTINUOUSLY); // Reproduce en bucle si loop no es igual a 0
             }
             clip.setFramePosition(0); // Establece la posicion de reproduccion al principio
+
             clip.start(); // Inicia la reproducción del sonido
+
+            System.out.print("Playing clip with id: "+i+"\n");
+            i++;
         }
     }
 

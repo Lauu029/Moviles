@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -23,20 +24,23 @@ public class SoundDesktop implements ISound {
     // Constructor de la clase
     private ArrayList<Clip> myFreeSounds_;  // Lista de sonidos libres
     private ArrayList<Clip> myUsedSounds_;  // Lista de sonidos en uso
-    int maxSounds_;
+
     public SoundDesktop(String file, String id) {
 
-        maxSounds_=5;
+        int maxSounds=5;
         myFreeSounds_= new ArrayList<Clip>(); //inicializa la lista que contiene los sonidos disponibles
         myUsedSounds_= new ArrayList<Clip>(); //inicializa la lista donde esten los sonidos en uso
 
         try {
             File audioFile = new File(path_ + file); // Crea un objeto File para el archivo de sonido
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile); // Obtiene un flujo de audio a partir del archivo
-            for(int i=0;i<maxSounds_;i++){
+
+            for(int i=0;i<maxSounds;i++){
+                AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile); // Obtiene un flujo de audio a partir del archivo
                 Clip c=AudioSystem.getClip();
                 c.open(audioStream); // Abre el Clip y carga el audio desde el flujo
-                myFreeSounds_.add(c);
+
+                if(c.isOpen())
+                    myFreeSounds_.add(c);
             }
         } catch (Exception e) {
             System.err.println("Couldn't load audio file"); // Imprime un mensaje de error si no se puede cargar el archivo de audio
@@ -59,6 +63,7 @@ public class SoundDesktop implements ISound {
             myUsedSounds_.add(c);
             return c; //Quitamos el hueco disponible
         } else {
+            System.out.print("No hay mas clips disponibles");
             return null;
         }
     }
