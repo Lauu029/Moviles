@@ -52,7 +52,7 @@ public class Circle implements IGameObject {
             graph.setColor(0xFF000000);
             graph.setFont(this.font);
             int fontSize = this.font.getSize();
-            graph.drawText(this.text, this.posX, this.posY-fontSize/4);
+            graph.drawText(this.text, this.posX, this.posY-this.radius/4);
         }
     }
 
