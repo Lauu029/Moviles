@@ -14,14 +14,11 @@ public class GameManager {
     private int[] levelSolution;
     private boolean daltonics;
 
-    // Paso 2: Hacer el constructor privado para evitar la creación de instancias adicionales.
     private GameManager() {
         // Constructor privado
     }
 
-    // Paso 3: Crear un método público para obtener la única instancia de la clase.
     public static GameManager getInstance() {
-        // Si la instancia no ha sido creada, la creamos.
         return instance;
     }
 
@@ -35,8 +32,6 @@ public class GameManager {
         return 1;
     }
 
-    // Ahora, puedes agregar métodos y propiedades a tu clase Singleton.
-    // Por ejemplo:
     public void changeScene(IScene scene) {
         this.actual_scene = scene;
         myEngine_.setScene(scene);
@@ -50,7 +45,8 @@ public class GameManager {
         return height_;
     }
 
-    //para almacenar el color que ha cogido y quiere colocar en la matriz
+    /*Pone el color que se le pase en el círculo correspondiente y su id en la
+    * solución temporal para comprobarla más tarde */
     public void takeColor(int color, int id) {
         board.putNewColor(id, color);
     }
@@ -59,6 +55,7 @@ public class GameManager {
         return myEngine_;
     }
 
+    //Prepara un nivel nuevo con un array para la solucion, la dificultad necesaria y resetea la solución final
     public void setLevel(Difficulty dif) {
         this.levelDificulty = dif;
         this.levelSolution = new int[dif.solutionColors_];

@@ -51,7 +51,7 @@ public class Solution {
         return sol_;
     }
 
-    public void imprimeSol() {
+    public void printSol() {
         System.out.print("Solucion: ");
         for (int i = 0; i < sol_.length; i++) {
             System.out.print(sol_[i]);
@@ -59,12 +59,12 @@ public class Solution {
         System.out.println();
     }
 
-    public void imprime() {
+    public void print() {
         System.out.println("colorCorrecto " + colorCorrecto_);
         System.out.println("posCorrecto " + posCorrecta_);
     }
 
-    public void compureba(int[] possible_sol) {
+    public void check(int[] possible_sol) {
         posCorrecta_ = 0;
         colorCorrecto_ = 0;
         for (int i = 0; i < possible_sol.length; i++) {
@@ -110,11 +110,11 @@ public class Solution {
         return actualturno_;
     }
 
-    public int getposCorrecta(int turno) {
+    public int getCorrectPos(int turno) {
         return registeredSols_[turno][0];
     }
 
-    public int getColorCorrecto(int turno) {
+    public int getCorrectColor(int turno) {
         return registeredSols_[turno][1];
     }
 

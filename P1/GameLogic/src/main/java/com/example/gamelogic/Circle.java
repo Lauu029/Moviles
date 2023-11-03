@@ -5,17 +5,19 @@ import com.example.engine.IGameObject;
 import com.example.engine.IGraphics;
 import com.example.engine.TouchEvent;
 
+/* Clase que controla los círculos de forma genérica, con los atributos comunes entre todos
+* los tipos de círculos y una instancia del Game Manager para acceder rápidamente a sus métodos
+* */
 public class Circle implements IGameObject {
     protected String text;
     protected IFont font;
-    int color, radius;
-    int width, height;
-    int posX, posY;
-    int id_color;
-    int row;
-    int game_try;
-    boolean isDaltonics;
-    GameManager gm;
+    protected int color;
+    protected int width, height, radius;
+    protected int posX, posY;
+    protected int id_color;
+    protected int row, game_try;
+    protected boolean isDaltonics;
+    protected GameManager gm;
 
     public Circle(String t, IFont f, int r, int x, int y, int row_) {
         this.font = f;
@@ -27,7 +29,7 @@ public class Circle implements IGameObject {
         this.width = 2 * radius;
         this.height = 2 * radius;
         this.row = row_;
-        gm = GameManager.getInstance();
+        this.gm = GameManager.getInstance();
         this.isDaltonics = gm.getDaltonic();
     }
 
@@ -44,16 +46,15 @@ public class Circle implements IGameObject {
     public void update(double time) {
     }
 
+    //Render de los círculos dependiendo de si tienen que poner números o no encima de los círculos
     @Override
     public void render(IGraphics graph) {
-
         graph.setColor(this.color);
         graph.drawCircle(this.posX, this.posY, this.radius);
         if (this.isDaltonics) {
             graph.setColor(0xFF000000);
             graph.setFont(this.font);
-            int fontSize = this.font.getSize();
-            graph.drawText(this.text, this.posX, this.posY-this.radius/4);
+            graph.drawText(this.text, this.posX, this.posY-this.radius/3);
         }
 
     }
@@ -70,7 +71,8 @@ public class Circle implements IGameObject {
     public boolean handleInput(TouchEvent event) {
         return true;
     }
-
+    /*Actualiza el intento del juego para ver si se puede pulsar o no cada círculo
+    * y para ver en que círculos se pueden colorear*/
     public void setGameTry(int t) {
         this.game_try = t;
     }
