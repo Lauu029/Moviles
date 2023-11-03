@@ -217,7 +217,7 @@ public class AudioDesktop implements IAudio {
 
         if (clip != null && myUsedSounds_.contains(clip)) { // Verifica si el clip no es nulo y esta en uso
             myUsedSounds_.remove(clip);
-            
+            myFreeSounds_.add(clip);
             clip.stop(); // Detiene la reproducción del sonido
             clip.close(); // Cierra el clip para liberar recursos
         }else {
