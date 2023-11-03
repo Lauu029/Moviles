@@ -89,7 +89,7 @@ public class EndScene implements IScene {
         IGraphics graph = IEngine_.getGraphics();
 
         //Dibujamos un color de fondo para la escena
-        graph.clear(0xFFe3fcf3);
+        graph.clear(0xFFfff0f6);
 
 
 
@@ -127,8 +127,14 @@ public class EndScene implements IScene {
         int totalCircleWidth = sol_.length * (radius * 2+offset); // Ancho total de todos los círculos
         int x = (width_ - totalCircleWidth) / 2;
         for(int i=0;i< sol_.length;i++){
+
             graph.setColor(total_possible_colors[sol_[i]]);
             graph.drawCircle(x+i*(radius*2+offset)+radius,height_/2+radius-50,radius);
+            if (GameManager.getInstance().getDaltonic()) {
+                graph.setColor(0xFF000000);
+                graph.setFont(this.font1);
+                graph.drawText(sol_[i]+"",x+i*(radius*2+offset)+radius, height_/2+(radius)-53);
+            }
         }
     }
 

@@ -81,7 +81,7 @@ public class LevelScene implements IScene {
     public void render() {
         IGraphics graph = IEngine_.getGraphics();
 
-        graph.clear(0xFFe3fcf3);
+        graph.clear(0xFFfff0f6);
         for (int i = 0; i < IGameObjects_.size(); i++) {
             IGameObjects_.get(i).render(graph);
         }

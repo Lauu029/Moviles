@@ -27,13 +27,15 @@ public class Board implements IGameObject {
 
     private GameManager gm;
 
+
     //Colores totales que puede llegar a haber en una partida
     private int[] total_possible_colors = new int[]{0xFFFFC0CB, 0xFF87CEEB, 0xFF98FB98, 0xFFFFFF99,
             0xFFE6E6FA, 0xFFFFDAB9, 0xFFE7FFAC, 0xFFFF8FAB, 0xFF6FC0AB};
 
     //para gestionar todos los inputs y renders de la clase tablero
     private ArrayList<Circle> game_objects_table = new ArrayList<>();
-    IFont fuente, fuente2;
+    private IFont fuente, fuente2;
+    private int hintsPos_;
 
     Board(IFont font, int codeColors_, int tries_, int usableColors, boolean canRepeat_, int scW, int scH) {
         this.font = font;
@@ -135,7 +137,8 @@ public class Board implements IGameObject {
                 player_tries[i][j].setPositions(x_ + j * (this.circle_rad * 2 + offset) + this.circle_rad, y_positions[i + 2] + this.circle_rad / 2);
             }
             // Dibujo los circulos de las pistas
-            x_ = x_ + (code_colors - 1) * (this.circle_rad * 2 + offset) + this.circle_rad + offset + this.circle_rad * 2;
+            x_ = x_ + (code_colors - 1) * (this.circle_rad * 2 + offset*2) + this.circle_rad + offset*2 + this.circle_rad * 2+10;
+
             int xused = x_;
             int mitad = code_colors / 2;
             int offsty = this.circle_rad;
@@ -146,16 +149,17 @@ public class Board implements IGameObject {
                     x_ = xused;
                     c = 0;
                 }
-                hints[i][j].setPositions(x_ + c * (this.circle_rad + offset) + this.circle_rad / 2, y_positions[i + 2] - offsty + this.circle_rad / 2 + this.circle_rad / 2);
+                hints[i][j].setPositions(x_ + c * (this.circle_rad + offset*2) + this.circle_rad / 2, y_positions[i + 2] - offsty + this.circle_rad / 2 + this.circle_rad / 2);
 
                 c++;
             }
         }
+        hintsPos_=x_;
     }
 
     @Override
     public void render(IGraphics graph) {
-        graph.setColor(0xFFacb5b4);
+        graph.setColor(0xFFad909c);
         graph.fillRectangle(0, y_positions[12], sceneWidth, height_subdivisions + 8);
         graph.setFont(fuente);
         graph.setColor(0xFF272b2b);
@@ -168,12 +172,17 @@ public class Board implements IGameObject {
         int offsety = 5;
         int posx = (sceneWidth - (sceneWidth - 8)) / 2;
         for (int i = 0; i < this.tries; i++) {
-            graph.setColor(0xFF455657);
+            graph.setColor(0xFFad909c);
             graph.setStrokeWidth(2);
-            graph.drawRoundRectangle(posx, y_positions[i + 2] - this.circle_rad / 2 - offsety / 2, sceneWidth - 8, circle_rad * 2 + offsety, 10);
+            graph.drawRoundRectangle(posx, y_positions[i + 2] - (this.circle_rad/2)-(offsety/2)  , sceneWidth - 8, circle_rad * 2 + offsety, 10);
+            graph.drawLine(50,y_positions[i + 2]- (this.circle_rad/2)-(offsety/2)+4,50,(y_positions[i + 2]- (this.circle_rad/2)-(offsety/2))+circle_rad * 2 + offsety-4);
+            graph.drawLine(hintsPos_-5,y_positions[i + 2]- (this.circle_rad/2)-(offsety/2)+4,hintsPos_-5,(y_positions[i + 2]- (this.circle_rad/2)-(offsety/2))+circle_rad * 2 + offsety-4);
 
             graph.setFont(fuente);
-            graph.drawText(i + 1 + "", 30, y_positions[i + 2]);
+            graph.setColor(0xFF472735);
+            graph.drawText(i + 1 + "", 25, y_positions[i + 2]);
+
+
             for (int j = 0; j < code_colors; j++) {
                 hints[i][j].render(graph);
             }

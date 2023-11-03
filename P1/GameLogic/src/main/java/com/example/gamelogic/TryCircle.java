@@ -17,7 +17,7 @@ public class TryCircle extends Circle {
     public void render(IGraphics graph) {
         super.render(graph);
         if (!this.hasColor) {
-            graph.setColor(0Xff332F2C);
+            graph.setColor(0Xff5c3947);
             graph.drawCircle(this.posX, this.posY, this.radius / 3);
 //        } else if (this.isDaltonics) {
 //            graph.setColor(0xFF000000);

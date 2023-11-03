@@ -20,7 +20,7 @@ public class Circle implements IGameObject {
     public Circle(String t, IFont f, int r, int x, int y, int row_) {
         this.font = f;
         this.text = t;
-        this.color = 0xFFacb5b4;
+        this.color = 0xFFad909c;
         this.posX = x;
         this.posY = y;
         this.radius = r;
@@ -46,6 +46,7 @@ public class Circle implements IGameObject {
 
     @Override
     public void render(IGraphics graph) {
+
         graph.setColor(this.color);
         graph.drawCircle(this.posX, this.posY, this.radius);
         if (this.isDaltonics) {
@@ -54,6 +55,7 @@ public class Circle implements IGameObject {
             int fontSize = this.font.getSize();
             graph.drawText(this.text, this.posX, this.posY-this.radius/4);
         }
+
     }
 
     @Override
