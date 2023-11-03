@@ -180,17 +180,25 @@ public class AudioDesktop implements IAudio {
             });
         }
     }
+    public Clip getFreeClip(){
+        if(!myFreeSounds_.isEmpty()) { //Si hay hueco para crear un nuevo sonido
+            return myFreeSounds_.remove(myFreeSounds_.size() - 1); //Quitamos el hueco disponible
+        } else {
+            throw new IllegalStateException("No hay objetos disponibles en el pool.");
+        }
+    }
+    private void returnClip(Clip c) {
+        if (myUsedSounds_.contains(c)) {
+            myUsedSounds_.remove(c);
+            myUsedSounds_.add(c);
+        } else {
+            throw new IllegalArgumentException("El objeto no está en uso.");
+        }
+    }
     @Override
     public SoundDesktop newSound(String file, String id) {
-        if(!myFreeSounds_.isEmpty()){ //Si hay hueco para crear un nuevo sonido
-            myFreeSounds_.remove(myFreeSounds_.size() - 1); //Quitamos el hueco disponible
-            SoundDesktop sound= new SoundDesktop(file,id);
-            Clip clip= sound.getClip();
-            myUsedSounds_.add(clip); //Lo añadimos a sonidos en uso
-            return sound;
-        }else {
-            throw new IllegalStateException("No hay sonidos disponibles en el pool.");
-        }
+        SoundDesktop sound= new SoundDesktop(file,id);
+        return sound;
 
     }
 
