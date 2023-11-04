@@ -13,7 +13,7 @@ public class SoundAndroid implements ISound {
 
     private int myStreamId_;
 
-    public SoundAndroid(String filename, String id,AssetManager assetManager, SoundPool soundPool) {
+    public SoundAndroid(String filename,AssetManager assetManager, SoundPool soundPool) {
         myStreamId_ = -1;
         try {
             AssetFileDescriptor assetDescriptor =

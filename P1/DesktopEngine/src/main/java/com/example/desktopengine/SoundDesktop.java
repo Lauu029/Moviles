@@ -24,7 +24,7 @@ public class SoundDesktop implements ISound {
     private ArrayList<Clip> myFreeSounds_;  // Lista de sonidos libres
     private ArrayList<Clip> myUsedSounds_;  // Lista de sonidos en uso
     private AudioInputStream myAudioStream_;
-    public SoundDesktop(String file, String id) {
+    public SoundDesktop(String file) {
 
         int maxSounds=10; //Maximo 10 sonidos iguales acorde con nuestro soundpool de android
         myFreeSounds_= new ArrayList<Clip>(); //inicializa la lista que contiene los sonidos disponibles

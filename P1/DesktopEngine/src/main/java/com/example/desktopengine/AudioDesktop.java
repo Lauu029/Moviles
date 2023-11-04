@@ -20,8 +20,8 @@ public class AudioDesktop implements IAudio {
     private Clip usedClip_; //Clip que va a ser usado
     // Metodo para crear un nuevo objeto de sonido (SoundDesktop)
     @Override
-    public SoundDesktop newSound(String file, String id) {
-        SoundDesktop sound= new SoundDesktop(file,id);
+    public SoundDesktop newSound(String file) {
+        SoundDesktop sound= new SoundDesktop(file);
         return sound;
 
     }
