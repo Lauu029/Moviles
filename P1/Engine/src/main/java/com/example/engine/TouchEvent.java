@@ -1,7 +1,7 @@
 package com.example.engine;
 
 public class TouchEvent {
-    public static enum TouchEventType{
+    public static enum TouchEventType{ //Enum con tipos de evento de entrada
         TOUCH_DOWN,
         TOUCH_UP,
         CLICK,

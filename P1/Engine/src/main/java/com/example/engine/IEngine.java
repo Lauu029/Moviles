@@ -5,10 +5,9 @@ public interface IEngine {
     void setScene(IScene myIScene);
     //geter de la escena
     IScene getScene();
-
-    IGraphics getGraphics();
-    IInput getInput();
-    IAudio getAudio();
+    IGraphics getGraphics(); //geter del motor grafico
+    IInput getInput();  //geter del motor de manejo de entrada
+    IAudio getAudio(); //geter del motor de audio
 
 
 }

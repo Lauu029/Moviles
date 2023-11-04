@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public interface IInput {
 
-    public ArrayList<TouchEvent>  getTouchEvent();
+    public ArrayList<TouchEvent>  getTouchEvent(); //Devuelve una lista de eventos de entrada
 
-    public void myEventsClear();
+    public void myEventsClear(); //Limpia una lista de eventos de entradas
 }
