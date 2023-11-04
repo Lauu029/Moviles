@@ -5,17 +5,18 @@ import com.example.engine.IFont;
 import com.example.engine.IGameObject;
 import com.example.engine.IGraphics;
 import com.example.engine.IScene;
+import com.example.engine.ISound;
 import com.example.engine.TouchEvent;
 
 public class Button implements IGameObject {
     private String text;
     private IFont font;
-    protected IScene scene = null;
+    IScene scene = null;
     private int color;
     private int width = 0, height = 0, posX = 0, posY = 0, arc = 0;
-    private SceneNames sceneName;
-
-    Button(String t, IFont f, int c, int w, int h, int a, int x, int y, SceneNames sceneNames) {
+    private SceneNames sceneName_;
+    private ISound mySound_;
+    Button(String t, IFont f, int c, int w, int h, int a, int x, int y, SceneNames sceneNames, ISound buttonSound) {
         this.text = t;
         this.font = f;
         this.color = c;
@@ -24,7 +25,8 @@ public class Button implements IGameObject {
         this.arc = a;
         this.posX = x;
         this.posY = y;
-        this.sceneName = sceneNames;
+        sceneName_ = sceneNames;
+        mySound_=buttonSound;
     }
 
     @Override
@@ -60,7 +62,8 @@ public class Button implements IGameObject {
                 IEngine engine_ = GameManager.getInstance().getIEngine();
                 int sceneWidth = GameManager.getInstance().getwidth();
                 int sceneHeight = GameManager.getInstance().getHeight();
-                switch (sceneName) {
+                engine_.getAudio().playSound(mySound_,0);
+                switch (sceneName_) {
                     case GAME:
                         scene = new GameScene(engine_, sceneWidth, sceneHeight);
                         break;

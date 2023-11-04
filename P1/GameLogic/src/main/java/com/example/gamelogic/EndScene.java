@@ -5,6 +5,7 @@ import com.example.engine.IFont;
 import com.example.engine.IGameObject;
 import com.example.engine.IGraphics;
 import com.example.engine.IScene;
+import com.example.engine.ISound;
 import com.example.engine.TouchEvent;
 
 import java.util.ArrayList;
@@ -18,9 +19,10 @@ public class EndScene implements IScene {
     private Button button2;
     private ButtonLevel button1;
     private IFont font;
-    private IFont font1, font2;
-    private int tries;
-    private int[] totalPossibleColors = new int[]{0xFFFFC0CB, 0xFF87CEEB, 0xFF98FB98, 0xFFFFFF99,
+    private IFont font1,font2;
+    int intentos_;
+    private ISound myButtonSound_;
+    private int[] total_possible_colors = new int[]{0xFFFFC0CB, 0xFF87CEEB, 0xFF98FB98, 0xFFFFFF99,
             0xFFE6E6FA, 0xFFFFDAB9, 0xFFE7FFAC, 0xFFFF8FAB, 0xFF6FC0AB};
     private boolean win = false;
 
@@ -42,12 +44,16 @@ public class EndScene implements IScene {
             this.font = graph.newFont("Hexenkoetel-qZRv1.ttf", 40, true, true);
         else this.font = graph.newFont("Hexenkoetel-qZRv1.ttf", 40, false, true);
         graph.setFont(this.font);
-        font1 = graph.newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
-        font2 = graph.newFont("Hexenkoetel-qZRv1.ttf", 30, false, false);
+        font1 =graph.newFont("Hexenkoetel-qZRv1.ttf",20,false,false);
+        font2 =graph.newFont("Hexenkoetel-qZRv1.ttf",30,false,false);
+        myButtonSound_=IEngine_.getAudio().newSound("buttonClicked.wav");
         this.button1 = new ButtonLevel("Volver Jugar", font1, 0XFFFB839B
-                , 150, 50, 35, this.width / 2 - 150 / 2, this.height / 2 + 20, SceneNames.GAME, GameManager.getInstance().getLevel().getLevelDiff());
-        this.button2 = new Button("Elegir Dificultad", font1, 0XFFFB839B
-                , 150, 50, 35, this.width / 2 - (150 / 2), this.height / 2 + 90, SceneNames.LEVEL);
+                , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 20,
+                SceneNames.GAME, GameManager.getInstance().getLevel().getLevelDiff(),myButtonSound_);
+
+        this.button2 = new Button("Elegir Dificultad", font1,0XFFFB839B
+                ,150,50, 35,this.width_/2-(150/2), this.height_/2+90,
+                SceneNames.LEVEL,myButtonSound_);
 
         addGameObject(button1);
         addGameObject(button2);

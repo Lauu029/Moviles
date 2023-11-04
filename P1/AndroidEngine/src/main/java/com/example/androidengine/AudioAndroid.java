@@ -17,8 +17,8 @@ public class AudioAndroid implements IAudio {
     }
     //Crea un nuev sonido de tipo SoundAndroid
     @Override
-    public ISound newSound(String file, String id) {
-        SoundAndroid s= new SoundAndroid(file,id,myAssetManager_,mySoundPool_);
+    public ISound newSound(String file) {
+        SoundAndroid s= new SoundAndroid(file,myAssetManager_,mySoundPool_);
         return s;
     }
     //Reproduce un determinado sonido

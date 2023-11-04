@@ -7,6 +7,7 @@ import com.example.engine.IFont;
 import com.example.engine.IGameObject;
 import com.example.engine.IGraphics;
 import com.example.engine.IScene;
+import com.example.engine.ISound;
 import com.example.engine.TouchEvent;
 
 import java.util.ArrayList;
@@ -18,12 +19,12 @@ public class LevelScene implements IScene {
     private int width_, height_;
 
     private IFont font;
+    private ISound myButtonSound_;
 
     public LevelScene(IEngine IEngine, int w, int h) {
         IEngine_ = IEngine;
         width_ = w;
         height_ = h;
-        System.out.print("Scene Width: " + width_ + " Scene Height: " + height_ + "\n");
     }
 
     @Override
@@ -41,9 +42,10 @@ public class LevelScene implements IScene {
                LevelDifficulty.IMPOSIBLE};
         int [] colores={0XFFF6C0CF,0XFFDDB5DF,0XFFA9B2EC,0xFF58B2E6};
         font=graph.newFont("Hexenkoetel-qZRv1.ttf",20,false,false);
+        myButtonSound_=IEngine_.getAudio().newSound("buttonClicked.wav");
         for(int i=0;i< 4;i++){
             ButtonLevel but=new ButtonLevel(nombres[i],font,
-                    colores[i] ,150,50, 35,this.width_/2-150/2,100*i+100,SceneNames.GAME,diff[i]);
+                    colores[i] ,150,50, 35,this.width_/2-150/2,100*i+100,SceneNames.GAME,diff[i],myButtonSound_);
 
             this.addGameObject(but);
         }
