@@ -13,11 +13,9 @@ public class ButtonDaltonics implements IGameObject {
     private IImage buttonImage_closed_;
     private IImage buttonImage_open_;
     private ISound myButtonSound_;
-
     private int width_ = 0, height_ = 0, posX_ = 0, posY_ = 0, arc_ = 0;
-    boolean playedSound_ = false;
-    boolean canPlaySound_ = true;
-    double currTime_, playTime_;
+
+    private int width = 0, height = 0, posX = 0, posY = 0, arc = 0;
 
     ButtonDaltonics(int w, int h, int x, int y) {
         this.width_ = w;
@@ -42,14 +40,6 @@ public class ButtonDaltonics implements IGameObject {
     @Override
     public void update(double time) {
 
-        if (playedSound_) {
-            currTime_ = System.currentTimeMillis();
-            if (currTime_ - playTime_ >= 10000) {
-                GameManager.getInstance_().getIEngine().getAudio().stopSound(myButtonSound_);
-                //playedSound_ = false;
-                /*canPlaySound_=true;*/
-            }
-        }
     }
 
     @Override
@@ -70,24 +60,25 @@ public class ButtonDaltonics implements IGameObject {
 
     @Override
     public boolean handleInput(TouchEvent event) {
+
         if (event.type == TouchEvent.TouchEventType.TOUCH_UP) {
             if (this.posX_ < event.x && this.posX_ + this.width_ > event.x
                     && this.posY_ < event.y && this.posY_ + this.height_ > event.y) {
                 GameManager.getInstance_().changeDaltonicsMode();
                 GameManager.getInstance_().getIEngine().getAudio().playSound(myButtonSound_, 0);
-                //if(canPlaySound_){
-                System.out.println("Puede sonar");
-                GameManager.getInstance_().getIEngine().getAudio().playSound(myButtonSound_, 0);
-                System.out.println("HA SONDADO");
-                playTime_ = System.currentTimeMillis();
-                playedSound_ = true;
-                canPlaySound_ = false;
-                //}
-                //else System.out.println("No puede sonar aun");
-
                 return true;
             }
+
+        }
+        if (event.type == TouchEvent.TouchEventType.TOUCH_DOWN) {
+            if (this.posX_ < event.x && this.posX_ + this.width_ > event.x
+                    && this.posY_ < event.y && this.posY_ + this.height_ > event.y) {
+                GameManager.getInstance_().getIEngine().getAudio().stopSound(myButtonSound_);
+                return true;
+            }
+
         }
         return false;
     }
 }
+

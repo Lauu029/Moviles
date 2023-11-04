@@ -22,12 +22,12 @@ public class AudioDesktop implements IAudio {
         SoundDesktop dSound = (SoundDesktop) sound; // Convierte el objeto ISound a SoundDesktop
         usedClip_ = dSound.getFreeClip(); // Obtiene el clip de sonido asociado
 
-        if (usedClip_ != null) { // Verifica si el clip no es nulo
+        if (usedClip_ != null && usedClip_.isOpen()) { // Verifica si el clip no es nulo
+
             if (loop != 0) {
                 usedClip_.loop(Clip.LOOP_CONTINUOUSLY); // Reproduce en bucle si loop no es igual a 0
             }
             usedClip_.setFramePosition(0); // Establece la posicion de reproduccion al principio
-
             usedClip_.start(); // Inicia la reproducción del sonido
         }
     }
