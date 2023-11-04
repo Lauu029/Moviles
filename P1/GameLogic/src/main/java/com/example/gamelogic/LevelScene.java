@@ -16,10 +16,9 @@ public class LevelScene implements IScene {
     private IEngine iEngine_;
     private ArrayList<IGameObject> iGameObjects_ = new ArrayList<>();
     private int width_, height_;
-
     private IFont font_;
     private ISound myButtonSound_;
-    ISound myArrowSound_;
+    private ISound myArrowSound_;
     public LevelScene(IEngine IEngine, int w, int h) {
         iEngine_ = IEngine;
         width_ = w;

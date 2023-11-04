@@ -19,7 +19,6 @@ public class MenuScene implements IScene {
     private int width_, height_;
     private Button button_;
     private IFont font_;
-
     private IFont fontButton_;
     private IImage myIcon_;
     private ISound myButtonSound_;

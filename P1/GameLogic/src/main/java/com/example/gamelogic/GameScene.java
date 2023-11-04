@@ -20,7 +20,7 @@ public class GameScene implements IScene {
     private IFont font_;
     private Difficulty lev_;
     private GameManager gm_;
-    ISound myCrossSound_;
+    private ISound myCrossSound_;
     public GameScene(IEngine IEngine, int w, int h) {
         this.iEngine_ = IEngine;
         this.width_ = w;

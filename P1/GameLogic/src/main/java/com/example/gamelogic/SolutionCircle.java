@@ -8,7 +8,7 @@ import com.example.engine.TouchEvent;
  * Extiende la clase Círculo y se encarga de avisar al GameManager cuando se ha pulsado uno para que
  * almacene el color y lo coloque en la posición correspondiente*/
 public class SolutionCircle extends Circle {
-    ISound myButtonSound_;
+    private ISound myButtonSound_;
     public SolutionCircle(String t, IFont f, int r, int x, int y, int row_) {
         super(t, f, r, x, y, row_);
         myButtonSound_=gm_.getInstance_().getIEngine().getAudio().newSound("circleSound.wav");
