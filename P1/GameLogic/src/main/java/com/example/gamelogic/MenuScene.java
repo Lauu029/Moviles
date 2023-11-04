@@ -23,7 +23,6 @@ public class MenuScene implements IScene {
     private IFont fontButton_;
     private IImage myIcon_;
     private ISound myButtonSound_;
-
     public MenuScene(IEngine IEngine, int w, int h) {
         iEngine_ = IEngine;
         width_ = w;
@@ -39,6 +38,7 @@ public class MenuScene implements IScene {
 
         fontButton_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
         myButtonSound_ = iEngine_.getAudio().newSound("menuButton.wav");
+
         this.button_ = new Button("Jugar", fontButton_, 0XFFFB839B
                 , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 20, SceneNames.LEVEL, myButtonSound_);
 
@@ -49,6 +49,7 @@ public class MenuScene implements IScene {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
     }
 
 

@@ -16,6 +16,7 @@ public class TryCircle extends Circle {
         super(t, f, r, x, y, row_);
         this.idRow_ = id;
         this.hasColor_ = false;
+
     }
 
     public void render(IGraphics graph) {
