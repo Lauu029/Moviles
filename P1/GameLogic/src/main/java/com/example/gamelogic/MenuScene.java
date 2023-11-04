@@ -14,38 +14,38 @@ import java.util.ArrayList;
 
 public class MenuScene implements IScene {
 
-    private IEngine IEngine_;
-    private ArrayList<IGameObject> IGameObjects_ = new ArrayList<>();
-    private int width_, height_;
+    private IEngine iEngine;
+    private ArrayList<IGameObject> iGameObjects = new ArrayList<>();
+    private int width, height;
     private Button button;
     private IFont font;
 
     private IFont fontButton;
-    private IImage myIcon_;
-    private ISound myButtonSound_;
+    private IImage myIcon;
+    private ISound myButtonSound;
 
     public MenuScene(IEngine IEngine, int w, int h) {
-        IEngine_ = IEngine;
-        width_ = w;
-        height_ = h;
+        iEngine = IEngine;
+        width = w;
+        height = h;
     }
 
     @Override
     public void init() {
         //creacion de la solucion
-        IGraphics graph = IEngine_.getGraphics();
+        IGraphics graph = iEngine.getGraphics();
         this.font = graph.newFont("Hexenkoetel-qZRv1.ttf", 40, true, true);
         graph.setFont(this.font);
 
         fontButton = graph.newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
-        myButtonSound_ = IEngine_.getAudio().newSound("buttonClicked.wav");
+        myButtonSound = iEngine.getAudio().newSound("buttonClicked.wav");
         this.button = new Button("Jugar", fontButton, 0XFFFB839B
-                , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 20, SceneNames.LEVEL, myButtonSound_);
+                , 150, 50, 35, this.width / 2 - 150 / 2, this.height / 2 + 20, SceneNames.LEVEL, myButtonSound);
 
         addGameObject(button);
 
         try {
-            myIcon_ = graph.newImage("cerebro.png");
+            myIcon = graph.newImage("cerebro.png");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -53,24 +53,22 @@ public class MenuScene implements IScene {
 
 
     public void addGameObject(IGameObject gm) {
-        IGameObjects_.add(gm);
+        iGameObjects.add(gm);
     }
 
     @Override
     public int getHeight() {
-        return height_;
+        return height;
     }
 
     @Override
     public int getWidth() {
-        return width_;
+        return width;
     }
 
     @Override
     public void handleInput(ArrayList<TouchEvent> events) {
-
-
-        for (IGameObject g : IGameObjects_) {
+        for (IGameObject g : iGameObjects) {
             for (TouchEvent event : events)
                 if (g.handleInput(event))
                     return;
@@ -80,25 +78,25 @@ public class MenuScene implements IScene {
 
     @Override
     public void render() {
-        IGraphics graph = IEngine_.getGraphics();
+        IGraphics graph = iEngine.getGraphics();
 
         //Dibujamos un color de fondo para la escena
         graph.clear(0xFFfff0f6);
 
-        for (int i = 0; i < IGameObjects_.size(); i++) {
-            IGameObjects_.get(i).render(graph);
+        for (int i = 0; i < iGameObjects.size(); i++) {
+            iGameObjects.get(i).render(graph);
         }
         graph.setColor(0XFF222222);
-        this.IEngine_.getGraphics().setFont(font);
-        graph.drawText("MasterMind", width_ / 2, 100);
-        graph.drawImage(myIcon_, this.width_ / 2 - 80 / 2, this.height_ / 2 - 140, 80, 80);
+        this.iEngine.getGraphics().setFont(font);
+        graph.drawText("MasterMind", width / 2, 100);
+        graph.drawImage(myIcon, this.width / 2 - 80 / 2, this.height / 2 - 140, 80, 80);
     }
 
 
     @Override
     public void update(double time) {
-        for (int i = 0; i < IGameObjects_.size(); i++) {
-            IGameObjects_.get(i).update(time);
+        for (int i = 0; i < iGameObjects.size(); i++) {
+            iGameObjects.get(i).update(time);
         }
     }
 

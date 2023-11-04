@@ -28,7 +28,6 @@ public interface IGraphics {
 
     int getWidth();
     int getHeight();
-    //void render();
     void translate(float x,float y);
     void scale(float x,float y);
     void save();
@@ -36,9 +35,9 @@ public interface IGraphics {
 
 
     void resize(float sceneWidth, float sceneHeight);
-    public float getScale_();
-    public float getTranslateX_();
-    public float getTranslateY_();
+    public float getScale();
+    public float getTranslateX();
+    public float getTranslateY();
 
 
 

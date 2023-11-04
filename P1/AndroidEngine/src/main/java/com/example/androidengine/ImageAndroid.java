@@ -1,29 +1,25 @@
 package com.example.androidengine;
 
 import android.graphics.Bitmap;
-import android.media.Image;
 
 import com.example.engine.IImage;
 
 //Aquí tendrán que ir todos los métodos que implementen para generar una imagen en android, entiendo
 public class ImageAndroid implements IImage {
-    private int width_= 0, height_ = 0;
-
-    Bitmap bitmap_;
+    private Bitmap bitmap;
     public ImageAndroid(Bitmap image_){
-        bitmap_=image_;
+        bitmap =image_;
     }
     public Bitmap getImage(){
-        return bitmap_;
+        return bitmap;
     }
     @Override
     public int getWidth() {
-        return bitmap_.getWidth();
+        return bitmap.getWidth();
     }
 
     @Override
     public int getHeight() {
-        return bitmap_.getHeight();
+        return bitmap.getHeight();
     }
-
 }

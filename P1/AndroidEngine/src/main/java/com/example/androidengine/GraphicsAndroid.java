@@ -7,77 +7,67 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.example.engine.IColor;
 import com.example.engine.IFont;
 import com.example.engine.IGraphics;
 import com.example.engine.IImage;
-import com.example.engine.IInput;
-import com.example.engine.IScene;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 public class GraphicsAndroid implements IGraphics {
     private int width_ = 0, height_ = 0;
-    private SurfaceView myView_;
-    private SurfaceHolder myHolder_;
-    private Paint myPaint_;
-    private Canvas myCanvas_;
+    private SurfaceView myView;
+    private SurfaceHolder myHolder;
+    private Paint myPaint;
+    private Canvas myCanvas;
 
-    float scale_ = 1;
-    float translateX_ = 0, translateY_ = 0;
-    IFont myFont_;
-    AssetManager myAssetManager_;
-    Paint myFontPaint_;
+    private float scale = 1;
+    private float translateX = 0, translateY = 0;
+    private AssetManager myAssetManager;
 
     public GraphicsAndroid(SurfaceView view, AssetManager asset) {
-        this.myView_ = view;
-        this.myHolder_ = this.myView_.getHolder();
-        this.myPaint_ = new Paint();
-        this.myCanvas_ = new Canvas();
-        myAssetManager_ = asset;
-        // this.paint.setColor(0x53ECDED3);
+        this.myView = view;
+        this.myHolder = this.myView.getHolder();
+        this.myPaint = new Paint();
+        this.myCanvas = new Canvas();
+        myAssetManager = asset;
     }
 
     @Override
     public void resize(float sceneWidth, float sceneHeight) {
-        height_ = myCanvas_.getHeight();
-        width_ = myCanvas_.getWidth();
+        height_ = myCanvas.getHeight();
+        width_ = myCanvas.getWidth();
 
         float scaleW = (float) width_ / (float) sceneWidth;
         float scaleH = (float) height_ / (float) sceneHeight;
 
-        if (scaleW < scaleH) {
-            scale_ = scaleW;
-        } else {
-            scale_ = scaleH;
-        }
+        if (scaleW < scaleH)
+            scale = scaleW;
+        else
+            scale = scaleH;
 
         float resizeW, resizeH;
-        resizeW = sceneWidth * scale_;
-        resizeH = sceneHeight * scale_;
+        resizeW = sceneWidth * scale;
+        resizeH = sceneHeight * scale;
 
-        translateX_ = (width_ - resizeW) / 2;
-        translateY_ = (height_ - resizeH) / 2;
-        /*this.translate(translateX_,translateY_);
-        this.scale(scale_,scale_);*/
+        translateX = (width_ - resizeW) / 2;
+        translateY = (height_ - resizeH) / 2;
     }
 
-    public float getScale_() {
-        return scale_;
+    public float getScale() {
+        return scale;
     }
 
-    public float getTranslateX_() {
-        return translateX_;
+    public float getTranslateX() {
+        return translateX;
     }
 
-    public float getTranslateY_() {
-        return translateY_;
+    public float getTranslateY() {
+        return translateY;
     }
 
 
@@ -86,7 +76,7 @@ public class GraphicsAndroid implements IGraphics {
         Bitmap bitmap = null;
         InputStream is = null;
         try {
-            is = this.myAssetManager_.open(name);
+            is = this.myAssetManager.open(name);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -98,7 +88,7 @@ public class GraphicsAndroid implements IGraphics {
 
     @Override
     public IFont newFont(String filename, int size, boolean isBold, boolean italic) {
-        return new FontAndroid(filename, size, isBold, italic, myAssetManager_);
+        return new FontAndroid(filename, size, isBold, italic, myAssetManager);
     }
 
     /*@Override
@@ -108,12 +98,12 @@ public class GraphicsAndroid implements IGraphics {
 
     @Override
     public void clear(int color) {
-        myCanvas_.drawColor(color);
+        myCanvas.drawColor(color);
     }
 
     @Override
     public void setStrokeWidth(int width) {
-        myPaint_.setStrokeWidth(width);
+        myPaint.setStrokeWidth(width);
     }
 
     @Override
@@ -129,45 +119,45 @@ public class GraphicsAndroid implements IGraphics {
         dst.top = posY;
         dst.right = posX + widht;
         dst.bottom = posY + height;
-        this.myCanvas_.drawBitmap(imageAndroid.getImage(), src, dst, this.myPaint_);
+        this.myCanvas.drawBitmap(imageAndroid.getImage(), src, dst, this.myPaint);
     }
 
     @Override
     public void setColor(int color_) {
-        this.myPaint_.setColor(color_);
+        this.myPaint.setColor(color_);
     }
 
     @Override
     public void fillRectangle(int cX, int cY, int width, int height) {
-        myPaint_.setStyle(Paint.Style.FILL);
-        myCanvas_.drawRect(cX, cY, width + cX, height + cY, this.myPaint_);
+        myPaint.setStyle(Paint.Style.FILL);
+        myCanvas.drawRect(cX, cY, width + cX, height + cY, this.myPaint);
     }
 
     @Override
     public void fillRoundRectangle(int cX, int cY, int width, int height, int arc) {
-        myPaint_.setStyle(Paint.Style.FILL);
+        myPaint.setStyle(Paint.Style.FILL);
         RectF rect = new RectF(cX, cY, cX + width, cY + height);
-        myCanvas_.drawRoundRect(rect, arc, arc, myPaint_);
+        myCanvas.drawRoundRect(rect, arc, arc, myPaint);
     }
 
     @Override
     public void drawRectangle(int cX, int cY, int width, int height) {
-        myPaint_.setStyle(Paint.Style.STROKE);
+        myPaint.setStyle(Paint.Style.STROKE);
 
-        myCanvas_.drawRect(cX, cY, width, height, this.myPaint_);
+        myCanvas.drawRect(cX, cY, width, height, this.myPaint);
     }
 
     @Override
     public void drawRoundRectangle(int cX, int cY, int width, int height, int arc) {
-        myPaint_.setStyle(Paint.Style.STROKE);
+        myPaint.setStyle(Paint.Style.STROKE);
 
         RectF rect = new RectF(cX, cY, cX + width, cY + height);
-        myCanvas_.drawRoundRect(rect, arc, arc, myPaint_);
+        myCanvas.drawRoundRect(rect, arc, arc, myPaint);
     }
 
     @Override
     public void drawLine(int initX, int initY, int endX, int endY) {
-        myCanvas_.drawLine(initX, initY, endX, endY, this.myPaint_);
+        myCanvas.drawLine(initX, initY, endX, endY, this.myPaint);
     }
 
     @Override
@@ -175,31 +165,31 @@ public class GraphicsAndroid implements IGraphics {
         FontAndroid aFont = (FontAndroid) font;
         //Canvas canvas = holder.lockCanvas();
 
-        myPaint_.setTypeface(aFont.getFont());
-        myPaint_.setTextSize(aFont.getSize());
+        myPaint.setTypeface(aFont.getFont());
+        myPaint.setTextSize(aFont.getSize());
 
-        myPaint_.setFakeBoldText(aFont.isBold());
-        myPaint_.setTextSkewX(aFont.isItalic() ? -0.25f : 0.0f);
+        myPaint.setFakeBoldText(aFont.isBold());
+        myPaint.setTextSkewX(aFont.isItalic() ? -0.25f : 0.0f);
     }
 
     @Override
     public void drawCircle(int cx, int cy, int radius) {
-        myPaint_.setStyle(Paint.Style.FILL);
-        myCanvas_.drawCircle(cx, cy, radius, myPaint_);
+        myPaint.setStyle(Paint.Style.FILL);
+        myCanvas.drawCircle(cx, cy, radius, myPaint);
     }
 
     @Override
     public void drawText(String text, int x, int y) {
-        myPaint_.setStyle(Paint.Style.FILL);
+        myPaint.setStyle(Paint.Style.FILL);
 
         // Medir el ancho del texto
-        float textWidth = myPaint_.measureText(text);
-        float textHeight = myPaint_.getTextSize(); // Altura de la fuente
+        float textWidth = myPaint.measureText(text);
+        float textHeight = myPaint.getTextSize(); // Altura de la fuente
         // Calcular las coordenadas para centrar el texto
         float centerX = x - (textWidth / 2);
         float centerY = y + (textHeight / 2);
 
-        myCanvas_.drawText(text, centerX, centerY, myPaint_);
+        myCanvas.drawText(text, centerX, centerY, myPaint);
     }
 
     @Override
@@ -214,12 +204,12 @@ public class GraphicsAndroid implements IGraphics {
 
     @Override
     public void translate(float x, float y) {
-        this.myCanvas_.translate(x, y);
+        this.myCanvas.translate(x, y);
     }
 
     @Override
     public void scale(float x, float y) {
-        this.myCanvas_.scale(x, y);
+        this.myCanvas.scale(x, y);
     }
 
     @Override
@@ -232,17 +222,17 @@ public class GraphicsAndroid implements IGraphics {
 
 
     public void prepareFrame() {
-        while (!this.myHolder_.getSurface().isValid()) ;
+        while (!this.myHolder.getSurface().isValid()) ;
         //resizeCanvas(myScene);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            this.myCanvas_ = this.myHolder_.lockHardwareCanvas();
-        } else this.myCanvas_ = this.myHolder_.lockCanvas();
-        this.translate(translateX_, translateY_);
-        this.scale(scale_, scale_);
+            this.myCanvas = this.myHolder.lockHardwareCanvas();
+        } else this.myCanvas = this.myHolder.lockCanvas();
+        this.translate(translateX, translateY);
+        this.scale(scale, scale);
     }
 
     public void endFrame() {
-        this.myHolder_.unlockCanvasAndPost(myCanvas_);
+        this.myHolder.unlockCanvasAndPost(myCanvas);
     }
 
 }

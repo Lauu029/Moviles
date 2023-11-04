@@ -38,7 +38,6 @@ public class main {
         MenuScene gm = new MenuScene(IEngineDesktop, 400, 600);
         IEngineDesktop.setScene(gm);
         gm.init();
-
         IEngineDesktop.resume();
     }
 

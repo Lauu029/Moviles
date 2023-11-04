@@ -10,10 +10,10 @@ import com.example.engine.TouchEvent;
 import java.util.ArrayList;
 
 public class GameScene implements IScene {
-    private Solution mySolution_;
-    private IEngine IEngine_;
-    private ArrayList<IGameObject> IGameObjects_ = new ArrayList<>();
-    private int width_, height_;
+    private Solution mySolution;
+    private IEngine iEngine;
+    private ArrayList<IGameObject> iGameObjects = new ArrayList<>();
+    private int width, height;
     private ButtonDaltonics buttonDaltonics;
     private Board gameBoard;
     private IFont font;
@@ -21,25 +21,25 @@ public class GameScene implements IScene {
     private GameManager gm;
 
     public GameScene(IEngine IEngine, int w, int h) {
-        this.IEngine_ = IEngine;
-        this.width_ = w;
-        this.height_ = h;
+        this.iEngine = IEngine;
+        this.width = w;
+        this.height = h;
     }
     //Inicializa los botones, el tablero y la solución
     @Override
     public void init() {
-        this.font = this.IEngine_.getGraphics().newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
+        this.font = this.iEngine.getGraphics().newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
         this.gm = GameManager.getInstance();
         this.lev = this.gm.getLevel();
-        mySolution_ = new Solution();
-        mySolution_.createSolution(lev.isRepeat(), lev.getSolutionColors(), lev.getPosibleColors(), lev.getTries());
-        this.gameBoard = new Board( lev.getSolutionColors(), lev.getTries(), lev.getPosibleColors(), lev.isRepeat(), width_, height_);
+        mySolution = new Solution();
+        mySolution.createSolution(lev.isRepeat(), lev.getSolutionColors(), lev.getPosibleColors(), lev.getTries());
+        this.gameBoard = new Board( lev.getSolutionColors(), lev.getTries(), lev.getPosibleColors(), lev.isRepeat(), width, height);
         addGameObject(gameBoard);
         gm.setBoard(this.gameBoard);
-        this.buttonDaltonics =new ButtonDaltonics(70,50,this.width_-70,1);
+        this.buttonDaltonics =new ButtonDaltonics(70,50,this.width -70,1);
         addGameObject(buttonDaltonics);
-        IEngine_.getGraphics().setColor(0xFF000000);
-        for (IGameObject g : IGameObjects_) {
+        iEngine.getGraphics().setColor(0xFF000000);
+        for (IGameObject g : iGameObjects) {
             g.init();
         }
         ButtonImage but2=new ButtonImage("cruz.png",40,40, 0,0,SceneNames.LEVEL);
@@ -47,22 +47,22 @@ public class GameScene implements IScene {
     }
 
     public void addGameObject(IGameObject gm) {
-        IGameObjects_.add(gm);
+        iGameObjects.add(gm);
     }
 
     @Override
     public int getHeight() {
-        return height_;
+        return height;
     }
 
     @Override
     public int getWidth() {
-        return width_;
+        return width;
     }
 
     @Override
     public void handleInput(ArrayList<TouchEvent> events) {
-        for (IGameObject g : IGameObjects_) {
+        for (IGameObject g : iGameObjects) {
             for (TouchEvent event : events) {
                 if (g.handleInput(event))
                     return;
@@ -72,9 +72,9 @@ public class GameScene implements IScene {
 
     @Override
     public void render() {
-        IGraphics graph = IEngine_.getGraphics();
+        IGraphics graph = iEngine.getGraphics();
         graph.clear(0xFFfff0f6);
-        for (IGameObject g : IGameObjects_) {
+        for (IGameObject g : iGameObjects) {
             g.render(graph);
         }
     }
@@ -93,21 +93,21 @@ public class GameScene implements IScene {
             i++;
         }
         if (isComplete) {
-            mySolution_.check(tempSol);
+            mySolution.check(tempSol);
             int try_ = this.gameBoard.getAcutalTry();
-            if (mySolution_.getCorrectPos(try_) == this.lev.getSolutionColors()) {
-                EndScene end = new EndScene(this.IEngine_, this.width_, this.height_, true, mySolution_.getSol(), try_);
+            if (mySolution.getCorrectPos(try_) == this.lev.getSolutionColors()) {
+                EndScene end = new EndScene(this.iEngine, this.width, this.height, true, mySolution.getSol(), try_);
                 this.gm.changeScene(end);
             } else if (try_ == lev.getTries() -1) {
-                EndScene end = new EndScene(this.IEngine_, this.width_, this.height_, false, mySolution_.getSol(), try_);
+                EndScene end = new EndScene(this.iEngine, this.width, this.height, false, mySolution.getSol(), try_);
                 this.gm.changeScene(end);
             } else {
-                gameBoard.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
+                gameBoard.setNewHints(mySolution.getCorrectPos(try_), mySolution.getCorrectColor(try_));
                 gameBoard.nexTry();
             }
         }
-        for (int j = 0; j < IGameObjects_.size(); j++) {
-            IGameObjects_.get(j).update(time);
+        for (int j = 0; j < iGameObjects.size(); j++) {
+            iGameObjects.get(j).update(time);
         }
     }
 }

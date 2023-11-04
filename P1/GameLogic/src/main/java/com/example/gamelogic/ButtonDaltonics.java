@@ -1,10 +1,8 @@
 package com.example.gamelogic;
 
-import com.example.engine.IFont;
 import com.example.engine.IGameObject;
 import com.example.engine.IGraphics;
 import com.example.engine.IImage;
-import com.example.engine.IScene;
 import com.example.engine.ISound;
 import com.example.engine.TouchEvent;
 
@@ -14,7 +12,7 @@ public class ButtonDaltonics implements IGameObject {
 
     private IImage buttonImage_closed;
     private IImage buttonImage_open;
-    private ISound myButtonSound_;
+    private ISound myButtonSound;
 
     private int width = 0, height = 0, posX = 0, posY = 0, arc = 0;
 
@@ -34,7 +32,7 @@ public class ButtonDaltonics implements IGameObject {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        myButtonSound_=GameManager.getInstance().getIEngine().getAudio().newSound("daltonicsButton.wav");
+        myButtonSound =GameManager.getInstance().getIEngine().getAudio().newSound("daltonicsButton.wav");
 
     }
 
@@ -65,7 +63,7 @@ public class ButtonDaltonics implements IGameObject {
             if (this.posX < event.x && this.posX + this.width > event.x
                     && this.posY < event.y && this.posY + this.height > event.y) {
                 GameManager.getInstance().changeDaltonicsMode();
-                GameManager.getInstance().getIEngine().getAudio().playSound(myButtonSound_,0);
+                GameManager.getInstance().getIEngine().getAudio().playSound(myButtonSound,0);
                 return true;
             }
         }

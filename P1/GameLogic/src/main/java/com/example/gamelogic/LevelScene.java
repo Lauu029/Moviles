@@ -13,23 +13,23 @@ import java.util.ArrayList;
 
 public class LevelScene implements IScene {
 
-    private IEngine IEngine_;
-    private ArrayList<IGameObject> IGameObjects_ = new ArrayList<>();
-    private int width_, height_;
+    private IEngine iEngine;
+    private ArrayList<IGameObject> iGameObjects = new ArrayList<>();
+    private int width, height;
 
     private IFont font;
-    private ISound myButtonSound_;
+    private ISound myButtonSound;
 
     public LevelScene(IEngine IEngine, int w, int h) {
-        IEngine_ = IEngine;
-        width_ = w;
-        height_ = h;
+        iEngine = IEngine;
+        width = w;
+        height = h;
     }
 
     @Override
     public void init() {
         //creacion de la solucion
-        IGraphics graph = IEngine_.getGraphics();
+        IGraphics graph = iEngine.getGraphics();
 
         String[] names = {"Facil",
                 "Medio",
@@ -42,10 +42,10 @@ public class LevelScene implements IScene {
                 LevelDifficulty.IMPOSIBLE};
         int[] colors = {0XFFF6C0CF, 0XFFDDB5DF, 0XFFA9B2EC, 0xFF58B2E6};
         font = graph.newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
-        myButtonSound_ = IEngine_.getAudio().newSound("buttonClicked.wav");
+        myButtonSound = iEngine.getAudio().newSound("buttonClicked.wav");
         for (int i = 0; i < 4; i++) {
             ButtonLevel but = new ButtonLevel(names[i], font,
-                    colors[i], 150, 50, 35, this.width_ / 2 - 150 / 2, 100 * i + 100, SceneNames.GAME, diff[i], myButtonSound_);
+                    colors[i], 150, 50, 35, this.width / 2 - 150 / 2, 100 * i + 100, SceneNames.GAME, diff[i], myButtonSound);
 
             this.addGameObject(but);
         }
@@ -55,22 +55,22 @@ public class LevelScene implements IScene {
 
 
     public void addGameObject(IGameObject gm) {
-        IGameObjects_.add(gm);
+        iGameObjects.add(gm);
     }
 
     @Override
     public int getHeight() {
-        return height_;
+        return height;
     }
 
     @Override
     public int getWidth() {
-        return width_;
+        return width;
     }
 
     @Override
     public void handleInput(ArrayList<TouchEvent> events) {
-        for (IGameObject g : IGameObjects_)
+        for (IGameObject g : iGameObjects)
             for (TouchEvent event : events)
                 if (g.handleInput(event))
                     return;
@@ -78,21 +78,21 @@ public class LevelScene implements IScene {
 
     @Override
     public void render() {
-        IGraphics graph = IEngine_.getGraphics();
+        IGraphics graph = iEngine.getGraphics();
 
         graph.clear(0xFFfff0f6);
-        for (int i = 0; i < IGameObjects_.size(); i++) {
-            IGameObjects_.get(i).render(graph);
+        for (int i = 0; i < iGameObjects.size(); i++) {
+            iGameObjects.get(i).render(graph);
         }
-        this.IEngine_.getGraphics().setFont(font);
+        this.iEngine.getGraphics().setFont(font);
         graph.setColor(0xFF000000);
-        graph.drawText("¿En que dificultad quieres jugar?", width_ / 2, 50);
+        graph.drawText("¿En que dificultad quieres jugar?", width / 2, 50);
     }
 
     @Override
     public void update(double time) {
-        for (int i = 0; i < IGameObjects_.size(); i++) {
-            IGameObjects_.get(i).update(time);
+        for (int i = 0; i < iGameObjects.size(); i++) {
+            iGameObjects.get(i).update(time);
         }
     }
 }

@@ -5,10 +5,9 @@ import com.example.engine.IScene;
 
 public class GameManager {
     private static GameManager instance;
-    private IEngine myEngine_;
+    private IEngine myEngine;
     private IScene actualScene;
-    private int width_;
-    private int height_;
+    private int width, height;
     private Difficulty levelDificulty;
     private Board board;
     private int[] levelSolution;
@@ -25,24 +24,24 @@ public class GameManager {
 
     public static int init(IEngine engine, int width, int height) {
         instance = new GameManager();
-        instance.myEngine_ = engine;
-        instance.width_ = width;
-        instance.height_ = height;
+        instance.myEngine = engine;
+        instance.width = width;
+        instance.height = height;
         instance.daltonics = false;
         return 1;
     }
 
     public void changeScene(IScene scene) {
         this.actualScene = scene;
-        myEngine_.setScene(scene);
+        myEngine.setScene(scene);
     }
 
     public int getwidth() {
-        return width_;
+        return width;
     }
 
     public int getHeight() {
-        return height_;
+        return height;
     }
 
     /*Pone el color que se le pase en el círculo correspondiente y su id en la
@@ -52,7 +51,7 @@ public class GameManager {
     }
 
     public IEngine getIEngine() {
-        return myEngine_;
+        return myEngine;
     }
 
     //Prepara un nivel nuevo con un array para la solucion, la dificultad necesaria y resetea la solución final

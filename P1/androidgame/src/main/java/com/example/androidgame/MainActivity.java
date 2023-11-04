@@ -28,21 +28,13 @@ public class MainActivity extends AppCompatActivity {
         this.renderView = new SurfaceView(this);
         setContentView(this.renderView);
         IEngineAndroid = new EngineAndroid(renderView);
-
-       // MenuScene gm = new MenuScene(IEngineAndroid, 400, 600);
-        //GameScene gm = new GameScene(IEngineAndroid,400,600);
         GameManager.init(IEngineAndroid,400,600);
         MenuScene gm=new MenuScene(IEngineAndroid,400,600);
-       // int[] intentos_ = {0, 1, 2, 3};
-        //EndScene gm= new EndScene(IEngineAndroid,400,600,false,intentos_,0);
 
         IEngineAndroid.setScene(gm);
 
-        //RelativeLayout relativeLayout=findViewById(R.id.rlVar1);;
-
         IEngineAndroid.resume();
         gm.init();
-
     }
 
     @Override

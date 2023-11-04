@@ -10,43 +10,42 @@ import com.example.engine.TouchEvent;
 import javax.swing.JFrame;
 
 public class EngineDesktop implements IEngine, Runnable {
-    private JFrame myView_; // Ventana de la aplicacion
-    private Thread myRenderThread_; // Hilo para renderizar
-    private boolean running_; // Indica si el motor está en funcionamiento
-    private IScene myScene_; // Escena actual
-    private GraphicsDesktop myGraphics_; // Clase para graficos
-    private AudioDesktop myAudio_; // Clase para audio
-    private IInput myInput_; // Clase para la entrada (input)
+    private JFrame myView; // Ventana de la aplicacion
+    private Thread myRenderThread; // Hilo para renderizar
+    private boolean running; // Indica si el motor está en funcionamiento
+    private IScene myScene; // Escena actual
+    private GraphicsDesktop myGraphics; // Clase para graficos
+    private AudioDesktop myAudio; // Clase para audio
+    private IInput myInput; // Clase para la entrada (input)
 
     // Constructor de la clase
     public EngineDesktop(JFrame myView) {
-
-        myView_ = myView; // Asigna la ventana proporcionada
-        running_ = false; // Inicializa el motor como no en funcionamiento
-        myGraphics_ = new GraphicsDesktop(myView_); // Inicializa la clase de graficos
-        myAudio_ = new AudioDesktop(); // Inicializa la clase de audio
-        myInput_ = new InputDesktop(myView_); // Inicializa la clase de entrada (input)
-        System.out.print("Window Width: " + myView_.getWidth() + " Window Height: " + myView_.getHeight() + "\n"); // Imprime las dimensiones de la ventana
+        this.myView = myView; // Asigna la ventana proporcionada
+        running = false; // Inicializa el motor como no en funcionamiento
+        myGraphics = new GraphicsDesktop(this.myView); // Inicializa la clase de graficos
+        myAudio = new AudioDesktop(); // Inicializa la clase de audio
+        myInput = new InputDesktop(this.myView); // Inicializa la clase de entrada (input)
+        System.out.print("Window Width: " + this.myView.getWidth() + " Window Height: " + this.myView.getHeight() + "\n"); // Imprime las dimensiones de la ventana
     }
 
     // Metodo para reanudar la ejecución del motor
     public void resume() {
-        if (!this.running_) {
-            this.running_ = true; // Marca el motor como en funcionamiento
-            this.myRenderThread_ = new Thread(this); // Crea un nuevo hilo para renderizar
-            this.myRenderThread_.start(); // Inicia el hilo
+        if (!this.running) {
+            this.running = true; // Marca el motor como en funcionamiento
+            this.myRenderThread = new Thread(this); // Crea un nuevo hilo para renderizar
+            this.myRenderThread.start(); // Inicia el hilo
         }
     }
 
     // Metodo para pausar la ejecución del motor
     public void pause() {
-        if (this.running_) {
-            this.running_ = false; // Marca el motor como no en funcionamiento
+        if (this.running) {
+            this.running = false; // Marca el motor como no en funcionamiento
 
             while (true) {
                 try {
-                    this.myRenderThread_.join(); // Espera a que el hilo de renderizacion termine
-                    this.myRenderThread_ = null;
+                    this.myRenderThread.join(); // Espera a que el hilo de renderizacion termine
+                    this.myRenderThread = null;
                     break;
                 } catch (InterruptedException ie) {
 
@@ -57,51 +56,51 @@ public class EngineDesktop implements IEngine, Runnable {
 
     @Override
     public void run() {
-        if (myRenderThread_ != Thread.currentThread()) {
+        if (myRenderThread != Thread.currentThread()) {
             throw new RuntimeException("run() should not be called directly");
         }
 
         // Espera a que la ventana esté inicializada
-        while (this.running_ && this.myView_.getWidth() == 0) ;
+        while (this.running && this.myView.getWidth() == 0) ;
 
         long lastFrameTime = System.nanoTime();
         long informePrevio = lastFrameTime;
         int frames = 0;
 
         // Bucle principal del juego
-        while (running_) {
+        while (running) {
             long currentTime = System.nanoTime();
             long nanoElapsedTime = currentTime - lastFrameTime;
             lastFrameTime = currentTime;
             double elapsedTime = (double) nanoElapsedTime / 1.0E9;
 
             // Escalado del canvas y del input
-            myGraphics_.resize(myScene_.getWidth(), myScene_.getHeight());
+            myGraphics.resize(myScene.getWidth(), myScene.getHeight());
 
-            for (TouchEvent event : myInput_.getTouchEvent()) {
-                event.x -= myGraphics_.getTranslateX_();
-                event.y -= myGraphics_.getTranslateY_();
-                event.x /= myGraphics_.getScale_();
-                event.y /= myGraphics_.getScale_();
+            for (TouchEvent event : myInput.getTouchEvent()) {
+                event.x -= myGraphics.getTranslateX();
+                event.y -= myGraphics.getTranslateY();
+                event.x /= myGraphics.getScale();
+                event.y /= myGraphics.getScale();
             }
 
             // Manejo de entrada por parte de la escena
-            myScene_.handleInput(myInput_.getTouchEvent());
+            myScene.handleInput(myInput.getTouchEvent());
 
             // Limpieza de eventos de entrada
-            myInput_.myEventsClear();
+            myInput.myEventsClear();
 
             // Actualizacion de la escena
-            this.myScene_.update(elapsedTime);
+            this.myScene.update(elapsedTime);
 
             // Preparación del frame
-            myGraphics_.prepareFrame();
+            myGraphics.prepareFrame();
 
             // Renderizacion de la escena
-            myScene_.render();
+            myScene.render();
 
             // pintado del frame
-            myGraphics_.endFrame();
+            myGraphics.endFrame();
 
             if (currentTime - informePrevio > 1000000000l) {
                 long fps = frames * 1000000000l / (currentTime - informePrevio);
@@ -113,27 +112,27 @@ public class EngineDesktop implements IEngine, Runnable {
 
     @Override
     public void setScene(IScene myIScene) {
-        this.myScene_ = myIScene; // Establece la escena actual
-        myScene_.init(); // Inicializa la escena
+        this.myScene = myIScene; // Establece la escena actual
+        myScene.init(); // Inicializa la escena
     }
 
     @Override
     public IGraphics getGraphics() {
-        return this.myGraphics_; // Devuelve la clase de graficos
+        return this.myGraphics; // Devuelve la clase de graficos
     }
 
     @Override
     public IInput getInput() {
-        return this.myInput_; // Devuelve la clase de entrada (input)
+        return this.myInput; // Devuelve la clase de entrada (input)
     }
 
     @Override
     public IAudio getAudio() {
-        return this.myAudio_; // Devuelve la clase de audio
+        return this.myAudio; // Devuelve la clase de audio
     }
 
     @Override
     public IScene getScene() {
-        return this.myScene_; // Devuelve la escena actual
+        return this.myScene; // Devuelve la escena actual
     }
 }

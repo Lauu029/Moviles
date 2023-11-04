@@ -56,43 +56,43 @@ class Difficulty {
 };
 
 public class GameInit {
-    private Difficulty level_;
+    private Difficulty level;
 
     GameInit(LevelDifficulty difficulty) {
-        level_ = new Difficulty();
+        level = new Difficulty();
         switch (difficulty) {
             case FACIL:
-                level_.setLevelDiff(LevelDifficulty.FACIL);
-                level_.setSolutionColors(4);
-                level_.setPosibleColors(4);
-                level_.setRepeat(false);
-                level_.setTries(6);
+                level.setLevelDiff(LevelDifficulty.FACIL);
+                level.setSolutionColors(4);
+                level.setPosibleColors(4);
+                level.setRepeat(false);
+                level.setTries(6);
                 break;
             case MEDIO:
-                level_.setLevelDiff(LevelDifficulty.MEDIO);
-                level_.setSolutionColors(4);
-                level_.setPosibleColors(6);
-                level_.setRepeat(false);
-                level_.setTries(8);
+                level.setLevelDiff(LevelDifficulty.MEDIO);
+                level.setSolutionColors(4);
+                level.setPosibleColors(6);
+                level.setRepeat(false);
+                level.setTries(8);
                 break;
             case DIFICIL:
-                level_.setLevelDiff(LevelDifficulty.DIFICIL);
-                level_.setSolutionColors(5);
-                level_.setPosibleColors(8);
-                level_.setRepeat(true);
-                level_.setTries(10);
+                level.setLevelDiff(LevelDifficulty.DIFICIL);
+                level.setSolutionColors(5);
+                level.setPosibleColors(8);
+                level.setRepeat(true);
+                level.setTries(10);
                 break;
             case IMPOSIBLE:
-                level_.setLevelDiff(LevelDifficulty.IMPOSIBLE);
-                level_.setSolutionColors(6);
-                level_.setPosibleColors(9);
-                level_.setRepeat(true);
-                level_.setTries(10);
+                level.setLevelDiff(LevelDifficulty.IMPOSIBLE);
+                level.setSolutionColors(6);
+                level.setPosibleColors(9);
+                level.setRepeat(true);
+                level.setTries(10);
                 break;
         }
     }
 
     public Difficulty getDifficulty() {
-        return level_;
+        return level;
     }
 }

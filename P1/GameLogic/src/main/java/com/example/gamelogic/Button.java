@@ -14,8 +14,8 @@ public class Button implements IGameObject {
     IScene scene = null;
     private int color;
     private int width = 0, height = 0, posX = 0, posY = 0, arc = 0;
-    private SceneNames sceneName_;
-    private ISound mySound_;
+    private SceneNames sceneName;
+    private ISound mySound;
     Button(String t, IFont f, int c, int w, int h, int a, int x, int y, SceneNames sceneNames, ISound buttonSound) {
         this.text = t;
         this.font = f;
@@ -25,8 +25,8 @@ public class Button implements IGameObject {
         this.arc = a;
         this.posX = x;
         this.posY = y;
-        sceneName_ = sceneNames;
-        mySound_=buttonSound;
+        sceneName = sceneNames;
+        mySound =buttonSound;
     }
 
     @Override
@@ -62,8 +62,8 @@ public class Button implements IGameObject {
                 IEngine engine_ = GameManager.getInstance().getIEngine();
                 int sceneWidth = GameManager.getInstance().getwidth();
                 int sceneHeight = GameManager.getInstance().getHeight();
-                engine_.getAudio().playSound(mySound_,0);
-                switch (sceneName_) {
+                engine_.getAudio().playSound(mySound,0);
+                switch (sceneName) {
                     case GAME:
                         scene = new GameScene(engine_, sceneWidth, sceneHeight);
                         break;

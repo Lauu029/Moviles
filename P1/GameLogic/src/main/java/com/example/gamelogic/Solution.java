@@ -6,62 +6,49 @@ import java.util.Map;
 import java.util.Random;
 
 public class Solution {
-    private Map<Integer, Map<Integer, Boolean>> solution_ = new HashMap<>();
-    private int[] sol_;
-    private boolean win_ = false;
+    private Map<Integer, Map<Integer, Boolean>> solution = new HashMap<>();
+    private int[] sol;
+    private boolean win = false;
     private int actualTry = 0;
     private int correctPos = 0, correctColor = 0;
-    private int solutionSize_;
-    private int[][] registeredSols_;
+    private int solutionSize;
+    private int[][] registeredSols;
 
-    void createSolution(Boolean repeat, int color_game, int posible_color, int maxturnos) {
+    void createSolution(Boolean repeat, int colorGame, int posibleColor, int maxTries) {
 
-        solutionSize_ = color_game;
-        sol_ = new int[solutionSize_];
+        this.solutionSize = colorGame;
+        this.sol = new int[solutionSize];
         // Definir el rango (por ejemplo, de 1 a 100)
-        int minimo = 0;
-        int maximo = posible_color - 1;
+        int min = 0;
+        int max = posibleColor - 1;
 
         // Crear una instancia de Random
         Random rand = new Random();
         //aqui se guardan las soluciones para luego ser renderizadas,registerSols[x][0] hara ref a la posiciones correctas,
         //registerSols[x][1] hara ref a lod colores correctos
-        registeredSols_ = new int[maxturnos][2];
+        this.registeredSols = new int[maxTries][2];
         // Generar un número aleatorio en el rango
 
-        for (int i = 0; i < solutionSize_; i++) {
-            int color = rand.nextInt(maximo - minimo + 1) + minimo;
+        for (int i = 0; i < solutionSize; i++) {
+            int color = rand.nextInt(max - min + 1) + min;
             if (!repeat) {
-                while (solution_.containsKey(color))
-                    color = rand.nextInt(maximo - minimo + 1) + minimo;
+                while (solution.containsKey(color))
+                    color = rand.nextInt(max - min + 1) + min;
             }
-            if (solution_.containsKey(color))
-                solution_.get(color).put(i, false);
+            if (solution.containsKey(color))
+                solution.get(color).put(i, false);
             else {
                 Map<Integer, Boolean> s = new HashMap<>();
                 s.put(i, false);
-                solution_.put(color, s);
+                solution.put(color, s);
             }
 
-            sol_[i] = color;
+            sol[i] = color;
         }
     }
 
     public int[] getSol() {
-        return sol_;
-    }
-
-    public void printSol() {
-        System.out.print("Solucion: ");
-        for (int i = 0; i < sol_.length; i++) {
-            System.out.print(sol_[i]);
-        }
-        System.out.println();
-    }
-
-    public void print() {
-        System.out.println("colorCorrecto " + correctColor);
-        System.out.println("posCorrecto " + correctPos);
+        return sol;
     }
 
     public void check(int[] possible_sol) {
@@ -69,13 +56,13 @@ public class Solution {
         correctColor = 0;
         for (int i = 0; i < possible_sol.length; i++) {
             //si la solucion real contiene el color
-            if (solution_.containsKey(possible_sol[i])) {
+            if (solution.containsKey(possible_sol[i])) {
                 //vemos si el color esta en la misma posicion que la solucion real
-                Map<Integer, Boolean> value = solution_.get(possible_sol[i]);
+                Map<Integer, Boolean> value = solution.get(possible_sol[i]);
                 if (value.containsKey(i)) {
                     correctPos++;
                     //si ha sido combrobado antes es porque hay una casila con el mismo color pero no en la misma pos
-                    solution_.get(possible_sol[i]).put(i, true);
+                    solution.get(possible_sol[i]).put(i, true);
                 } else {
                     int j = 0;
                     Iterator<Map.Entry<Integer, Boolean>> iterator = value.entrySet().iterator();
@@ -85,8 +72,8 @@ public class Solution {
                         Map.Entry<Integer, Boolean> entry = iterator.next();
                         int key = entry.getKey();
                         Boolean val = entry.getValue();
-                        if (!val && possible_sol[key] != sol_[key]) {
-                            solution_.get(possible_sol[i]).put(key, true);
+                        if (!val && possible_sol[key] != sol[key]) {
+                            solution.get(possible_sol[i]).put(key, true);
                             checked = false;
                         }
                     }
@@ -95,34 +82,30 @@ public class Solution {
                 }
             }
         }
-        if (correctPos == solutionSize_) win_ = true;
-        registeredSols_[actualTry][0] = correctPos;
-        registeredSols_[actualTry][1] = correctColor;
+        if (correctPos == solutionSize) win = true;
+        registeredSols[actualTry][0] = correctPos;
+        registeredSols[actualTry][1] = correctColor;
         printSolution();
         resetMap();
         actualTry++;
     }
 
-    public int getTry() {
-        return actualTry;
-    }
-
     public int getCorrectPos(int try_) {
-        return registeredSols_[try_][0];
+        return registeredSols[try_][0];
     }
 
     public int getCorrectColor(int try_) {
-        return registeredSols_[try_][1];
+        return registeredSols[try_][1];
     }
 
     private void resetMap() {
-        for (Map.Entry<Integer, Map<Integer, Boolean>> externEntry : solution_.entrySet()) {
+        for (Map.Entry<Integer, Map<Integer, Boolean>> externEntry : solution.entrySet()) {
             Integer externEntryKey = externEntry.getKey();
             Map<Integer, Boolean> internMap = externEntry.getValue();
 
             for (Map.Entry<Integer, Boolean> internEntry : internMap.entrySet()) {
                 Integer internEntryKey = internEntry.getKey();
-                solution_.get(externEntryKey).put(internEntryKey, false);
+                solution.get(externEntryKey).put(internEntryKey, false);
             }
         }
         correctColor = 0;
@@ -130,7 +113,7 @@ public class Solution {
     }
 
     public void printSolution() {
-        for (Map.Entry<Integer, Map<Integer, Boolean>> externEntry : solution_.entrySet()) {
+        for (Map.Entry<Integer, Map<Integer, Boolean>> externEntry : solution.entrySet()) {
             Integer externEntryKey = externEntry.getKey();
             Map<Integer, Boolean> internMap = externEntry.getValue();
 
