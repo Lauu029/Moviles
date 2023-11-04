@@ -18,6 +18,7 @@ import com.example.gamelogic.MenuScene;
 
 public class MainActivity extends AppCompatActivity {
     private SurfaceView renderView;
+    private EngineAndroid IEngineAndroid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         this.renderView = new SurfaceView(this);
         setContentView(this.renderView);
-        EngineAndroid IEngineAndroid = new EngineAndroid(renderView);
+        IEngineAndroid = new EngineAndroid(renderView);
 
        // MenuScene gm = new MenuScene(IEngineAndroid, 400, 600);
         //GameScene gm = new GameScene(IEngineAndroid,400,600);
@@ -47,5 +48,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        IEngineAndroid.pause();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IEngineAndroid.resume();
     }
 }
