@@ -61,7 +61,7 @@ public class GraphicsDesktop implements IGraphics {
     public void drawText(String text, int x, int y) {
         FontMetrics fm = this.myGraphics2D_.getFontMetrics();
         int textWidth = fm.stringWidth(text);
-        int textHeight = fm.getHeight();
+        int textHeight = fm.getFont().getSize();
 
         int centerX = x - textWidth / 2;
         int centerY = y + textHeight / 2;

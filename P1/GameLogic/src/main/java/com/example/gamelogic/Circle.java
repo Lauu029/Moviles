@@ -52,7 +52,7 @@ public class Circle implements IGameObject {
         if (this.isDaltonics_) {
             graph.setColor(0xFF000000);
             graph.setFont(this.font_);
-            graph.drawText(this.text_, this.posX_, this.posY_ -this.radius_ /2);
+            graph.drawText(this.text_, this.posX_, this.posY_);
         }
     }
 
