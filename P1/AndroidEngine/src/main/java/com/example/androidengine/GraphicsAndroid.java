@@ -178,7 +178,7 @@ public class GraphicsAndroid implements IGraphics {
         myPaint_.setStyle(Paint.Style.FILL);
         myCanvas_.drawCircle(cx, cy, radius, myPaint_);
     }
-    //Metodo para dibujar un texto en el canvas
+    //Metodo para dibujar un texto centrado
     @Override
     public void drawText(String text, int x, int y) {
         myPaint_.setStyle(Paint.Style.FILL);
