@@ -67,7 +67,6 @@ public class SoundDesktop implements ISound {
             if(c.isOpen())
                 {
                 myFreeSounds_.add(c);
-                System.out.println("lips disponibles "+ myFreeSounds_.size());
                 }
             }
         }
