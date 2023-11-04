@@ -33,7 +33,6 @@ public class EngineDesktop implements IEngine, Runnable {
     public void resume() {
         if (!this.running_) {
             this.running_ = true; // Marca el motor como en funcionamiento
-
             this.myRenderThread_ = new Thread(this); // Crea un nuevo hilo para renderizar
             this.myRenderThread_.start(); // Inicia el hilo
         }

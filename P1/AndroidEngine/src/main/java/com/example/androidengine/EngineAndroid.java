@@ -12,54 +12,52 @@ import com.example.engine.IScene;
 import com.example.engine.TouchEvent;
 
 public class EngineAndroid implements IEngine, Runnable {
-    private GraphicsAndroid myGraphics_;
-    private SurfaceView myView_;
-    private Thread myRenderThread_;
-    private boolean running_;
-    private IScene myScene_;
-    private AudioAndroid myAudio_;
-    private IInput myInput_;
-    private AssetManager myAssetManager_;
-    private SoundPool mySoundPool_;
+    private GraphicsAndroid myGraphics_; // Clase para graficos
+    private SurfaceView myView_; // Ventana de la aplicacion
+    private Thread myRenderThread_; // Hilo para renderizar
+    private boolean running_; // Indica si el motor está en funcionamiento
+    private IScene myScene_; // Escena actual
+    private AudioAndroid myAudio_; // Clase para audio
+    private IInput myInput_; // Clase para la entrada (input)
+    private AssetManager myAssetManager_; //Variable para gestión de assets
+    private SoundPool mySoundPool_; //Variable para gestión de clips de audio
 
+    // Constructor de la clase
     public EngineAndroid(SurfaceView myView) {
-        myView_ = myView;
-
-        running_ = false;
-
-        myInput_ = new InputAndroid(myView_);
-        myAssetManager_=myView.getContext().getAssets();
-        myGraphics_ = new GraphicsAndroid(myView_,myAssetManager_);
-        myAudio_= new AudioAndroid(myAssetManager_,mySoundPool_);
+        myView_ = myView; // Asigna la ventana proporcionada
+        running_ = false; // Inicializa el motor como no en funcionamiento
+        myInput_ = new InputAndroid(myView_); // Inicializa la clase de entrada (input)
+        myAssetManager_=myView.getContext().getAssets(); //Obtiene la referencia a los assets
+        myGraphics_ = new GraphicsAndroid(myView_,myAssetManager_); // Inicializa la clase de graficos
+        myAudio_= new AudioAndroid(myAssetManager_,mySoundPool_); // Inicializa la clase de audio
     }
-
+    // Metodo para reanudar la ejecución del motor
     public void resume() {
         if (!this.running_) {
             // Solo hacemos algo si no nos estábamos ejecutando ya
-            // (programación defensiva)
-            this.running_ = true;
+            this.running_ = true; // Marca el motor como en funcionamiento
             // Lanzamos la ejecución de nuestro método run() en un nuevo Thread.
             this.myRenderThread_ = new Thread(this);
-            this.myRenderThread_.start();
+            this.myRenderThread_.start(); // Inicia el hilo
         }
     }
 
-
+    // Metodo para pausar la ejecución del motor
     public void pause() {
         if (this.running_) {
-            this.running_ = false;
+            this.running_ = false; // Marca el motor como no en funcionamiento
             while (true) {
                 try {
-                    this.myRenderThread_.join();
+                    this.myRenderThread_.join(); // Espera a que el hilo de renderizacion termine
                     this.myRenderThread_ = null;
                     break;
                 } catch (InterruptedException ie) {
-                    // Esto no debería ocurrir nunca...
+
                 }
             }
         }
     }
-
+    // Metodo que ejecuta el bucle principal de juego
     @Override
     public void run() {
         if (myRenderThread_ != Thread.currentThread()) {
@@ -68,15 +66,11 @@ public class EngineAndroid implements IEngine, Runnable {
             throw new RuntimeException("run() should not be called directly");
         }
 
-        // Si el Thread se pone en marcha
-        // muy rápido, la vista podría todavía no estar inicializada.
+        // Si el Thread se pone en marcha muy rápido, la vista podría todavía
+        // no estar inicializada.Espera activa
         while (this.running_ && this.myView_.getWidth() == 0) ;
-        // Espera activa. Sería más elegante al menos dormir un poco.
 
         long lastFrameTime = System.nanoTime();
-
-        long informePrevio = lastFrameTime; // Informes de FPS
-        int frames = 0;
 
         // Bucle de juego principal.
         while (running_) {
@@ -84,53 +78,51 @@ public class EngineAndroid implements IEngine, Runnable {
             long nanoElapsedTime = currentTime - lastFrameTime;
             lastFrameTime = currentTime;
 
-            // Informe de FPS
+            //Tiempo entre frames
             double elapsedTime = (double) nanoElapsedTime / 1.0E9;
-
+            //Reescalado de la escena (por si ha aumentado o reducido su tamaño)
             myGraphics_.resize(myScene_.getWidth(),myScene_.getHeight());
+            //Reescalado del input dentro de la escena
             for(TouchEvent event:myInput_.getTouchEvent()){
                 event.x-=myGraphics_.getTranslateX_();
                 event.y-=myGraphics_.getTranslateY_();
                 event.x/=myGraphics_.getScale_();
                 event.y/=myGraphics_.getScale_();
             }
+            //Gestión de eventos de input
             this.myScene_.handleInput(myInput_.getTouchEvent());
             myInput_.myEventsClear();
+            //Update de la escena
             this.myScene_.update(elapsedTime);
-            if (currentTime - informePrevio > 1000000000l) {
-                long fps = frames * 1000000000l / (currentTime - informePrevio);
-                System.out.println("" + fps + " fps");
-                frames = 0;
-                informePrevio = currentTime;
-            }
-            ++frames;
+            //Renderizado de la escena
             myGraphics_.prepareFrame();
             myScene_.render();
             myGraphics_.endFrame();
         }
     }
 
+    //Guardamos e inicializamos la escena que vamos a ejecutar
     @Override
     public void setScene(IScene myIScene) {
         this.myScene_ = myIScene;
         myScene_.init();
     }
-
+    //Devuelve el objeto que gestiona los gráficos
     @Override
     public IGraphics getGraphics() {
         return myGraphics_;
     }
-
+    //Devuelve el objeto que gestiona el input
     @Override
     public IInput getInput() {
         return this.myInput_;
     }
-
+    //Devuelve el objeto que gestiona el audio
     @Override
     public IAudio getAudio() {
         return this.myAudio_;
     }
-
+    //Devuelve la escena que se esta ejecutando
     @Override
     public IScene getScene() {
         return this.myScene_;
