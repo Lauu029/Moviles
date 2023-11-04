@@ -5,6 +5,7 @@ import com.example.engine.IFont;
 import com.example.engine.IGameObject;
 import com.example.engine.IGraphics;
 import com.example.engine.IScene;
+import com.example.engine.ISound;
 import com.example.engine.TouchEvent;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class GameScene implements IScene {
     private IFont font_;
     private Difficulty lev_;
     private GameManager gm_;
-
+    ISound myCrossSound_;
     public GameScene(IEngine IEngine, int w, int h) {
         this.iEngine_ = IEngine;
         this.width_ = w;
@@ -42,7 +43,8 @@ public class GameScene implements IScene {
         for (IGameObject g : iGameObjects_) {
             g.init();
         }
-        ButtonImage but2=new ButtonImage("cruz.png",40,40, 0,0,SceneNames.LEVEL);
+        myCrossSound_=iEngine_.getAudio().newSound("crossButton.wav");
+        ButtonImage but2=new ButtonImage("cruz.png",40,40, 0,0,SceneNames.LEVEL,myCrossSound_);
         this.addGameObject(but2);
     }
 

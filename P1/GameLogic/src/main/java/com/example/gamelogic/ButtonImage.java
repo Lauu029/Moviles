@@ -4,6 +4,7 @@ import com.example.engine.IGameObject;
 import com.example.engine.IGraphics;
 import com.example.engine.IImage;
 import com.example.engine.IScene;
+import com.example.engine.ISound;
 import com.example.engine.TouchEvent;
 
 import java.io.IOException;
@@ -13,8 +14,8 @@ public class ButtonImage implements IGameObject {
     private IImage buttonImage_;
     private int width_ = 0, height_ = 0, posX_ = 0, posY_ = 0, arc_ = 0;
     private SceneNames name_;
-
-    ButtonImage(String image, int w, int h, int x, int y, SceneNames name) {
+    private ISound myButtonSound_;
+    ButtonImage(String image, int w, int h, int x, int y, SceneNames name, ISound buttonSound) {
         this.width_ = w;
         this.height_ = h;
 
@@ -26,6 +27,7 @@ public class ButtonImage implements IGameObject {
             throw new RuntimeException(e);
         }
         this.name_ = name;
+        myButtonSound_=buttonSound;
     }
 
     @Override
@@ -49,6 +51,7 @@ public class ButtonImage implements IGameObject {
         if (event.type == TouchEvent.TouchEventType.TOUCH_UP) {
             if (this.posX_ < event.x && this.posX_ + this.width_ > event.x
                     && this.posY_ < event.y && this.posY_ + this.height_ > event.y) {
+                GameManager.getInstance_().getIEngine().getAudio().playSound(myButtonSound_,0);
                 IScene game = null;
                 switch (name_) {
                     case GAME:

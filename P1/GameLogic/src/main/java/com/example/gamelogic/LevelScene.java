@@ -19,7 +19,7 @@ public class LevelScene implements IScene {
 
     private IFont font_;
     private ISound myButtonSound_;
-
+    ISound myArrowSound_;
     public LevelScene(IEngine IEngine, int w, int h) {
         iEngine_ = IEngine;
         width_ = w;
@@ -49,7 +49,8 @@ public class LevelScene implements IScene {
 
             this.addGameObject(but);
         }
-        ButtonImage but2 = new ButtonImage("flecha.png", 40, 40, 0, 0, SceneNames.MENU);
+        myArrowSound_=iEngine_.getAudio().newSound("arrowButton.wav");
+        ButtonImage but2 = new ButtonImage("flecha.png", 40, 40, 0, 0, SceneNames.MENU,myArrowSound_);
         this.addGameObject(but2);
     }
 
