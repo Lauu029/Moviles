@@ -43,7 +43,7 @@ public class SoundDesktop implements ISound {
             myUsedSounds.add(c);
             return c; //Quitamos el hueco disponible
         } else {
-            System.out.print("No hay mas clips disponibles");
+            System.out.print("No hay mas clips disponibles\n");
             return null;
         }
     }
@@ -59,9 +59,12 @@ public class SoundDesktop implements ISound {
                 throw new RuntimeException(e);
             }
             if(c.isOpen())
+            {
                 myFreeSounds.add(c);
-        } else {
-            throw new IllegalArgumentException("El objeto no está en uso.");
+                System.out.println("lips disponibles "+myFreeSounds.size());
+            } else {
+                throw new IllegalArgumentException("El objeto no está en uso.");
+            }
         }
     }
 }
