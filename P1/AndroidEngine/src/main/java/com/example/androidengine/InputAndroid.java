@@ -8,22 +8,22 @@ import com.example.engine.TouchEvent;
 import java.util.ArrayList;
 
 public class InputAndroid implements IInput{
-    private ArrayList<TouchEvent> myTouchEvent;
-    private ArrayList<TouchEvent> myPendingEvents;
-    private InputHandler myInputHandler;
+    private ArrayList<TouchEvent> myTouchEvent_;
+    private ArrayList<TouchEvent> myPendingEvents_;
+    private InputHandler myInputHandler_;
     InputAndroid(SurfaceView view){
-        myTouchEvent =new ArrayList<TouchEvent>();
-        myPendingEvents =new ArrayList<TouchEvent>();
-        myInputHandler =new InputHandler(view);
+        myTouchEvent_ =new ArrayList<TouchEvent>();
+        myPendingEvents_ =new ArrayList<TouchEvent>();
+        myInputHandler_ =new InputHandler(view);
     }
     @Override
     public synchronized ArrayList<TouchEvent> getTouchEvent() {
-        this.myTouchEvent.addAll(myInputHandler.getMyPendingEvents());
-        myInputHandler.myPendingEventsClear();
-        return myTouchEvent;
+        this.myTouchEvent_.addAll(myInputHandler_.getMyPendingEvents_());
+        myInputHandler_.myPendingEventsClear();
+        return myTouchEvent_;
     }
     @Override
     public void myEventsClear() {
-        myTouchEvent.clear();
+        myTouchEvent_.clear();
     }
 }

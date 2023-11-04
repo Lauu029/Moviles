@@ -7,17 +7,17 @@ import java.util.Random;
 
 public class Solution {
     private Map<Integer, Map<Integer, Boolean>> solution = new HashMap<>();
-    private int[] sol;
-    private boolean win = false;
-    private int actualTry = 0;
-    private int correctPos = 0, correctColor = 0;
-    private int solutionSize;
-    private int[][] registeredSols;
+    private int[] sol_;
+    private boolean win_ = false;
+    private int actualTry_ = 0;
+    private int correctPos_ = 0, correctColor_ = 0;
+    private int solutionSize_;
+    private int[][] registeredSols_;
 
     void createSolution(Boolean repeat, int colorGame, int posibleColor, int maxTries) {
 
-        this.solutionSize = colorGame;
-        this.sol = new int[solutionSize];
+        this.solutionSize_ = colorGame;
+        this.sol_ = new int[solutionSize_];
         // Definir el rango (por ejemplo, de 1 a 100)
         int min = 0;
         int max = posibleColor - 1;
@@ -26,10 +26,10 @@ public class Solution {
         Random rand = new Random();
         //aqui se guardan las soluciones para luego ser renderizadas,registerSols[x][0] hara ref a la posiciones correctas,
         //registerSols[x][1] hara ref a lod colores correctos
-        this.registeredSols = new int[maxTries][2];
+        this.registeredSols_ = new int[maxTries][2];
         // Generar un número aleatorio en el rango
 
-        for (int i = 0; i < solutionSize; i++) {
+        for (int i = 0; i < solutionSize_; i++) {
             int color = rand.nextInt(max - min + 1) + min;
             if (!repeat) {
                 while (solution.containsKey(color))
@@ -43,24 +43,24 @@ public class Solution {
                 solution.put(color, s);
             }
 
-            sol[i] = color;
+            sol_[i] = color;
         }
     }
 
-    public int[] getSol() {
-        return sol;
+    public int[] getSol_() {
+        return sol_;
     }
 
     public void check(int[] possible_sol) {
-        correctPos = 0;
-        correctColor = 0;
+        correctPos_ = 0;
+        correctColor_ = 0;
         for (int i = 0; i < possible_sol.length; i++) {
             //si la solucion real contiene el color
             if (solution.containsKey(possible_sol[i])) {
                 //vemos si el color esta en la misma posicion que la solucion real
                 Map<Integer, Boolean> value = solution.get(possible_sol[i]);
                 if (value.containsKey(i)) {
-                    correctPos++;
+                    correctPos_++;
                     //si ha sido combrobado antes es porque hay una casila con el mismo color pero no en la misma pos
                     solution.get(possible_sol[i]).put(i, true);
                 } else {
@@ -72,30 +72,30 @@ public class Solution {
                         Map.Entry<Integer, Boolean> entry = iterator.next();
                         int key = entry.getKey();
                         Boolean val = entry.getValue();
-                        if (!val && possible_sol[key] != sol[key]) {
+                        if (!val && possible_sol[key] != sol_[key]) {
                             solution.get(possible_sol[i]).put(key, true);
                             checked = false;
                         }
                     }
                     if (!checked)
-                        correctColor++;
+                        correctColor_++;
                 }
             }
         }
-        if (correctPos == solutionSize) win = true;
-        registeredSols[actualTry][0] = correctPos;
-        registeredSols[actualTry][1] = correctColor;
+        if (correctPos_ == solutionSize_) win_ = true;
+        registeredSols_[actualTry_][0] = correctPos_;
+        registeredSols_[actualTry_][1] = correctColor_;
         printSolution();
         resetMap();
-        actualTry++;
+        actualTry_++;
     }
 
     public int getCorrectPos(int try_) {
-        return registeredSols[try_][0];
+        return registeredSols_[try_][0];
     }
 
     public int getCorrectColor(int try_) {
-        return registeredSols[try_][1];
+        return registeredSols_[try_][1];
     }
 
     private void resetMap() {
@@ -108,8 +108,8 @@ public class Solution {
                 solution.get(externEntryKey).put(internEntryKey, false);
             }
         }
-        correctColor = 0;
-        correctPos = 0;
+        correctColor_ = 0;
+        correctPos_ = 0;
     }
 
     public void printSolution() {

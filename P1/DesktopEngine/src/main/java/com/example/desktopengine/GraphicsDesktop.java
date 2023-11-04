@@ -18,33 +18,33 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 public class GraphicsDesktop implements IGraphics {
-    private String Imagesroute = "Assets/"; // Ruta base para las imagenes
-    private JFrame myView; // JFrame que representa la vista
-    private BufferStrategy myBufferStrategy; // Estrategia de buffer
-    private Graphics2D myGraphics2D; // Gráficos 2D
-    float scale = 1; // Escala actual
-    float translateX = 0, translateY = 0; // Desplazamiento
-    private int width = 0, height = 0;
-    private AffineTransform af;
+    private String ImagesRoute_ = "Assets/"; // Ruta base para las imagenes
+    private JFrame myView_; // JFrame que representa la vista
+    private BufferStrategy myBufferStrategy_; // Estrategia de buffer
+    private Graphics2D myGraphics2D_; // Gráficos 2D
+    float scale_ = 1; // Escala actual
+    float translateX_ = 0, translateY_ = 0; // Desplazamiento
+    private int width_ = 0, height_ = 0;
+    private AffineTransform af_;
 
     // Constructor de la clase, recibe un JFrame como argumento
     public GraphicsDesktop(JFrame myView){
-        this.myView =myView;
+        this.myView_ =myView;
 
-        this.myBufferStrategy = this.myView.getBufferStrategy();
-        this.myGraphics2D = (Graphics2D) myBufferStrategy.getDrawGraphics();
+        this.myBufferStrategy_ = this.myView_.getBufferStrategy();
+        this.myGraphics2D_ = (Graphics2D) myBufferStrategy_.getDrawGraphics();
 
-        height = this.myView.getHeight();
-        width = this.myView.getWidth();
+        height_ = this.myView_.getHeight();
+        width_ = this.myView_.getWidth();
 
-        af = myGraphics2D.getTransform();
+        af_ = myGraphics2D_.getTransform();
     }
 
     @Override
     public IImage newImage(String name) {
         Image image=null;
         try{
-        image= ImageIO.read(new File(Imagesroute+name));}
+        image= ImageIO.read(new File(ImagesRoute_ +name));}
         catch (IOException e){
             System.out.println("No se cargo la imagen "+name);
             throw new RuntimeException(e);
@@ -59,96 +59,96 @@ public class GraphicsDesktop implements IGraphics {
 
     @Override
     public void drawText(String text, int x, int y) {
-        FontMetrics fm = this.myGraphics2D.getFontMetrics();
+        FontMetrics fm = this.myGraphics2D_.getFontMetrics();
         int textWidth = fm.stringWidth(text);
         int textHeight = fm.getHeight();
 
         int centerX = x - textWidth / 2;
         int centerY = y + textHeight / 2;
 
-        this.myGraphics2D.drawString(text, centerX,centerY);
+        this.myGraphics2D_.drawString(text, centerX,centerY);
     }
     @Override
     public void setFont(IFont font) {
         FontDesktop dfont=(FontDesktop)font;
-        this.myGraphics2D.setFont(dfont.getFont());
+        this.myGraphics2D_.setFont(dfont.getFont());
     }
     @Override
     public void clear(int color) {
-        AffineTransform temp=this.myGraphics2D.getTransform();
-        this.myGraphics2D.setTransform(af);
-        this.myGraphics2D.setColor(new Color(color));
-        this.myGraphics2D.fillRect(0, 0, myView.getWidth(), myView.getHeight());
-        this.myGraphics2D.setTransform(temp);
+        AffineTransform temp=this.myGraphics2D_.getTransform();
+        this.myGraphics2D_.setTransform(af_);
+        this.myGraphics2D_.setColor(new Color(color));
+        this.myGraphics2D_.fillRect(0, 0, myView_.getWidth(), myView_.getHeight());
+        this.myGraphics2D_.setTransform(temp);
     }
 
     @Override
     public void drawImage(IImage iimage, int posX, int posY, int height, int widht) {
         ImageDesktop dimage=(ImageDesktop)iimage;
-        myGraphics2D.drawImage(dimage.getImage(),posX,posY,posX+widht,posY+height,0,0,dimage.getWidth(),dimage.getHeight(),null);
+        myGraphics2D_.drawImage(dimage.getImage_(),posX,posY,posX+widht,posY+height,0,0,dimage.getWidth(),dimage.getHeight(),null);
     }
 
     @Override
     public void setColor(int color) {
         Color color_=new Color(color);
 
-        this.myGraphics2D.setColor(color_);
+        this.myGraphics2D_.setColor(color_);
     }
 
     @Override
     public void fillRectangle(int cX, int cY, int width, int height) {
-        this.myGraphics2D.fillRect(cX, cY, width, height);
+        this.myGraphics2D_.fillRect(cX, cY, width, height);
     }
 
     @Override
     public void fillRoundRectangle(int cX, int cY, int width, int height, int arc) {
-        this.myGraphics2D.fillRoundRect(cX, cY, width, height, arc, arc);
+        this.myGraphics2D_.fillRoundRect(cX, cY, width, height, arc, arc);
     }
 
     @Override
     public void drawRectangle(int cX, int cY, int width, int height) {
-        this.myGraphics2D.drawRect(cX, cY, width, height);
+        this.myGraphics2D_.drawRect(cX, cY, width, height);
     }
 
     @Override
     public void setStrokeWidth(int width) {
-        this.myGraphics2D.setStroke(new BasicStroke(width));
+        this.myGraphics2D_.setStroke(new BasicStroke(width));
     }
 
     @Override
     public void drawRoundRectangle(int cX, int cY, int width, int height, int arc) {
-        this.myGraphics2D.drawRoundRect(cX, cY, width, height, arc, arc);
+        this.myGraphics2D_.drawRoundRect(cX, cY, width, height, arc, arc);
     }
 
     @Override
     public void drawLine(int initX, int initY, int endX, int endY) {
-        this.myGraphics2D.drawLine(initX, initY, endX, endY);
+        this.myGraphics2D_.drawLine(initX, initY, endX, endY);
     }
 
     @Override
     public void drawCircle(int cx, int cy, int radius) {
-        this.myGraphics2D.fillOval(cx-radius,cy-radius,2*radius,2*radius);
+        this.myGraphics2D_.fillOval(cx-radius,cy-radius,2*radius,2*radius);
 
     }
 
     @Override
-    public int getWidth() {
-        return width;
+    public int getWidth_() {
+        return width_;
     }
 
     @Override
-    public int getHeight() {
-        return height;
+    public int getHeight_() {
+        return height_;
     }
 
     @Override
     public void translate(float x, float y) {
-        this.myGraphics2D.translate(x,y);
+        this.myGraphics2D_.translate(x,y);
     }
 
     @Override
     public void scale(float x, float y) {
-        this.myGraphics2D.scale((double)x,(double)y);
+        this.myGraphics2D_.scale((double)x,(double)y);
     }
 
     @Override
@@ -162,66 +162,66 @@ public class GraphicsDesktop implements IGraphics {
     public void prepareFrame() {
         synchronized (this) {
             // Código crítico
-            myGraphics2D = (Graphics2D) this.myBufferStrategy.getDrawGraphics();
-            this.translate(translateX, translateY);
-            this.scale(scale, scale);
+            myGraphics2D_ = (Graphics2D) this.myBufferStrategy_.getDrawGraphics();
+            this.translate(translateX_, translateY_);
+            this.scale(scale_, scale_);
         }
     }
 
     public void endFrame() {
-        myGraphics2D.dispose();
-        this.myBufferStrategy.show();
+        myGraphics2D_.dispose();
+        this.myBufferStrategy_.show();
     }
 
     @Override
     public void resize(float sceneWidth, float sceneHeight) {
         //cogemos el width y height del myview
-        width = (int) myView.getWidth();
-        height = (int) myView.getHeight();
+        width_ = (int) myView_.getWidth();
+        height_ = (int) myView_.getHeight();
 
-        int viewWidth = width - myView.getInsets().left - myView.getInsets().right;
-        int viewHeight = height - myView.getInsets().top - myView.getInsets().bottom;
+        int viewWidth = width_ - myView_.getInsets().left - myView_.getInsets().right;
+        int viewHeight = height_ - myView_.getInsets().top - myView_.getInsets().bottom;
         //calculamos la escana vertica y horizontal
         float scaleW = (float) viewWidth / (float) sceneWidth;
         float scaleH = (float) viewHeight / (float) sceneHeight;
         //elegimos la mas pequeña
         if (scaleW < scaleH) {
-            scale = scaleW;
+            scale_ = scaleW;
         } else {
-            scale = scaleH;
+            scale_ = scaleH;
         }
 
         float resizeW, resizeH;
         //calculamos el tamaño que tendra
-        resizeW = sceneWidth * scale;
-        resizeH = sceneHeight * scale;
+        resizeW = sceneWidth * scale_;
+        resizeH = sceneHeight * scale_;
         //trasladamos
-         translateX = ((float) viewWidth - resizeW) / 2.0f;
-         translateY = ((float) viewHeight - resizeH) / 2.0f;
+         translateX_ = ((float) viewWidth - resizeW) / 2.0f;
+         translateY_ = ((float) viewHeight - resizeH) / 2.0f;
 
         // Ajustar por los bordes
-        translateX += myView.getInsets().left;
-        translateY += myView.getInsets().top;
+        translateX_ += myView_.getInsets().left;
+        translateY_ += myView_.getInsets().top;
 
         // Configurar la transformación
         AffineTransform af = new AffineTransform();
-        af.translate(translateX, translateY);
-        af.scale(scale, scale);
-        myGraphics2D.setTransform(af);
+        af.translate(translateX_, translateY_);
+        af.scale(scale_, scale_);
+        myGraphics2D_.setTransform(af);
     }
 
     @Override
-    public float getScale() {
-        return scale;
+    public float getScale_() {
+        return scale_;
     }
 
     @Override
-    public float getTranslateX() {
-        return translateX;
+    public float getTranslateX_() {
+        return translateX_;
     }
 
     @Override
-    public float getTranslateY() {
-        return translateY;
+    public float getTranslateY_() {
+        return translateY_;
     }
 }

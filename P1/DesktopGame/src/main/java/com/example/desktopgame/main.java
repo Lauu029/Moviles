@@ -8,19 +8,19 @@ import com.example.gamelogic.MenuScene;
 import javax.swing.JFrame;
 
 public class main {
-    static private JFrame myView;
+    static private JFrame myView_;
 
     public static void main(String[] args) {
 
-        myView = new JFrame("Mastermind");
-        myView.setSize(600, 600);
-        myView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        myView.setIgnoreRepaint(true);
-        myView.setVisible(true);
+        myView_ = new JFrame("Mastermind");
+        myView_.setSize(600, 600);
+        myView_.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        myView_.setIgnoreRepaint(true);
+        myView_.setVisible(true);
         int intentos = 100;
         while (intentos-- > 0) {
             try {
-                myView.createBufferStrategy(2);
+                myView_.createBufferStrategy(2);
                 break;
             } catch (Exception e) {
             }
@@ -33,7 +33,7 @@ public class main {
             //System.out.println("BufferStrategy tras " + (100 - intentos) + " intentos.");
         }
 
-        EngineDesktop IEngineDesktop = new EngineDesktop(myView);
+        EngineDesktop IEngineDesktop = new EngineDesktop(myView_);
         GameManager.init(IEngineDesktop,400,600);
         MenuScene gm = new MenuScene(IEngineDesktop, 400, 600);
         IEngineDesktop.setScene(gm);

@@ -9,31 +9,31 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 public class InputHandler implements MouseListener {
-    private ArrayList<TouchEvent> myTouchEvent;  // Lista de eventos táctiles
-    private ArrayList<TouchEvent> myPendingEvents;  // Lista de eventos pendientes
-    private ArrayList<TouchEvent> usedEvents;  // Lista de eventos en uso
-    private ArrayList<TouchEvent> freeEvents;  // Lista de eventos libres
-    private int maxEvents = 10;  // Numero máximo de eventos en el pool
+    private ArrayList<TouchEvent> myTouchEvent_;  // Lista de eventos táctiles
+    private ArrayList<TouchEvent> myPendingEvents_;  // Lista de eventos pendientes
+    private ArrayList<TouchEvent> usedEvents_;  // Lista de eventos en uso
+    private ArrayList<TouchEvent> freeEvents_;  // Lista de eventos libres
+    private int maxEvents_ = 10;  // Numero máximo de eventos en el pool
 
     // Constructor de la clase, recibe un JFrame como argumento
     InputHandler(JFrame jframe) {
         jframe.addMouseListener(this);  // Registra esta instancia como MouseListener en el JFrame
-        myTouchEvent = new ArrayList<TouchEvent>();  // Inicializa la lista de eventos táctiles
-        myPendingEvents = new ArrayList<TouchEvent>();  // Inicializa la lista de eventos pendientes
-        usedEvents = new ArrayList<TouchEvent>();  // Inicializa la lista de eventos en uso
-        freeEvents = new ArrayList<TouchEvent>();  // Inicializa la lista de eventos libres
+        myTouchEvent_ = new ArrayList<TouchEvent>();  // Inicializa la lista de eventos táctiles
+        myPendingEvents_ = new ArrayList<TouchEvent>();  // Inicializa la lista de eventos pendientes
+        usedEvents_ = new ArrayList<TouchEvent>();  // Inicializa la lista de eventos en uso
+        freeEvents_ = new ArrayList<TouchEvent>();  // Inicializa la lista de eventos libres
 
         // Llena el pool de eventos con objetos TouchEvent
-        for (int i = 0; i < maxEvents; i++) {
-            freeEvents.add(new TouchEvent());
+        for (int i = 0; i < maxEvents_; i++) {
+            freeEvents_.add(new TouchEvent());
         }
     }
 
     // Obtiene un objeto TouchEvent del pool
     private TouchEvent getEvent() {
-        if (!freeEvents.isEmpty()) {
-            TouchEvent obj = freeEvents.remove(freeEvents.size() - 1);
-            usedEvents.add(obj);
+        if (!freeEvents_.isEmpty()) {
+            TouchEvent obj = freeEvents_.remove(freeEvents_.size() - 1);
+            usedEvents_.add(obj);
             return obj;
         } else {
             throw new IllegalStateException("No hay objetos disponibles en el pool.");
@@ -42,9 +42,9 @@ public class InputHandler implements MouseListener {
 
     // Devuelve un objeto TouchEvent al pool
     private void returnObject(TouchEvent obj) {
-        if (usedEvents.contains(obj)) {
-            usedEvents.remove(obj);
-            freeEvents.add(obj);
+        if (usedEvents_.contains(obj)) {
+            usedEvents_.remove(obj);
+            freeEvents_.add(obj);
         } else {
             throw new IllegalArgumentException("El objeto no está en uso.");
         }
@@ -62,7 +62,7 @@ public class InputHandler implements MouseListener {
         event.y = mouseEvent.getY();
         event.type = TouchEvent.TouchEventType.TOUCH_DOWN;
         synchronized (this) {
-            myPendingEvents.add(event);
+            myPendingEvents_.add(event);
         }
         returnObject(event);
     }
@@ -75,7 +75,7 @@ public class InputHandler implements MouseListener {
         event.y = mouseEvent.getY();
         event.type = TouchEvent.TouchEventType.TOUCH_UP;
         synchronized (this) {
-            myPendingEvents.add(event);
+            myPendingEvents_.add(event);
         }
         returnObject(event);
     }
@@ -89,12 +89,12 @@ public class InputHandler implements MouseListener {
     }
 
     // Devuelve la lista de eventos pendientes
-    public ArrayList<TouchEvent> getMyPendingEvents() {
-        return myPendingEvents;
+    public ArrayList<TouchEvent> getMyPendingEvents_() {
+        return myPendingEvents_;
     }
 
     // Limpia la lista de eventos pendientes
     public void myPendingEventsClear() {
-        myPendingEvents.clear();
+        myPendingEvents_.clear();
     }
 }

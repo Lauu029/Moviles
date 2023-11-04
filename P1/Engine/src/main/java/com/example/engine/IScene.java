@@ -11,9 +11,9 @@ public interface IScene {
     //inicializacion de la escena
     void init() ;
     //altura de la escena
-    int getHeight();
+    int getHeight_();
     //ancho de la escena
-    int getWidth();
+    int getWidth_();
     //input de la escena
     void handleInput(ArrayList<TouchEvent> events);
 }

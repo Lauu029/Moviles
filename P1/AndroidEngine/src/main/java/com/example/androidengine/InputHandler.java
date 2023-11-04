@@ -9,35 +9,35 @@ import com.example.engine.TouchEvent;
 import java.util.ArrayList;
 
 public class InputHandler implements View.OnTouchListener {
-    private ArrayList<TouchEvent> myTouchEvent;
-    private ArrayList<TouchEvent> myPendingEvents;
-    private ArrayList<TouchEvent> usedEvents;
-    private ArrayList<TouchEvent> freeEvents;
-    private int maxEvents = 10;
+    private ArrayList<TouchEvent> myTouchEvent_;
+    private ArrayList<TouchEvent> myPendingEvents_;
+    private ArrayList<TouchEvent> usedEvents_;
+    private ArrayList<TouchEvent> freeEvents_;
+    private int maxEvents_ = 10;
 
     InputHandler(SurfaceView view) {
-        myTouchEvent = new ArrayList<TouchEvent>();
-        myPendingEvents = new ArrayList<TouchEvent>();
-        usedEvents = new ArrayList<TouchEvent>();
-        freeEvents = new ArrayList<TouchEvent>();
+        myTouchEvent_ = new ArrayList<TouchEvent>();
+        myPendingEvents_ = new ArrayList<TouchEvent>();
+        usedEvents_ = new ArrayList<TouchEvent>();
+        freeEvents_ = new ArrayList<TouchEvent>();
         view.setOnTouchListener(this);
-        for (int i = 0; i < maxEvents; i++) {
-            freeEvents.add(new TouchEvent());
+        for (int i = 0; i < maxEvents_; i++) {
+            freeEvents_.add(new TouchEvent());
         }
     }
 
-    public ArrayList<TouchEvent> getMyPendingEvents() {
-        return myPendingEvents;
+    public ArrayList<TouchEvent> getMyPendingEvents_() {
+        return myPendingEvents_;
     }
 
     public void myPendingEventsClear() {
-        myPendingEvents.clear();
+        myPendingEvents_.clear();
     }
 
     private TouchEvent getEvent() {
-        if (!freeEvents.isEmpty()) {
-            TouchEvent obj = freeEvents.remove(freeEvents.size() - 1);
-            usedEvents.add(obj);
+        if (!freeEvents_.isEmpty()) {
+            TouchEvent obj = freeEvents_.remove(freeEvents_.size() - 1);
+            usedEvents_.add(obj);
             return obj;
         } else {
             throw new IllegalStateException("No available objects in the pool.");
@@ -45,9 +45,9 @@ public class InputHandler implements View.OnTouchListener {
     }
 
     private void returnObject(TouchEvent obj) {
-        if (usedEvents.contains(obj)) {
-            usedEvents.remove(obj);
-            freeEvents.add(obj);
+        if (usedEvents_.contains(obj)) {
+            usedEvents_.remove(obj);
+            freeEvents_.add(obj);
         } else {
             throw new IllegalArgumentException("The object is not in use.");
         }
@@ -69,7 +69,7 @@ public class InputHandler implements View.OnTouchListener {
         }
 
         synchronized (this) {
-            myPendingEvents.add(event);
+            myPendingEvents_.add(event);
         }
         returnObject(event);
         return true;

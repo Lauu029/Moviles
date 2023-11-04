@@ -14,38 +14,38 @@ import java.util.ArrayList;
 
 public class MenuScene implements IScene {
 
-    private IEngine iEngine;
-    private ArrayList<IGameObject> iGameObjects = new ArrayList<>();
-    private int width, height;
-    private Button button;
-    private IFont font;
+    private IEngine iEngine_;
+    private ArrayList<IGameObject> iGameObjects_ = new ArrayList<>();
+    private int width_, height_;
+    private Button button_;
+    private IFont font_;
 
-    private IFont fontButton;
-    private IImage myIcon;
-    private ISound myButtonSound;
+    private IFont fontButton_;
+    private IImage myIcon_;
+    private ISound myButtonSound_;
 
     public MenuScene(IEngine IEngine, int w, int h) {
-        iEngine = IEngine;
-        width = w;
-        height = h;
+        iEngine_ = IEngine;
+        width_ = w;
+        height_ = h;
     }
 
     @Override
     public void init() {
         //creacion de la solucion
-        IGraphics graph = iEngine.getGraphics();
-        this.font = graph.newFont("Hexenkoetel-qZRv1.ttf", 40, true, true);
-        graph.setFont(this.font);
+        IGraphics graph = iEngine_.getGraphics();
+        this.font_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 40, true, true);
+        graph.setFont(this.font_);
 
-        fontButton = graph.newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
-        myButtonSound = iEngine.getAudio().newSound("buttonClicked.wav");
-        this.button = new Button("Jugar", fontButton, 0XFFFB839B
-                , 150, 50, 35, this.width / 2 - 150 / 2, this.height / 2 + 20, SceneNames.LEVEL, myButtonSound);
+        fontButton_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
+        myButtonSound_ = iEngine_.getAudio().newSound("buttonClicked.wav");
+        this.button_ = new Button("Jugar", fontButton_, 0XFFFB839B
+                , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 20, SceneNames.LEVEL, myButtonSound_);
 
-        addGameObject(button);
+        addGameObject(button_);
 
         try {
-            myIcon = graph.newImage("cerebro.png");
+            myIcon_ = graph.newImage("cerebro.png");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -53,22 +53,22 @@ public class MenuScene implements IScene {
 
 
     public void addGameObject(IGameObject gm) {
-        iGameObjects.add(gm);
+        iGameObjects_.add(gm);
     }
 
     @Override
-    public int getHeight() {
-        return height;
+    public int getHeight_() {
+        return height_;
     }
 
     @Override
-    public int getWidth() {
-        return width;
+    public int getWidth_() {
+        return width_;
     }
 
     @Override
     public void handleInput(ArrayList<TouchEvent> events) {
-        for (IGameObject g : iGameObjects) {
+        for (IGameObject g : iGameObjects_) {
             for (TouchEvent event : events)
                 if (g.handleInput(event))
                     return;
@@ -78,25 +78,25 @@ public class MenuScene implements IScene {
 
     @Override
     public void render() {
-        IGraphics graph = iEngine.getGraphics();
+        IGraphics graph = iEngine_.getGraphics();
 
         //Dibujamos un color de fondo para la escena
         graph.clear(0xFFfff0f6);
 
-        for (int i = 0; i < iGameObjects.size(); i++) {
-            iGameObjects.get(i).render(graph);
+        for (int i = 0; i < iGameObjects_.size(); i++) {
+            iGameObjects_.get(i).render(graph);
         }
         graph.setColor(0XFF222222);
-        this.iEngine.getGraphics().setFont(font);
-        graph.drawText("MasterMind", width / 2, 100);
-        graph.drawImage(myIcon, this.width / 2 - 80 / 2, this.height / 2 - 140, 80, 80);
+        this.iEngine_.getGraphics().setFont(font_);
+        graph.drawText("MasterMind", width_ / 2, 100);
+        graph.drawImage(myIcon_, this.width_ / 2 - 80 / 2, this.height_ / 2 - 140, 80, 80);
     }
 
 
     @Override
     public void update(double time) {
-        for (int i = 0; i < iGameObjects.size(); i++) {
-            iGameObjects.get(i).update(time);
+        for (int i = 0; i < iGameObjects_.size(); i++) {
+            iGameObjects_.get(i).update(time);
         }
     }
 

@@ -1,10 +1,10 @@
 package com.example.engine;
 
 public interface IFont {
-    void setBold(boolean bold);
-    void setItalic(boolean italic);
-    boolean isBold();
-    boolean isItalic();
-    int getSize();
-    void setSize(int size);
+    void setBold_(boolean bold_);
+    void setItalic_(boolean italic_);
+    boolean isBold_();
+    boolean isItalic_();
+    int getSize_();
+    void setSize_(int size_);
 }

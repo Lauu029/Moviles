@@ -9,37 +9,35 @@ import com.example.engine.TouchEvent;
 * los tipos de círculos y una instancia del Game Manager para acceder rápidamente a sus métodos
 * */
 public class Circle implements IGameObject {
-    protected String text;
-    protected IFont font;
-    protected int color;
-    protected int width, height, radius;
-    protected int posX, posY;
-    protected int idColor;
-    protected int row, gameTry;
-    protected boolean isDaltonics;
-    protected GameManager gm;
+    protected String text_;
+    protected IFont font_;
+    protected int color_;
+    protected int radius_;
+    protected int posX_, posY_;
+    protected int idColor_;
+    protected int row_, gameTry_;
+    protected boolean isDaltonics_;
+    protected GameManager gm_;
 
     public Circle(String t, IFont f, int r, int x, int y, int row_) {
-        this.font = f;
-        this.text = t;
-        this.color = 0xFFad909c;
-        this.posX = x;
-        this.posY = y;
-        this.radius = r;
-        this.width = 2 * radius;
-        this.height = 2 * radius;
-        this.row = row_;
-        this.gm = GameManager.getInstance();
-        this.isDaltonics = gm.getDaltonic();
+        this.font_ = f;
+        this.text_ = t;
+        this.color_ = 0xFFad909c;
+        this.posX_ = x;
+        this.posY_ = y;
+        this.radius_ = r;
+        this.row_ = row_;
+        this.gm_ = GameManager.getInstance_();
+        this.isDaltonics_ = gm_.getDaltonic();
     }
 
-    public void setColor(int color) {
-        this.color = color;
+    public void setColor_(int color_) {
+        this.color_ = color_;
     }
 
     public void setPositions(int x, int y) {
-        this.posX = x;
-        this.posY = y;
+        this.posX_ = x;
+        this.posY_ = y;
     }
 
     @Override
@@ -49,12 +47,12 @@ public class Circle implements IGameObject {
     //Render de los círculos dependiendo de si tienen que poner números o no encima de los círculos
     @Override
     public void render(IGraphics graph) {
-        graph.setColor(this.color);
-        graph.drawCircle(this.posX, this.posY, this.radius);
-        if (this.isDaltonics) {
+        graph.setColor(this.color_);
+        graph.drawCircle(this.posX_, this.posY_, this.radius_);
+        if (this.isDaltonics_) {
             graph.setColor(0xFF000000);
-            graph.setFont(this.font);
-            graph.drawText(this.text, this.posX, this.posY-this.radius/3);
+            graph.setFont(this.font_);
+            graph.drawText(this.text_, this.posX_, this.posY_ -this.radius_ /3);
         }
     }
 
@@ -62,8 +60,8 @@ public class Circle implements IGameObject {
     public void init() {
     }
 
-    public void setIdColor(int id) {
-        this.idColor = id;
+    public void setIdColor_(int id) {
+        this.idColor_ = id;
     }
 
     @Override
@@ -72,11 +70,11 @@ public class Circle implements IGameObject {
     }
     /*Actualiza el intento del juego para ver si se puede pulsar o no cada círculo
     * y para ver en que círculos se pueden colorear*/
-    public void setGameTry(int t) {
-        this.gameTry = t;
+    public void setGameTry_(int t) {
+        this.gameTry_ = t;
     }
 
-    public void setDaltonics(boolean d) {
-        this.isDaltonics = d;
+    public void setDaltonics_(boolean d) {
+        this.isDaltonics_ = d;
     }
 }

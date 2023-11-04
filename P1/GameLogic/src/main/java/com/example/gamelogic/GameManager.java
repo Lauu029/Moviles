@@ -4,91 +4,91 @@ import com.example.engine.IEngine;
 import com.example.engine.IScene;
 
 public class GameManager {
-    private static GameManager instance;
-    private IEngine myEngine;
-    private IScene actualScene;
-    private int width, height;
-    private Difficulty levelDificulty;
-    private Board board;
-    private int[] levelSolution;
-    private boolean daltonics;
+    private static GameManager instance_;
+    private IEngine myEngine_;
+    private IScene actualScene_;
+    private int width_, height_;
+    private Difficulty levelDificulty_;
+    private Board board_;
+    private int[] levelSolution_;
+    private boolean daltonics_;
 
     private GameManager() {
         // Constructor privado
     }
 
-    public static GameManager getInstance() {
-        return instance;
+    public static GameManager getInstance_() {
+        return instance_;
     }
 
 
     public static int init(IEngine engine, int width, int height) {
-        instance = new GameManager();
-        instance.myEngine = engine;
-        instance.width = width;
-        instance.height = height;
-        instance.daltonics = false;
+        instance_ = new GameManager();
+        instance_.myEngine_ = engine;
+        instance_.width_ = width;
+        instance_.height_ = height;
+        instance_.daltonics_ = false;
         return 1;
     }
 
     public void changeScene(IScene scene) {
-        this.actualScene = scene;
-        myEngine.setScene(scene);
+        this.actualScene_ = scene;
+        myEngine_.setScene(scene);
     }
 
     public int getwidth() {
-        return width;
+        return width_;
     }
 
-    public int getHeight() {
-        return height;
+    public int getHeight_() {
+        return height_;
     }
 
     /*Pone el color que se le pase en el círculo correspondiente y su id en la
     * solución temporal para comprobarla más tarde */
     public void takeColor(int color, int id) {
-        board.putNewColor(id, color);
+        board_.putNewColor(id, color);
     }
 
     public IEngine getIEngine() {
-        return myEngine;
+        return myEngine_;
     }
 
     //Prepara un nivel nuevo con un array para la solucion, la dificultad necesaria y resetea la solución final
     public void setLevel(Difficulty dif) {
-        this.levelDificulty = dif;
-        this.levelSolution = new int[dif.getSolutionColors()];
+        this.levelDificulty_ = dif;
+        this.levelSolution_ = new int[dif.getSolutionColors()];
         resetLevelSolution();
     }
 
     public Difficulty getLevel() {
-        return this.levelDificulty;
+        return this.levelDificulty_;
     }
 
-    public int[] getLevelSolution() {
-        return this.levelSolution;
+    public int[] getLevelSolution_() {
+        return this.levelSolution_;
     }
 
     public void resetLevelSolution() {
-        for (int i = 0; i < levelSolution.length; i++) {
-            this.levelSolution[i] = -1;
+        for (int i = 0; i < levelSolution_.length; i++) {
+            this.levelSolution_[i] = -1;
         }
     }
 
     public void putColorSolution(int id, int color_id) {
-        this.levelSolution[id] = color_id;
+        this.levelSolution_[id] = color_id;
     }
 
     public void changeDaltonicsMode() {
-        this.daltonics = !this.daltonics;
-        this.board.changeDaltonics(this.daltonics);
+        this.daltonics_ = !this.daltonics_;
+        this.board_.changeDaltonics(this.daltonics_);
     }
 
-    public void setBoard(Board b) {
-        this.board = b;
+    public void setBoard_(Board b) {
+        this.board_ = b;
     }
 
     public boolean getDaltonic(){
-        return this.daltonics;
+        return this.daltonics_;
     }
 }

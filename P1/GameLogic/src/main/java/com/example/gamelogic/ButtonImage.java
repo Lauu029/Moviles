@@ -10,22 +10,22 @@ import java.io.IOException;
 
 
 public class ButtonImage implements IGameObject {
-    private IImage buttonImage;
-    private int width = 0, height = 0, posX = 0, posY = 0, arc = 0;
-    private SceneNames name;
+    private IImage buttonImage_;
+    private int width_ = 0, height_ = 0, posX_ = 0, posY_ = 0, arc_ = 0;
+    private SceneNames name_;
 
     ButtonImage(String image, int w, int h, int x, int y, SceneNames name) {
-        this.width = w;
-        this.height = h;
+        this.width_ = w;
+        this.height_ = h;
 
-        this.posX = x;
-        this.posY = y;
+        this.posX_ = x;
+        this.posY_ = y;
         try {
-            buttonImage = GameManager.getInstance().getIEngine().getGraphics().newImage(image);
+            buttonImage_ = GameManager.getInstance_().getIEngine().getGraphics().newImage(image);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        this.name = name;
+        this.name_ = name;
     }
 
     @Override
@@ -35,9 +35,9 @@ public class ButtonImage implements IGameObject {
     @Override
     public void render(IGraphics graph) {
         int xText, yText;
-        xText = this.posX;
-        yText = this.posY;
-        graph.drawImage(buttonImage, xText, yText, width, height);
+        xText = this.posX_;
+        yText = this.posY_;
+        graph.drawImage(buttonImage_, xText, yText, width_, height_);
     }
 
     @Override
@@ -47,24 +47,24 @@ public class ButtonImage implements IGameObject {
     @Override
     public boolean handleInput(TouchEvent event) {
         if (event.type == TouchEvent.TouchEventType.TOUCH_UP) {
-            if (this.posX < event.x && this.posX + this.width > event.x
-                    && this.posY < event.y && this.posY + this.height > event.y) {
+            if (this.posX_ < event.x && this.posX_ + this.width_ > event.x
+                    && this.posY_ < event.y && this.posY_ + this.height_ > event.y) {
                 IScene game = null;
-                switch (name) {
+                switch (name_) {
                     case GAME:
-                        game = new GameScene(GameManager.getInstance().getIEngine(), GameManager.getInstance().getwidth(), GameManager.getInstance().getHeight());
+                        game = new GameScene(GameManager.getInstance_().getIEngine(), GameManager.getInstance_().getwidth(), GameManager.getInstance_().getHeight_());
                         break;
                     case MENU:
-                        game = new MenuScene(GameManager.getInstance().getIEngine(), GameManager.getInstance().getwidth(), GameManager.getInstance().getHeight());
+                        game = new MenuScene(GameManager.getInstance_().getIEngine(), GameManager.getInstance_().getwidth(), GameManager.getInstance_().getHeight_());
                         break;
 
                     case LEVEL:
-                        game = new LevelScene(GameManager.getInstance().getIEngine(), GameManager.getInstance().getwidth(), GameManager.getInstance().getHeight());
+                        game = new LevelScene(GameManager.getInstance_().getIEngine(), GameManager.getInstance_().getwidth(), GameManager.getInstance_().getHeight_());
                         break;
 
 
                 }
-                GameManager.getInstance().changeScene(game);
+                GameManager.getInstance_().changeScene(game);
                 return true;
             }
         }

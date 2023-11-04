@@ -26,8 +26,8 @@ public interface IGraphics {
 
     void drawCircle(int cx, int cy, int radius);
 
-    int getWidth();
-    int getHeight();
+    int getWidth_();
+    int getHeight_();
     void translate(float x,float y);
     void scale(float x,float y);
     void save();
@@ -35,9 +35,9 @@ public interface IGraphics {
 
 
     void resize(float sceneWidth, float sceneHeight);
-    public float getScale();
-    public float getTranslateX();
-    public float getTranslateY();
+    public float getScale_();
+    public float getTranslateX_();
+    public float getTranslateY_();
 
 
 

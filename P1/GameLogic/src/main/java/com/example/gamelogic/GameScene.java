@@ -10,36 +10,36 @@ import com.example.engine.TouchEvent;
 import java.util.ArrayList;
 
 public class GameScene implements IScene {
-    private Solution mySolution;
-    private IEngine iEngine;
-    private ArrayList<IGameObject> iGameObjects = new ArrayList<>();
-    private int width, height;
-    private ButtonDaltonics buttonDaltonics;
-    private Board gameBoard;
-    private IFont font;
-    private Difficulty lev;
-    private GameManager gm;
+    private Solution mySolution_;
+    private IEngine iEngine_;
+    private ArrayList<IGameObject> iGameObjects_ = new ArrayList<>();
+    private int width_, height_;
+    private ButtonDaltonics buttonDaltonics_;
+    private Board gameBoard_;
+    private IFont font_;
+    private Difficulty lev_;
+    private GameManager gm_;
 
     public GameScene(IEngine IEngine, int w, int h) {
-        this.iEngine = IEngine;
-        this.width = w;
-        this.height = h;
+        this.iEngine_ = IEngine;
+        this.width_ = w;
+        this.height_ = h;
     }
     //Inicializa los botones, el tablero y la solución
     @Override
     public void init() {
-        this.font = this.iEngine.getGraphics().newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
-        this.gm = GameManager.getInstance();
-        this.lev = this.gm.getLevel();
-        mySolution = new Solution();
-        mySolution.createSolution(lev.isRepeat(), lev.getSolutionColors(), lev.getPosibleColors(), lev.getTries());
-        this.gameBoard = new Board( lev.getSolutionColors(), lev.getTries(), lev.getPosibleColors(), lev.isRepeat(), width, height);
-        addGameObject(gameBoard);
-        gm.setBoard(this.gameBoard);
-        this.buttonDaltonics =new ButtonDaltonics(70,50,this.width -70,1);
-        addGameObject(buttonDaltonics);
-        iEngine.getGraphics().setColor(0xFF000000);
-        for (IGameObject g : iGameObjects) {
+        this.font_ = this.iEngine_.getGraphics().newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
+        this.gm_ = GameManager.getInstance_();
+        this.lev_ = this.gm_.getLevel();
+        mySolution_ = new Solution();
+        mySolution_.createSolution(lev_.isRepeat(), lev_.getSolutionColors(), lev_.getPosibleColors(), lev_.getTries());
+        this.gameBoard_ = new Board( lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_);
+        addGameObject(gameBoard_);
+        gm_.setBoard_(this.gameBoard_);
+        this.buttonDaltonics_ =new ButtonDaltonics(70,50,this.width_ -70,1);
+        addGameObject(buttonDaltonics_);
+        iEngine_.getGraphics().setColor(0xFF000000);
+        for (IGameObject g : iGameObjects_) {
             g.init();
         }
         ButtonImage but2=new ButtonImage("cruz.png",40,40, 0,0,SceneNames.LEVEL);
@@ -47,22 +47,22 @@ public class GameScene implements IScene {
     }
 
     public void addGameObject(IGameObject gm) {
-        iGameObjects.add(gm);
+        iGameObjects_.add(gm);
     }
 
     @Override
-    public int getHeight() {
-        return height;
+    public int getHeight_() {
+        return height_;
     }
 
     @Override
-    public int getWidth() {
-        return width;
+    public int getWidth_() {
+        return width_;
     }
 
     @Override
     public void handleInput(ArrayList<TouchEvent> events) {
-        for (IGameObject g : iGameObjects) {
+        for (IGameObject g : iGameObjects_) {
             for (TouchEvent event : events) {
                 if (g.handleInput(event))
                     return;
@@ -72,9 +72,9 @@ public class GameScene implements IScene {
 
     @Override
     public void render() {
-        IGraphics graph = iEngine.getGraphics();
+        IGraphics graph = iEngine_.getGraphics();
         graph.clear(0xFFfff0f6);
-        for (IGameObject g : iGameObjects) {
+        for (IGameObject g : iGameObjects_) {
             g.render(graph);
         }
     }
@@ -84,7 +84,7 @@ public class GameScene implements IScene {
      * ni se ha acabado crea nuevas pistas en la clase tablero y avanza al siguiente intento*/
     @Override
     public void update(double time) {
-        int[] tempSol = gm.getLevelSolution();
+        int[] tempSol = gm_.getLevelSolution_();
         int i = 0;
         boolean isComplete = true;
         while (i < tempSol.length && isComplete) {
@@ -93,21 +93,21 @@ public class GameScene implements IScene {
             i++;
         }
         if (isComplete) {
-            mySolution.check(tempSol);
-            int try_ = this.gameBoard.getAcutalTry();
-            if (mySolution.getCorrectPos(try_) == this.lev.getSolutionColors()) {
-                EndScene end = new EndScene(this.iEngine, this.width, this.height, true, mySolution.getSol(), try_);
-                this.gm.changeScene(end);
-            } else if (try_ == lev.getTries() -1) {
-                EndScene end = new EndScene(this.iEngine, this.width, this.height, false, mySolution.getSol(), try_);
-                this.gm.changeScene(end);
+            mySolution_.check(tempSol);
+            int try_ = this.gameBoard_.getAcutalTry_();
+            if (mySolution_.getCorrectPos(try_) == this.lev_.getSolutionColors()) {
+                EndScene end = new EndScene(this.iEngine_, this.width_, this.height_, true, mySolution_.getSol_(), try_);
+                this.gm_.changeScene(end);
+            } else if (try_ == lev_.getTries() -1) {
+                EndScene end = new EndScene(this.iEngine_, this.width_, this.height_, false, mySolution_.getSol_(), try_);
+                this.gm_.changeScene(end);
             } else {
-                gameBoard.setNewHints(mySolution.getCorrectPos(try_), mySolution.getCorrectColor(try_));
-                gameBoard.nexTry();
+                gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
+                gameBoard_.nexTry();
             }
         }
-        for (int j = 0; j < iGameObjects.size(); j++) {
-            iGameObjects.get(j).update(time);
+        for (int j = 0; j < iGameObjects_.size(); j++) {
+            iGameObjects_.get(j).update(time);
         }
     }
 }

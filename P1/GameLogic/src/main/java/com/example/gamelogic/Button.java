@@ -9,24 +9,24 @@ import com.example.engine.ISound;
 import com.example.engine.TouchEvent;
 
 public class Button implements IGameObject {
-    private String text;
-    private IFont font;
-    IScene scene = null;
-    private int color;
-    private int width = 0, height = 0, posX = 0, posY = 0, arc = 0;
-    private SceneNames sceneName;
-    private ISound mySound;
+    private String text_;
+    private IFont font_;
+    protected IScene scene_ = null;
+    private int color_;
+    private int width_ = 0, height_ = 0, posX_ = 0, posY_ = 0, arc_ = 0;
+    private SceneNames sceneName_;
+    private ISound mySound_;
     Button(String t, IFont f, int c, int w, int h, int a, int x, int y, SceneNames sceneNames, ISound buttonSound) {
-        this.text = t;
-        this.font = f;
-        this.color = c;
-        this.width = w;
-        this.height = h;
-        this.arc = a;
-        this.posX = x;
-        this.posY = y;
-        sceneName = sceneNames;
-        mySound =buttonSound;
+        this.text_ = t;
+        this.font_ = f;
+        this.color_ = c;
+        this.width_ = w;
+        this.height_ = h;
+        this.arc_ = a;
+        this.posX_ = x;
+        this.posY_ = y;
+        sceneName_ = sceneNames;
+        mySound_ =buttonSound;
     }
 
     @Override
@@ -36,15 +36,15 @@ public class Button implements IGameObject {
     @Override
     public void render(IGraphics graph) {
         int xText, yText;
-        xText = this.posX + this.width / 2;
-        yText = this.posY + this.height / 2;
+        xText = this.posX_ + this.width_ / 2;
+        yText = this.posY_ + this.height_ / 2;
         graph.setColor(0XFF222222);
-        graph.fillRoundRectangle(this.posX - 2, this.posY - 2, this.width + 4, this.height + 4, this.arc);
-        graph.setColor(this.color);
-        graph.fillRoundRectangle(this.posX, this.posY, this.width, this.height, this.arc);
+        graph.fillRoundRectangle(this.posX_ - 2, this.posY_ - 2, this.width_ + 4, this.height_ + 4, this.arc_);
+        graph.setColor(this.color_);
+        graph.fillRoundRectangle(this.posX_, this.posY_, this.width_, this.height_, this.arc_);
         graph.setColor(0xFFFFFFFF);
-        graph.setFont(this.font);
-        graph.drawText(this.text, xText, yText);
+        graph.setFont(this.font_);
+        graph.drawText(this.text_, xText, yText);
     }
 
     @Override
@@ -57,22 +57,22 @@ public class Button implements IGameObject {
     @Override
     public boolean handleInput(TouchEvent event) {
         if(event.type== TouchEvent.TouchEventType.TOUCH_UP){
-            if (this.posX < event.x && this.posX + this.width > event.x
-                    && this.posY < event.y && this.posY + this.height > event.y) {
-                IEngine engine_ = GameManager.getInstance().getIEngine();
-                int sceneWidth = GameManager.getInstance().getwidth();
-                int sceneHeight = GameManager.getInstance().getHeight();
-                engine_.getAudio().playSound(mySound,0);
-                switch (sceneName) {
+            if (this.posX_ < event.x && this.posX_ + this.width_ > event.x
+                    && this.posY_ < event.y && this.posY_ + this.height_ > event.y) {
+                IEngine engine_ = GameManager.getInstance_().getIEngine();
+                int sceneWidth = GameManager.getInstance_().getwidth();
+                int sceneHeight = GameManager.getInstance_().getHeight_();
+                engine_.getAudio().playSound(mySound_,0);
+                switch (sceneName_) {
                     case GAME:
-                        scene = new GameScene(engine_, sceneWidth, sceneHeight);
+                        scene_ = new GameScene(engine_, sceneWidth, sceneHeight);
                         break;
                     case LEVEL:
-                        scene = new LevelScene(engine_, sceneWidth, sceneHeight);
+                        scene_ = new LevelScene(engine_, sceneWidth, sceneHeight);
                         break;
                 }
                 actionButton();
-                GameManager.getInstance().changeScene(scene);
+                GameManager.getInstance_().changeScene(scene_);
                 return true;
             }
         }
