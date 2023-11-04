@@ -8,7 +8,7 @@ import com.example.engine.ISound;
 import com.example.engine.TouchEvent;
 
 public class ButtonLevel extends Button {
-    LevelDifficulty level_;
+    private LevelDifficulty level_;
 
     ButtonLevel(String t, IFont f, int c, int w, int h, int a, int x, int y,
                 SceneNames sceneNames, LevelDifficulty level, ISound buttonSound) {

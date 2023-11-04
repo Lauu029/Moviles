@@ -10,9 +10,10 @@ import java.io.IOException;
 
 
 public class ButtonImage implements IGameObject {
-    IImage buttonImage_;
+    private IImage buttonImage;
     private int width = 0, height = 0, posX = 0, posY = 0, arc = 0;
-    SceneNames name_;
+    private SceneNames name;
+
     ButtonImage(String image, int w, int h, int x, int y, SceneNames name) {
         this.width = w;
         this.height = h;
@@ -20,16 +21,15 @@ public class ButtonImage implements IGameObject {
         this.posX = x;
         this.posY = y;
         try {
-            buttonImage_ = GameManager.getInstance().getIEngine().getGraphics().newImage(image);
+            buttonImage = GameManager.getInstance().getIEngine().getGraphics().newImage(image);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        name_=name;
+        this.name = name;
     }
 
     @Override
     public void update(double time) {
-
     }
 
     @Override
@@ -37,24 +37,22 @@ public class ButtonImage implements IGameObject {
         int xText, yText;
         xText = this.posX;
         yText = this.posY;
-        graph.drawImage(buttonImage_, xText, yText, width, height);
-
+        graph.drawImage(buttonImage, xText, yText, width, height);
     }
 
     @Override
     public void init() {
-
     }
 
     @Override
     public boolean handleInput(TouchEvent event) {
-        if(event.type== TouchEvent.TouchEventType.TOUCH_UP){
+        if (event.type == TouchEvent.TouchEventType.TOUCH_UP) {
             if (this.posX < event.x && this.posX + this.width > event.x
                     && this.posY < event.y && this.posY + this.height > event.y) {
-                IScene game=null;
-                switch (name_){
+                IScene game = null;
+                switch (name) {
                     case GAME:
-                        game=new GameScene(GameManager.getInstance().getIEngine(), GameManager.getInstance().getwidth(), GameManager.getInstance().getHeight());
+                        game = new GameScene(GameManager.getInstance().getIEngine(), GameManager.getInstance().getwidth(), GameManager.getInstance().getHeight());
                         break;
                     case MENU:
                         game = new MenuScene(GameManager.getInstance().getIEngine(), GameManager.getInstance().getwidth(), GameManager.getInstance().getHeight());

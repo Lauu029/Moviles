@@ -7,7 +7,6 @@ import com.example.engine.IGraphics;
 import com.example.engine.IScene;
 import com.example.engine.TouchEvent;
 
-import java.awt.Color;
 import java.util.ArrayList;
 
 public class GameScene implements IScene {
@@ -15,7 +14,7 @@ public class GameScene implements IScene {
     private IEngine IEngine_;
     private ArrayList<IGameObject> IGameObjects_ = new ArrayList<>();
     private int width_, height_;
-    private ButtonDaltonics button_dalt;
+    private ButtonDaltonics buttonDaltonics;
     private Board gameBoard;
     private IFont font;
     private Difficulty lev;
@@ -33,12 +32,12 @@ public class GameScene implements IScene {
         this.gm = GameManager.getInstance();
         this.lev = this.gm.getLevel();
         mySolution_ = new Solution();
-        mySolution_.createSolution(lev.repeat_, lev.solutionColors_, lev.posibleColors_, lev.tries_);
-        this.gameBoard = new Board( lev.solutionColors_, lev.tries_, lev.posibleColors_, lev.repeat_, width_, height_);
+        mySolution_.createSolution(lev.isRepeat(), lev.getSolutionColors(), lev.getPosibleColors(), lev.getTries());
+        this.gameBoard = new Board( lev.getSolutionColors(), lev.getTries(), lev.getPosibleColors(), lev.isRepeat(), width_, height_);
         addGameObject(gameBoard);
         gm.setBoard(this.gameBoard);
-        this.button_dalt=new ButtonDaltonics(70,50,this.width_-70,1);
-        addGameObject(button_dalt);
+        this.buttonDaltonics =new ButtonDaltonics(70,50,this.width_-70,1);
+        addGameObject(buttonDaltonics);
         IEngine_.getGraphics().setColor(0xFF000000);
         for (IGameObject g : IGameObjects_) {
             g.init();
@@ -96,10 +95,10 @@ public class GameScene implements IScene {
         if (isComplete) {
             mySolution_.check(tempSol);
             int try_ = this.gameBoard.getAcutalTry();
-            if (mySolution_.getCorrectPos(try_) == this.lev.solutionColors_) {
+            if (mySolution_.getCorrectPos(try_) == this.lev.getSolutionColors()) {
                 EndScene end = new EndScene(this.IEngine_, this.width_, this.height_, true, mySolution_.getSol(), try_);
                 this.gm.changeScene(end);
-            } else if (try_ == lev.tries_-1) {
+            } else if (try_ == lev.getTries() -1) {
                 EndScene end = new EndScene(this.IEngine_, this.width_, this.height_, false, mySolution_.getSol(), try_);
                 this.gm.changeScene(end);
             } else {

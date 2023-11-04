@@ -19,9 +19,16 @@ public class MenuScene implements IScene {
     private int width_, height_;
     private Button button;
     private IFont font;
+<<<<<<< Updated upstream
     private IFont font_button;
     private IImage myIcon_;
     private ISound myButtonSound_;
+=======
+    private IFont fontButton;
+    private IImage oreo_;
+    private IImage image_;
+    private ISound overSound_,alarmSound_;
+>>>>>>> Stashed changes
 
     public MenuScene(IEngine IEngine, int w, int h) {
         IEngine_ = IEngine;
@@ -34,10 +41,16 @@ public class MenuScene implements IScene {
         IGraphics graph = IEngine_.getGraphics();
         this.font=graph.newFont("Hexenkoetel-qZRv1.ttf",40,true,true);
         graph.setFont(this.font);
+<<<<<<< Updated upstream
         font_button=graph.newFont("Hexenkoetel-qZRv1.ttf",20,false,false);
         myButtonSound_=IEngine_.getAudio().newSound("buttonClicked.wav");
         this.button = new Button("Jugar",font_button,0XFFFB839B
                 ,150,50, 35,this.width_/2-150/2, this.height_/2+20,SceneNames.LEVEL,myButtonSound_);
+=======
+        fontButton =graph.newFont("Hexenkoetel-qZRv1.ttf",20,false,false);
+        this.button = new Button("Jugar", fontButton,0XFFFB839B
+                ,150,50, 35,this.width_/2-150/2, this.height_/2+20,SceneNames.LEVEL);
+>>>>>>> Stashed changes
 
         addGameObject(button);
 
@@ -65,12 +78,18 @@ public class MenuScene implements IScene {
 
     @Override
     public void handleInput(ArrayList<TouchEvent> events) {
+<<<<<<< Updated upstream
 
+=======
+        if (events.size() != 0) {
+            System.out.println("inpuuut");
+            IEngine_.getAudio().playSound(alarmSound_,0);
+        }
+>>>>>>> Stashed changes
         for (IGameObject g : IGameObjects_) {
-            for (TouchEvent event: events) {
+            for (TouchEvent event: events)
                 if(g.handleInput(event))
                     return;
-            }
 
         }
     }
@@ -79,11 +98,8 @@ public class MenuScene implements IScene {
     public void render() {
         IGraphics graph = IEngine_.getGraphics();
 
-
         //Dibujamos un color de fondo para la escena
         graph.clear(0xFFfff0f6);
-
-
 
         for (int i = 0; i < IGameObjects_.size(); i++) {
             IGameObjects_.get(i).render(graph);

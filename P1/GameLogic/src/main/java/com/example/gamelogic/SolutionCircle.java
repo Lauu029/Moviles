@@ -1,7 +1,6 @@
 package com.example.gamelogic;
 
 import com.example.engine.IFont;
-import com.example.engine.IGraphics;
 import com.example.engine.TouchEvent;
 
 /* Clase correspondiente a los círculos de colores que se usan para adivinar la combinación.
@@ -17,7 +16,7 @@ public class SolutionCircle extends Circle {
         if (event.type == TouchEvent.TouchEventType.TOUCH_UP)
             if (this.posX - this.radius < event.x && this.posX + this.radius > event.x
                     && this.posY - this.radius < event.y && this.posY + this.radius > event.y) {
-                gm.takeColor(this.color, this.id_color);
+                gm.takeColor(this.color, this.idColor);
                 return true;
             }
         return false;

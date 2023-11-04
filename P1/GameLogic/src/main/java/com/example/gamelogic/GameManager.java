@@ -6,7 +6,7 @@ import com.example.engine.IScene;
 public class GameManager {
     private static GameManager instance;
     private IEngine myEngine_;
-    private IScene actual_scene;
+    private IScene actualScene;
     private int width_;
     private int height_;
     private Difficulty levelDificulty;
@@ -33,7 +33,7 @@ public class GameManager {
     }
 
     public void changeScene(IScene scene) {
-        this.actual_scene = scene;
+        this.actualScene = scene;
         myEngine_.setScene(scene);
     }
 
@@ -58,7 +58,7 @@ public class GameManager {
     //Prepara un nivel nuevo con un array para la solucion, la dificultad necesaria y resetea la solución final
     public void setLevel(Difficulty dif) {
         this.levelDificulty = dif;
-        this.levelSolution = new int[dif.solutionColors_];
+        this.levelSolution = new int[dif.getSolutionColors()];
         resetLevelSolution();
     }
 

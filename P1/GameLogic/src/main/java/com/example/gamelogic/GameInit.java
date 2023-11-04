@@ -8,50 +8,50 @@ enum LevelDifficulty {
 }
 
 class Difficulty {
-    LevelDifficulty levelDiff_;
-    boolean repeat_;
-    int tries_;
-    int solutionColors_;
-    int posibleColors_;
+    LevelDifficulty levelDiff;
+    private boolean repeat;
+    private int tries;
+    private int solutionColors;
+    private int posiblecolors;
 
     public int getPosibleColors() {
-        return posibleColors_;
+        return posiblecolors;
     }
 
     public int getSolutionColors() {
-        return solutionColors_;
+        return solutionColors;
     }
 
     public int getTries() {
-        return tries_;
+        return tries;
     }
 
     public LevelDifficulty getLevelDiff() {
-        return levelDiff_;
+        return levelDiff;
     }
 
     public boolean isRepeat() {
-        return repeat_;
+        return repeat;
     }
 
     public void setLevelDiff(LevelDifficulty levelDiff_) {
-        this.levelDiff_ = levelDiff_;
+        this.levelDiff = levelDiff_;
     }
 
     public void setPosibleColors(int posibleColors_) {
-        this.posibleColors_ = posibleColors_;
+        this.posiblecolors = posibleColors_;
     }
 
     public void setRepeat(boolean repeat_) {
-        this.repeat_ = repeat_;
+        this.repeat = repeat_;
     }
 
     public void setSolutionColors(int solutionColors_) {
-        this.solutionColors_ = solutionColors_;
+        this.solutionColors = solutionColors_;
     }
 
     public void setTries(int tries_) {
-        this.tries_ = tries_;
+        this.tries = tries_;
     }
 };
 

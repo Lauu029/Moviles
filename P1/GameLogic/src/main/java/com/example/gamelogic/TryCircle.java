@@ -9,18 +9,18 @@ import com.example.engine.TouchEvent;
  * has_color indica al render si tiene que poner el círculo pequeño en medio del círculo para
  * indicar posición vacía o no */
 public class TryCircle extends Circle {
-    private int id_row;
-    private boolean has_color;
+    private int idRow;
+    private boolean hasColor;
 
     public TryCircle(String t, IFont f, int r, int x, int y, int row_, int id) {
         super(t, f, r, x, y, row_);
-        this.id_row = id;
-        this.has_color = false;
+        this.idRow = id;
+        this.hasColor = false;
     }
 
     public void render(IGraphics graph) {
         super.render(graph);
-        if (!this.has_color) {
+        if (!this.hasColor) {
             graph.setColor(0Xff5c3947);
             graph.drawCircle(this.posX, this.posY, this.radius / 3);
         }
@@ -33,11 +33,11 @@ public class TryCircle extends Circle {
         if (event.type == TouchEvent.TouchEventType.TOUCH_UP)
             if (this.posX - this.radius < event.x && this.posX + this.radius > event.x
                     && this.posY - this.radius < event.y && this.posY + this.radius > event.y) {
-                if (this.has_color && this.row == this.game_try) {
+                if (this.hasColor && this.row == this.gameTry) {
                     this.color = 0xFFad909c;
-                    this.has_color = false;
+                    this.hasColor = false;
                     this.text="";
-                    gm.putColorSolution(this.id_row, -1);
+                    gm.putColorSolution(this.idRow, -1);
                 }
                 return true;
             }
@@ -46,12 +46,12 @@ public class TryCircle extends Circle {
 
     public void setColor(int color, int id) {
         super.setColor(color);
-        this.id_color = id;
-        this.text = Integer.toString(id_color);
-        this.has_color = true;
+        this.idColor = id;
+        this.text = Integer.toString(idColor);
+        this.hasColor = true;
     }
 
     public boolean hasColor() {
-        return this.has_color;
+        return this.hasColor;
     }
 }
