@@ -11,15 +11,11 @@ import com.example.engine.TouchEvent;
 import java.io.IOException;
 
 public class ButtonDaltonics implements IGameObject {
-<<<<<<< Updated upstream
-    IImage buttonImage_closed;
-    IImage buttonImage_open;
-    ISound myButtonSound_;
-=======
+
     private IImage buttonImage_closed;
     private IImage buttonImage_open;
+    private ISound myButtonSound_;
 
->>>>>>> Stashed changes
     private int width = 0, height = 0, posX = 0, posY = 0, arc = 0;
 
     ButtonDaltonics( int w, int h, int x, int y) {

@@ -35,28 +35,17 @@ public class LevelScene implements IScene {
                 "Medio",
                 "Dificil",
                 "Imposible"};
-<<<<<<< Updated upstream
-        LevelDifficulty [] diff={LevelDifficulty.FACIL ,
-               LevelDifficulty.MEDIO ,
-                LevelDifficulty.DIFICIL ,
-               LevelDifficulty.IMPOSIBLE};
-        int [] colores={0XFFF6C0CF,0XFFDDB5DF,0XFFA9B2EC,0xFF58B2E6};
-        font=graph.newFont("Hexenkoetel-qZRv1.ttf",20,false,false);
-        myButtonSound_=IEngine_.getAudio().newSound("buttonClicked.wav");
-        for(int i=0;i< 4;i++){
-            ButtonLevel but=new ButtonLevel(nombres[i],font,
-                    colores[i] ,150,50, 35,this.width_/2-150/2,100*i+100,SceneNames.GAME,diff[i],myButtonSound_);
-=======
+
         LevelDifficulty[] diff = {LevelDifficulty.FACIL,
                 LevelDifficulty.MEDIO,
                 LevelDifficulty.DIFICIL,
                 LevelDifficulty.IMPOSIBLE};
         int[] colors = {0XFFF6C0CF, 0XFFDDB5DF, 0XFFA9B2EC, 0xFF58B2E6};
         font = graph.newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
+        myButtonSound_ = IEngine_.getAudio().newSound("buttonClicked.wav");
         for (int i = 0; i < 4; i++) {
             ButtonLevel but = new ButtonLevel(names[i], font,
-                    colors[i], 150, 50, 35, this.width_ / 2 - 150 / 2, 100 * i + 100, SceneNames.GAME, diff[i]);
->>>>>>> Stashed changes
+                    colors[i], 150, 50, 35, this.width_ / 2 - 150 / 2, 100 * i + 100, SceneNames.GAME, diff[i], myButtonSound_);
 
             this.addGameObject(but);
         }
