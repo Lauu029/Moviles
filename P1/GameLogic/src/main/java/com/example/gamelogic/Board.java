@@ -118,7 +118,6 @@ public class Board implements IGameObject {
     private void setCirclesPositions() {
         int offset = 4;
         int width_ = gm.getwidth();
-        int height_ = gm.getHeight();
         int totalCircleWidth = usableColors * (this.circleRad * 2 + offset); // Ancho total de todos los círculos
         int x_ = (width_ - totalCircleWidth) / 2;
         for (int i = 0; i < usableColors; i++) {
@@ -136,17 +135,17 @@ public class Board implements IGameObject {
             // Dibujo los circulos de las pistas
             x_ = x_ + (codeColors - 1) * (this.circleRad * 2 + offset*2) + this.circleRad + offset*2 + this.circleRad * 2+10;
 
-            int xused = x_;
-            int mitad = codeColors / 2;
-            int offsty = this.circleRad;
+            int xUsed = x_;
+            int half = codeColors / 2;
+            int offsetY = this.circleRad;
             int c = 0;
             for (int j = 0; j < codeColors; j++) {
-                if (j == mitad) {
-                    offsty = 0;
-                    x_ = xused;
+                if (j == half) {
+                    offsetY = 0;
+                    x_ = xUsed;
                     c = 0;
                 }
-                hints[i][j].setPositions(x_ + c * (this.circleRad + offset*2) + this.circleRad / 2, yPositions[i + 2] - offsty + this.circleRad / 2 + this.circleRad / 2);
+                hints[i][j].setPositions(x_ + c * (this.circleRad + offset*2) + this.circleRad / 2, yPositions[i + 2] - offsetY + this.circleRad / 2 + this.circleRad / 2);
 
                 c++;
             }
@@ -166,14 +165,14 @@ public class Board implements IGameObject {
         for (IGameObject g : gameObjectsTable) {
             g.render(graph);
         }
-        int offsety = 5;
-        int posx = (sceneWidth - (sceneWidth - 8)) / 2;
+        int offsetY = 5;
+        int posX = (sceneWidth - (sceneWidth - 8)) / 2;
         for (int i = 0; i < this.tries; i++) {
             graph.setColor(0xFFad909c);
             graph.setStrokeWidth(2);
-            graph.drawRoundRectangle(posx, yPositions[i + 2] - (this.circleRad /2)-(offsety/2)  , sceneWidth - 8, circleRad * 2 + offsety, 10);
-            graph.drawLine(50, yPositions[i + 2]- (this.circleRad /2)-(offsety/2)+4,50,(yPositions[i + 2]- (this.circleRad /2)-(offsety/2))+ circleRad * 2 + offsety-4);
-            graph.drawLine(hintsPos_-5, yPositions[i + 2]- (this.circleRad /2)-(offsety/2)+4,hintsPos_-5,(yPositions[i + 2]- (this.circleRad /2)-(offsety/2))+ circleRad * 2 + offsety-4);
+            graph.drawRoundRectangle(posX, yPositions[i + 2] - (this.circleRad /2)-(offsetY/2)  , sceneWidth - 8, circleRad * 2 + offsetY, 10);
+            graph.drawLine(50, yPositions[i + 2]- (this.circleRad /2)-(offsetY/2)+4,50,(yPositions[i + 2]- (this.circleRad /2)-(offsetY/2))+ circleRad * 2 + offsetY-4);
+            graph.drawLine(hintsPos_-5, yPositions[i + 2]- (this.circleRad /2)-(offsetY/2)+4,hintsPos_-5,(yPositions[i + 2]- (this.circleRad /2)-(offsetY/2))+ circleRad * 2 + offsetY-4);
 
             graph.setFont(font2);
             graph.setColor(0xFF472735);
@@ -216,7 +215,6 @@ public class Board implements IGameObject {
             if (!playerTries[acutalTry][i].hasColor()) {
                 playerTries[acutalTry][i].setColor(color, id);
                 this.gm.putColorSolution(i, id);
-                System.out.println("He puesto un color en la posicion " + i);
                 break;
             }
         }

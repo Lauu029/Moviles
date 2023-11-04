@@ -1,6 +1,5 @@
 package com.example.gamelogic;
 
-import com.example.engine.IColor;
 import com.example.engine.IEngine;
 import com.example.engine.IFont;
 import com.example.engine.IGameObject;
@@ -11,11 +10,10 @@ import com.example.engine.TouchEvent;
 public class Button implements IGameObject {
     private String text;
     private IFont font;
-    IScene scene = null;
-    private boolean pressed_;
+    protected IScene scene = null;
     private int color;
     private int width = 0, height = 0, posX = 0, posY = 0, arc = 0;
-    SceneNames sceneName_;
+    private SceneNames sceneName;
 
     Button(String t, IFont f, int c, int w, int h, int a, int x, int y, SceneNames sceneNames) {
         this.text = t;
@@ -26,12 +24,11 @@ public class Button implements IGameObject {
         this.arc = a;
         this.posX = x;
         this.posY = y;
-        sceneName_ = sceneNames;
+        this.sceneName = sceneNames;
     }
 
     @Override
     public void update(double time) {
-
     }
 
     @Override
@@ -50,11 +47,9 @@ public class Button implements IGameObject {
 
     @Override
     public void init() {
-
     }
 
     void actionButton() {
-
     }
 
     @Override
@@ -65,22 +60,19 @@ public class Button implements IGameObject {
                 IEngine engine_ = GameManager.getInstance().getIEngine();
                 int sceneWidth = GameManager.getInstance().getwidth();
                 int sceneHeight = GameManager.getInstance().getHeight();
-                switch (sceneName_) {
+                switch (sceneName) {
                     case GAME:
                         scene = new GameScene(engine_, sceneWidth, sceneHeight);
                         break;
-
                     case LEVEL:
                         scene = new LevelScene(engine_, sceneWidth, sceneHeight);
                         break;
                 }
                 actionButton();
                 GameManager.getInstance().changeScene(scene);
-
                 return true;
             }
         }
-
         return false;
     }
 }
