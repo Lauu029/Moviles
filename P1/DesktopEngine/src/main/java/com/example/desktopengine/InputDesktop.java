@@ -27,7 +27,7 @@ public class InputDesktop implements IInput {
         return myTouchEvent_;  // Devuelve la lista de eventos
     }
 
-    public void myEventsClear(){
+    public void myEventsClear() {
         myTouchEvent_.clear();  // Limpia la lista de eventos
     }
 }

@@ -9,31 +9,31 @@ import com.example.engine.TouchEvent;
 import java.util.ArrayList;
 
 public class InputHandler implements View.OnTouchListener {
-    private ArrayList<TouchEvent> myTouchEvent_;
-    private ArrayList<TouchEvent> myPendingEvents_;
-    private ArrayList<TouchEvent> usedEvents_;
-    private ArrayList<TouchEvent> freeEvents_;
-    private int maxEvents_ = 10;
+    private ArrayList<TouchEvent> myTouchEvent_; // Lista de eventos de entrada
+    private ArrayList<TouchEvent> myPendingEvents_; // Lista de eventos pendientes
+    private ArrayList<TouchEvent> usedEvents_; // Lista de eventos en uso
+    private ArrayList<TouchEvent> freeEvents_;  // Lista de eventos libres
+    private int maxEvents_ = 10; // Numero máximo de eventos en el pool
 
     InputHandler(SurfaceView view) {
-        myTouchEvent_ = new ArrayList<TouchEvent>();
-        myPendingEvents_ = new ArrayList<TouchEvent>();
-        usedEvents_ = new ArrayList<TouchEvent>();
-        freeEvents_ = new ArrayList<TouchEvent>();
-        view.setOnTouchListener(this);
+        myTouchEvent_ = new ArrayList<TouchEvent>(); // Inicializa la lista de eventos táctiles
+        myPendingEvents_ = new ArrayList<TouchEvent>(); // Inicializa la lista de eventos pendientes
+        usedEvents_ = new ArrayList<TouchEvent>(); // Inicializa la lista de eventos en uso
+        freeEvents_ = new ArrayList<TouchEvent>(); // Inicializa la lista de eventos libres
+        view.setOnTouchListener(this); // Definición de interfaz para que se invoque un callback cuando se envía un evento de pulsado a esta vista.
         for (int i = 0; i < maxEvents_; i++) {
-            freeEvents_.add(new TouchEvent());
+            freeEvents_.add(new TouchEvent()); // Llena el pool de eventos con objetos TouchEvent
         }
     }
-
+    // Devuelve la lista de eventos pendientes
     public ArrayList<TouchEvent> getMyPendingEvents_() {
         return myPendingEvents_;
     }
-
+    // Limpia la lista de eventos pendientes
     public void myPendingEventsClear() {
         myPendingEvents_.clear();
     }
-
+    // Obtiene un objeto TouchEvent del pool
     private TouchEvent getEvent() {
         if (!freeEvents_.isEmpty()) {
             TouchEvent obj = freeEvents_.remove(freeEvents_.size() - 1);
@@ -43,7 +43,7 @@ public class InputHandler implements View.OnTouchListener {
             throw new IllegalStateException("No available objects in the pool.");
         }
     }
-
+    // Devuelve un objeto TouchEvent al pool
     private void returnObject(TouchEvent obj) {
         if (usedEvents_.contains(obj)) {
             usedEvents_.remove(obj);
@@ -52,23 +52,23 @@ public class InputHandler implements View.OnTouchListener {
             throw new IllegalArgumentException("The object is not in use.");
         }
     }
-
+    //Se llama cuando un evento touch se envía a una vista
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         TouchEvent event = getEvent();
 
-        int index = motionEvent.getActionIndex();
-        int finger = motionEvent.getPointerId(index);
+        int index = motionEvent.getActionIndex(); //Devuelve el índice de puntero asociado
+        int finger = motionEvent.getPointerId(index); //Dedo que realiza el toque (pantallas multitactil)
         int action = motionEvent.getActionMasked();
-        event.x = (int) motionEvent.getX(finger);
+        event.x = (int) motionEvent.getX(finger); //Obtiene las coordenadas donde ha tenido lugar la accion
         event.y = (int) motionEvent.getY(finger);
-        if (action == motionEvent.ACTION_DOWN) {
+        if (action == motionEvent.ACTION_DOWN) { //Comprueba que tipo de accion ha realizado (pulsar, levantar)
             event.type = TouchEvent.TouchEventType.TOUCH_DOWN;
         } else if (action == motionEvent.ACTION_UP) {
             event.type = TouchEvent.TouchEventType.TOUCH_UP;
         }
 
-        synchronized (this) {
+        synchronized (this) { //Es necesario sincronizarlo para evitar fallos al borrar los elementos de esta lista
             myPendingEvents_.add(event);
         }
         returnObject(event);
