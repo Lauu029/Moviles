@@ -21,7 +21,7 @@ public class AudioAndroid implements IAudio {
         SoundAndroid s= new SoundAndroid(file, myAssetManager_, mySoundPool_);
         return s;
     }
-    //Reproduce un determinado sonido
+    //Reproduce un determinado sonido en loop o una unica vez
     @Override
     public void playSound(ISound sound, int loop) {
         SoundAndroid sAndroid= (SoundAndroid) sound;
