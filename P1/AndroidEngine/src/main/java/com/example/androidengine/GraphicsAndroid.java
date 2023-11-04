@@ -28,6 +28,7 @@ public class GraphicsAndroid implements IGraphics {
     private float scale_ = 1;
     private float translateX_ = 0, translateY_ = 0;
     private AssetManager myAssetManager_;
+    private String path_ = "Images/"; // Ruta predeterminada para buscar archivos de images
 
     public GraphicsAndroid(SurfaceView view, AssetManager asset) {
         this.myView_ = view;
@@ -76,7 +77,7 @@ public class GraphicsAndroid implements IGraphics {
         Bitmap bitmap = null;
         InputStream is = null;
         try {
-            is = this.myAssetManager_.open(name);
+            is = this.myAssetManager_.open(path_+name);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

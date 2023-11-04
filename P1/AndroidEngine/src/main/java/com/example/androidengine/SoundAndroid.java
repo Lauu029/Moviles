@@ -11,12 +11,13 @@ import java.io.IOException;
 public class SoundAndroid implements ISound {
 
     private int myStreamId_;
+    private String path_ = "Audio/"; // Ruta predeterminada para buscar archivos de sonido
 
     public SoundAndroid(String filename, AssetManager assetManager, SoundPool soundPool) {
         myStreamId_ = -1;
         try {
             AssetFileDescriptor assetDescriptor =
-                    assetManager.openFd(filename);
+                    assetManager.openFd(path_+filename);
             myStreamId_ = soundPool.load(assetDescriptor, 1);
 
         } catch (IOException e) {

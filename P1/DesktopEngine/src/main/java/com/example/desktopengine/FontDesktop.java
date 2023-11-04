@@ -11,7 +11,7 @@ import java.io.InputStream;
 
 public class FontDesktop implements IFont {
     // Ruta predeterminada para buscar fuentes en la carpeta "Assets/"
-    private String path_ = "Assets/";
+    private String path_ = "Assets/Fonts/";
     private Font myFont_; // Almacena la fuente
     private int size_; // Tamaño de la fuente
     private boolean bold_; // Indica si la fuente es negrita

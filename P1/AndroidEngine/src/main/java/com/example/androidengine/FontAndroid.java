@@ -10,6 +10,7 @@ public class FontAndroid implements IFont {
     private int size_; //Tamanyo de la letra
     private boolean bold_; //Letra en negrita
     private boolean italic_; //Letra en cursiva
+    private String path_ = "Fonts/"; // Ruta predeterminada para buscar archivos de fuente
 
     //Constructor de la clase con parámetros: nombre de archivo, tamanyo letra, negrita,
     // cursiva y asset manager donde buscar el ttf
@@ -18,7 +19,7 @@ public class FontAndroid implements IFont {
         this.bold_ = isBold;
         this.italic_ =italic;
         myFont_ =null;
-        myFont_ =Typeface.createFromAsset(assetManager,filename);
+        myFont_ =Typeface.createFromAsset(assetManager,path_+filename);
     }
     //Devuelve el typefont que especifica el estilo del texto
     public Typeface getFont(){

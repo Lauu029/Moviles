@@ -12,7 +12,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 
 public class SoundDesktop implements ISound {
-    private String path_ = "Assets/"; // Ruta predeterminada para buscar archivos de sonido
+    private String path_ = "Assets/Audio/"; // Ruta predeterminada para buscar archivos de sonido
 
     // Constructor de la clase
 

@@ -18,7 +18,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 public class GraphicsDesktop implements IGraphics {
-    private String ImagesRoute_ = "Assets/"; // Ruta base para las imagenes
+    private String ImagesRoute_ = "Assets/Images/"; // Ruta base para las imagenes
     private JFrame myView_; // JFrame que representa la vista
     private BufferStrategy myBufferStrategy_; // Estrategia de buffer
     private Graphics2D myGraphics2D_; // Gráficos 2D
