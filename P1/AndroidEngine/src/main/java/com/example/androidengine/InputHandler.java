@@ -55,23 +55,36 @@ public class InputHandler implements View.OnTouchListener {
     //Se llama cuando un evento touch se envía a una vista
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        TouchEvent event = getEvent();
+
 
         int index = motionEvent.getActionIndex(); //Devuelve el índice de puntero asociado
         int finger = motionEvent.getPointerId(index); //Dedo que realiza el toque (pantallas multitactil)
         int action = motionEvent.getActionMasked();
-        event.x = (int) motionEvent.getX(finger); //Obtiene las coordenadas donde ha tenido lugar la accion
-        event.y = (int) motionEvent.getY(finger);
+
+
         if (action == motionEvent.ACTION_DOWN) { //Comprueba que tipo de accion ha realizado (pulsar, levantar)
+            TouchEvent event = getEvent();
+            event.x = (int) motionEvent.getX(finger); //Obtiene las coordenadas donde ha tenido lugar la accion
+            event.y = (int) motionEvent.getY(finger);
             event.type = TouchEvent.TouchEventType.TOUCH_DOWN;
+            synchronized (this) { //Es necesario sincronizarlo para evitar fallos al borrar los elementos de esta lista
+                myPendingEvents_.add(event);
+            }
+            returnObject(event);
         } else if (action == motionEvent.ACTION_UP) {
+            TouchEvent event = getEvent();
+            event.x = (int) motionEvent.getX(finger); //Obtiene las coordenadas donde ha tenido lugar la accion
+            event.y = (int) motionEvent.getY(finger);
             event.type = TouchEvent.TouchEventType.TOUCH_UP;
+            synchronized (this) { //Es necesario sincronizarlo para evitar fallos al borrar los elementos de esta lista
+                myPendingEvents_.add(event);
+            }
+            returnObject(event);
+
         }
 
-        synchronized (this) { //Es necesario sincronizarlo para evitar fallos al borrar los elementos de esta lista
-            myPendingEvents_.add(event);
-        }
-        returnObject(event);
+
+
         return true;
     }
 }
