@@ -85,7 +85,7 @@ public class Solution {
         if (correctPos_ == solutionSize_) win_ = true;
         registeredSols_[actualTry_][0] = correctPos_;
         registeredSols_[actualTry_][1] = correctColor_;
-        printSolution();
+
         resetMap();
         actualTry_++;
     }
@@ -112,18 +112,5 @@ public class Solution {
         correctPos_ = 0;
     }
 
-    public void printSolution() {
-        for (Map.Entry<Integer, Map<Integer, Boolean>> externEntry : solution.entrySet()) {
-            Integer externEntryKey = externEntry.getKey();
-            Map<Integer, Boolean> internMap = externEntry.getValue();
 
-            System.out.println("Clave Externa: " + externEntryKey);
-
-            for (Map.Entry<Integer, Boolean> internEntry : internMap.entrySet()) {
-                Integer internEntryKey = internEntry.getKey();
-                Boolean value = internEntry.getValue();
-                System.out.println("  Clave Interna: " + internEntryKey + ", Valor: " + value);
-            }
-        }
-    }
 }
