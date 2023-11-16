@@ -7,12 +7,12 @@ import java.util.ArrayList;
 public class Input {
 
     private ArrayList<TouchEvent> myTouchEvent_; // Lista de eventos de entrada
-    private ArrayList<TouchEvent> myPendingEvents_; // Lista de eventos pendientes
+
     private InputHandler myInputHandler_; // Manejador de entrada
     // Constructor de la clase
     Input(SurfaceView view){
         myTouchEvent_ =new ArrayList<TouchEvent>(); // Inicializa la lista de eventos
-        myPendingEvents_ =new ArrayList<TouchEvent>(); // Inicializa la lista de eventos pendientes
+
         myInputHandler_ =new InputHandler(view); // Inicializa el manejador de entrada
     }
     public synchronized ArrayList<TouchEvent> getTouchEvent() {
@@ -24,4 +24,5 @@ public class Input {
     public void myEventsClear() {
         myTouchEvent_.clear();
     } // Limpia la lista de eventos
+
 }

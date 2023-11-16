@@ -7,14 +7,12 @@ import android.view.View;
 import java.util.ArrayList;
 
 public class InputHandler implements View.OnTouchListener {
-    private ArrayList<TouchEvent> myTouchEvent_; // Lista de eventos de entrada
     private ArrayList<TouchEvent> myPendingEvents_; // Lista de eventos pendientes
     private ArrayList<TouchEvent> usedEvents_; // Lista de eventos en uso
     private ArrayList<TouchEvent> freeEvents_;  // Lista de eventos libres
     private int maxEvents_ = 10; // Numero máximo de eventos en el pool
 
     InputHandler(SurfaceView view) {
-        myTouchEvent_ = new ArrayList<TouchEvent>(); // Inicializa la lista de eventos táctiles
         myPendingEvents_ = new ArrayList<TouchEvent>(); // Inicializa la lista de eventos pendientes
         usedEvents_ = new ArrayList<TouchEvent>(); // Inicializa la lista de eventos en uso
         freeEvents_ = new ArrayList<TouchEvent>(); // Inicializa la lista de eventos libres
@@ -60,8 +58,8 @@ public class InputHandler implements View.OnTouchListener {
 
         if (action == motionEvent.ACTION_DOWN) { //Comprueba que tipo de accion ha realizado (pulsar, levantar)
             TouchEvent event = getEvent();
-            event.x = (int) motionEvent.getX(finger); //Obtiene las coordenadas donde ha tenido lugar la accion
-            event.y = (int) motionEvent.getY(finger);
+            event.x = (int) motionEvent.getX(index); //Obtiene las coordenadas donde ha tenido lugar la accion
+            event.y = (int) motionEvent.getY(index);
             event.type = TouchEvent.TouchEventType.TOUCH_DOWN;
             synchronized (this) { //Es necesario sincronizarlo para evitar fallos al borrar los elementos de esta lista
                 myPendingEvents_.add(event);
@@ -69,8 +67,8 @@ public class InputHandler implements View.OnTouchListener {
             returnObject(event);
         } else if (action == motionEvent.ACTION_UP) {
             TouchEvent event = getEvent();
-            event.x = (int) motionEvent.getX(finger); //Obtiene las coordenadas donde ha tenido lugar la accion
-            event.y = (int) motionEvent.getY(finger);
+            event.x = (int) motionEvent.getX(index); //Obtiene las coordenadas donde ha tenido lugar la accion
+            event.y = (int) motionEvent.getY(index);
             event.type = TouchEvent.TouchEventType.TOUCH_UP;
             synchronized (this) { //Es necesario sincronizarlo para evitar fallos al borrar los elementos de esta lista
                 myPendingEvents_.add(event);
