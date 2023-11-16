@@ -1,16 +1,19 @@
 plugins {
-    id("com.android.library")
+    id("com.android.application")
 }
 
 android {
-    namespace = "com.example.androidengine"
+    namespace = "com.example.androidgame"
     compileSdk = 33
 
     defaultConfig {
+        applicationId = "com.example.androidgame"
         minSdk = 24
+        targetSdk = 33
+        versionCode = 1
+        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -26,13 +29,23 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
 }
 
 dependencies {
 
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.8.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation(project(mapOf("path" to ":AndroidEngine")))
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+}
+tasks.register<Copy>("Copy"){
+    from(rootDir.getAbsolutePath() + "/assets")
+    into("src/main/assets")
+}
+tasks.preBuild(){
+    dependsOn("Copy")
 }

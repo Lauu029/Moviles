@@ -4,8 +4,6 @@ import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 
-import com.example.engine.TouchEvent;
-
 import java.util.ArrayList;
 
 public class InputHandler implements View.OnTouchListener {
@@ -56,11 +54,9 @@ public class InputHandler implements View.OnTouchListener {
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
 
-
         int index = motionEvent.getActionIndex(); //Devuelve el índice de puntero asociado
         int finger = motionEvent.getPointerId(index); //Dedo que realiza el toque (pantallas multitactil)
         int action = motionEvent.getActionMasked();
-
 
         if (action == motionEvent.ACTION_DOWN) { //Comprueba que tipo de accion ha realizado (pulsar, levantar)
             TouchEvent event = getEvent();
@@ -80,11 +76,7 @@ public class InputHandler implements View.OnTouchListener {
                 myPendingEvents_.add(event);
             }
             returnObject(event);
-
         }
-
-
-
         return true;
     }
 }
