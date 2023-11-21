@@ -14,7 +14,7 @@ public class Engine implements Runnable {
     private Input myInput_; // Clase para la entrada (input)
     private AssetManager myAssetManager_; //Variable para gestión de assets
     private SoundPool mySoundPool_; //Variable para gestión de clips de audio
-
+    private Movile myMovile; //variable para gestión de anuncios
     // Constructor de la clase
     public Engine(SurfaceView myView) {
         this.myView_ = myView; // Asigna la ventana proporcionada

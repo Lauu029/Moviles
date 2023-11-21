@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //AdRequest adRequest = new AdRequest.Builder().build();
+        //adView_.loadAd(adRequest);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         this.renderView_ = new SurfaceView(this);
         setContentView(this.renderView_);
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        
+        setContentView(R.layout.activity_main);
         AdView adView_=(AdView)findViewById(R.id.adView);
         if (adView_ != null) {
             Log.d("MainActivity", "AdView found, loading ad...");
@@ -54,8 +56,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.e("MainActivity", "AdView is null");
         }
-        //AdRequest adRequest = new AdRequest.Builder().build();
-        //adView_.loadAd(adRequest);
+        setContentView(this.renderView_);
     }
 
     @Override
