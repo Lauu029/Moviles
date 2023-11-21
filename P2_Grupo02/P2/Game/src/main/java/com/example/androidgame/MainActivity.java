@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
+import android.view.View;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         this.renderView_ = new SurfaceView(this);
         setContentView(this.renderView_);
-        IEngine_ = new Engine(renderView_);
+        IEngine_ = new Engine(renderView_,this);
         GameManager.init(IEngine_,400,600);
         MenuScene gm=new MenuScene(IEngine_,400,600);
 
@@ -47,16 +48,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        setContentView(R.layout.activity_main);
-        AdView adView_=(AdView)findViewById(R.id.adView);
-        if (adView_ != null) {
-            Log.d("MainActivity", "AdView found, loading ad...");
-            AdRequest adRequest = new AdRequest.Builder().build();
-            adView_.loadAd(adRequest);
-        } else {
-            Log.e("MainActivity", "AdView is null");
-        }
-        setContentView(this.renderView_);
     }
 
     @Override

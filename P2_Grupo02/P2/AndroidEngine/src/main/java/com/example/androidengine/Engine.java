@@ -1,5 +1,6 @@
 package com.example.androidengine;
 
+import android.app.Activity;
 import android.content.res.AssetManager;
 import android.media.SoundPool;
 import android.view.SurfaceView;
@@ -15,14 +16,17 @@ public class Engine implements Runnable {
     private AssetManager myAssetManager_; //Variable para gestión de assets
     private SoundPool mySoundPool_; //Variable para gestión de clips de audio
     private Movile myMovile; //variable para gestión de anuncios
+    private Activity myActivity_;
+
     // Constructor de la clase
-    public Engine(SurfaceView myView) {
+    public Engine(SurfaceView myView, Activity activity) {
         this.myView_ = myView; // Asigna la ventana proporcionada
         running_ = false; // Inicializa el motor como no en funcionamiento
         myInput_ = new Input(this.myView_); // Inicializa la clase de entrada (input)
         myAssetManager_ = myView.getContext().getAssets(); //Obtiene la referencia a los assets
         myGraphics_ = new Graphics(this.myView_, myAssetManager_); // Inicializa la clase de graficos
         myAudio = new Audio(myAssetManager_, mySoundPool_); // Inicializa la clase de audio
+        myActivity_ = activity;
     }
 
     // Metodo para reanudar la ejecución del motor
@@ -119,5 +123,9 @@ public class Engine implements Runnable {
     //Devuelve la escena que se esta ejecutando
     public IScene getScene() {
         return this.myScene_;
+    }
+
+    public Activity getMainActivity() {
+        return this.myActivity_;
     }
 }

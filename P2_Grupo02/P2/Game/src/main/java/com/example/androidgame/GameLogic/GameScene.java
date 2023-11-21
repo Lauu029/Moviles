@@ -1,11 +1,17 @@
 package com.example.androidgame.GameLogic;
 
+import android.app.Activity;
+import android.util.Log;
+import android.view.View;
+
 import com.example.androidengine.Engine;
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.IScene;
 import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 
@@ -44,6 +50,21 @@ public class GameScene implements IScene {
         myCrossSound_=iEngine_.getAudio().newSound("crossButton.wav");
         ButtonImage but2=new ButtonImage("cruz.png",40,40, 0,0,SceneNames.LEVEL,myCrossSound_);
         this.addGameObject(but2);
+        Activity main = iEngine_.getMainActivity();
+        main.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                AdView adView_= (AdView) main.findViewById(com.example.androidgame.R.id.adView);
+                if (adView_ != null) {
+                    Log.d("MainActivity", "AdView found, loading ad...");
+                    AdRequest adRequest = new AdRequest.Builder().build();
+                    adView_.loadAd(adRequest);
+                    adView_.setVisibility(View.VISIBLE);
+                } else {
+                    Log.e("MainActivity", "AdView is null");
+                }
+            }
+        });
     }
 
     public void addGameObject(GameObject gm) {
