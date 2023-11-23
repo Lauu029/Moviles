@@ -12,12 +12,12 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
-public class AdsEngine {
+public class Mobile {
     private Context context_;
     private AdView adView_;
     private AdRequest adRequest_;
 
-    public AdsEngine(Context c) {
+    public Mobile(Context c) {
         this.context_ = c;
        MobileAds.initialize(this.context_, new OnInitializationCompleteListener() {
             @Override
