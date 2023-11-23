@@ -6,7 +6,12 @@ import com.example.androidengine.Graphics;
 import com.example.androidengine.IScene;
 import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
-
+enum ButtonType{
+    DALTONICS,
+    IMAGE,
+    LEVEL,
+    REWARD
+}
 public class Button extends GameObject {
     private String text_;
     private Font font_;
@@ -15,6 +20,7 @@ public class Button extends GameObject {
     private int width_ = 0, height_ = 0, posX_ = 0, posY_ = 0, arc_ = 0;
     private SceneNames sceneName_;
     private Sound mySound_;
+    private ButtonType type_;
     Button(String t, Font f, int c, int w, int h, int a, int x, int y, SceneNames sceneNames, Sound buttonSound) {
         this.text_ = t;
         this.font_ = f;
