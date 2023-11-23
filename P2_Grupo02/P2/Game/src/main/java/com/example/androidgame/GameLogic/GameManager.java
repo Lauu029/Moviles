@@ -36,6 +36,7 @@ public class GameManager {
 
     public void changeScene(IScene scene) {
         this.actualScene_ = scene;
+        myEngine_.getMovileAds().LoadRewardedAd();
         myEngine_.setScene(scene);
     }
 
