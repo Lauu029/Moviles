@@ -2,7 +2,9 @@ package com.example.androidengine;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -44,7 +46,14 @@ public class Mobile {
         }
     }
     public void shareImage(Bitmap bitmap, String msj){
-        String pathBitmap= MediaStore.Images.Media.insertImage(context_.getContentResolver(),bitmap,msj,"que");
+        String pathBitmap= MediaStore.Images.Media.insertImage(context_.getContentResolver(),bitmap,"titulo","descripcion");
+        Uri uri= Uri.parse(pathBitmap);
+        Intent shareIntent = new Intent(android.content.Intent. ACTION_SEND);
+        shareIntent.setType("image/*");
+        shareIntent.putExtra(Intent.EXTRA_TEXT,msj);
+        shareIntent.putExtra(Intent.EXTRA_STREAM,uri);
+        this.myActivity_.startActivity(Intent.createChooser(shareIntent,"ActicityTitle"));
+
     }
     public void Init(Engine e) {
         //Activity main = iEngine_.getMainActivity();
