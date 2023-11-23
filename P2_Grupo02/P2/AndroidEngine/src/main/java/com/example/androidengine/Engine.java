@@ -30,7 +30,7 @@ public class Engine implements Runnable {
         myAudio = new Audio(myAssetManager_, mySoundPool_); // Inicializa la clase de audio
         myActivity_ = activity;
         myContext_ = myActivity_.getBaseContext();
-        myMovileAds_ = new Mobile(myContext_);
+        myMovileAds_ = new Mobile(myContext_,myActivity_);
     }
 
     // Metodo para reanudar la ejecución del motor

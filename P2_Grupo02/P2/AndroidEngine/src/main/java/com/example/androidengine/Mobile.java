@@ -1,6 +1,9 @@
 package com.example.androidengine;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 
@@ -16,9 +19,10 @@ public class Mobile {
     private Context context_;
     private AdView adView_;
     private AdRequest adRequest_;
-
-    public Mobile(Context c) {
+    private Activity myActivity_;
+    public Mobile(Context c, Activity activity) {
         this.context_ = c;
+        this.myActivity_=activity;
        MobileAds.initialize(this.context_, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {
@@ -39,7 +43,9 @@ public class Mobile {
             Log.e("MainActivity", "AdView is null");
         }
     }
-
+    public void shareImage(Bitmap bitmap, String msj){
+        String pathBitmap= MediaStore.Images.Media.insertImage(context_.getContentResolver(),bitmap,msj,"que");
+    }
     public void Init(Engine e) {
         //Activity main = iEngine_.getMainActivity();
         /*main.runOnUiThread(new Runnable() {
