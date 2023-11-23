@@ -8,8 +8,8 @@
 
     <SurfaceView
         android:id="@+id/surfaceView"
-        android:layout_width="410dp"
-        android:layout_height="729dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         tools:ignore="MissingConstraints" />
 
     <com.google.android.gms.ads.AdView
