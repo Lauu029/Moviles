@@ -64,5 +64,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         IEngine_.resume();
+        if(getIntent().hasExtra("notification")){
+            System.out.println("Vengo de una notificacion");
+        }
     }
 }

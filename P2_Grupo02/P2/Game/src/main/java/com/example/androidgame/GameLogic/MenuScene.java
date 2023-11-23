@@ -1,5 +1,7 @@
 package com.example.androidgame.GameLogic;
 
+
+
 import com.example.androidengine.Engine;
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
@@ -7,6 +9,7 @@ import com.example.androidengine.IScene;
 import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,6 +45,7 @@ public class MenuScene implements IScene {
 
         addGameObject(button_);
         myIcon_ = graph.newImage("cerebro.png");
+
     }
 
     public void addGameObject(GameObject gm) {
