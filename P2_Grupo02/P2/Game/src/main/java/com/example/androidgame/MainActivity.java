@@ -33,11 +33,12 @@ public class MainActivity extends AppCompatActivity {
         //AdRequest adRequest = new AdRequest.Builder().build();
         //adView_.loadAd(adRequest);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-        this.renderView_ = new SurfaceView(this);
-        setContentView(this.renderView_);
+        AdView adView_ = (AdView)findViewById(R.id.adView);
+
+        this.renderView_ = findViewById(R.id.surfaceView);
+        //setContentView(this.renderView_);
         IEngine_ = new Engine(renderView_, this);
 
-        AdView adView_ = (AdView) findViewById(R.id.adView);
         if (adView_ != null) {
             Log.d("MainActivity", "AdView loaded..");
             IEngine_.getMovileAds().loadAdBanner(adView_);
