@@ -16,7 +16,7 @@ public class Engine implements Runnable {
     private Input myInput_; // Clase para la entrada (input)
     private AssetManager myAssetManager_; //Variable para gestión de assets
     private SoundPool mySoundPool_; //Variable para gestión de clips de audio
-    private AdsEngine myMovileAds_; //variable para gestión de anuncios
+    private Mobile myMovileAds_; //variable para gestión de anuncios
     private Activity myActivity_;
     private Context myContext_;
 
@@ -30,7 +30,7 @@ public class Engine implements Runnable {
         myAudio = new Audio(myAssetManager_, mySoundPool_); // Inicializa la clase de audio
         myActivity_ = activity;
         myContext_ = myActivity_.getBaseContext();
-        myMovileAds_ = new AdsEngine(myContext_);
+        myMovileAds_ = new Mobile(myContext_);
     }
 
     // Metodo para reanudar la ejecución del motor
@@ -133,7 +133,7 @@ public class Engine implements Runnable {
         return this.myActivity_;
     }
 
-    public AdsEngine getMovileAds() {
+    public Mobile getMovileAds() {
         return this.myMovileAds_;
     }
 }
