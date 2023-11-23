@@ -8,6 +8,9 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Build;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.view.PixelCopy;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -204,6 +207,30 @@ public class Graphics {
     // Después de esta llamada, los píxeles actuales de la superficie se mostrarán en la pantalla.
     protected void endFrame() {
         this.myHolder_.unlockCanvasAndPost(myCanvas_);
+    }
+    public void generateScreenshot(int x, int y, int w, int h){
+        Bitmap bitmap = Bitmap.createBitmap(this.myView_.getWidth(), this.myView_.getHeight(),
+                Bitmap.Config.ARGB_8888);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            HandlerThread handlerThread = new HandlerThread("PixelCopier");
+            handlerThread.start();
+            PixelCopy.request(this.myView_, bitmap, new PixelCopy.OnPixelCopyFinishedListener() {
+                @Override
+                public void onPixelCopyFinished(int copyResult) {
+                    /*if (copyResult == PixelCopy.SUCCESS) {
+                        int realX=logicToRealX(x);
+                        int realY=logicToRealY(y);
+
+                        int realW=logicToRealX(x+w)-realX;
+                        int realH=logicToRealY(y+h)-realY;
+                        Bitmap finalBitmap=Bitmap.createBitmap(bitmap,realX,realY,
+                                callback.processImage(finalBitmap));
+                    }*/
+                    handlerThread.quitSafely();
+                }
+            }, new Handler(handlerThread.getLooper()));
+        }
     }
 
 }
