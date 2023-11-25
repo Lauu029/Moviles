@@ -2,6 +2,7 @@ package com.example.androidgame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +21,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        System.out.println("--------------me creo-----------------------");
         setContentView(R.layout.activity_main);
         //AdRequest adRequest = new AdRequest.Builder().build();
         //adView_.loadAd(adRequest);
@@ -49,13 +52,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        System.out.println("--------------------me pause-------------------------");
         IEngine_.pause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d("TAG", "RESUMEEEE");
         IEngine_.resume();
+        if(getIntent().hasExtra("notification")){
+              Log.d("TAG", "NOTIFICATION");
+        }
+    }
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);  // Actualiza el Intent actual con el nuevo Intent recibido
+        System.out.println("---------------------------------nuevo intent-----------------");
         if(getIntent().hasExtra("notification")){
             System.out.println("Vengo de una notificacion");
         }
