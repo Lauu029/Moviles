@@ -1,8 +1,6 @@
 package com.example.androidgame.GameLogic;
 
 
-import android.transition.Scene;
-
 import com.example.androidengine.Engine;
 import com.example.androidengine.IScene;
 
@@ -36,7 +34,7 @@ public class GameManager {
 
     public void changeScene(IScene scene) {
         this.actualScene_ = scene;
-        myEngine_.getMovileAds().LoadRewardedAd();
+        //myEngine_.getMobile().LoadRewardedAd();
         myEngine_.setScene(scene);
     }
 

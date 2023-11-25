@@ -9,6 +9,7 @@ import com.example.androidengine.IScene;
 import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
+import com.example.androidgame.R;
 
 
 import java.io.IOException;
@@ -45,6 +46,7 @@ public class MenuScene implements IScene {
 
         addGameObject(button_);
         myIcon_ = graph.newImage("cerebro.png");
+        iEngine_.getMobile().createNotification(R.drawable.ic_launcher_foreground);
 
     }
 

@@ -38,6 +38,7 @@ dependencies {
     implementation("com.google.android.material:material:1.8.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.android.gms:play-services-ads:22.5.0")
+    implementation("androidx.core:core-ktx:latest_version")
     implementation(project(mapOf("path" to ":AndroidEngine")))
     implementation("com.google.android.gms:play-services-ads-lite:22.5.0")
     testImplementation("junit:junit:4.13.2")

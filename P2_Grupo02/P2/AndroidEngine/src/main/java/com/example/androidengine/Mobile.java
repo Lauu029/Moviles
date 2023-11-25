@@ -1,15 +1,24 @@
 package com.example.androidengine;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -27,11 +36,14 @@ public class Mobile {
     private AdView adView_;
     private AdRequest adRequest_;
     private Activity myActivity_;
+    private static final String CHANNEL_ID = "MasterMind";
     private RewardedAd rewardedAd_;
+
     public Mobile(Context c, Activity activity) {
         this.context_ = c;
-        this.myActivity_=activity;
-       MobileAds.initialize(this.context_, new OnInitializationCompleteListener() {
+        this.myActivity_ = activity;
+        createNotificationChannel();
+        MobileAds.initialize(this.context_, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {
                 Log.d("MainActivity", "Starting");
@@ -44,6 +56,7 @@ public class Mobile {
                 Log.d("MainActivity", loadAdError.toString());
                 rewardedAd_ = null;
             }
+
             @Override
             public void onAdLoaded(@NonNull RewardedAd ad) {
                 rewardedAd_ = ad;
@@ -62,6 +75,7 @@ public class Mobile {
             Log.e("MainActivity", "AdView is null");
         }
     }
+
     public void shareImage(Bitmap bitmap, String msj) {
         String pathBitmap = MediaStore.Images.Media.insertImage(context_.getContentResolver(), bitmap, "titulo", "descripcion");
         Uri uri = Uri.parse(pathBitmap);
@@ -71,13 +85,15 @@ public class Mobile {
         shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
         this.myActivity_.startActivity(Intent.createChooser(shareIntent, "ActicityTitle"));
     }
+
     public void Init() {
 
     }
 
-    public void LoadRewardedAd(){
+    public void LoadRewardedAd() {
         myActivity_.runOnUiThread(new Runnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 if (rewardedAd_ != null) {
                     rewardedAd_.show(myActivity_, new OnUserEarnedRewardListener() {
                         @Override
@@ -94,5 +110,52 @@ public class Mobile {
                 }
             }
         });
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is not in the Support Library.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = context_.getString(R.string.channel_name);
+            String description = context_.getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this.
+            NotificationManager notificationManager = (NotificationManager) context_.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    public void createNotification(int icono) {
+
+        Intent intent = new Intent(context_, myActivity_.getClass());
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context_, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context_, CHANNEL_ID).
+                setSmallIcon(icono).setContentTitle("OREINCHI MI GATITO").
+                setContentText(":) UNA NOTIFICACION").
+                setStyle(new NotificationCompat.BigTextStyle().bigText("Much longer text that cannot fit one line...")).
+                setPriority(NotificationCompat.PRIORITY_DEFAULT).setContentIntent(pendingIntent);
+
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context_);
+
+// notificationId is a unique int for each notification that you must define.
+        if (ActivityCompat.checkSelfPermission(context_, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        notificationManager.notify(1, builder.build());
     }
 }
