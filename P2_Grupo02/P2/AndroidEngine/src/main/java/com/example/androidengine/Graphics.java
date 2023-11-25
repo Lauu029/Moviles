@@ -208,7 +208,8 @@ public class Graphics {
     protected void endFrame() {
         this.myHolder_.unlockCanvasAndPost(myCanvas_);
     }
-    public void generateScreenshot(int x, int y, int w, int h){
+
+    public void generateScreenshot(int x, int y, int w, int h, ImageProcessingCallback callback){
         Bitmap bitmap = Bitmap.createBitmap(this.myView_.getWidth(), this.myView_.getHeight(),
                 Bitmap.Config.ARGB_8888);
 
@@ -218,15 +219,15 @@ public class Graphics {
             PixelCopy.request(this.myView_, bitmap, new PixelCopy.OnPixelCopyFinishedListener() {
                 @Override
                 public void onPixelCopyFinished(int copyResult) {
-                    /*if (copyResult == PixelCopy.SUCCESS) {
-                        int realX=logicToRealX(x);
-                        int realY=logicToRealY(y);
+                    if (copyResult == PixelCopy.SUCCESS) {
+                        int realX=x;
+                        int realY=y;
 
-                        int realW=logicToRealX(x+w)-realX;
-                        int realH=logicToRealY(y+h)-realY;
-                        Bitmap finalBitmap=Bitmap.createBitmap(bitmap,realX,realY,
-                                callback.processImage(finalBitmap));
-                    }*/
+                        int realW=(int)(w*scale_);
+                        int realH=(int)(h*scale_);
+                        Bitmap finalBitmap=Bitmap.createBitmap(bitmap,realX,realY,realW,realH);
+                        callback.processImage(finalBitmap);
+                    }
                     handlerThread.quitSafely();
                 }
             }, new Handler(handlerThread.getLooper()));

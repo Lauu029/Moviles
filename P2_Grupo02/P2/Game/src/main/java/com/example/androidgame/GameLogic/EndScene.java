@@ -1,9 +1,12 @@
 package com.example.androidgame.GameLogic;
 
+import android.graphics.Bitmap;
+
 import com.example.androidengine.Engine;
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.IScene;
+import com.example.androidengine.ImageProcessingCallback;
 import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
 
@@ -23,7 +26,7 @@ public class EndScene implements IScene {
     private int[] totalPossibleColors_ = new int[]{0xFFFFC0CB, 0xFF87CEEB, 0xFF98FB98, 0xFFFFFF99,
             0xFFE6E6FA, 0xFFFFDAB9, 0xFFE7FFAC, 0xFFFF8FAB, 0xFF6FC0AB};
     private boolean win_ = false;
-
+    private ImageProcessingCallback callback;
     public EndScene(Engine IEngine, int w, int h, boolean win, int[] sol, int intentos) {
         iEngine_ = IEngine;
         width_ = w;
@@ -32,6 +35,12 @@ public class EndScene implements IScene {
         this.win_ = win;
         this.sol_ = sol;
         tries_ = intentos;
+        callback= new ImageProcessingCallback() {
+            @Override
+            public void processImage(Bitmap bitmap) {
+                iEngine_.getMobile().processImage(bitmap);
+            }
+        };
     }
 
     public void init() {
@@ -56,6 +65,7 @@ public class EndScene implements IScene {
         addGameObject(button1_);
         addGameObject(button2_);
         addGameObject(buttonReward);
+        graph.generateScreenshot(0,0,width_,height_,callback);
     }
 
 

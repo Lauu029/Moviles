@@ -75,7 +75,15 @@ public class Mobile {
             Log.e("MainActivity", "AdView is null");
         }
     }
+    public void processImage(Bitmap bitmap) {
+        // Aquí puedes realizar cualquier procesamiento adicional antes de compartir la imagen
+        // Por ejemplo, mostrar la imagen en una ImageView
+        // myImageView.setImageBitmap(bitmap);
 
+        // Luego, puedes llamar al método shareImage para compartir la imagen
+        System.out.println("Procesa imagen");
+        shareImage(bitmap, "¡He superado un nuevo nivel en Mastermind!");
+    }
     public void shareImage(Bitmap bitmap, String msj) {
         String pathBitmap = MediaStore.Images.Media.insertImage(context_.getContentResolver(), bitmap, "titulo", "descripcion");
         Uri uri = Uri.parse(pathBitmap);

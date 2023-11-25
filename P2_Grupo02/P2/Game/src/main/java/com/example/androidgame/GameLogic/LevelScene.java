@@ -51,6 +51,8 @@ public class LevelScene implements IScene {
         myArrowSound_=iEngine_.getAudio().newSound("arrowButton.wav");
         ButtonImage but2 = new ButtonImage("flecha.png", 40, 40, 0, 0, SceneNames.MENU,myArrowSound_);
         this.addGameObject(but2);
+        //graph.generateScreenshot(0,0,100,100);
+        //iEngine_.getMobile().shareImage(graph.processImage(),"mi imagen");
     }
 
 
