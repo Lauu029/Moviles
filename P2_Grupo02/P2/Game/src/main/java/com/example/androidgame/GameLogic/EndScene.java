@@ -15,7 +15,7 @@ public class EndScene implements IScene {
     private int[] sol_;
     private ArrayList<GameObject> gameObjects_ = new ArrayList<>();
     private int width_, height_;
-    private Button button2_;
+    private Button button2_, buttonReward;
     private ButtonLevel button1_;
     private Font font_, font1_, font2_;
     private int tries_;
@@ -51,9 +51,11 @@ public class EndScene implements IScene {
         this.button2_ = new Button("Elegir Dificultad", font1_,0XFFFB839B
                 ,150,50, 35,this.width_ /2-(150/2), this.height_ /2+90,
                 SceneNames.LEVEL, myButtonSound_);
-
+        this.buttonReward = new Button("Nuevas pistas", font1_,0XFFFB839B,
+                150,50,35,this.width_ /2-(150/2), this.height_/2+180, SceneNames.GAME, myButtonSound_);
         addGameObject(button1_);
         addGameObject(button2_);
+        addGameObject(buttonReward);
     }
 
 
