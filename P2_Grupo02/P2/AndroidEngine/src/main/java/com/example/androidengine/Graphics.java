@@ -220,8 +220,8 @@ public class Graphics {
                 @Override
                 public void onPixelCopyFinished(int copyResult) {
                     if (copyResult == PixelCopy.SUCCESS) {
-                        int realX=x;
-                        int realY=y;
+                        int realX=Math.abs(x-(int)translateX_);
+                        int realY=Math.abs(y-(int)translateY_);
 
                         int realW=(int)(w*scale_);
                         int realH=(int)(h*scale_);
