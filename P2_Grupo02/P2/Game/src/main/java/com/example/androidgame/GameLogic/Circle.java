@@ -17,7 +17,7 @@ public class Circle extends GameObject {
     protected int idColor_;
     protected int row_, gameTry_;
     protected boolean isDaltonics_;
-    protected GameManager gm_;
+    protected static GameManager gm_;
 
     public Circle(String t, Font f, int r, int x, int y, int row_) {
         this.font_ = f;

@@ -24,7 +24,7 @@ public class Button extends GameObject {
         this.arc_ = a;
         this.posX_ = x;
         this.posY_ = y;
-        mySound_ =buttonSound;
+        mySound_ = buttonSound;
         this.onClickFunction = function;
     }
 
@@ -46,25 +46,17 @@ public class Button extends GameObject {
 
     @Override
     void init() {
-
     }
 
     public boolean handleInput(TouchEvent event) {
-        if(event.type== TouchEvent.TouchEventType.TOUCH_UP){
+        if (event.type == TouchEvent.TouchEventType.TOUCH_DOWN) {
             if (this.posX_ < event.x && this.posX_ + this.width_ > event.x
                     && this.posY_ < event.y && this.posY_ + this.height_ > event.y) {
+               //GameManager.getInstance_().getIEngine().getAudio().stopSound(mySound_);
                 onClickFunction.onClick();
                 GameManager.getInstance_().getIEngine().getAudio().playSound(mySound_, 0);
                 return true;
             }
-        }
-        if (event.type == TouchEvent.TouchEventType.TOUCH_DOWN) {
-            if (this.posX_ < event.x && this.posX_ + this.width_ > event.x
-                    && this.posY_ < event.y && this.posY_ + this.height_ > event.y) {
-                GameManager.getInstance_().getIEngine().getAudio().stopSound(mySound_);
-                return true;
-            }
-
         }
         return false;
     }

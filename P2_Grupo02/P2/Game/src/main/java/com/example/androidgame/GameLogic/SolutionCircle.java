@@ -18,6 +18,7 @@ public class SolutionCircle extends Circle {
         if (event.type == TouchEvent.TouchEventType.TOUCH_UP)
             if (this.posX_ - this.radius_ < event.x && this.posX_ + this.radius_ > event.x
                     && this.posY_ - this.radius_ < event.y && this.posY_ + this.radius_ > event.y) {
+                gm_.getInstance_().getIEngine().getAudio().stopSound(myButtonSound_);
                 gm_.takeColor(this.color_, this.idColor_);
                 gm_.getInstance_().getIEngine().getAudio().playSound(myButtonSound_,0);
                 return true;

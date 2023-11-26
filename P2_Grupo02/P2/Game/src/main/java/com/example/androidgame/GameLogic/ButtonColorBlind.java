@@ -21,6 +21,5 @@ public class ButtonColorBlind extends ButtonImage {
             graph.drawImage(buttonImage_open_, posX_, posY_, width_, height_);
         else graph.drawImage(buttonImage_, posX_, posY_, width_, height_);
     }
-
 }
 
