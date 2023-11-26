@@ -18,8 +18,7 @@ public class EndScene implements IScene {
     private int[] sol_;
     private ArrayList<GameObject> gameObjects_ = new ArrayList<>();
     private int width_, height_;
-    private Button button2_, buttonReward;
-    private ButtonLevel button1_;
+    private Button buttonDificulty_, buttonReward_, playAgainButton_;
     private Font font_, font1_, font2_;
     private int tries_;
     private Sound myButtonSound_;
@@ -27,6 +26,7 @@ public class EndScene implements IScene {
             0xFFE6E6FA, 0xFFFFDAB9, 0xFFE7FFAC, 0xFFFF8FAB, 0xFF6FC0AB};
     private boolean win_ = false;
     private ImageProcessingCallback callback;
+
     public EndScene(Engine IEngine, int w, int h, boolean win, int[] sol, int intentos) {
         iEngine_ = IEngine;
         width_ = w;
@@ -35,7 +35,7 @@ public class EndScene implements IScene {
         this.win_ = win;
         this.sol_ = sol;
         tries_ = intentos;
-        callback= new ImageProcessingCallback() {
+        callback = new ImageProcessingCallback() {
             @Override
             public void processImage(Bitmap bitmap) {
                 iEngine_.getMobile().processImage(bitmap);
@@ -50,22 +50,46 @@ public class EndScene implements IScene {
             this.font_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 40, true, true);
         else this.font_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 40, false, true);
         graph.setFont(this.font_);
-        font1_ =graph.newFont("Hexenkoetel-qZRv1.ttf",20,false,false);
-        font2_ =graph.newFont("Hexenkoetel-qZRv1.ttf",30,false,false);
+        font1_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
+        font2_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 30, false, false);
         myButtonSound_ = iEngine_.getAudio().newSound("buttonClicked.wav");
-        this.button1_ = new ButtonLevel("Volver Jugar", font1_, 0XFFFB839B
+        this.playAgainButton_ = new Button("Volver Jugar", font1_, 0XFFFB839B
                 , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 20,
-                SceneNames.GAME, GameManager.getInstance_().getLevel().getLevelDiff_(), myButtonSound_);
+                /* SceneNames.GAME, GameManager.getInstance_().getLevel().getLevelDiff_(),*/ myButtonSound_, new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                //GameScene gameScene = (GameScene) scene_;
+                GameInit gameInit = new GameInit(GameManager.getInstance_().getLevel().getLevelDiff_());
+                GameManager.getInstance_().setLevel(gameInit.getDifficulty());
+                Engine engine_ = GameManager.getInstance_().getIEngine();
+                engine_.getAudio().playSound(myButtonSound_, 0);
+                GameManager.getInstance_().changeScene(new GameScene(engine_, width_, height_));
+            }
+        });
 
-        this.button2_ = new Button("Elegir Dificultad", font1_,0XFFFB839B
-                ,150,50, 35,this.width_ /2-(150/2), this.height_ /2+90,
-                SceneNames.LEVEL, myButtonSound_);
-        this.buttonReward = new Button("Nuevas pistas", font1_,0XFFFB839B,
-                150,50,35,this.width_ /2-(150/2), this.height_/2+180, SceneNames.GAME, myButtonSound_);
-        addGameObject(button1_);
-        addGameObject(button2_);
-        addGameObject(buttonReward);
-        graph.generateScreenshot(0,0,width_,height_,callback);
+        this.buttonDificulty_ = new Button("Elegir Dificultad", font1_, 0XFFFB839B
+                , 150, 50, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 90,
+                /*SceneNames.LEVEL,*/ myButtonSound_, new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                GameInit gameInit = new GameInit(GameManager.getInstance_().getLevel().getLevelDiff_());
+                GameManager.getInstance_().setLevel(gameInit.getDifficulty());
+                GameManager.getInstance_().changeScene(new LevelScene(iEngine_, width_, height_));
+                //scene_ = new LevelScene(engine_, sceneWidth, sceneHeight);
+            }
+        });
+        this.buttonReward_ = new Button("Nuevas pistas", font1_, 0XFFFB839B,
+                150, 50, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 180,
+                /* SceneNames.GAME,*/ myButtonSound_, new ButtonClickListener() {
+            @Override
+            public void onClick() {
+
+            }
+        });
+        addGameObject(playAgainButton_);
+        addGameObject(buttonDificulty_);
+        addGameObject(buttonReward_);
+        graph.generateScreenshot(0, 0, width_, height_, callback);
     }
 
 

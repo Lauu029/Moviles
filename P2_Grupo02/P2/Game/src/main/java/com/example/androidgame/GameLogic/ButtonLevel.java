@@ -8,7 +8,12 @@ public class ButtonLevel extends Button {
 
     ButtonLevel(String t, Font f, int c, int w, int h, int a, int x, int y,
                 SceneNames sceneNames, LevelDifficulty level, Sound buttonSound) {
-        super(t, f, c, w, h, a, x, y, sceneNames,buttonSound);
+        super(t, f, c, w, h, a, x, y, /*sceneNames,*/ buttonSound, new ButtonClickListener() {
+            @Override
+            public void onClick() {
+
+            }
+        });
         this.level_ = level;
     }
     @Override

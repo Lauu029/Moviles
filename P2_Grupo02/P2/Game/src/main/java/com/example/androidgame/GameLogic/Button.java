@@ -6,12 +6,7 @@ import com.example.androidengine.Graphics;
 import com.example.androidengine.IScene;
 import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
-enum ButtonType{
-    DALTONICS,
-    IMAGE,
-    LEVEL,
-    REWARD
-}
+
 public class Button extends GameObject {
     private String text_;
     private Font font_;
@@ -20,8 +15,9 @@ public class Button extends GameObject {
     private int width_ = 0, height_ = 0, posX_ = 0, posY_ = 0, arc_ = 0;
     private SceneNames sceneName_;
     private Sound mySound_;
-    private ButtonType type_;
-    Button(String t, Font f, int c, int w, int h, int a, int x, int y, SceneNames sceneNames, Sound buttonSound) {
+    private ButtonClickListener onClickFunction;
+
+    Button(String t, Font f, int c, int w, int h, int a, int x, int y,/* SceneNames sceneNames,*/ Sound buttonSound, ButtonClickListener function) {
         this.text_ = t;
         this.font_ = f;
         this.color_ = c;
@@ -30,8 +26,9 @@ public class Button extends GameObject {
         this.arc_ = a;
         this.posX_ = x;
         this.posY_ = y;
-        sceneName_ = sceneNames;
+        //sceneName_  = sceneNames;
         mySound_ =buttonSound;
+        this.onClickFunction = function;
     }
 
     public void update(double time) {
@@ -60,20 +57,21 @@ public class Button extends GameObject {
         if(event.type== TouchEvent.TouchEventType.TOUCH_UP){
             if (this.posX_ < event.x && this.posX_ + this.width_ > event.x
                     && this.posY_ < event.y && this.posY_ + this.height_ > event.y) {
-                Engine engine_ = GameManager.getInstance_().getIEngine();
-                int sceneWidth = GameManager.getInstance_().getwidth();
-                int sceneHeight = GameManager.getInstance_().getHeight_();
-                engine_.getAudio().playSound(mySound_,0);
-                switch (sceneName_) {
-                    case GAME:
-                        scene_ = new GameScene(engine_, sceneWidth, sceneHeight);
-                        break;
-                    case LEVEL:
-                        scene_ = new LevelScene(engine_, sceneWidth, sceneHeight);
-                        break;
-                }
-                actionButton();
-                GameManager.getInstance_().changeScene(scene_);
+//                Engine engine_ = GameManager.getInstance_().getIEngine();
+//                int sceneWidth = GameManager.getInstance_().getwidth();
+//                int sceneHeight = GameManager.getInstance_().getHeight_();
+//                engine_.getAudio().playSound(mySound_,0);
+//                switch (sceneName_) {
+//                    case GAME:
+//                        scene_ = new GameScene(engine_, sceneWidth, sceneHeight);
+//                        break;
+//                    case LEVEL:
+//                        scene_ = new LevelScene(engine_, sceneWidth, sceneHeight);
+//                        break;
+//                }
+//                actionButton();
+//                GameManager.getInstance_().changeScene(scene_);
+                onClickFunction.onClick();
                 return true;
             }
         }

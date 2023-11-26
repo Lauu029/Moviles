@@ -43,8 +43,20 @@ public class LevelScene implements IScene {
         font_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
         myButtonSound_ = iEngine_.getAudio().newSound("buttonClicked.wav");
         for (int i = 0; i < 4; i++) {
-            ButtonLevel but = new ButtonLevel(names[i], font_,
-                    colors[i], 150, 50, 35, this.width_ / 2 - 150 / 2, 100 * i + 100, SceneNames.GAME, diff[i], myButtonSound_);
+
+            int finalI = i;
+            Button but = new Button(names[i], font_,
+                    colors[i], 150, 50, 35, this.width_ / 2 - 150 / 2, 100 * i + 100,
+                    /*SceneNames.GAME, diff[i],*/ myButtonSound_, new ButtonClickListener() {
+                @Override
+                public void onClick() {
+                    //GameScene gameScene = (GameScene) scene_;
+                    GameInit gameInit = new GameInit( diff[finalI]);
+                    GameManager.getInstance_().setLevel(gameInit.getDifficulty());
+                    GameManager.getInstance_().changeScene(new GameScene(iEngine_, width_, height_));
+                    //scene_ = new GameScene(engine_, sceneWidth, sceneHeight);
+                }
+            });
 
             this.addGameObject(but);
         }

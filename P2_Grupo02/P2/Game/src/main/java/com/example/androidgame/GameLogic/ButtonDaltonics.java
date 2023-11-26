@@ -41,7 +41,6 @@ public class ButtonDaltonics extends GameObject {
         if (GameManager.getInstance_().getDaltonic())
             graph.drawImage(buttonImage_open_, xText, yText, width_, height_);
         else graph.drawImage(buttonImage_closed_, xText, yText, width_, height_);
-
     }
 
     @Override
