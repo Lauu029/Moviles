@@ -18,7 +18,7 @@ public class EndScene implements IScene {
     private int[] sol_;
     private ArrayList<GameObject> gameObjects_ = new ArrayList<>();
     private int width_, height_;
-    private Button buttonDificulty_, buttonReward_, playAgainButton_;
+    private Button buttonDificulty_, buttonReward_, playAgainButton_,shareRecordButton_;
     private Font font_, font1_, font2_;
     private int tries_;
     private Sound myButtonSound_;
@@ -86,10 +86,18 @@ public class EndScene implements IScene {
 
             }
         });
+        this.shareRecordButton_ = new Button("Compartir", font1_, 0XFFFB839B,
+                150, 50, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 270,
+                myButtonSound_, new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                graph.generateScreenshot(0, 0, width_, height_, callback);
+            }
+        });
         addGameObject(playAgainButton_);
         addGameObject(buttonDificulty_);
         addGameObject(buttonReward_);
-        graph.generateScreenshot(0, 0, width_, height_, callback);
+        addGameObject(shareRecordButton_);
     }
 
 
