@@ -3,7 +3,7 @@ package com.example.engine;
 import java.io.IOException;
 
 public interface IGraphics {
-    IImage newImage(String name) throws IOException; //Crea una nueva imagen
+    IImage newImage(String name) ; //Crea una nueva imagen
 
     IFont newFont(String fontname, int size, boolean isBold,boolean italic); //Crea una nueva tipografia
     void setFont(IFont font); //Establece una tipografia

@@ -6,8 +6,6 @@ import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
 
 public class ButtonColorBlind extends ButtonImage {
-
-    private Image buttonImage_closed_;
     private Image buttonImage_open_;
 
     ButtonColorBlind(String eyeOpenImage, String eyeClosedImage,int w, int h, int x, int y, Sound buttonSound, ButtonClickListener function) {

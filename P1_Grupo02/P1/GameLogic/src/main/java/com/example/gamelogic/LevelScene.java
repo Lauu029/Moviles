@@ -43,14 +43,28 @@ public class LevelScene implements IScene {
         font_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
         myButtonSound_ = iEngine_.getAudio().newSound("buttonClicked.wav");
         for (int i = 0; i < 4; i++) {
-            ButtonLevel but = new ButtonLevel(names[i], font_,
-                    colors[i], 150, 50, 35, this.width_ / 2 - 150 / 2, 100 * i + 100, SceneNames.GAME, diff[i], myButtonSound_);
+            int finalI = i;
+            final LevelDifficulty difficulty_=diff[i];
+            Button but = new Button(names[i], font_, colors[i], 150, 50, 35, this.width_ / 2 - 150 / 2,
+                    100 * i + 100, myButtonSound_, new ButtonClickListener() {
+                @Override
+                public void onClick() {
+                    GameInit gameInit = new GameInit(difficulty_);
+                    GameManager.getInstance_().setLevel(gameInit.getDifficulty());
+                    GameManager.getInstance_().changeScene(new GameScene(iEngine_, width_, height_));
+                }
+            });
 
             this.addGameObject(but);
         }
         myArrowSound_=iEngine_.getAudio().newSound("arrowButton.wav");
-        ButtonImage but2 = new ButtonImage("flecha.png", 40, 40, 0, 0, SceneNames.MENU,myArrowSound_);
-        this.addGameObject(but2);
+        ButtonImage returnButton_ = new ButtonImage("flecha.png", 40, 40, 0, 0, myArrowSound_, new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                GameManager.getInstance_().changeScene(new MenuScene(iEngine_, width_, height_));
+            }
+        });
+        this.addGameObject(returnButton_);
     }
 
 

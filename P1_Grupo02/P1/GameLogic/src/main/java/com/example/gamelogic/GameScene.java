@@ -8,6 +8,7 @@ import com.example.engine.IScene;
 import com.example.engine.ISound;
 import com.example.engine.TouchEvent;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameScene implements IScene {
@@ -15,7 +16,7 @@ public class GameScene implements IScene {
     private IEngine iEngine_;
     private ArrayList<IGameObject> iGameObjects_ = new ArrayList<>();
     private int width_, height_;
-    private ButtonDaltonics buttonDaltonics_;
+    private ButtonColorBlind buttonColorBlind_;
     private Board gameBoard_;
     private IFont font_;
     private Difficulty lev_;
@@ -37,15 +38,28 @@ public class GameScene implements IScene {
         this.gameBoard_ = new Board( lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_);
         addGameObject(gameBoard_);
         gm_.setBoard_(this.gameBoard_);
-        this.buttonDaltonics_ =new ButtonDaltonics(70,50,this.width_ -70,1);
-        addGameObject(buttonDaltonics_);
+        ISound buttonSound= GameManager.getInstance_().getIEngine().getAudio().newSound("colorBlindButton.wav");
+        this.buttonColorBlind_ =new ButtonColorBlind("eye_open.png","eye_closed.png",
+                70, 50, this.width_ - 70, 0,buttonSound, new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                GameManager.getInstance_().changeDaltonicsMode();
+            }
+        });
+        addGameObject(buttonColorBlind_);
         iEngine_.getGraphics().setColor(0xFF000000);
         for (IGameObject g : iGameObjects_) {
             g.init();
         }
         myCrossSound_=iEngine_.getAudio().newSound("crossButton.wav");
-        ButtonImage but2=new ButtonImage("cruz.png",40,40, 0,0,SceneNames.LEVEL,myCrossSound_);
-        this.addGameObject(but2);
+        ButtonImage exitLevel_=new ButtonImage("cruz.png",  40, 40, 0, 0, /*SceneNames.LEVEL,*/
+                myCrossSound_, new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                GameManager.getInstance_().changeScene(new LevelScene(iEngine_, width_, height_));
+            }
+        });
+        this.addGameObject(exitLevel_);
     }
 
     public void addGameObject(IGameObject gm) {
