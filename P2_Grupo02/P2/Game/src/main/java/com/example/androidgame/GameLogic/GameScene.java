@@ -1,17 +1,11 @@
 package com.example.androidgame.GameLogic;
 
-import android.app.Activity;
-import android.util.Log;
-import android.view.View;
-
 import com.example.androidengine.Engine;
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.IScene;
 import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 
@@ -20,7 +14,7 @@ public class GameScene implements IScene {
     private Engine iEngine_;
     private ArrayList<GameObject> gameObjects_ = new ArrayList<>();
     private int width_, height_;
-    private ButtonDaltonics buttonDaltonics_;
+    private ButtonColorBlind buttonColorBlind_;
     private Board gameBoard_;
     private Font font_;
     private Difficulty lev_;
@@ -41,8 +35,15 @@ public class GameScene implements IScene {
         this.gameBoard_ = new Board( lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_);
         addGameObject(gameBoard_);
         gm_.setBoard_(this.gameBoard_);
-        this.buttonDaltonics_ =new ButtonDaltonics(70,50,this.width_ -70,1);
-        addGameObject(buttonDaltonics_);
+        Sound buttonSound= GameManager.getInstance_().getIEngine().getAudio().newSound("colorBlindButton.wav");
+        this.buttonColorBlind_ =new ButtonColorBlind("eye_open.png","eye_closed.png",
+                70, 50, this.width_ - 70, 0,buttonSound, new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                GameManager.getInstance_().changeDaltonicsMode();
+            }
+        });
+        addGameObject(buttonColorBlind_);
         iEngine_.getGraphics().setColor(0xFF000000);
         for (GameObject g : gameObjects_) {
             g.init();

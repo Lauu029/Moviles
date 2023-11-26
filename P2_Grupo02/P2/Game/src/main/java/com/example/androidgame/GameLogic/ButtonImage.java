@@ -8,9 +8,8 @@ import com.example.androidengine.TouchEvent;
 
 import java.io.IOException;
 
-//public class ButtonImage extends GameObject {
 public class ButtonImage extends Button {
-    private Image buttonImage_;
+    protected Image buttonImage_;
 
     ButtonImage(String image, int w, int h, int x, int y, Sound buttonSound, ButtonClickListener function) {
         super("", null, 0, w, h, 0, x, y, buttonSound, function);
@@ -22,9 +21,6 @@ public class ButtonImage extends Button {
 
     @Override
     public void render(Graphics graph) {
-        int xText, yText;
-        xText = this.posX_;
-        yText = this.posY_;
-        graph.drawImage(buttonImage_, xText, yText, width_, height_);
+        graph.drawImage(buttonImage_, this.posX_, this.posY_, width_, height_);
     }
 }

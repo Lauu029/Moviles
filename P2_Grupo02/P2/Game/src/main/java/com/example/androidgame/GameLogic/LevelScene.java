@@ -45,24 +45,20 @@ public class LevelScene implements IScene {
         for (int i = 0; i < 4; i++) {
 
             int finalI = i;
-            Button but = new Button(names[i], font_,
-                    colors[i], 150, 50, 35, this.width_ / 2 - 150 / 2, 100 * i + 100,
-                    /*SceneNames.GAME, diff[i],*/ myButtonSound_, new ButtonClickListener() {
+            Button but = new Button(names[i], font_, colors[i], 150, 50, 35, this.width_ / 2 - 150 / 2,
+                    100 * i + 100, myButtonSound_, new ButtonClickListener() {
                 @Override
                 public void onClick() {
-                    //GameScene gameScene = (GameScene) scene_;
                     GameInit gameInit = new GameInit(diff[finalI]);
                     GameManager.getInstance_().setLevel(gameInit.getDifficulty());
                     GameManager.getInstance_().changeScene(new GameScene(iEngine_, width_, height_));
-                    //scene_ = new GameScene(engine_, sceneWidth, sceneHeight);
                 }
             });
 
             this.addGameObject(but);
         }
         myArrowSound_ = iEngine_.getAudio().newSound("arrowButton.wav");
-        ButtonImage returnButton_ = new ButtonImage("flecha.png", 40, 40, 0, 0,
-                /* SceneNames.MENU,*/myArrowSound_, new ButtonClickListener() {
+        ButtonImage returnButton_ = new ButtonImage("flecha.png", 40, 40, 0, 0, myArrowSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
                 GameManager.getInstance_().changeScene(new MenuScene(iEngine_, width_, height_));

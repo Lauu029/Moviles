@@ -44,8 +44,7 @@ public class MenuScene implements IScene {
         myButtonSound_ = iEngine_.getAudio().newSound("menuButton.wav");
 
         this.playButton_ = new Button("Jugar", fontButton_, 0XFFFB839B
-                , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 20, /*SceneNames.LEVEL,*/
-                myButtonSound_, new ButtonClickListener() {
+                , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 20,myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
                 GameManager.getInstance_().changeScene(new LevelScene(iEngine_, width_, height_));

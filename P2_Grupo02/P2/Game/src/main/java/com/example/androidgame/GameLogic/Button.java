@@ -12,7 +12,7 @@ public class Button extends GameObject {
     private Font font_;
     private int color_;
     protected int width_ = 0, height_ = 0, posX_ = 0, posY_ = 0, arc_ = 0;
-    private Sound mySound_;
+    protected Sound mySound_;
     private ButtonClickListener onClickFunction;
 
     Button(String t, Font f, int c, int w, int h, int a, int x, int y, Sound buttonSound, ButtonClickListener function) {
@@ -54,8 +54,17 @@ public class Button extends GameObject {
             if (this.posX_ < event.x && this.posX_ + this.width_ > event.x
                     && this.posY_ < event.y && this.posY_ + this.height_ > event.y) {
                 onClickFunction.onClick();
+                GameManager.getInstance_().getIEngine().getAudio().playSound(mySound_, 0);
                 return true;
             }
+        }
+        if (event.type == TouchEvent.TouchEventType.TOUCH_DOWN) {
+            if (this.posX_ < event.x && this.posX_ + this.width_ > event.x
+                    && this.posY_ < event.y && this.posY_ + this.height_ > event.y) {
+                GameManager.getInstance_().getIEngine().getAudio().stopSound(mySound_);
+                return true;
+            }
+
         }
         return false;
     }
