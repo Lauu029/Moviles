@@ -1,7 +1,6 @@
 package com.example.androidgame.GameLogic;
 
 
-
 import com.example.androidengine.Engine;
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
@@ -19,6 +18,7 @@ public class LevelScene implements IScene {
     private Font font_;
     private Sound myButtonSound_;
     private Sound myArrowSound_;
+
     public LevelScene(Engine IEngine, int w, int h) {
         iEngine_ = IEngine;
         width_ = w;
@@ -51,7 +51,7 @@ public class LevelScene implements IScene {
                 @Override
                 public void onClick() {
                     //GameScene gameScene = (GameScene) scene_;
-                    GameInit gameInit = new GameInit( diff[finalI]);
+                    GameInit gameInit = new GameInit(diff[finalI]);
                     GameManager.getInstance_().setLevel(gameInit.getDifficulty());
                     GameManager.getInstance_().changeScene(new GameScene(iEngine_, width_, height_));
                     //scene_ = new GameScene(engine_, sceneWidth, sceneHeight);
@@ -60,9 +60,15 @@ public class LevelScene implements IScene {
 
             this.addGameObject(but);
         }
-        myArrowSound_=iEngine_.getAudio().newSound("arrowButton.wav");
-        ButtonImage but2 = new ButtonImage("flecha.png", 40, 40, 0, 0, SceneNames.MENU,myArrowSound_);
-        this.addGameObject(but2);
+        myArrowSound_ = iEngine_.getAudio().newSound("arrowButton.wav");
+        ButtonImage returnButton_ = new ButtonImage("flecha.png", 40, 40, 0, 0,
+                /* SceneNames.MENU,*/myArrowSound_, new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                GameManager.getInstance_().changeScene(new MenuScene(iEngine_, width_, height_));
+            }
+        });
+        this.addGameObject(returnButton_);
         //graph.generateScreenshot(0,0,100,100);
         //iEngine_.getMobile().shareImage(graph.processImage(),"mi imagen");
     }

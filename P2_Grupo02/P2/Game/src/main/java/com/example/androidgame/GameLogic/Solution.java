@@ -42,7 +42,6 @@ public class Solution {
                 s.put(i, false);
                 solution.put(color, s);
             }
-
             sol_[i] = color;
         }
     }
@@ -111,6 +110,4 @@ public class Solution {
         correctColor_ = 0;
         correctPos_ = 0;
     }
-
-
 }

@@ -10,14 +10,12 @@ import com.example.androidengine.TouchEvent;
 public class Button extends GameObject {
     private String text_;
     private Font font_;
-    protected IScene scene_ = null;
     private int color_;
-    private int width_ = 0, height_ = 0, posX_ = 0, posY_ = 0, arc_ = 0;
-    private SceneNames sceneName_;
+    protected int width_ = 0, height_ = 0, posX_ = 0, posY_ = 0, arc_ = 0;
     private Sound mySound_;
     private ButtonClickListener onClickFunction;
 
-    Button(String t, Font f, int c, int w, int h, int a, int x, int y,/* SceneNames sceneNames,*/ Sound buttonSound, ButtonClickListener function) {
+    Button(String t, Font f, int c, int w, int h, int a, int x, int y, Sound buttonSound, ButtonClickListener function) {
         this.text_ = t;
         this.font_ = f;
         this.color_ = c;
@@ -26,7 +24,6 @@ public class Button extends GameObject {
         this.arc_ = a;
         this.posX_ = x;
         this.posY_ = y;
-        //sceneName_  = sceneNames;
         mySound_ =buttonSound;
         this.onClickFunction = function;
     }
@@ -47,30 +44,15 @@ public class Button extends GameObject {
         graph.drawText(this.text_, xText, yText);
     }
 
-    public void init() {
-    }
+    @Override
+    void init() {
 
-    void actionButton() {
     }
 
     public boolean handleInput(TouchEvent event) {
         if(event.type== TouchEvent.TouchEventType.TOUCH_UP){
             if (this.posX_ < event.x && this.posX_ + this.width_ > event.x
                     && this.posY_ < event.y && this.posY_ + this.height_ > event.y) {
-//                Engine engine_ = GameManager.getInstance_().getIEngine();
-//                int sceneWidth = GameManager.getInstance_().getwidth();
-//                int sceneHeight = GameManager.getInstance_().getHeight_();
-//                engine_.getAudio().playSound(mySound_,0);
-//                switch (sceneName_) {
-//                    case GAME:
-//                        scene_ = new GameScene(engine_, sceneWidth, sceneHeight);
-//                        break;
-//                    case LEVEL:
-//                        scene_ = new LevelScene(engine_, sceneWidth, sceneHeight);
-//                        break;
-//                }
-//                actionButton();
-//                GameManager.getInstance_().changeScene(scene_);
                 onClickFunction.onClick();
                 return true;
             }
