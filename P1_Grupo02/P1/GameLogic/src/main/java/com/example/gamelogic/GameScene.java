@@ -38,7 +38,7 @@ public class GameScene implements IScene {
         this.gameBoard_ = new Board( lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_);
         addGameObject(gameBoard_);
         gm_.setBoard_(this.gameBoard_);
-        ISound buttonSound= GameManager.getInstance_().getIEngine().getAudio().newSound("colorBlindButton.wav");
+        ISound buttonSound= GameManager.getInstance_().getIEngine().getAudio().newSound("daltonicsButton.wav");
         this.buttonColorBlind_ =new ButtonColorBlind("eye_open.png","eye_closed.png",
                 70, 50, this.width_ - 70, 0,buttonSound, new ButtonClickListener() {
             @Override
