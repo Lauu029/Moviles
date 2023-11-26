@@ -75,7 +75,6 @@ public class MenuScene implements IScene {
             for (TouchEvent event : events)
                 if (g.handleInput(event))
                     return;
-
         }
     }
 

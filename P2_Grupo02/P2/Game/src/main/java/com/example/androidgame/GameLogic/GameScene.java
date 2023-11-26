@@ -47,9 +47,15 @@ public class GameScene implements IScene {
         for (GameObject g : gameObjects_) {
             g.init();
         }
-        myCrossSound_=iEngine_.getAudio().newSound("crossButton.wav");
-        ButtonImage but2=new ButtonImage("cruz.png",40,40, 0,0,SceneNames.LEVEL,myCrossSound_);
-        this.addGameObject(but2);
+        myCrossSound_ = iEngine_.getAudio().newSound("crossButton.wav");
+        ButtonImage exitLevel_=new ButtonImage("cruz.png",  40, 40, 0, 0, /*SceneNames.LEVEL,*/
+                myCrossSound_, new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                GameManager.getInstance_().changeScene(new LevelScene(iEngine_, width_, height_));
+            }
+        });
+        this.addGameObject(exitLevel_);
 
     }
 
