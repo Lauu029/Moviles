@@ -168,9 +168,6 @@ public class GraphicsAndroid implements IGraphics {
 
         myPaint_.setTypeface(aFont.getFont()); //Establece el tipo de letra a usar
         myPaint_.setTextSize(aFont.getSize_());
-
-        myPaint_.setFakeBoldText(aFont.isBold_()); //Pone la letra en negrita
-        myPaint_.setTextSkewX(aFont.isItalic_() ? -0.25f : 0.0f); //Pone la letra en cursiva
     }
     //Metodo para dibujar un circulo con relleno
     @Override

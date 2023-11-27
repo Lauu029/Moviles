@@ -42,7 +42,7 @@ public class FontDesktop implements IFont {
 
         // Determina el estilo de la fuente en función de las opciones de negrita y cursiva
         int style = Font.PLAIN;
-        if (bold_) {
+        if (this.bold_) {
             style |= Font.BOLD;
         }
         if (this.italic_) {

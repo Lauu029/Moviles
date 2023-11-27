@@ -37,7 +37,7 @@ public class GameScene implements IScene {
         gm_.setBoard_(this.gameBoard_);
         Sound buttonSound= GameManager.getInstance_().getIEngine().getAudio().newSound("colorBlindButton.wav");
         this.buttonColorBlind_ =new ButtonColorBlind("eye_open.png","eye_closed.png",
-                70, 50, this.width_ - 70, 0,buttonSound, new ButtonClickListener() {
+                40, 40, this.width_ - 45, 0,buttonSound, new ButtonClickListener() {
             @Override
             public void onClick() {
                 GameManager.getInstance_().changeDaltonicsMode();
@@ -49,7 +49,7 @@ public class GameScene implements IScene {
             g.init();
         }
         myCrossSound_ = iEngine_.getAudio().newSound("crossButton.wav");
-        ButtonImage exitLevel_=new ButtonImage("cruz.png",  40, 40, 0, 0, /*SceneNames.LEVEL,*/
+        ButtonImage exitLevel_=new ButtonImage("cruz.png",  40, 40, 5, 0, /*SceneNames.LEVEL,*/
                 myCrossSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
