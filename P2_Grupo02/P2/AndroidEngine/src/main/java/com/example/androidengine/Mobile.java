@@ -19,6 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -146,9 +148,9 @@ public class Mobile {
 
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context_, CHANNEL_ID).
-                setSmallIcon(icono).setContentTitle("OREINCHI MI GATITO").
-                setContentText(":) UNA NOTIFICACION").
-                setStyle(new NotificationCompat.BigTextStyle().bigText("Much longer text that cannot fit one line...")).
+                setSmallIcon(icono).setContentTitle("MASTERMIND").
+                setContentText("GANA 10 MONEDAS SI PULAS ESTA NOTIFICACION").
+                setStyle(new NotificationCompat.BigTextStyle().bigText("Tienes muchos niveles que te esperan")).
                 setPriority(NotificationCompat.PRIORITY_DEFAULT).setContentIntent(pendingIntent);
 
 
@@ -161,5 +163,8 @@ public class Mobile {
             return;
         }
         notificationManager.notify(1, builder.build());
+    }
+    public void sendWork(WorkRequest work){
+        WorkManager.getInstance(this.myActivity_.getApplicationContext()).enqueue(work);
     }
 }

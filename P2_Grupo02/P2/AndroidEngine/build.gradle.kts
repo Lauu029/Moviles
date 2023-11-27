@@ -30,6 +30,7 @@ android {
 
 dependencies {
     implementation("androidx.core:core-ktx:latest_version")
+    implementation ("androidx.work:work-runtime:2.7.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.8.0")
     implementation("com.google.android.gms:play-services-ads:22.5.0")

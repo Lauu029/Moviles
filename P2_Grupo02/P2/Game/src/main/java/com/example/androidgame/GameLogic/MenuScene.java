@@ -4,6 +4,9 @@ package com.example.androidgame.GameLogic;
 
 import android.util.Log;
 
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkRequest;
+
 import com.example.androidengine.Engine;
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
@@ -16,6 +19,7 @@ import com.example.androidgame.R;
 
 import java.io.Console;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class MenuScene implements IScene {
 
@@ -53,6 +57,10 @@ public class MenuScene implements IScene {
 
         addGameObject(playButton_);
         myIcon_ = graph.newImage("cerebro.png");
+//        WorkRequest workRequest = new OneTimeWorkRequest.Builder(TimedWorker.class)
+//                .setInitialDelay(20, TimeUnit.SECONDS)
+//                .setInputData(inputData) // Corregido el nombre del método
+//                .build();
         iEngine_.getMobile().createNotification(R.drawable.ic_launcher_foreground);
 
     }
