@@ -41,8 +41,6 @@ public class AudioDesktop implements IAudio {
             usedClip_.stop(); // Detiene la reproducción del sonido
             usedClip_.close(); // Cierra el clip para liberar recursos
             dSound.returnClip(usedClip_);
-        }else {
-            throw new IllegalArgumentException("El sonido no se puede pausar, no está en uso.");
         }
     }
 }

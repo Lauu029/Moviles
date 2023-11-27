@@ -17,7 +17,7 @@ public class MenuScene implements IScene {
     private IEngine iEngine_;
     private ArrayList<IGameObject> iGameObjects_ = new ArrayList<>();
     private int width_, height_;
-    private Button button_;
+    private Button playButton_;
     private IFont font_;
     private IFont fontButton_;
     private IImage myIcon_;
@@ -38,16 +38,18 @@ public class MenuScene implements IScene {
         fontButton_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
         myButtonSound_ = iEngine_.getAudio().newSound("menuButton.wav");
 
-        this.button_ = new Button("Jugar", fontButton_, 0XFFFB839B
-                , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 20, SceneNames.LEVEL, myButtonSound_);
+        this.playButton_ = new Button("Jugar", fontButton_, 0XFFFB839B
+                , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 20, myButtonSound_, new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                GameManager.getInstance_().changeScene(new LevelScene(iEngine_, width_, height_));
+            }
+        });
 
-        addGameObject(button_);
+        addGameObject(playButton_);
 
-        try {
-            myIcon_ = graph.newImage("cerebro.png");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        myIcon_ = graph.newImage("cerebro.png");
+
 
     }
 

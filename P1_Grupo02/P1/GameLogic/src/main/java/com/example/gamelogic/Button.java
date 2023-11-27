@@ -13,10 +13,11 @@ public class Button implements IGameObject {
     private IFont font_;
     protected IScene scene_ = null;
     private int color_;
-    private int width_ = 0, height_ = 0, posX_ = 0, posY_ = 0, arc_ = 0;
+    protected int width_ = 0, height_ = 0, posX_ = 0, posY_ = 0, arc_ = 0;
     private SceneNames sceneName_;
-    private ISound mySound_;
-    Button(String t, IFont f, int c, int w, int h, int a, int x, int y, SceneNames sceneNames, ISound buttonSound) {
+    protected ISound mySound_;
+    private ButtonClickListener onClickFunction;
+    Button(String t, IFont f, int c, int w, int h, int a, int x, int y, ISound buttonSound, ButtonClickListener function) {
         this.text_ = t;
         this.font_ = f;
         this.color_ = c;
@@ -25,8 +26,8 @@ public class Button implements IGameObject {
         this.arc_ = a;
         this.posX_ = x;
         this.posY_ = y;
-        sceneName_ = sceneNames;
         mySound_ =buttonSound;
+        this.onClickFunction = function;
     }
 
     @Override
@@ -51,28 +52,14 @@ public class Button implements IGameObject {
     public void init() {
     }
 
-    void actionButton() {
-    }
-
     @Override
     public boolean handleInput(TouchEvent event) {
-        if(event.type== TouchEvent.TouchEventType.TOUCH_UP){
+        if (event.type == TouchEvent.TouchEventType.TOUCH_DOWN) {
             if (this.posX_ < event.x && this.posX_ + this.width_ > event.x
                     && this.posY_ < event.y && this.posY_ + this.height_ > event.y) {
-                IEngine engine_ = GameManager.getInstance_().getIEngine();
-                int sceneWidth = GameManager.getInstance_().getwidth();
-                int sceneHeight = GameManager.getInstance_().getHeight_();
-                engine_.getAudio().playSound(mySound_,0);
-                switch (sceneName_) {
-                    case GAME:
-                        scene_ = new GameScene(engine_, sceneWidth, sceneHeight);
-                        break;
-                    case LEVEL:
-                        scene_ = new LevelScene(engine_, sceneWidth, sceneHeight);
-                        break;
-                }
-                actionButton();
-                GameManager.getInstance_().changeScene(scene_);
+                //GameManager.getInstance_().getIEngine().getAudio().stopSound(mySound_);
+                onClickFunction.onClick();
+                GameManager.getInstance_().getIEngine().getAudio().playSound(mySound_, 0);
                 return true;
             }
         }

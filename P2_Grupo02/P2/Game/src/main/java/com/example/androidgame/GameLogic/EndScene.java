@@ -79,7 +79,7 @@ public class EndScene implements IScene {
             }
         });
         this.buttonReward_ = new Button("Nuevas pistas", font1_, 0XFFFB839B,
-                150, 50, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 180,
+                150, 50, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 160,
                 /* SceneNames.GAME,*/ myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
@@ -87,11 +87,11 @@ public class EndScene implements IScene {
             }
         });
         this.shareRecordButton_ = new Button("Compartir", font1_, 0XFFFB839B,
-                150, 50, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 270,
+                150, 50, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 230,
                 myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                graph.generateScreenshot(0, 0, width_, height_, callback);
+                graph.generateScreenshot(0, 0, width_, height_ / 2 - 40, callback);
             }
         });
         addGameObject(playAgainButton_);
