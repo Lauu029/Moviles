@@ -153,9 +153,6 @@ public class Graphics {
 
         myPaint_.setTypeface(font.getFont()); //Establece el tipo de letra a usar
         myPaint_.setTextSize(font.getSize_());
-
-        myPaint_.setFakeBoldText(font.isBold_()); //Pone la letra en negrita
-        myPaint_.setTextSkewX(font.isItalic_() ? -0.25f : 0.0f); //Pone la letra en cursiva
     }
     //Metodo para dibujar un circulo con relleno
     public void drawCircle(int cx, int cy, int radius) {
