@@ -26,6 +26,8 @@ public class MenuScene implements IScene {
     private ArrayList<GameObject> gameObjects_ = new ArrayList<>();
     private int width_, height_;
     private Button playButton_;
+    private Button storeButton_;
+    private Button mundoButton_;
     private Font font_;
     private Font fontButton_;
     private Image myIcon_;
@@ -46,8 +48,22 @@ public class MenuScene implements IScene {
         fontButton_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
         myButtonSound_ = iEngine_.getAudio().newSound("menuButton.wav");
 
-        this.playButton_ = new Button("Jugar", fontButton_, 0XFFFB839B
-                , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 20, myButtonSound_, new ButtonClickListener() {
+        this.playButton_ = new Button("Partida Rapida", fontButton_, 0XFFFB839B
+                , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 -80, myButtonSound_, new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                GameManager.getInstance_().changeScene(new LevelScene());
+            }
+        });
+        this.mundoButton_ = new Button("Explorar Mundos", fontButton_, 0XFFFB839B
+                , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 , myButtonSound_, new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                GameManager.getInstance_().changeScene(new LevelScene());
+            }
+        });
+        this.storeButton_ = new Button("Personalizar", fontButton_, 0XFFbf5061
+                , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 120, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
                 GameManager.getInstance_().changeScene(new LevelScene());
@@ -55,6 +71,8 @@ public class MenuScene implements IScene {
         });
 
         addGameObject(playButton_);
+        addGameObject(storeButton_);
+        addGameObject(mundoButton_);
         myIcon_ = graph.newImage("cerebro.png");
 //        WorkRequest workRequest = new OneTimeWorkRequest.Builder(TimedWorker.class)
 //                .setInitialDelay(20, TimeUnit.SECONDS)
@@ -95,8 +113,8 @@ public class MenuScene implements IScene {
         }
         graph.setColor(0XFF222222);
         this.iEngine_.getGraphics().setFont(font_);
-        graph.drawText("MasterMind", width_ / 2, 100);
-        graph.drawImage(myIcon_, this.width_ / 2 - 80 / 2, this.height_ / 2 - 140, 80, 80);
+        graph.drawText("MasterMind", width_ / 2, 30);
+        graph.drawImage(myIcon_, this.width_ / 2 - 80 / 2, this.height_ / 2 - 220, 80, 80);
     }
 
     public void update(double time) {

@@ -21,7 +21,7 @@ public class Input {
         myInputHandler_.myPendingEventsClear(); // Limpia los eventos pendientes en el manejador de entrada
         return myTouchEvent_; // Devuelve la lista de eventos
     }
-    public void myEventsClear() {
+    public synchronized void myEventsClear() {
         myTouchEvent_.clear();
     } // Limpia la lista de eventos
 
