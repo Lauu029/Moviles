@@ -31,10 +31,10 @@ public class MenuScene implements IScene {
     private Image myIcon_;
     private Sound myButtonSound_;
 
-    public MenuScene(Engine IEngine, int w, int h) {
-        iEngine_ = IEngine;
-        width_ = w;
-        height_ = h;
+    public MenuScene() {
+        iEngine_ = GameManager.getInstance_().getIEngine();
+        width_ = GameManager.getInstance_().getwidth();
+        height_ = GameManager.getInstance_().getHeight_();
     }
 
     public void init() {
@@ -50,7 +50,7 @@ public class MenuScene implements IScene {
                 , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 20, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                GameManager.getInstance_().changeScene(new LevelScene(iEngine_, width_, height_));
+                GameManager.getInstance_().changeScene(new LevelScene());
             }
         });
 

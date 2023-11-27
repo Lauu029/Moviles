@@ -20,10 +20,10 @@ public class GameScene implements IScene {
     private Difficulty lev_;
     private GameManager gm_;
     private Sound myCrossSound_;
-    public GameScene(Engine IEngine, int w, int h) {
-        this.iEngine_ = IEngine;
-        this.width_ = w;
-        this.height_ = h;
+    public GameScene() {
+        iEngine_ = GameManager.getInstance_().getIEngine();
+        width_ = GameManager.getInstance_().getwidth();
+        height_ = GameManager.getInstance_().getHeight_();
     }
     //Inicializa los botones, el tablero y la solución
     public void init() {
@@ -53,7 +53,7 @@ public class GameScene implements IScene {
                 myCrossSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                GameManager.getInstance_().changeScene(new LevelScene(iEngine_, width_, height_));
+                GameManager.getInstance_().changeScene(new LevelScene());
             }
         });
         this.addGameObject(exitLevel_);
@@ -105,10 +105,10 @@ public class GameScene implements IScene {
             mySolution_.check(tempSol);
             int try_ = this.gameBoard_.getAcutalTry_();
             if (mySolution_.getCorrectPos(try_) == this.lev_.getSolutionColors()) {
-                EndScene end = new EndScene(this.iEngine_, this.width_, this.height_, true, mySolution_.getSol_(), try_);
+                EndScene end = new EndScene(true, mySolution_.getSol_(), try_);
                 this.gm_.changeScene(end);
             } else if (try_ == lev_.getTries() -1) {
-                EndScene end = new EndScene(this.iEngine_, this.width_, this.height_, false, mySolution_.getSol_(), try_);
+                EndScene end = new EndScene( false, mySolution_.getSol_(), try_);
                 this.gm_.changeScene(end);
             } else {
                 gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));

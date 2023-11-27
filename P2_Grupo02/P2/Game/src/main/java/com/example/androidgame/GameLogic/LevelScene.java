@@ -19,10 +19,10 @@ public class LevelScene implements IScene {
     private Sound myButtonSound_;
     private Sound myArrowSound_;
 
-    public LevelScene(Engine IEngine, int w, int h) {
-        iEngine_ = IEngine;
-        width_ = w;
-        height_ = h;
+    public LevelScene() {
+        iEngine_ = GameManager.getInstance_().getIEngine();
+        width_ = GameManager.getInstance_().getwidth();
+        height_ = GameManager.getInstance_().getHeight_();
     }
 
     @Override
@@ -51,7 +51,7 @@ public class LevelScene implements IScene {
                 public void onClick() {
                     GameInit gameInit = new GameInit(diff[finalI]);
                     GameManager.getInstance_().setLevel(gameInit.getDifficulty());
-                    GameManager.getInstance_().changeScene(new GameScene(iEngine_, width_, height_));
+                    GameManager.getInstance_().changeScene(new GameScene());
                 }
             });
 
@@ -61,7 +61,7 @@ public class LevelScene implements IScene {
         ButtonImage returnButton_ = new ButtonImage("flecha.png", 40, 40, 0, 0, myArrowSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                GameManager.getInstance_().changeScene(new MenuScene(iEngine_, width_, height_));
+                GameManager.getInstance_().changeScene(new MenuScene());
             }
         });
         this.addGameObject(returnButton_);

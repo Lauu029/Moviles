@@ -27,10 +27,10 @@ public class EndScene implements IScene {
     private boolean win_ = false;
     private ImageProcessingCallback callback;
 
-    public EndScene(Engine IEngine, int w, int h, boolean win, int[] sol, int intentos) {
-        iEngine_ = IEngine;
-        width_ = w;
-        height_ = h;
+    public EndScene( boolean win, int[] sol, int intentos) {
+        iEngine_ = GameManager.getInstance_().getIEngine();
+        width_ = GameManager.getInstance_().getwidth();
+        height_ = GameManager.getInstance_().getHeight_();
         System.out.print("Scene Width: " + width_ + " Scene Height: " + height_ + "\n");
         this.win_ = win;
         this.sol_ = sol;
@@ -63,7 +63,7 @@ public class EndScene implements IScene {
                 GameManager.getInstance_().setLevel(gameInit.getDifficulty());
                 Engine engine_ = GameManager.getInstance_().getIEngine();
                 engine_.getAudio().playSound(myButtonSound_, 0);
-                GameManager.getInstance_().changeScene(new GameScene(engine_, width_, height_));
+                GameManager.getInstance_().changeScene(new GameScene());
             }
         });
 
@@ -74,7 +74,7 @@ public class EndScene implements IScene {
             public void onClick() {
                 GameInit gameInit = new GameInit(GameManager.getInstance_().getLevel().getLevelDiff_());
                 GameManager.getInstance_().setLevel(gameInit.getDifficulty());
-                GameManager.getInstance_().changeScene(new LevelScene(iEngine_, width_, height_));
+                GameManager.getInstance_().changeScene(new LevelScene());
                 //scene_ = new LevelScene(engine_, sceneWidth, sceneHeight);
             }
         });
