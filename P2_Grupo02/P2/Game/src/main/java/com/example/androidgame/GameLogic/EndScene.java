@@ -91,7 +91,7 @@ public class EndScene implements IScene {
                 myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                graph.generateScreenshot(0, 0, width_, height_, callback);
+                graph.generateScreenshot(0, 0, width_, height_ / 2 - 40, callback);
             }
         });
         addGameObject(playAgainButton_);
