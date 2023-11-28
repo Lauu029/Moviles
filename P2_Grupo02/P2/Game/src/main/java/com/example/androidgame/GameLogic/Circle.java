@@ -27,7 +27,6 @@ public class Circle extends GameObject {
         this.posY_ = y;
         this.radius_ = r;
         this.row_ = row_;
-        this.gm_ = GameManager.getInstance_();
         this.isDaltonics_ = gm_.getDaltonic();
     }
 

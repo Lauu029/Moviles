@@ -66,7 +66,7 @@ public class MenuScene implements IScene {
                 , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 120, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                GameManager.getInstance_().changeScene(new LevelScene());
+                GameManager.getInstance_().changeScene(new ShopScene());
             }
         });
 

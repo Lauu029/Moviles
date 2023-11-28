@@ -37,7 +37,7 @@ public class TryCircle extends Circle {
                     this.color_ = 0xFFad909c;
                     this.hasColor_ = false;
                     this.text_ ="";
-                    gm_.putColorSolution(this.idRow_, -1);
+                    GameManager.getInstance_().putColorSolution(this.idRow_, -1);
                 }
                 return true;
             }
