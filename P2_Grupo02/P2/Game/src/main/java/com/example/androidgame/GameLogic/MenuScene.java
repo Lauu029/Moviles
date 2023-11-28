@@ -59,7 +59,7 @@ public class MenuScene extends Scene {
 //                .setInitialDelay(20, TimeUnit.SECONDS)
 //                .setInputData(inputData) // Corregido el nombre del método
 //                .build();
-        iEngine_.getMobile().createNotification(R.drawable.ic_launcher_foreground);
+        iEngine_.getMobile().createNotification(R.drawable.logo);
     }
 
     public void render() {

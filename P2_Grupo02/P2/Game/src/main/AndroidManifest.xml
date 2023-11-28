@@ -5,7 +5,7 @@
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="MasterMind"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.MasterMind">
         <meta-data
