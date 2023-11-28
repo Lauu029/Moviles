@@ -20,11 +20,7 @@ import java.io.Console;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-public class MenuScene implements IScene {
-
-    private Engine iEngine_;
-    private ArrayList<GameObject> gameObjects_ = new ArrayList<>();
-    private int width_, height_;
+public class MenuScene extends Scene {
     private Button playButton_;
     private Button storeButton_;
     private Button mundoButton_;
@@ -34,9 +30,7 @@ public class MenuScene implements IScene {
     private Sound myButtonSound_;
 
     public MenuScene() {
-        iEngine_ = GameManager.getInstance_().getIEngine();
-        width_ = GameManager.getInstance_().getwidth();
-        height_ = GameManager.getInstance_().getHeight_();
+        super();
     }
 
     public void init() {
@@ -79,47 +73,14 @@ public class MenuScene implements IScene {
 //                .setInputData(inputData) // Corregido el nombre del método
 //                .build();
         iEngine_.getMobile().createNotification(R.drawable.ic_launcher_foreground);
-
-    }
-
-    public void addGameObject(GameObject gm) {
-        gameObjects_.add(gm);
-    }
-
-    public int getHeight_() {
-        return height_;
-    }
-
-    public int getWidth_() {
-        return width_;
-    }
-
-    public void handleInput(ArrayList<TouchEvent> events) {
-        for (GameObject g : gameObjects_) {
-            for (TouchEvent event : events)
-                if (g.handleInput(event))
-                    return;
-        }
     }
 
     public void render() {
-        Graphics graph = iEngine_.getGraphics();
-
-        //Dibujamos un color de fondo para la escena
-        graph.clear(0xFFfff0f6);
-
-        for (int i = 0; i < gameObjects_.size(); i++) {
-            gameObjects_.get(i).render(graph);
-        }
-        graph.setColor(0XFF222222);
+        super.render();
+        iEngine_.getGraphics().setColor(0XFF222222);
         this.iEngine_.getGraphics().setFont(font_);
-        graph.drawText("MasterMind", width_ / 2, 30);
-        graph.drawImage(myIcon_, this.width_ / 2 - 80 / 2, this.height_ / 2 - 220, 80, 80);
+        iEngine_.getGraphics().drawText("MasterMind", width_ / 2, 30);
+        iEngine_.getGraphics().drawImage(myIcon_, this.width_ / 2 - 80 / 2, this.height_ / 2 - 220, 80, 80);
     }
 
-    public void update(double time) {
-        for (int i = 0; i < gameObjects_.size(); i++) {
-            gameObjects_.get(i).update(time);
-        }
-    }
 }

@@ -9,11 +9,8 @@ import com.example.androidengine.TouchEvent;
 
 import java.util.ArrayList;
 
-public class GameScene implements IScene {
+public class GameScene extends Scene {
     private Solution mySolution_;
-    private Engine iEngine_;
-    private ArrayList<GameObject> gameObjects_ = new ArrayList<>();
-    private int width_, height_;
     private ButtonColorBlind buttonColorBlind_;
     private Board gameBoard_;
     private Font font_;
@@ -21,9 +18,7 @@ public class GameScene implements IScene {
     private GameManager gm_;
     private Sound myCrossSound_;
     public GameScene() {
-        iEngine_ = GameManager.getInstance_().getIEngine();
-        width_ = GameManager.getInstance_().getwidth();
-        height_ = GameManager.getInstance_().getHeight_();
+       super();
     }
     //Inicializa los botones, el tablero y la solución
     public void init() {
@@ -57,37 +52,8 @@ public class GameScene implements IScene {
             }
         });
         this.addGameObject(exitLevel_);
-
     }
 
-    public void addGameObject(GameObject gm) {
-        gameObjects_.add(gm);
-    }
-
-    public int getHeight_() {
-        return height_;
-    }
-
-    public int getWidth_() {
-        return width_;
-    }
-
-    public void handleInput(ArrayList<TouchEvent> events) {
-        for (GameObject g : gameObjects_) {
-            for (TouchEvent event : events) {
-                if (g.handleInput(event))
-                    return;
-            }
-        }
-    }
-
-    public void render() {
-        Graphics graph = iEngine_.getGraphics();
-        graph.clear(0xFFfff0f6);
-        for (GameObject g : gameObjects_) {
-            g.render(graph);
-        }
-    }
     /*Comprueba si todas las casillas del intento actual se han llenado con algún color
      * -1 significa que no tienen color. Si está completa se comprueba si la solución es correcta,
      * si se ha ganado el juego o perdido por superar el numero de  intentos y si no se ha ganado
@@ -115,8 +81,6 @@ public class GameScene implements IScene {
                 gameBoard_.nexTry();
             }
         }
-        for (int j = 0; j < gameObjects_.size(); j++) {
-            gameObjects_.get(j).update(time);
-        }
+        super.update(time);
     }
 }

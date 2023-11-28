@@ -10,19 +10,13 @@ import com.example.androidengine.TouchEvent;
 
 import java.util.ArrayList;
 
-public class LevelScene implements IScene {
-    private Engine iEngine_;
-
-    private ArrayList<GameObject> gameObjects_ = new ArrayList<>();
-    private int width_, height_;
+public class LevelScene extends Scene {
     private Font font_;
     private Sound myButtonSound_;
     private Sound myArrowSound_;
 
     public LevelScene() {
-        iEngine_ = GameManager.getInstance_().getIEngine();
-        width_ = GameManager.getInstance_().getwidth();
-        height_ = GameManager.getInstance_().getHeight_();
+        super();
     }
 
     @Override
@@ -69,46 +63,11 @@ public class LevelScene implements IScene {
         //iEngine_.getMobile().shareImage(graph.processImage(),"mi imagen");
     }
 
-
-    public void addGameObject(GameObject gm) {
-        gameObjects_.add(gm);
-    }
-
-    @Override
-    public int getHeight_() {
-        return height_;
-    }
-
-    @Override
-    public int getWidth_() {
-        return width_;
-    }
-
-    @Override
-    public void handleInput(ArrayList<TouchEvent> events) {
-        for (GameObject g : gameObjects_)
-            for (TouchEvent event : events)
-                if (g.handleInput(event))
-                    return;
-    }
-
     @Override
     public void render() {
-        Graphics graph = iEngine_.getGraphics();
-
-        graph.clear(0xFFfff0f6);
-        for (int i = 0; i < gameObjects_.size(); i++) {
-            gameObjects_.get(i).render(graph);
-        }
+        super.render();
         this.iEngine_.getGraphics().setFont(font_);
-        graph.setColor(0xFF000000);
-        graph.drawText("¿En que dificultad quieres jugar?", width_ / 2, 50);
-    }
-
-    @Override
-    public void update(double time) {
-        for (int i = 0; i < gameObjects_.size(); i++) {
-            gameObjects_.get(i).update(time);
-        }
+        iEngine_.getGraphics().setColor(0xFF000000);
+        iEngine_.getGraphics().drawText("¿En que dificultad quieres jugar?", width_ / 2, 50);
     }
 }

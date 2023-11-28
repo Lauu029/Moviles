@@ -12,12 +12,9 @@ import com.example.androidengine.TouchEvent;
 
 import java.util.ArrayList;
 
-public class EndScene implements IScene {
+public class EndScene extends Scene {
 
-    private Engine iEngine_;
     private int[] sol_;
-    private ArrayList<GameObject> gameObjects_ = new ArrayList<>();
-    private int width_, height_;
     private Button buttonDificulty_, buttonReward_, playAgainButton_,shareRecordButton_;
     private Font font_, font1_, font2_;
     private int tries_;
@@ -28,9 +25,7 @@ public class EndScene implements IScene {
     private ImageProcessingCallback callback;
 
     public EndScene( boolean win, int[] sol, int intentos) {
-        iEngine_ = GameManager.getInstance_().getIEngine();
-        width_ = GameManager.getInstance_().getwidth();
-        height_ = GameManager.getInstance_().getHeight_();
+       super();
         System.out.print("Scene Width: " + width_ + " Scene Height: " + height_ + "\n");
         this.win_ = win;
         this.sol_ = sol;
@@ -100,53 +95,26 @@ public class EndScene implements IScene {
         addGameObject(shareRecordButton_);
     }
 
-
-    public void addGameObject(GameObject gm) {
-        gameObjects_.add(gm);
-    }
-
-    public int getHeight_() {
-        return height_;
-    }
-
-    public int getWidth_() {
-        return width_;
-    }
-
-    public void handleInput(ArrayList<TouchEvent> events) {
-        for (GameObject g : gameObjects_)
-            for (TouchEvent event : events)
-                if (g.handleInput(event))
-                    return;
-    }
-
     public void render() {
-        Graphics graph = iEngine_.getGraphics();
-
-        //Dibujamos un color de fondo para la escena
-        graph.clear(0xFFfff0f6);
-
-        for (int i = 0; i < gameObjects_.size(); i++) {
-            gameObjects_.get(i).render(graph);
-        }
-        graph.setColor(0XFF222222);
+        super.render();
+        iEngine_.getGraphics().setColor(0XFF222222);
         this.iEngine_.getGraphics().setFont(font_);
         if (!win_) {
-            graph.drawText("GAME OVER", width_ / 2, 50);
-            graph.setFont(font1_);
-            graph.drawText("Te has quedado sin intentos", width_ / 2, 120);
-            graph.drawText("codigo:", width_ / 2, height_ / 2 - 70);
-            drawCircles(graph);
+            iEngine_.getGraphics().drawText("GAME OVER", width_ / 2, 50);
+            iEngine_.getGraphics().setFont(font1_);
+            iEngine_.getGraphics().drawText("Te has quedado sin intentos", width_ / 2, 120);
+            iEngine_.getGraphics().drawText("codigo:", width_ / 2, height_ / 2 - 70);
+            drawCircles(iEngine_.getGraphics());
 
         } else {
-            graph.drawText("ENHORABUENA!!", width_ / 2, 50);
-            graph.setFont(font1_);
-            graph.drawText("Has averiguado el codigo en", width_ / 2, 120);
-            graph.setFont(font2_);
-            graph.drawText(tries_ + " intentos:", width_ / 2, height_ / 2 - 110);
-            graph.setFont(font1_);
-            graph.drawText("codigo:", width_ / 2, height_ / 2 - 70);
-            drawCircles(graph);
+            iEngine_.getGraphics().drawText("ENHORABUENA!!", width_ / 2, 50);
+            iEngine_.getGraphics().setFont(font1_);
+            iEngine_.getGraphics().drawText("Has averiguado el codigo en", width_ / 2, 120);
+            iEngine_.getGraphics().setFont(font2_);
+            iEngine_.getGraphics().drawText(tries_ + " intentos:", width_ / 2, height_ / 2 - 110);
+            iEngine_.getGraphics().setFont(font1_);
+            iEngine_.getGraphics().drawText("codigo:", width_ / 2, height_ / 2 - 70);
+            drawCircles(iEngine_.getGraphics());
         }
 
     }
@@ -164,12 +132,6 @@ public class EndScene implements IScene {
                 graph.setFont(this.font1_);
                 graph.drawText(sol_[i] + "", x + i * (radius * 2 + offset) + radius, height_ / 2 + (radius) - 53);
             }
-        }
-    }
-
-    public void update(double time) {
-        for (int i = 0; i < gameObjects_.size(); i++) {
-            gameObjects_.get(i).update(time);
         }
     }
 }
