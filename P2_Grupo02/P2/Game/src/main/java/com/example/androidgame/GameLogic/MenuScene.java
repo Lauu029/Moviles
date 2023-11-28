@@ -1,24 +1,11 @@
 package com.example.androidgame.GameLogic;
 
 
-import android.util.Log;
-
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkRequest;
-
-import com.example.androidengine.Engine;
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
-import com.example.androidengine.IScene;
 import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
-import com.example.androidengine.TouchEvent;
 import com.example.androidgame.R;
-
-
-import java.io.Console;
-import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 public class MenuScene extends Scene {
     private Button playButton_;
@@ -60,7 +47,7 @@ public class MenuScene extends Scene {
                 , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 120, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                GameManager.getInstance_().changeScene(new ShopScene());
+                GameManager.getInstance_().changeScene(new BackgroundShopScene());
             }
         });
 
