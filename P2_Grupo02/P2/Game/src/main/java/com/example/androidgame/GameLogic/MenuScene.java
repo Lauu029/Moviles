@@ -40,7 +40,7 @@ public class MenuScene extends Scene {
                 , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 , myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                GameManager.getInstance_().changeScene(new LevelScene());
+                GameManager.getInstance_().changeScene(new NivelScene());
             }
         });
         this.storeButton_ = new Button("Personalizar", fontButton_, 0XFFbf5061

@@ -8,9 +8,9 @@ import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
 
 public class Button extends GameObject {
-    private String text_;
-    private Font font_;
-    private int color_;
+    protected String text_;
+    protected Font font_;
+    protected int color_;
     protected int width_ = 0, height_ = 0, posX_ = 0, posY_ = 0, arc_ = 0;
     protected Sound mySound_;
     private ButtonClickListener onClickFunction;
