@@ -2,6 +2,7 @@ package com.example.androidgame.GameLogic;
 
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
+import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
 
 public class BackgroundShopScene extends Scene {
@@ -9,7 +10,7 @@ public class BackgroundShopScene extends Scene {
     private ButtonImage backButton;
     private Font font_;
     private ButtonImage previousShop_, nextShop_;
-
+    private Image coinsIcon_;
     BackgroundShopScene() {
         super();
     }
@@ -38,6 +39,7 @@ public class BackgroundShopScene extends Scene {
         this.addGameObject(backButton);
         this.addGameObject(previousShop_);
         this.addGameObject(nextShop_);
+        coinsIcon_= iEngine_.getGraphics().newImage("coin.png");
         font_ = iEngine_.getGraphics().newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
     }
 
@@ -55,6 +57,9 @@ public class BackgroundShopScene extends Scene {
         graph.setColor(0XFF222222);
         graph.setFont(this.font_);
         graph.drawText("Fondos", xText, yText);
+        graph.drawImage(coinsIcon_,width_-60,50,40,40);
+        graph.drawText(String.valueOf(GameManager.getInstance_().getCoins()), width_-40, 100);
+
     }
 
     @Override

@@ -13,6 +13,7 @@ public class GameManager {
     private Board board_;
     private int[] levelSolution_;
     private boolean daltonics_;
+    private int coins_;
 
     private GameManager() {
         // Constructor privado
@@ -29,6 +30,7 @@ public class GameManager {
         instance_.width_ = width;
         instance_.height_ = height;
         instance_.daltonics_ = false;
+        instance_.coins_=100;
         return 1;
     }
 
@@ -47,7 +49,7 @@ public class GameManager {
     }
 
     /*Pone el color que se le pase en el círculo correspondiente y su id en la
-    * solución temporal para comprobarla más tarde */
+     * solución temporal para comprobarla más tarde */
     public void takeColor(int color, int id) {
         board_.putNewColor(id, color);
     }
@@ -90,7 +92,10 @@ public class GameManager {
         this.board_ = b;
     }
 
-    public boolean getDaltonic(){
+    public boolean getDaltonic() {
         return this.daltonics_;
+    }
+    public int getCoins(){
+        return this.coins_;
     }
 }
