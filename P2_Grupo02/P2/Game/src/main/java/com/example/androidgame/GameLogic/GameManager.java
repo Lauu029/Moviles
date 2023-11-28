@@ -3,6 +3,7 @@ package com.example.androidgame.GameLogic;
 
 import com.example.androidengine.Engine;
 import com.example.androidengine.IScene;
+import com.example.androidengine.Image;
 
 public class GameManager {
     private static GameManager instance_;
@@ -14,6 +15,7 @@ public class GameManager {
     private int[] levelSolution_;
     private boolean daltonics_;
     private int coins_;
+    private Image backgroundImage_;
 
     private GameManager() {
         // Constructor privado
@@ -30,7 +32,8 @@ public class GameManager {
         instance_.width_ = width;
         instance_.height_ = height;
         instance_.daltonics_ = false;
-        instance_.coins_=100;
+        instance_.coins_ = 100;
+        instance_.backgroundImage_ = null;
         return 1;
     }
 
@@ -95,7 +98,19 @@ public class GameManager {
     public boolean getDaltonic() {
         return this.daltonics_;
     }
-    public int getCoins(){
+
+    public int getCoins() {
         return this.coins_;
+    }
+
+    public Image getBackgroundImage() {
+        return backgroundImage_;
+    }
+
+    public void setBackgroundImage(Image i) {
+        backgroundImage_ = i;
+    }
+    public void addCoins(int amount){
+        coins_+=amount;
     }
 }

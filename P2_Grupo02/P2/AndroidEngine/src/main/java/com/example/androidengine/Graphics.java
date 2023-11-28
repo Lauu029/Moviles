@@ -230,5 +230,4 @@ public class Graphics {
             }, new Handler(handlerThread.getLooper()));
         }
     }
-
 }

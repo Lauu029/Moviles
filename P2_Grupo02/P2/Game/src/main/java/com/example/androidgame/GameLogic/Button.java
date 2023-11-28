@@ -14,7 +14,6 @@ public class Button extends GameObject {
     protected int width_ = 0, height_ = 0, posX_ = 0, posY_ = 0, arc_ = 0;
     protected Sound mySound_;
     private ButtonClickListener onClickFunction;
-
     Button(String t, Font f, int c, int w, int h, int a, int x, int y, Sound buttonSound, ButtonClickListener function) {
         this.text_ = t;
         this.font_ = f;
