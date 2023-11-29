@@ -47,14 +47,14 @@ public class MenuScene extends Scene {
                 , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 120, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                GameManager.getInstance_().changeScene(new BackgroundShopScene());
+                GameManager.getInstance_().changeScene(new ShopScene());
             }
         });
 
         addGameObject(playButton_);
         addGameObject(storeButton_);
         addGameObject(mundoButton_);
-        myIcon_ = graph.newImage("cerebro.png");
+        myIcon_ = graph.newImage("logo.png");
 //        WorkRequest workRequest = new OneTimeWorkRequest.Builder(TimedWorker.class)
 //                .setInitialDelay(20, TimeUnit.SECONDS)
 //                .setInputData(inputData) // Corregido el nombre del método
