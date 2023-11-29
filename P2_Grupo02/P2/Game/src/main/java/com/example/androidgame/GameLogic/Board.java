@@ -2,6 +2,7 @@ package com.example.androidgame.GameLogic;
 
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
+import com.example.androidengine.Image;
 import com.example.androidengine.TouchEvent;
 
 import java.util.ArrayList;
@@ -66,6 +67,7 @@ public class Board extends GameObject {
         for (int i = 0; i < usableColors_; i++) {
             usableColorsCircles_[i] = new SolutionCircle(Integer.toString(i), this.font1_, this.circleRad_, 0, 0, -1);
             usableColorsCircles_[i].setColor_(totalPossibleColors[i]);
+            usableColorsCircles_[i].setImage(""+(i+1));
             usableColorsCircles_[i].setIdColor_(i);
             gameObjectsTable_.add(usableColorsCircles_[i]);
         }
@@ -212,6 +214,7 @@ public class Board extends GameObject {
         for (int i = 0; i < this.codeColors_; i++) {
             if (!playerTries_[acutalTry_][i].hasColor()) {
                 playerTries_[acutalTry_][i].setColor(color, id);
+                playerTries_[acutalTry_][i].setImage(""+(id+1));
                 this.gm_.putColorSolution(i, id);
                 break;
             }

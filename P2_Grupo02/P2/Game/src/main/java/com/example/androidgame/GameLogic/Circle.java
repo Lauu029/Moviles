@@ -3,6 +3,7 @@ package com.example.androidgame.GameLogic;
 
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
+import com.example.androidengine.Image;
 import com.example.androidengine.TouchEvent;
 
 /* Clase que controla los círculos de forma genérica, con los atributos comunes entre todos
@@ -18,7 +19,8 @@ public class Circle extends GameObject {
     protected int row_, gameTry_;
     protected boolean isDaltonics_;
     protected static GameManager gm_;
-
+    protected Image image_;
+    private EnumTematica tematica_;
     public Circle(String t, Font f, int r, int x, int y, int row_) {
         this.font_ = f;
         this.text_ = t;
@@ -28,12 +30,18 @@ public class Circle extends GameObject {
         this.radius_ = r;
         this.row_ = row_;
         this.isDaltonics_ = GameManager.getInstance_().getDaltonic();
+        this.tematica_=AssetsManager.getInstance_().getCirleTematic();
     }
 
     public void setColor_(int color_) {
         this.color_ = color_;
     }
-
+    public void setImage(String image){
+        if(tematica_!=EnumTematica.DEFAULT){
+        String path=tematica_.getPath();
+        this.image_= GameManager.getInstance_().getIEngine().getGraphics().newImage(path+image+".png");
+        }
+    }
     public void setPositions(int x, int y) {
         this.posX_ = x;
         this.posY_ = y;
@@ -45,7 +53,10 @@ public class Circle extends GameObject {
     //Render de los círculos dependiendo de si tienen que poner números o no encima de los círculos
     public void render(Graphics graph) {
         graph.setColor(this.color_);
-        graph.drawCircle(this.posX_, this.posY_, this.radius_);
+        //
+        if(image_!=null&&tematica_!=EnumTematica.DEFAULT)
+        graph.drawImage(image_,this.posX_-(radius_), this.posY_-(radius_),this.radius_*2,this.radius_*2);
+        else graph.drawCircle(this.posX_, this.posY_, this.radius_);
         if (this.isDaltonics_) {
             graph.setColor(0xFF000000);
             graph.setFont(this.font_);

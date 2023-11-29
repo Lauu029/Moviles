@@ -26,6 +26,7 @@ public class GameManager {
 
     public static int init(Engine engine, int width, int height) {
         instance_ = new GameManager();
+        AssetsManager.init();
         instance_.myEngine_ = engine;
         instance_.width_ = width;
         instance_.height_ = height;

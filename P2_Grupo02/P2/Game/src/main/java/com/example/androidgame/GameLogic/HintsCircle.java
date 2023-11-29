@@ -24,7 +24,8 @@ public class HintsCircle extends Circle {
     }
 
     public void render(Graphics graph) {
-        super.render(graph);
+        graph.setColor(this.color_);
+        graph.drawCircle(this.posX_, this.posY_, this.radius_);
         if (this.color_ == justRightColor) {
             graph.setColor(0xFF000000);
             graph.drawRoundRectangle(this.posX_ - this.radius_, this.posY_ - this.radius_,

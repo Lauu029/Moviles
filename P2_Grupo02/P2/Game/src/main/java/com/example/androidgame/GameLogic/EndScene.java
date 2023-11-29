@@ -1,11 +1,13 @@
 package com.example.androidgame.GameLogic;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import com.example.androidengine.Engine;
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.IScene;
+import com.example.androidengine.Image;
 import com.example.androidengine.ImageProcessingCallback;
 import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
@@ -21,9 +23,10 @@ public class EndScene extends Scene {
     private Sound myButtonSound_;
     private int[] totalPossibleColors_ = new int[]{0xFFFFC0CB, 0xFF87CEEB, 0xFF98FB98, 0xFFFFFF99,
             0xFFE6E6FA, 0xFFFFDAB9, 0xFFE7FFAC, 0xFFFF8FAB, 0xFF6FC0AB};
+    ArrayList<Image>images_ = new ArrayList<Image>();;
     private boolean win_ = false;
     private ImageProcessingCallback callback;
-
+    EnumTematica tematica_;
     public EndScene( boolean win, int[] sol, int intentos) {
        super();
         System.out.print("Scene Width: " + width_ + " Scene Height: " + height_ + "\n");
@@ -89,6 +92,15 @@ public class EndScene extends Scene {
                 graph.generateScreenshot(0, 0, width_, height_ / 2 - 40, callback);
             }
         });
+         tematica_=AssetsManager.getInstance_().getCirleTematic();
+        if(tematica_!=EnumTematica.DEFAULT){
+            for(int i=0;i<sol_.length;i++){
+                Log.d("OREO", tematica_.getPath()+(""+(i+1))+".png");
+                Image im=graph.newImage(tematica_.getPath()+(""+(i+1))+".png");
+                images_.add(im);
+
+            }
+        }
         addGameObject(playAgainButton_);
         addGameObject(buttonDificulty_);
         addGameObject(buttonReward_);
@@ -125,8 +137,14 @@ public class EndScene extends Scene {
         int totalCircleWidth = sol_.length * (radius * 2 + offset); // Ancho total de todos los círculos
         int x = (width_ - totalCircleWidth) / 2;
         for (int i = 0; i < sol_.length; i++) {
-            graph.setColor(totalPossibleColors_[sol_[i]]);
-            graph.drawCircle(x + i * (radius * 2 + offset) + radius, height_ / 2 + radius - 50, radius);
+            if(tematica_!=EnumTematica.DEFAULT){
+                graph.drawImage(images_.get(i),x + i * (radius * 2 + offset),height_ / 2 - 50,radius*2,radius*2);
+            }
+            else{
+                graph.setColor(totalPossibleColors_[sol_[i]]);
+                graph.drawCircle(x + i * (radius * 2 + offset) + radius, height_ / 2 + radius - 50, radius);
+            }
+
             if (GameManager.getInstance_().getDaltonic()) {
                 graph.setColor(0xFF000000);
                 graph.setFont(this.font1_);
