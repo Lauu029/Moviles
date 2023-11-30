@@ -1,11 +1,18 @@
 package com.example.androidgame.GameLogic;
 
 
+import android.util.Log;
+
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
 import com.example.androidgame.R;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class MenuScene extends Scene {
     private Button playButton_;
@@ -21,6 +28,29 @@ public class MenuScene extends Scene {
     }
 
     public void init() {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        // Lee el archivo JSON y conviértelo en un objeto JsonNode
+        JsonNode jsonNode = null;
+        Log.d("MainActivity","Leyendo json");
+        InputStream readFile;
+        readFile=iEngine_.getFileManager().getInputStream("Levels/world1/level_1_01.json");
+        try {
+            jsonNode = objectMapper.readTree(readFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Asigna valores a las variables de tu programa desde el JSON
+
+        int variable2 = jsonNode.get("codeSize").asInt();
+        Log.d("MainActivity",String.valueOf(variable2));
+        try {
+            readFile.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         //creacion de la solucion
         Graphics graph = iEngine_.getGraphics();
         this.font_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 40, true, true);

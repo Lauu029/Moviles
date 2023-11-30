@@ -19,6 +19,7 @@ public class Engine implements Runnable {
     private Mobile mobile_; //variable para gestión de anuncios
     private Activity myActivity_;
     private Context myContext_;
+    private FileManager myFileManager_;
 
     // Constructor de la clase
     public Engine(SurfaceView myView, Activity activity) {
@@ -31,6 +32,7 @@ public class Engine implements Runnable {
         myActivity_ = activity;
         myContext_ = myActivity_.getBaseContext();
         mobile_ = new Mobile(myContext_,myActivity_);
+        myFileManager_ = new FileManager(myAssetManager_);
     }
 
     // Metodo para reanudar la ejecución del motor
@@ -135,5 +137,8 @@ public class Engine implements Runnable {
 
     public Mobile getMobile() {
         return this.mobile_;
+    }
+    public FileManager getFileManager(){
+        return myFileManager_;
     }
 }
