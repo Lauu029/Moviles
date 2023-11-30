@@ -185,7 +185,7 @@ public class Graphics {
         this.myCanvas_.translate(x, y);
     }
     //Metodo para reescalar el canvas
-    protected void scale(float x, float y) {
+    public void scale(float x, float y) {
         this.myCanvas_.scale(x, y);
     }
     protected void save() {}
