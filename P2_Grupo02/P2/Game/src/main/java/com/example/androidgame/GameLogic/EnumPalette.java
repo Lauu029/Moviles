@@ -1,15 +1,18 @@
 package com.example.androidgame.GameLogic;
 
-public enum EnumTematica {
-    DEFAULT("default",true),
-    HALLOWEEN("halloween/",true),
-    ADVENTURE("adventure/",true);
+public enum EnumPalette {
+    DEFAULT, YELLOW,BLUE,GREEN,HOT_PINK;
 
-    private final String path_;
+}
+/*DEFAULT("default",true),
+    HALLOWEEN("halloween/",true),
+    ADVENTURE("adventure/",true);*/
+
+    /*private final String path_;
     boolean purchase_;
 
     // Constructor privado para asociar el String con el enum
-    private EnumTematica(String path,boolean purchase_) {
+    private EnumPalette(String path, boolean purchase_) {
         this.path_ = path;
     }
 
@@ -22,5 +25,4 @@ public enum EnumTematica {
     }
     void  setPurchased(boolean purc) {
          purchase_=purc;
-    }
-}
+    }*/

@@ -1,20 +1,22 @@
 package com.example.androidgame.GameLogic;
 
-import com.example.androidengine.Engine;
-import com.example.androidengine.IScene;
-
 public class AssetsManager {
-    EnumTematica circleTematica_=EnumTematica.ADVENTURE;
-    EnumTematica backgrounTematica_;
+    EnumTheme circleTheme_= EnumTheme.ADVENTURE;
+    EnumTheme backgrounTheme_;
+    EnumPalette paletteColor_=EnumPalette.DEFAULT;
     private static AssetsManager instance_;
     private AssetsManager() {
         // Constructor privado
     }
-    EnumTematica getCirleTematic(){
-        return circleTematica_;
+    EnumTheme getCirleTheme(){
+        return circleTheme_;
     }
-    void setCirleTematic(EnumTematica tematica){
-         circleTematica_=tematica;
+    EnumPalette getPaletteColor(){return paletteColor_;}
+    void setPaletteTheme(EnumPalette paletteColor){
+        paletteColor_=paletteColor;
+    }
+    void setCirleTheme(EnumTheme tematica){
+         circleTheme_=tematica;
     }
     public static AssetsManager getInstance_() {
 
