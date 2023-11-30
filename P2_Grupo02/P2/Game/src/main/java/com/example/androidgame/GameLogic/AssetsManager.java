@@ -5,8 +5,12 @@ public class AssetsManager {
     private EnumTheme backgrounTheme_;
     private EnumPalette paletteColor_=EnumPalette.DEFAULT;
     private int backgroundColor_,buttonColor_,textColor_,lineColor_;
-    private int yellowPalette[]={0xFFF9A300,0xE3BE2B00,0xDB8D0700,0xDB8D0700};
     private int defaultPalette[]={0xFFFFF0F6,0XFFFB839B,0xFFFFFFFF,0XFF222222};
+    private int yellowPalette[]={0xFFebe57c,0xFFE3BE2B,0xFFDB8D07,0xFFDB8D07};
+    private int bluePalette[]={0xFF70b2e0,0xFF1f438f,0xFFFFFFFF,0xFF30ace6};
+    private int greenPalette[]={0xFF66d46b,0xFF40a845,0xFFFFFFFF,0xFF18571b};
+    private int hotPinkPalette[]={0xFFe681b0,0xFFd60466,0xFFFFFFFF,0xFF9e0240};
+
     private static AssetsManager instance_;
     private AssetsManager() {
         // Constructor privado
@@ -49,14 +53,22 @@ public class AssetsManager {
                 lineColor_= yellowPalette[3];
                 break;
             case BLUE:
-                System.out.println("Esta paleta aun no esta implementada en assetManager");
-
+                backgroundColor_= bluePalette[0];
+                buttonColor_= bluePalette[1];
+                textColor_= bluePalette[2];
+                lineColor_= bluePalette[3];
                 break;
             case GREEN:
-                System.out.println("Esta paleta aun no esta implementada en assetManager");
+                backgroundColor_= greenPalette[0];
+                buttonColor_= greenPalette[1];
+                textColor_= greenPalette[2];
+                lineColor_= greenPalette[3];
                 break;
             case HOT_PINK:
-                System.out.println("Esta paleta aun no esta implementada en assetManager");
+                backgroundColor_= hotPinkPalette[0];
+                buttonColor_= hotPinkPalette[1];
+                textColor_= hotPinkPalette[2];
+                lineColor_= hotPinkPalette[3];
 
                 break;
         }
