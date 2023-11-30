@@ -58,7 +58,7 @@ public class ShopScene extends Scene {
                         surfaceShops_.get(id).setVisibility(View.INVISIBLE);
                     }
                 });
-                GameManager.getInstance_().changeScene(new MenuScene());
+                GameManager.getInstance().changeScene(new MenuScene());
             }
         });
         previousShop_ = new ButtonImage("FlechasIzq.png", 35, 35, width_ / 2 - 120, 5, myArrowSound_, new ButtonClickListener() {
@@ -94,9 +94,9 @@ public class ShopScene extends Scene {
         poohBackground_ = new ButtonImage("poohBoton.png", 100, 100, width_ / 2, height_ / 2, myArrowSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                if (GameManager.getInstance_().getCoins() >= 20) {
-                    GameManager.getInstance_().setBackgroundImage(iEngine_.getGraphics().newImage("pooh.png"));
-                    GameManager.getInstance_().addCoins(-20);
+                if (GameManager.getInstance().getCoins() >= 20) {
+                    GameManager.getInstance().setBackgroundImage(iEngine_.getGraphics().newImage("pooh.png"));
+                    GameManager.getInstance().addCoins(-20);
                     poohBackground_.deleteOverlayImage();
                 }
             }
@@ -125,7 +125,7 @@ public class ShopScene extends Scene {
         graph.setFont(this.font_);
         graph.drawText(textShops_.get(id), xText, yText);
         graph.drawImage(coinsIcon_, width_ - 60, 50, 40, 40);
-        graph.drawText(String.valueOf(GameManager.getInstance_().getCoins()), width_ - 40, 100);
+        graph.drawText(String.valueOf(GameManager.getInstance().getCoins()), width_ - 40, 100);
 
     }
 

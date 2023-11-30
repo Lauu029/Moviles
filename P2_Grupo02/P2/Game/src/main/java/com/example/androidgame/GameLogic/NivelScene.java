@@ -16,8 +16,8 @@ public class NivelScene extends Scene {
         Graphics graph=iEngine_.getGraphics();
         this.font_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 40, true, true);
         graph.setFont(this.font_);
-        int widthScene=GameManager.getInstance_().getwidth();
-        int heightScene=GameManager.getInstance_().getHeight_();
+        int widthScene=GameManager.getInstance().getwidth();
+        int heightScene=GameManager.getInstance().getHeight_();
 
         int wButton=(widthScene)/(columnas_+1);
         int margen=(widthScene-(wButton*columnas_))/(columnas_+1);
@@ -31,7 +31,7 @@ public class NivelScene extends Scene {
         }
     }
     public void render() {
-        iEngine_.getGraphics().clear(AssetsManager.getInstance_().getBackgroundColor());
+        iEngine_.getGraphics().clear(AssetsManager.getInstance().getBackgroundColor());
         this.iEngine_.getGraphics().setFont(font_);
         this.iEngine_.getGraphics().setColor(0xFF000000);
         iEngine_.getGraphics().drawText("Mundo "+numberLevel_, width_ / 2, 30);

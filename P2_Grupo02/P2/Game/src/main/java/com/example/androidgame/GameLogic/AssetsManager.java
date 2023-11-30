@@ -5,7 +5,7 @@ public class AssetsManager {
     private EnumTheme backgrounTheme_;
     private EnumPalette paletteColor_=EnumPalette.DEFAULT;
     private int backgroundColor_,buttonColor_,textColor_,lineColor_;
-    private int yellowPalette[]={0xFFF9A3,0xE3BE2B,0xDB8D07,0xDB8D07};
+    private int yellowPalette[]={0xFFF9A300,0xE3BE2B00,0xDB8D0700,0xDB8D0700};
     private int defaultPalette[]={0xFFFFF0F6,0XFFFB839B,0xFFFFFFFF,0XFF222222};
     private static AssetsManager instance_;
     private AssetsManager() {
@@ -64,7 +64,7 @@ public class AssetsManager {
     void setCirleTheme(EnumTheme tematica){
          circleTheme_=tematica;
     }
-    public static AssetsManager getInstance_() {
+    public static AssetsManager getInstance() {
         return instance_;
     }
     public static int init() {

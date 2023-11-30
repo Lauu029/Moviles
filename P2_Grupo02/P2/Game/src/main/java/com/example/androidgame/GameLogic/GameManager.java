@@ -21,7 +21,7 @@ public class GameManager {
         // Constructor privado
     }
 
-    public static GameManager getInstance_() {
+    public static GameManager getInstance() {
         return instance_;
     }
 

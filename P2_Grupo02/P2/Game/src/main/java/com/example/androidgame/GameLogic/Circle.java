@@ -29,8 +29,8 @@ public class Circle extends GameObject {
         this.posY_ = y;
         this.radius_ = r;
         this.row_ = row_;
-        this.isDaltonics_ = GameManager.getInstance_().getDaltonic();
-        this.tematica_=AssetsManager.getInstance_().getCirleTheme();
+        this.isDaltonics_ = GameManager.getInstance().getDaltonic();
+        this.tematica_=AssetsManager.getInstance().getCirleTheme();
     }
 
     public void setColor_(int color_) {
@@ -39,7 +39,7 @@ public class Circle extends GameObject {
     public void setImage(String image){
         if(tematica_!= EnumTheme.DEFAULT){
         String path=tematica_.getPath();
-        this.image_= GameManager.getInstance_().getIEngine().getGraphics().newImage(path+image+".png");
+        this.image_= GameManager.getInstance().getIEngine().getGraphics().newImage(path+image+".png");
         }
     }
     public void setPositions(int x, int y) {

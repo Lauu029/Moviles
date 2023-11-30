@@ -49,32 +49,35 @@ public class EndScene extends Scene {
         font1_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
         font2_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 30, false, false);
         myButtonSound_ = iEngine_.getAudio().newSound("buttonClicked.wav");
-        this.playAgainButton_ = new Button("Volver Jugar", font1_, 0XFFFB839B
+        this.playAgainButton_ = new Button("Volver Jugar", font1_, AssetsManager.getInstance().getButtonColor(),
+                AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor()
                 , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 20,
                 /* SceneNames.GAME, GameManager.getInstance_().getLevel().getLevelDiff_(),*/ myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
                 //GameScene gameScene = (GameScene) scene_;
-                GameInit gameInit = new GameInit(GameManager.getInstance_().getLevel().getLevelDiff_());
-                GameManager.getInstance_().setLevel(gameInit.getDifficulty());
-                Engine engine_ = GameManager.getInstance_().getIEngine();
+                GameInit gameInit = new GameInit(GameManager.getInstance().getLevel().getLevelDiff_());
+                GameManager.getInstance().setLevel(gameInit.getDifficulty());
+                Engine engine_ = GameManager.getInstance().getIEngine();
                 engine_.getAudio().playSound(myButtonSound_, 0);
-                GameManager.getInstance_().changeScene(new GameScene());
+                GameManager.getInstance().changeScene(new GameScene());
             }
         });
 
-        this.buttonDificulty_ = new Button("Elegir Dificultad", font1_, 0XFFFB839B
+        this.buttonDificulty_ = new Button("Elegir Dificultad", font1_, AssetsManager.getInstance().getButtonColor(),
+                AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor()
                 , 150, 50, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 90,
                 /*SceneNames.LEVEL,*/ myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                GameInit gameInit = new GameInit(GameManager.getInstance_().getLevel().getLevelDiff_());
-                GameManager.getInstance_().setLevel(gameInit.getDifficulty());
-                GameManager.getInstance_().changeScene(new LevelScene());
+                GameInit gameInit = new GameInit(GameManager.getInstance().getLevel().getLevelDiff_());
+                GameManager.getInstance().setLevel(gameInit.getDifficulty());
+                GameManager.getInstance().changeScene(new LevelScene());
                 //scene_ = new LevelScene(engine_, sceneWidth, sceneHeight);
             }
         });
-        this.buttonReward_ = new Button("Nuevas pistas", font1_, 0XFFFB839B,
+        this.buttonReward_ = new Button("Nuevas pistas", font1_, AssetsManager.getInstance().getButtonColor(),
+                AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor(),
                 150, 50, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 160,
                  myButtonSound_, new ButtonClickListener() {
             @Override
@@ -82,7 +85,8 @@ public class EndScene extends Scene {
                 iEngine_.getMobile().LoadRewardedAd();
             }
         });
-        this.shareRecordButton_ = new Button("Compartir", font1_, 0XFFFB839B,
+        this.shareRecordButton_ = new Button("Compartir", font1_, AssetsManager.getInstance().getButtonColor(),
+                AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor(),
                 150, 50, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 230,
                 myButtonSound_, new ButtonClickListener() {
             @Override
@@ -90,7 +94,7 @@ public class EndScene extends Scene {
                 graph.generateScreenshot(0, 0, width_, height_ / 2 - 40, callback);
             }
         });
-         tematica_=AssetsManager.getInstance_().getCirleTheme();
+         tematica_=AssetsManager.getInstance().getCirleTheme();
         if(tematica_!= EnumTheme.DEFAULT){
             for(int i=0;i<sol_.length;i++){
                 Log.d("OREO", tematica_.getPath()+(""+(i+1))+".png");
@@ -143,7 +147,7 @@ public class EndScene extends Scene {
                 graph.drawCircle(x + i * (radius * 2 + offset) + radius, height_ / 2 + radius - 50, radius);
             }
 
-            if (GameManager.getInstance_().getDaltonic()) {
+            if (GameManager.getInstance().getDaltonic()) {
                 graph.setColor(0xFF000000);
                 graph.setFont(this.font1_);
                 graph.drawText(sol_[i] + "", x + i * (radius * 2 + offset) + radius, height_ / 2 + (radius) - 53);

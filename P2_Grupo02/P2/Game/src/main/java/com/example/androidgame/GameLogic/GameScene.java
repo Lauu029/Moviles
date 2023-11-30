@@ -1,13 +1,7 @@
 package com.example.androidgame.GameLogic;
 
-import com.example.androidengine.Engine;
 import com.example.androidengine.Font;
-import com.example.androidengine.Graphics;
-import com.example.androidengine.IScene;
 import com.example.androidengine.Sound;
-import com.example.androidengine.TouchEvent;
-
-import java.util.ArrayList;
 
 public class GameScene extends Scene {
     private Solution mySolution_;
@@ -23,19 +17,19 @@ public class GameScene extends Scene {
     //Inicializa los botones, el tablero y la solución
     public void init() {
         this.font_ = this.iEngine_.getGraphics().newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
-        this.gm_ = GameManager.getInstance_();
+        this.gm_ = GameManager.getInstance();
         this.lev_ = this.gm_.getLevel();
         mySolution_ = new Solution();
         mySolution_.createSolution(lev_.isRepeat(), lev_.getSolutionColors(), lev_.getPosibleColors(), lev_.getTries());
         this.gameBoard_ = new Board( lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_);
         addGameObject(gameBoard_);
         gm_.setBoard_(this.gameBoard_);
-        Sound buttonSound= GameManager.getInstance_().getIEngine().getAudio().newSound("colorBlindButton.wav");
+        Sound buttonSound= GameManager.getInstance().getIEngine().getAudio().newSound("colorBlindButton.wav");
         this.buttonColorBlind_ =new ButtonColorBlind("eye_open.png","eye_closed.png",
                 40, 40, this.width_ - 45, 0,buttonSound, new ButtonClickListener() {
             @Override
             public void onClick() {
-                GameManager.getInstance_().changeDaltonicsMode();
+                GameManager.getInstance().changeDaltonicsMode();
             }
         });
         addGameObject(buttonColorBlind_);
@@ -48,7 +42,7 @@ public class GameScene extends Scene {
                 myCrossSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                GameManager.getInstance_().changeScene(new LevelScene());
+                GameManager.getInstance().changeScene(new LevelScene());
             }
         });
         this.addGameObject(exitLevel_);

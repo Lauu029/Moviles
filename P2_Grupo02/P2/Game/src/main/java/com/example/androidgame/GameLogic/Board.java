@@ -2,7 +2,6 @@ package com.example.androidgame.GameLogic;
 
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
-import com.example.androidengine.Image;
 import com.example.androidengine.TouchEvent;
 
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class Board extends GameObject {
     private int hintsPos_;
 
     Board(int codeColors_, int tries_, int usableColors, boolean canRepeat_, int scW, int scH) {
-        gm_ = GameManager.getInstance_();
+        gm_ = GameManager.getInstance();
         this.font1_ = gm_.getIEngine().getGraphics().newFont("Lexendt.ttf", 20, false, false);
         this.codeColors_ = codeColors_;
         this.tries_ = tries_;

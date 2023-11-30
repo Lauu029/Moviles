@@ -29,25 +29,28 @@ public class MenuScene extends Scene {
         fontButton_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
         myButtonSound_ = iEngine_.getAudio().newSound("menuButton.wav");
 
-        this.playButton_ = new Button("Partida Rapida", fontButton_,AssetsManager.getInstance_().getButtonColor()
-                , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 -80, myButtonSound_, new ButtonClickListener() {
+        this.playButton_ = new Button("Partida Rapida", fontButton_,AssetsManager.getInstance().getButtonColor(),
+                AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor(),
+                150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 -80, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                GameManager.getInstance_().changeScene(new LevelScene());
+                GameManager.getInstance().changeScene(new LevelScene());
             }
         });
-        this.mundoButton_ = new Button("Explorar Mundos", fontButton_,AssetsManager.getInstance_().getButtonColor()
+        this.mundoButton_ = new Button("Explorar Mundos", fontButton_,AssetsManager.getInstance().getButtonColor(),
+                AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor()
                 , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 , myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                GameManager.getInstance_().changeScene(new NivelScene());
+                GameManager.getInstance().changeScene(new NivelScene());
             }
         });
-        this.storeButton_ = new Button("Personalizar", fontButton_, 0XFFbf5061
+        this.storeButton_ = new Button("Personalizar", fontButton_, 0XFFbf5061,
+                AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor()
                 , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 120, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                GameManager.getInstance_().changeScene(new ShopScene());
+                GameManager.getInstance().changeScene(new ShopScene());
             }
         });
 
@@ -64,7 +67,7 @@ public class MenuScene extends Scene {
 
     public void render() {
         super.render();
-        iEngine_.getGraphics().setColor(AssetsManager.getInstance_().getBackgroundColor());
+        iEngine_.getGraphics().setColor(AssetsManager.getInstance().getBackgroundColor());
         this.iEngine_.getGraphics().setFont(font_);
         iEngine_.getGraphics().drawText("MasterMind", width_ / 2, 30);
         iEngine_.getGraphics().drawImage(myIcon_, this.width_ / 2 - 80 / 2, this.height_ / 2 - 220, 80, 80);

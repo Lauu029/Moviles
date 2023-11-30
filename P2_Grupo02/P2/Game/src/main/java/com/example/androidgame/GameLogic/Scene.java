@@ -13,17 +13,17 @@ public class Scene implements IScene {
     protected ArrayList<GameObject> gameObjects_ = new ArrayList<>();
 
     Scene() {
-        iEngine_ = GameManager.getInstance_().getIEngine();
-        width_ = GameManager.getInstance_().getwidth();
-        height_ = GameManager.getInstance_().getHeight_();
+        iEngine_ = GameManager.getInstance().getIEngine();
+        width_ = GameManager.getInstance().getwidth();
+        height_ = GameManager.getInstance().getHeight_();
         Graphics graph = iEngine_.getGraphics();
     }
 
     @Override
     public void render() {
-        iEngine_.getGraphics().clear(AssetsManager.getInstance_().getBackgroundColor());
-        if (GameManager.getInstance_().getBackgroundImage() != null) {
-            iEngine_.getGraphics().drawImage(GameManager.getInstance_().getBackgroundImage(), 0, 0, height_, width_);
+        iEngine_.getGraphics().clear(AssetsManager.getInstance().getBackgroundColor());
+        if (GameManager.getInstance().getBackgroundImage() != null) {
+            iEngine_.getGraphics().drawImage(GameManager.getInstance().getBackgroundImage(), 0, 0, height_, width_);
         }
         for (int i = 0; i < gameObjects_.size(); i++) {
             gameObjects_.get(i).render(iEngine_.getGraphics());

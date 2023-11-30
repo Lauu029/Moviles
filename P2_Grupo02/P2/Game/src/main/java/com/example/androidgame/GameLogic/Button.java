@@ -1,9 +1,7 @@
 package com.example.androidgame.GameLogic;
 
-import com.example.androidengine.Engine;
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
-import com.example.androidengine.IScene;
 import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
 
@@ -14,10 +12,10 @@ public class Button extends GameObject {
     protected int width_ = 0, height_ = 0, posX_ = 0, posY_ = 0, arc_ = 0;
     protected Sound mySound_;
     private ButtonClickListener onClickFunction;
-    Button(String t, Font f, int c, int w, int h, int a, int x, int y, Sound buttonSound, ButtonClickListener function) {
+    Button(String t, Font f, int backgroundColor,int textColor,int lineColor, int w, int h, int a, int x, int y, Sound buttonSound, ButtonClickListener function) {
         this.text_ = t;
         this.font_ = f;
-        this.color_ = c;
+        this.color_ = backgroundColor;
         this.width_ = w;
         this.height_ = h;
         this.arc_ = a;
@@ -25,8 +23,9 @@ public class Button extends GameObject {
         this.posY_ = y;
         mySound_ = buttonSound;
         this.onClickFunction = function;
-        this.lineColor_=0XFF222222;
-        this.textColor_= 0xFFFFFFFF;
+        this.textColor_= textColor;
+        this.lineColor_=lineColor;
+
     }
 
     public void update(double time) {
@@ -55,7 +54,7 @@ public class Button extends GameObject {
                     && this.posY_ < event.y && this.posY_ + this.height_ > event.y) {
                //GameManager.getInstance_().getIEngine().getAudio().stopSound(mySound_);
                 onClickFunction.onClick();
-                GameManager.getInstance_().getIEngine().getAudio().playSound(mySound_, 0);
+                GameManager.getInstance().getIEngine().getAudio().playSound(mySound_, 0);
                 return true;
             }
         }

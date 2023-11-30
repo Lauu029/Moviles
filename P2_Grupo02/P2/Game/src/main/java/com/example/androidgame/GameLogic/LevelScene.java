@@ -1,14 +1,9 @@
 package com.example.androidgame.GameLogic;
 
 
-import com.example.androidengine.Engine;
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
-import com.example.androidengine.IScene;
 import com.example.androidengine.Sound;
-import com.example.androidengine.TouchEvent;
-
-import java.util.ArrayList;
 
 public class LevelScene extends Scene {
     private Font font_;
@@ -39,13 +34,14 @@ public class LevelScene extends Scene {
         for (int i = 0; i < 4; i++) {
 
             int finalI = i;
-            Button but = new Button(names[i], font_, colors[i], 150, 50, 35, this.width_ / 2 - 150 / 2,
+            Button but = new Button(names[i], font_, colors[i],
+                    AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor(),150, 50, 35, this.width_ / 2 - 150 / 2,
                     100 * i + 100, myButtonSound_, new ButtonClickListener() {
                 @Override
                 public void onClick() {
                     GameInit gameInit = new GameInit(diff[finalI]);
-                    GameManager.getInstance_().setLevel(gameInit.getDifficulty());
-                    GameManager.getInstance_().changeScene(new GameScene());
+                    GameManager.getInstance().setLevel(gameInit.getDifficulty());
+                    GameManager.getInstance().changeScene(new GameScene());
                 }
             });
 
@@ -55,7 +51,7 @@ public class LevelScene extends Scene {
         ButtonImage returnButton_ = new ButtonImage("flecha.png", 40, 40, 0, 0, myArrowSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                GameManager.getInstance_().changeScene(new MenuScene());
+                GameManager.getInstance().changeScene(new MenuScene());
             }
         });
         this.addGameObject(returnButton_);
