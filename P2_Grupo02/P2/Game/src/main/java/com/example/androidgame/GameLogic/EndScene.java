@@ -78,10 +78,10 @@ public class EndScene extends Scene {
         });
         this.buttonReward_ = new Button("Nuevas pistas", font1_, 0XFFFB839B,
                 150, 50, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 160,
-                /* SceneNames.GAME,*/ myButtonSound_, new ButtonClickListener() {
+                 myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-
+                iEngine_.getMobile().LoadRewardedAd();
             }
         });
         this.shareRecordButton_ = new Button("Compartir", font1_, 0XFFFB839B,
