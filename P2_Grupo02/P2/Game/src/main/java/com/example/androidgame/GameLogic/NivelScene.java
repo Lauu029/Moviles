@@ -31,7 +31,7 @@ public class NivelScene extends Scene {
         }
     }
     public void render() {
-        iEngine_.getGraphics().clear(0xFFfff0f6);
+        iEngine_.getGraphics().clear(AssetsManager.getInstance_().getBackgroundColor());
         this.iEngine_.getGraphics().setFont(font_);
         this.iEngine_.getGraphics().setColor(0xFF000000);
         iEngine_.getGraphics().drawText("Mundo "+numberLevel_, width_ / 2, 30);

@@ -29,14 +29,14 @@ public class MenuScene extends Scene {
         fontButton_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
         myButtonSound_ = iEngine_.getAudio().newSound("menuButton.wav");
 
-        this.playButton_ = new Button("Partida Rapida", fontButton_, 0XFFFB839B
+        this.playButton_ = new Button("Partida Rapida", fontButton_,AssetsManager.getInstance_().getButtonColor()
                 , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 -80, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
                 GameManager.getInstance_().changeScene(new LevelScene());
             }
         });
-        this.mundoButton_ = new Button("Explorar Mundos", fontButton_, 0XFFFB839B
+        this.mundoButton_ = new Button("Explorar Mundos", fontButton_,AssetsManager.getInstance_().getButtonColor()
                 , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 , myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
@@ -64,7 +64,7 @@ public class MenuScene extends Scene {
 
     public void render() {
         super.render();
-        iEngine_.getGraphics().setColor(0XFF222222);
+        iEngine_.getGraphics().setColor(AssetsManager.getInstance_().getBackgroundColor());
         this.iEngine_.getGraphics().setFont(font_);
         iEngine_.getGraphics().drawText("MasterMind", width_ / 2, 30);
         iEngine_.getGraphics().drawImage(myIcon_, this.width_ / 2 - 80 / 2, this.height_ / 2 - 220, 80, 80);

@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
 
+import com.example.androidgame.GameLogic.AssetsManager;
+import com.example.androidgame.GameLogic.EnumPalette;
 import com.google.android.gms.ads.AdView;
 //import android.widget.RelativeLayout;
 
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
             Log.e("MainActivity", "AdView is definetly null");
         }
         GameManager.init(IEngine_, 400, 600);
+        AssetsManager.getInstance_().setPaletteTheme(EnumPalette.YELLOW);
         MenuScene gm = new MenuScene();
 
         IEngine_.setScene(gm);

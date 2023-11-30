@@ -71,7 +71,7 @@ public class ShopScene extends Scene {
                         surfaceShops_.get(id).setVisibility(View.INVISIBLE);
                         if(id==0)id=2;
                         else
-                        id = (id - 1)%3;
+                            id = (id - 1)%3;
                         surfaceShops_.get(id).setVisibility(View.VISIBLE);
                         Log.d("MainActivity",String.valueOf(id));
                     }

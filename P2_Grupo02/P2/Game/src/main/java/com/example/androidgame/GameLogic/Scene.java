@@ -21,7 +21,7 @@ public class Scene implements IScene {
 
     @Override
     public void render() {
-        iEngine_.getGraphics().clear(0xFFfff0f6);
+        iEngine_.getGraphics().clear(AssetsManager.getInstance_().getBackgroundColor());
         if (GameManager.getInstance_().getBackgroundImage() != null) {
             iEngine_.getGraphics().drawImage(GameManager.getInstance_().getBackgroundImage(), 0, 0, height_, width_);
         }

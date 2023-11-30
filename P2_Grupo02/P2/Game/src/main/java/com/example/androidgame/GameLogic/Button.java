@@ -10,7 +10,7 @@ import com.example.androidengine.TouchEvent;
 public class Button extends GameObject {
     protected String text_;
     protected Font font_;
-    protected int color_;
+    protected int color_,lineColor_,textColor_;
     protected int width_ = 0, height_ = 0, posX_ = 0, posY_ = 0, arc_ = 0;
     protected Sound mySound_;
     private ButtonClickListener onClickFunction;
@@ -25,6 +25,8 @@ public class Button extends GameObject {
         this.posY_ = y;
         mySound_ = buttonSound;
         this.onClickFunction = function;
+        this.lineColor_=0XFF222222;
+        this.textColor_= 0xFFFFFFFF;
     }
 
     public void update(double time) {
@@ -34,11 +36,11 @@ public class Button extends GameObject {
         int xText, yText;
         xText = this.posX_ + this.width_ / 2;
         yText = this.posY_ + this.height_ / 2;
-        graph.setColor(0XFF222222);
+        graph.setColor(lineColor_);
         graph.fillRoundRectangle(this.posX_ - 2, this.posY_ - 2, this.width_ + 4, this.height_ + 4, this.arc_);
         graph.setColor(this.color_);
         graph.fillRoundRectangle(this.posX_, this.posY_, this.width_, this.height_, this.arc_);
-        graph.setColor(0xFFFFFFFF);
+        graph.setColor(textColor_);
         graph.setFont(this.font_);
         graph.drawText(this.text_, xText, yText);
     }
@@ -58,5 +60,14 @@ public class Button extends GameObject {
             }
         }
         return false;
+    }
+    public void setButtonColor(int color){
+        this.color_=color;
+    }
+    public void setButtonTextColor(int textColor){
+        this.textColor_=textColor;
+    }
+    public void setButtonLineColor(int lineColor){
+        this.lineColor_=lineColor;
     }
 }
