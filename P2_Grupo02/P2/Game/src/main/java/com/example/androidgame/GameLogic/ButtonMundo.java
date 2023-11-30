@@ -14,6 +14,9 @@ public class ButtonMundo extends Button{
        Graphics graphics= GameManager.getInstance().getIEngine().getGraphics();
        lockImage_=graphics.newImage("lock.png");
        locked_=locked;
+       color_=backgroundColor;
+       textColor_=textColor;
+       lineColor_=lineColor;
 
     }
     public void render(Graphics graph) {
