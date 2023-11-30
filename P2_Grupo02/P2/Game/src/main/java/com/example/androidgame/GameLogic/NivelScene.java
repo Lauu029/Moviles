@@ -26,7 +26,10 @@ public class NivelScene extends Scene {
 
         for(int i=0;i<niveles_;i++){
             if(x>=columnas_){x=0;y++;}
-            gameObjects_.add(new ButtonMundo(""+i,font_,0XF0FB839B,wButton,wButton,25,(x*(wButton+margen))+margen,y*(wButton+margen)+100,null,null,false));
+            gameObjects_.add(new ButtonMundo(""+i,font_,AssetsManager.getInstance().getButtonColor(),
+                    AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor(),
+                    wButton,wButton,25,(x*(wButton+margen))+margen,y*(wButton+margen)+100,
+                    null,null,false));
             x++;
         }
     }

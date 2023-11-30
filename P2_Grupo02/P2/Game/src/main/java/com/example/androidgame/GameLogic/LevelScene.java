@@ -34,7 +34,7 @@ public class LevelScene extends Scene {
         for (int i = 0; i < 4; i++) {
 
             int finalI = i;
-            Button but = new Button(names[i], font_, colors[i],
+            Button but = new Button(names[i], font_,AssetsManager.getInstance().getButtonColor() ,//colors[i]
                     AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor(),150, 50, 35, this.width_ / 2 - 150 / 2,
                     100 * i + 100, myButtonSound_, new ButtonClickListener() {
                 @Override

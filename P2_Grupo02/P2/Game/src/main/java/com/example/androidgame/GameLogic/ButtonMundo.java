@@ -8,11 +8,9 @@ import com.example.androidengine.Sound;
 public class ButtonMundo extends Button{
     protected Image lockImage_;
     Boolean locked_;
-    private int color_,lineColor_,textColor_;
-    ButtonMundo(String t, Font f, int c, int w, int h, int a, int x, int y, Sound buttonSound, ButtonClickListener function,Boolean locked) {
-        super(t, f, AssetsManager.getInstance().getButtonColor(),
-                AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor(),
-                w, h, a, x, y, buttonSound, function);
+    protected int color_,lineColor_,textColor_;
+    ButtonMundo(String t, Font f, int backgroundColor,int textColor,int lineColor, int w, int h, int a, int x, int y, Sound buttonSound, ButtonClickListener function,Boolean locked) {
+        super(t, f, backgroundColor,textColor,lineColor,w, h, a, x, y, buttonSound, function);
        Graphics graphics= GameManager.getInstance().getIEngine().getGraphics();
        lockImage_=graphics.newImage("lock.png");
        locked_=locked;
