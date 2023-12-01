@@ -2,24 +2,26 @@ package com.example.androidgame.GameLogic;
 
 public class AssetsManager {
     private EnumTheme circleTheme_= EnumTheme.ADVENTURE;
+    private EnumTheme worldCircleTheme_= EnumTheme.HALLOWEEN;
     private EnumTheme backgrounTheme_;
     private EnumPalette paletteColor_=EnumPalette.DEFAULT;
     private int backgroundColor_=0xFFFFF0F6;
-    private int buttonColor_=0XFFFB839B;
+    private int buttonColor_=0XD0FB839B;
     private int textColor_=0xFFFFFFFF;
     private int lineColor_=0XFF222222;
-    private int defaultPalette[]={0xFFFFF0F6,0XFFFB839B,0xFFFFFFFF,0XFF222222};
-    private int yellowPalette[]={0xFFebe57c,0xFFE3BE2B,0xFFDB8D07,0xFFDB8D07};
-    private int bluePalette[]={0xFF70b2e0,0xFF1f438f,0xFFFFFFFF,0xFF30ace6};
-    private int greenPalette[]={0xFF66d46b,0xFF40a845,0xFFFFFFFF,0xFF18571b};
-    private int hotPinkPalette[]={0xFFe681b0,0xFFd60466,0xFFFFFFFF,0xFF9e0240};
+    private int defaultPalette[]={0xFFFFF0F6,0XD0FB839B,0xFFFFFFFF,0XFF222222};
+    private int yellowPalette[]={0xFFebe57c,0xD0E3BE2B,0xFFDB8D07,0xFFDB8D07};
+    private int bluePalette[]={0xFF70b2e0,0xD01f438f,0xFFFFFFFF,0xFF30ace6};
+    private int greenPalette[]={0xFF66d46b,0xD040a845,0xFFFFFFFF,0xFF18571b};
+    private int hotPinkPalette[]={0xFFe681b0,0xD0d60466,0xFFFFFFFF,0xFF9e0240};
 
     private static AssetsManager instance_;
     private AssetsManager() {
         // Constructor privado
     }
-    EnumTheme getCirleTheme(){
-        return circleTheme_;
+    EnumTheme getCirleTheme(boolean world){
+        if(!world)return circleTheme_;
+        return worldCircleTheme_;
     }
     //EnumPalette getPaletteColor(){return paletteColor_;}
 

@@ -11,8 +11,11 @@ public class GameScene extends Scene {
     private Difficulty lev_;
     private GameManager gm_;
     private Sound myCrossSound_;
-    public GameScene() {
-       super();
+    boolean world_=false;
+    public GameScene(boolean world) {
+        super();
+        world_=world;
+
     }
     //Inicializa los botones, el tablero y la solución
     public void init() {
@@ -21,7 +24,7 @@ public class GameScene extends Scene {
         this.lev_ = this.gm_.getLevel();
         mySolution_ = new Solution();
         mySolution_.createSolution(lev_.isRepeat(), lev_.getSolutionColors(), lev_.getPosibleColors(), lev_.getTries());
-        this.gameBoard_ = new Board( lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_);
+        this.gameBoard_ = new Board( lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_,world_);
         addGameObject(gameBoard_);
         gm_.setBoard_(this.gameBoard_);
         Sound buttonSound= GameManager.getInstance().getIEngine().getAudio().newSound("colorBlindButton.wav");
@@ -65,17 +68,26 @@ public class GameScene extends Scene {
             mySolution_.check(tempSol);
             int try_ = this.gameBoard_.getAcutalTry_();
             if (mySolution_.getCorrectPos(try_) == this.lev_.getSolutionColors()) {
-                EndScene end = new EndScene(true, mySolution_.getSol_(), try_);
-                SceneManager.getInstance().addScene(end);
+                ChangeEndScene(true,try_);
 
             } else if (try_ == lev_.getTries() -1) {
-                EndScene end = new EndScene( false, mySolution_.getSol_(), try_);
-                SceneManager.getInstance().addScene(end);
+                ChangeEndScene(false,try_);
             } else {
                 gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
                 gameBoard_.nexTry();
             }
         }
         super.update(time);
+    }
+    protected void ChangeEndScene(boolean win,int try_){
+        if(!world_){
+            EndScene end = new EndScene( win, mySolution_.getSol_(), try_);
+            SceneManager.getInstance().addScene(end);
+        }
+        else{
+            WorldEndScene worldEnd=new WorldEndScene(win, mySolution_.getSol_(), try_);
+            SceneManager.getInstance().addScene(worldEnd);
+        }
+
     }
 }

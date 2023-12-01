@@ -31,16 +31,16 @@ public class Circle extends GameObject {
         this.radius_ = r;
         this.row_ = row_;
         this.isDaltonics_ = GameManager.getInstance().getDaltonic();
-        this.tematica_ = AssetsManager.getInstance().getCirleTheme();
+        this.tematica_ = AssetsManager.getInstance().getCirleTheme(false);
     }
 
     public void setColor_(int color_) {
         this.color_ = color_;
     }
 
-    public void setImage(String image) {
+    public void setImage(String image,boolean world) {
         if (tematica_ != EnumTheme.DEFAULT) {
-            String path = tematica_.getPath();
+            String path = AssetsManager.getInstance().getCirleTheme(world).getPath();
             this.image_ = GameManager.getInstance().getIEngine().getGraphics().newImage(path + image + ".png");
         }
     }

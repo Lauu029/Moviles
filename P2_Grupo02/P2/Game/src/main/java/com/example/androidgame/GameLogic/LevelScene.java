@@ -41,7 +41,7 @@ public class LevelScene extends Scene {
                 public void onClick() {
                     GameInit gameInit = new GameInit(diff[finalI]);
                     GameManager.getInstance().setLevel(gameInit.getDifficulty());
-                    SceneManager.getInstance().addScene(new GameScene());
+                    SceneManager.getInstance().addScene(new GameScene(false));
                 }
             });
 

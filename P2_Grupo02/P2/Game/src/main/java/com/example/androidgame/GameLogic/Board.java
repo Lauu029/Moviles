@@ -33,9 +33,10 @@ public class Board extends GameObject {
     private ArrayList<Circle> gameObjectsTable_ = new ArrayList<>();
     private Font font1_, font2_, font3_;
     private int hintsPos_;
-
-    Board(int codeColors_, int tries_, int usableColors, boolean canRepeat_, int scW, int scH) {
+    private boolean world_;
+    Board(int codeColors_, int tries_, int usableColors, boolean canRepeat_, int scW, int scH,boolean world) {
         gm_ = GameManager.getInstance();
+        world_=world;
         this.font1_ = gm_.getIEngine().getGraphics().newFont("Lexendt.ttf", 20, false, false);
         this.codeColors_ = codeColors_;
         this.tries_ = tries_;
@@ -66,7 +67,7 @@ public class Board extends GameObject {
         for (int i = 0; i < usableColors_; i++) {
             usableColorsCircles_[i] = new SolutionCircle(Integer.toString(i), this.font1_, this.circleRad_, 0, 0, -1);
             usableColorsCircles_[i].setColor_(totalPossibleColors[i]);
-            usableColorsCircles_[i].setImage(""+(i+1));
+            usableColorsCircles_[i].setImage(""+(i+1),world_);
             usableColorsCircles_[i].setIdColor_(i);
             gameObjectsTable_.add(usableColorsCircles_[i]);
         }
@@ -213,7 +214,7 @@ public class Board extends GameObject {
         for (int i = 0; i < this.codeColors_; i++) {
             if (!playerTries_[acutalTry_][i].hasColor()) {
                 playerTries_[acutalTry_][i].setColor(color, id);
-                playerTries_[acutalTry_][i].setImage(""+(id+1));
+                playerTries_[acutalTry_][i].setImage(""+(id+1),world_);
                 this.gm_.putColorSolution(i, id);
                 break;
             }

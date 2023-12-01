@@ -1,11 +1,14 @@
 package com.example.androidgame.GameLogic;
 
+import android.util.Log;
+import android.view.View;
+
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Sound;
 import java.util.ArrayList;
 
-public class NivelScene extends Scene {
+public class WorldScene extends Scene {
     private Font font_;
     private int niveles_=0;
     private int numberLevel_=0;
@@ -40,12 +43,35 @@ public class NivelScene extends Scene {
                 public void onClick() {
 
                     GameManager.getInstance().setLevel(diff.get(finalI));
-                    SceneManager.getInstance().addScene(new GameScene());
+                    SceneManager.getInstance().addScene(new GameScene(true));
                 }}
                ));
             x++;
         }
+        Sound myArrowSound_ = iEngine_.getAudio().newSound("arrowButton.wav");
+        ButtonImage returnButton_ = new ButtonImage("flecha.png", 40, 40, 0, 0, myArrowSound_, new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                SceneManager.getInstance().switchToPreviousScene();
+            }
+        });
+        this.addGameObject(returnButton_);
 
+        Button previous_ = new ButtonImage("FlechasIzq.png", 35, 35, width_ / 2 - 120, 15, myArrowSound_, new ButtonClickListener() {
+            @Override
+            public void onClick() {
+
+
+            }
+        });
+        this.addGameObject(previous_);
+        Button next_ = new ButtonImage("FlechasDcha.png", 35, 35, width_ / 2 + 100, 15, myArrowSound_, new ButtonClickListener() {
+            @Override
+            public void onClick() {
+
+            }
+        });
+        this.addGameObject(next_);
     }
     public void render() {
         iEngine_.getGraphics().clear(AssetsManager.getInstance().getBackgroundColor());

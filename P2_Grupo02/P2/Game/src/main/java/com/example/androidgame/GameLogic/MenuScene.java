@@ -1,18 +1,11 @@
 package com.example.androidgame.GameLogic;
 
 
-import android.util.Log;
-
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
 import com.example.androidgame.R;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 public class MenuScene extends Scene {
     private Button playButton_;
@@ -50,11 +43,11 @@ public class MenuScene extends Scene {
                 , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 , myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                SceneManager.getInstance().addScene(new NivelScene());
+                SceneManager.getInstance().addScene(new WorldScene());
             }
         });
-        this.storeButton_ = new Button("Personalizar", fontButton_, 0XFFbf5061,
-                AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor()
+        this.storeButton_ = new Button("Personalizar", fontButton_, AssetsManager.getInstance().getLineColor(),
+                AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getButtonColor()
                 , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 120, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
@@ -66,10 +59,7 @@ public class MenuScene extends Scene {
         addGameObject(storeButton_);
         addGameObject(mundoButton_);
         myIcon_ = graph.newImage("logo.png");
-//        WorkRequest workRequest = new OneTimeWorkRequest.Builder(TimedWorker.class)
-//                .setInitialDelay(20, TimeUnit.SECONDS)
-//                .setInputData(inputData) // Corregido el nombre del método
-//                .build();
+
         iEngine_.getMobile().createNotification(R.drawable.logo);
     }
 

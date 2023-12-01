@@ -24,7 +24,8 @@ public class ButtonMundo extends Button{
         xText = this.posX_ + this.width_ / 2;
         yText = this.posY_ + this.height_ / 2;
         graph.setColor(this.lineColor_);
-        graph.fillRoundRectangle(this.posX_ - 2, this.posY_ - 2, this.width_ + 4, this.height_ + 4, this.arc_);
+        graph.setStrokeWidth(5);
+        graph.drawRoundRectangle(this.posX_ , this.posY_ , this.width_ , this.height_ , (int) (this.arc_));
         graph.setColor(this.color_);
         graph.fillRoundRectangle(this.posX_, this.posY_, this.width_, this.height_, this.arc_);
         graph.setColor(this.textColor_);

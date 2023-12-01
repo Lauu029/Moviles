@@ -35,13 +35,15 @@ public class Button extends GameObject {
         int xText, yText;
         xText = this.posX_ + this.width_ / 2;
         yText = this.posY_ + this.height_ / 2;
-        graph.setColor(lineColor_);
-        graph.fillRoundRectangle(this.posX_ - 2, this.posY_ - 2, this.width_ + 4, this.height_ + 4, this.arc_);
+
         graph.setColor(this.color_);
         graph.fillRoundRectangle(this.posX_, this.posY_, this.width_, this.height_, this.arc_);
         graph.setColor(textColor_);
         graph.setFont(this.font_);
         graph.drawText(this.text_, xText, yText);
+        graph.setColor(lineColor_);
+        graph.setStrokeWidth(3);
+        graph.drawRoundRectangle(this.posX_ , this.posY_ , this.width_ , this.height_ , (int) (this.arc_));
     }
 
     @Override
