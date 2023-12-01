@@ -42,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.e("MainActivity", "AdView is definetly null");
         }
+
         GameManager.init(IEngine_, 400, 600);
         IEngine_.resume();
-
     }
 
     @Override

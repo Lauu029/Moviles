@@ -113,7 +113,7 @@ public class GameManager {
         coins_=coins;
     }
     public void saveGameData() {
-        SaveData.saveGameData(myEngine_.getMainActivity(), coins_);
+        SaveData.saveGameData(myEngine_.getMainActivity(), coins_,AssetsManager.getInstance().getPaletteColor());
     }
 
     // Llamado al iniciar el juego para cargar el progreso del jugador

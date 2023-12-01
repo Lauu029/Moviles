@@ -23,8 +23,7 @@ public class AssetsManager {
         if(!world)return circleTheme_;
         return worldCircleTheme_;
     }
-    //EnumPalette getPaletteColor(){return paletteColor_;}
-
+    EnumPalette getPaletteColor(){return paletteColor_;}
     public int getBackgroundColor() {
         return backgroundColor_;
     }
