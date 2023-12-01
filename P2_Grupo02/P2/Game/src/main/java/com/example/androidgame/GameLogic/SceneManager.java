@@ -19,10 +19,7 @@ public class SceneManager {
 
     // Initialize the unique instance of SceneManager
     public static void init() {
-
-
         instance = new SceneManager();
-
         MenuScene gm = new MenuScene();
         instance.addScene(gm);
     }

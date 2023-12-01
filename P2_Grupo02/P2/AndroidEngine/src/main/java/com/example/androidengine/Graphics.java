@@ -210,15 +210,23 @@ public class Graphics {
         Bitmap bitmap = Bitmap.createBitmap(this.myView_.getWidth(), this.myView_.getHeight(),
                 Bitmap.Config.ARGB_8888);
 
+        if(x < 0) x=0;
+        if(y < 0) y=0;
+        if(x>myView_.getWidth()) x=myView_.getWidth();
+        if(y>myView_.getHeight()) y=myView_.getHeight();
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             HandlerThread handlerThread = new HandlerThread("PixelCopier");
             handlerThread.start();
+            int finalX = x;
+            int finalY = y;
             PixelCopy.request(this.myView_, bitmap, new PixelCopy.OnPixelCopyFinishedListener() {
                 @Override
                 public void onPixelCopyFinished(int copyResult) {
                     if (copyResult == PixelCopy.SUCCESS) {
-                        int realX=Math.abs(x-(int)translateX_);
-                        int realY=Math.abs(y-(int)translateY_);
+
+                        int realX=Math.abs(finalX -(int)translateX_);
+                        int realY=Math.abs(finalY -(int)translateY_);
 
                         int realW=(int)(w*scale_);
                         int realH=(int)(h*scale_);

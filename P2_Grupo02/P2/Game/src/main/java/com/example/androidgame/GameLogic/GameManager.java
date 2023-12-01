@@ -39,8 +39,6 @@ public class GameManager {
         return 1;
     }
 
-
-
     public int getwidth() {
         return width_;
     }
@@ -110,5 +108,18 @@ public class GameManager {
     }
     public void addCoins(int amount){
         coins_+=amount;
+    }
+    protected void setCoins(int coins){
+        coins_=coins;
+    }
+    public void saveGameData() {
+        SaveData.saveGameData(myEngine_.getMainActivity(), coins_);
+    }
+
+    // Llamado al iniciar el juego para cargar el progreso del jugador
+    public void loadGameData() {
+        SaveData.loadGameData(myEngine_.getMainActivity());
+        // Actualiza las variables del GameManager según los datos cargados
+        coins_ = getCoins();
     }
 }

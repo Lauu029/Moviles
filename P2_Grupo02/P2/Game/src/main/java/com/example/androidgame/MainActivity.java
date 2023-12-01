@@ -43,9 +43,6 @@ public class MainActivity extends AppCompatActivity {
             Log.e("MainActivity", "AdView is definetly null");
         }
         GameManager.init(IEngine_, 400, 600);
-
-
-
         IEngine_.resume();
 
     }
@@ -55,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         System.out.println("--------------------me pause-------------------------");
         IEngine_.pause();
+        GameManager.getInstance().saveGameData();
     }
 
     @Override
@@ -62,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         Log.d("TAG", "RESUMEEEE");
         IEngine_.resume();
+        GameManager.getInstance().loadGameData();
         if(getIntent().hasExtra("notification")){
               Log.d("TAG", "NOTIFICATION");
         }
