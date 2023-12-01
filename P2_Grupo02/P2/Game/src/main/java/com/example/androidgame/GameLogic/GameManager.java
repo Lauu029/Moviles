@@ -8,7 +8,7 @@ import com.example.androidengine.Image;
 public class GameManager {
     private static GameManager instance_;
     private Engine myEngine_;
-    private IScene actualScene_;
+
     private int width_, height_;
     private Difficulty levelDificulty_;
     private Board board_;
@@ -28,21 +28,18 @@ public class GameManager {
 
     public static int init(Engine engine, int width, int height) {
         instance_ = new GameManager();
-        AssetsManager.init();
         instance_.myEngine_ = engine;
         instance_.width_ = width;
         instance_.height_ = height;
         instance_.daltonics_ = false;
         instance_.coins_ = 100;
         instance_.backgroundImage_ = null;
+        AssetsManager.init();
+        SceneManager.init();
         return 1;
     }
 
-    public void changeScene(IScene scene) {
-        this.actualScene_ = scene;
-        //myEngine_.getMobile().LoadRewardedAd();
-        myEngine_.setScene(scene);
-    }
+
 
     public int getwidth() {
         return width_;

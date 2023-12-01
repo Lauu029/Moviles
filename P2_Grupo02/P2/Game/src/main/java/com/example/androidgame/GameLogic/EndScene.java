@@ -60,7 +60,7 @@ public class EndScene extends Scene {
                 GameManager.getInstance().setLevel(gameInit.getDifficulty());
                 Engine engine_ = GameManager.getInstance().getIEngine();
                 engine_.getAudio().playSound(myButtonSound_, 0);
-                GameManager.getInstance().changeScene(new GameScene());
+                SceneManager.getInstance().addScene(new GameScene());
             }
         });
 
@@ -72,7 +72,8 @@ public class EndScene extends Scene {
             public void onClick() {
                 GameInit gameInit = new GameInit(GameManager.getInstance().getLevel().getLevelDiff_());
                 GameManager.getInstance().setLevel(gameInit.getDifficulty());
-                GameManager.getInstance().changeScene(new LevelScene());
+
+                SceneManager.getInstance().addScene(new LevelScene());
                 //scene_ = new LevelScene(engine_, sceneWidth, sceneHeight);
             }
         });

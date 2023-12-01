@@ -42,7 +42,7 @@ public class MenuScene extends Scene {
                 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 -80, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                GameManager.getInstance().changeScene(new LevelScene());
+                SceneManager.getInstance().addScene(new LevelScene());
             }
         });
         this.mundoButton_ = new Button("Explorar Mundos", fontButton_,AssetsManager.getInstance().getButtonColor(),
@@ -50,7 +50,7 @@ public class MenuScene extends Scene {
                 , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 , myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                GameManager.getInstance().changeScene(new NivelScene());
+                SceneManager.getInstance().addScene(new NivelScene());
             }
         });
         this.storeButton_ = new Button("Personalizar", fontButton_, 0XFFbf5061,
@@ -58,7 +58,7 @@ public class MenuScene extends Scene {
                 , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 120, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                GameManager.getInstance().changeScene(new ShopScene());
+                SceneManager.getInstance().addScene(new ShopScene());
             }
         });
 

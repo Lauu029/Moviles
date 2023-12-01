@@ -44,12 +44,10 @@ public class MainActivity extends AppCompatActivity {
         }
         GameManager.init(IEngine_, 400, 600);
 
-        MenuScene gm = new MenuScene();
 
-        IEngine_.setScene(gm);
 
         IEngine_.resume();
-        gm.init();
+
     }
 
     @Override

@@ -40,7 +40,7 @@ public class NivelScene extends Scene {
                 public void onClick() {
 
                     GameManager.getInstance().setLevel(diff.get(finalI));
-                    GameManager.getInstance().changeScene(new GameScene());
+                    SceneManager.getInstance().addScene(new GameScene());
                 }}
                ));
             x++;

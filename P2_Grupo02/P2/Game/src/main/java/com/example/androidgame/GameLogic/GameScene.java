@@ -42,7 +42,7 @@ public class GameScene extends Scene {
                 myCrossSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                GameManager.getInstance().changeScene(new LevelScene());
+                SceneManager.getInstance().switchToPreviousScene();
             }
         });
         this.addGameObject(exitLevel_);
@@ -66,10 +66,11 @@ public class GameScene extends Scene {
             int try_ = this.gameBoard_.getAcutalTry_();
             if (mySolution_.getCorrectPos(try_) == this.lev_.getSolutionColors()) {
                 EndScene end = new EndScene(true, mySolution_.getSol_(), try_);
-                this.gm_.changeScene(end);
+                SceneManager.getInstance().addScene(end);
+
             } else if (try_ == lev_.getTries() -1) {
                 EndScene end = new EndScene( false, mySolution_.getSol_(), try_);
-                this.gm_.changeScene(end);
+                SceneManager.getInstance().addScene(end);
             } else {
                 gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
                 gameBoard_.nexTry();

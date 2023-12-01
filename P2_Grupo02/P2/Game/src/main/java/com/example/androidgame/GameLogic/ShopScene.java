@@ -58,7 +58,8 @@ public class ShopScene extends Scene {
                         surfaceShops_.get(id).setVisibility(View.INVISIBLE);
                     }
                 });
-                GameManager.getInstance().changeScene(new MenuScene());
+                SceneManager.getInstance().switchToPreviousScene();
+
             }
         });
         previousShop_ = new ButtonImage("FlechasIzq.png", 35, 35, width_ / 2 - 120, 5, myArrowSound_, new ButtonClickListener() {
