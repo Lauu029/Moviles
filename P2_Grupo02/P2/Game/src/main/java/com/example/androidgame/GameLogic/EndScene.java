@@ -98,7 +98,7 @@ public class EndScene extends Scene {
         if(tematica_!= EnumTheme.DEFAULT){
             for(int i=0;i<sol_.length;i++){
                 Log.d("OREO", tematica_.getPath()+(""+(i+1))+".png");
-                Image im=graph.newImage(tematica_.getPath()+(""+(i+1))+".png");
+                Image im=graph.newImage(tematica_.getPath()+(""+(sol_[i]+1))+".png");
                 images_.add(im);
 
             }

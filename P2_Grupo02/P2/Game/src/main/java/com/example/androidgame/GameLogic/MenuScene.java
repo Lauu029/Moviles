@@ -28,8 +28,7 @@ public class MenuScene extends Scene {
     }
     @Override
     public void init() {
-        LevelReader read_=new LevelReader();
-        read_.readWorld("world1");
+
         //creacion de la solucion
         Graphics graph = iEngine_.getGraphics();
         this.font_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 40, true, true);

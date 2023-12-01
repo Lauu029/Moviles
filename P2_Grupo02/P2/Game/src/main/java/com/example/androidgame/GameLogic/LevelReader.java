@@ -14,16 +14,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LevelReader {
-    String levelPath="Levels/";
-    int numLevels;
-    ArrayList<Difficulty>levels_;
+    private String levelPath="Levels/";
+    private int numLevels_;
+    private ArrayList<Difficulty>levels_;
     LevelReader(){
         levels_=new ArrayList<>();
+    }
+    int getNumLevels(){
+        return numLevels_;
+    }
+    ArrayList<Difficulty>geDifficultylevels(){
+        return levels_;
     }
     void readWorld(String path){
         FileManager fileManager=GameManager.getInstance().getIEngine().getFileManager();
         List<InputStream> niveles=fileManager.getFilesInFolder(levelPath+path+"/");
-        numLevels=niveles.size();
+        numLevels_=niveles.size();
         for(InputStream inp:niveles){
             Difficulty dif=new Difficulty();
             JsonNode jsonNode = null;
