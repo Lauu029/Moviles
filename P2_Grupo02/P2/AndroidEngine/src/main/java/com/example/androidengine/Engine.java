@@ -32,7 +32,7 @@ public class Engine implements Runnable {
         myActivity_ = activity;
         myContext_ = myActivity_.getBaseContext();
         mobile_ = new Mobile(myContext_,myActivity_);
-        myFileManager_ = new FileManager(myAssetManager_);
+        myFileManager_ = new FileManager(myAssetManager_,myContext_);
     }
 
     // Metodo para reanudar la ejecución del motor

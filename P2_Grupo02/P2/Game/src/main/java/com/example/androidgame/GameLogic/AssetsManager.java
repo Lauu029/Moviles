@@ -4,7 +4,10 @@ public class AssetsManager {
     private EnumTheme circleTheme_= EnumTheme.ADVENTURE;
     private EnumTheme backgrounTheme_;
     private EnumPalette paletteColor_=EnumPalette.DEFAULT;
-    private int backgroundColor_,buttonColor_,textColor_,lineColor_;
+    private int backgroundColor_=0xFFFFF0F6;
+    private int buttonColor_=0XFFFB839B;
+    private int textColor_=0xFFFFFFFF;
+    private int lineColor_=0XFF222222;
     private int defaultPalette[]={0xFFFFF0F6,0XFFFB839B,0xFFFFFFFF,0XFF222222};
     private int yellowPalette[]={0xFFebe57c,0xFFE3BE2B,0xFFDB8D07,0xFFDB8D07};
     private int bluePalette[]={0xFF70b2e0,0xFF1f438f,0xFFFFFFFF,0xFF30ace6};

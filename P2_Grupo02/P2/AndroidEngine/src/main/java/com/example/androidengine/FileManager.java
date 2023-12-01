@@ -1,5 +1,6 @@
 package com.example.androidengine;
 
+import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
 
@@ -9,12 +10,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileManager {
     private AssetManager myAssetManager_;
-
-    FileManager(AssetManager assetManager) {
+    Context myContext_;
+    FileManager(AssetManager assetManager, Context myContext) {
         myAssetManager_ = assetManager;
+        myContext_=myContext;
     }
 
     public InputStream getInputStream(String f) {
@@ -22,13 +26,46 @@ public class FileManager {
 
         try {
             fInput_ =  this.myAssetManager_.open(f);
+
         } catch (IOException e) {
+            Log.d("MainActivity", "jolin "+f);
             throw new RuntimeException(e);
         }
 
 
         return fInput_;
     }
+    public List<InputStream> getFilesInFolder(String folderPath) {
+        List<InputStream> fileStreams = new ArrayList<>();
+
+        try {
+            String[] fileNames = myAssetManager_.list(folderPath);
+
+            if (fileNames != null) {
+                Log.d("MainActivity", "Size:"+fileNames.length);
+                for (String fileName : fileNames) {
+                    String filePath = folderPath + fileName;
+                    InputStream fileStream = myAssetManager_.open(filePath);
+                    fileStreams.add(fileStream);
+
+                    // Realizar operaciones con el InputStream, por ejemplo, leer el contenido del archivo
+                    // ...
+
+                    // No olvides cerrar el InputStream cuando hayas terminado con él
+                    // fileStream.close(); // Puedes cerrar el InputStream aquí o donde lo utilices
+
+                    Log.d("MainActivity", "Abierto y leído: " + filePath);
+                }
+            }
+        } catch (IOException e) {
+            Log.d("MainActivity", "Error al obtener archivos en la carpeta: " + folderPath);
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
+        return fileStreams;
+    }
+
 
     public OutputStream getOutputStream(String f) {
         OutputStream fOutput_;

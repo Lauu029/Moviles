@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             Log.e("MainActivity", "AdView is definetly null");
         }
         GameManager.init(IEngine_, 400, 600);
-        AssetsManager.getInstance().setPaletteTheme(EnumPalette.HOT_PINK);
+
         MenuScene gm = new MenuScene();
 
         IEngine_.setScene(gm);
