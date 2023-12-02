@@ -9,8 +9,8 @@ import com.example.androidengine.TouchEvent;
  * almacene el color y lo coloque en la posición correspondiente*/
 public class SolutionCircle extends Circle {
     private Sound myButtonSound_;
-    public SolutionCircle(String t, Font f, int r, int x, int y, int row_) {
-        super(t, f, r, x, y, row_);
+    public SolutionCircle(String t, Font f, int r, int x, int y, int row_,boolean world) {
+        super(t, f, r, x, y, row_,world);
         myButtonSound_=GameManager.getInstance().getIEngine().getAudio().newSound("circleSound.wav");
     }
 

@@ -11,7 +11,7 @@ public class HintsCircle extends Circle {
     private int inactiveColor = 0xFF947c86, rightPosition = 0xFF000000, justRightColor = 0xFFFFFFFF;
 
     public HintsCircle(String t, Font f, int r, int x, int y, int row_) {
-        super(t, f, r, x, y, row_);
+        super(t, f, r, x, y, row_,false);
         this.active_ = false;
         this.setColor_(inactiveColor);
     }

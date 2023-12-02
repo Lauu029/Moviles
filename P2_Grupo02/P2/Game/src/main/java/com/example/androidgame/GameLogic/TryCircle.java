@@ -12,8 +12,8 @@ public class TryCircle extends Circle {
     private int idRow_;
     private boolean hasColor_;
 
-    public TryCircle(String t, Font f, int r, int x, int y, int row_, int id) {
-        super(t, f, r, x, y, row_);
+    public TryCircle(String t, Font f, int r, int x, int y, int row_, int id,boolean world) {
+        super(t, f, r, x, y, row_,world);
         this.idRow_ = id;
         this.hasColor_ = false;
     }

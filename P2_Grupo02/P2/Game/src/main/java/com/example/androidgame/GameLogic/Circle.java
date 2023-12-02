@@ -21,8 +21,8 @@ public class Circle extends GameObject {
     protected static GameManager gm_;
     protected Image image_;
     private Theme tematica_;
-
-    public Circle(String t, Font f, int r, int x, int y, int row_) {
+    Boolean world_;
+    public Circle(String t, Font f, int r, int x, int y, int row,boolean world) {
         this.font_ = f;
         this.text_ = t;
         this.color_ = 0xFFad909c;
@@ -31,16 +31,17 @@ public class Circle extends GameObject {
         this.radius_ = r;
         this.row_ = row_;
         this.isDaltonics_ = GameManager.getInstance().getDaltonic();
-        this.tematica_ = AssetsManager.getInstance().getCirleTheme(false);
+        this.tematica_ = AssetsManager.getInstance().getCirleTheme(world);
+        world_=world;
     }
 
     public void setColor_(int color_) {
         this.color_ = color_;
     }
 
-    public void setImage(String image,boolean world) {
+    public void setImage(String image) {
         if (tematica_.getName()!= "DEFAULT") {
-            String path = AssetsManager.getInstance().getCirleTheme(world).getPath();
+            String path = AssetsManager.getInstance().getCirleTheme(world_).getPath();
             this.image_ = GameManager.getInstance().getIEngine().getGraphics().newImage(path + image + ".png");
         }
     }

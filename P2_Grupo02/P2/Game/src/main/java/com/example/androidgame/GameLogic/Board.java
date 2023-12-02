@@ -65,15 +65,15 @@ public class Board extends GameObject {
         this.hints_ = new HintsCircle[this.tries_][this.codeColors_];
         //Inicializa los colores que se puedan usar
         for (int i = 0; i < usableColors_; i++) {
-            usableColorsCircles_[i] = new SolutionCircle(Integer.toString(i), this.font1_, this.circleRad_, 0, 0, -1);
+            usableColorsCircles_[i] = new SolutionCircle(Integer.toString(i), this.font1_, this.circleRad_, 0, 0, -1,world_);
             usableColorsCircles_[i].setColor_(totalPossibleColors[i]);
-            usableColorsCircles_[i].setImage(""+(i+1),world_);
+            usableColorsCircles_[i].setImage(""+(i+1));
             usableColorsCircles_[i].setIdColor_(i);
             gameObjectsTable_.add(usableColorsCircles_[i]);
         }
         for (int i = 0; i < this.tries_; i++) {
             for (int j = 0; j < codeColors_; j++) {
-                playerTries_[i][j] = new TryCircle("", this.font1_, this.circleRad_, 0, yPositions_[i + 2], i, j);
+                playerTries_[i][j] = new TryCircle("", this.font1_, this.circleRad_, 0, yPositions_[i + 2], i, j,world_);
                 playerTries_[i][j].setGameTry_(acutalTry_);
                 gameObjectsTable_.add(playerTries_[i][j]);
                 hints_[i][j] = new HintsCircle("", this.font1_, this.circleRad_ / 3, 0, yPositions_[i + 2], i);
@@ -214,7 +214,7 @@ public class Board extends GameObject {
         for (int i = 0; i < this.codeColors_; i++) {
             if (!playerTries_[acutalTry_][i].hasColor()) {
                 playerTries_[acutalTry_][i].setColor(color, id);
-                playerTries_[acutalTry_][i].setImage(""+(id+1),world_);
+                playerTries_[acutalTry_][i].setImage(""+(id+1));
                 this.gm_.putColorSolution(i, id);
                 break;
             }
