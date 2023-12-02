@@ -21,8 +21,12 @@ public class GameScene extends Scene {
     }
     //Inicializa los botones, el tablero y la solución
     public void init() {
-        String imagePath=AssetsManager.getInstance().getBackgrounTheme_Theme(world_).getPath()+"foreground.jpg";
-        backaground_=iEngine_.getGraphics().newImage(imagePath);
+
+        if(AssetsManager.getInstance().getBackgrounTheme(world_).getName()!="DEFAULT"){
+            String imagePath=AssetsManager.getInstance().getBackgrounTheme(world_).getPath()+"foreground.jpg";
+            backaground_=iEngine_.getGraphics().newImage(imagePath);
+        }
+
         this.font_ = this.iEngine_.getGraphics().newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
         this.gm_ = GameManager.getInstance();
         this.lev_ = this.gm_.getLevel();
@@ -98,6 +102,7 @@ public class GameScene extends Scene {
     public void render(){
 
         iEngine_.getGraphics().clear(AssetsManager.getInstance().getBackgroundColor());
+        if(backaground_!=null)
         iEngine_.getGraphics().drawImage(backaground_,0,0,GameManager.getInstance().getHeight_(),GameManager.getInstance().getwidth());
         if (GameManager.getInstance().getBackgroundImage() != null) {
             iEngine_.getGraphics().drawImage(GameManager.getInstance().getBackgroundImage(), 0, 0, height_, width_);

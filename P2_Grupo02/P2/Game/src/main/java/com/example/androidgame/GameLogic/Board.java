@@ -155,21 +155,22 @@ public class Board extends GameObject {
 
     @Override
     public void render(Graphics graph) {
-        graph.setColor(0xFFad909c);
+        graph.setColor(AssetsManager.getInstance().getButtonColor());
         graph.fillRectangle(0, yPositions_[12], sceneWidth_, heightSubdivisions_ + 8);
         graph.setFont(font2_);
-        graph.setColor(0xFF272b2b);
+        graph.setColor(AssetsManager.getInstance().getLineColor());
         graph.drawText("Averigua el codigo", sceneWidth_ / 2, yPositions_[0] + 6);
         graph.setFont(font3_);
         graph.drawText("Te quedan " + (this.tries_ - acutalTry_) + " intentos", sceneWidth_ / 2, yPositions_[1] + 6);
-        for (GameObject g : gameObjectsTable_) {
-            g.render(graph);
-        }
+
         int offsetY = 5;
         int posX = (sceneWidth_ - (sceneWidth_ - 8)) / 2;
         for (int i = 0; i < this.tries_; i++) {
-            graph.setColor(0xFFad909c);
+
             graph.setStrokeWidth(2);
+            graph.setColor(AssetsManager.getInstance().getButtonColor());
+            graph.fillRoundRectangle(posX, yPositions_[i + 2] - (this.circleRad_ /2)-(offsetY/2)  , sceneWidth_ - 8, circleRad_ * 2 + offsetY, 10);
+            graph.setColor(AssetsManager.getInstance().getLineColor());
             graph.drawRoundRectangle(posX, yPositions_[i + 2] - (this.circleRad_ /2)-(offsetY/2)  , sceneWidth_ - 8, circleRad_ * 2 + offsetY, 10);
             graph.drawLine(50, yPositions_[i + 2]- (this.circleRad_ /2)-(offsetY/2)+4,50,(yPositions_[i + 2]- (this.circleRad_ /2)-(offsetY/2))+ circleRad_ * 2 + offsetY-4);
             graph.drawLine(hintsPos_-5, yPositions_[i + 2]- (this.circleRad_ /2)-(offsetY/2)+4,hintsPos_-5,(yPositions_[i + 2]- (this.circleRad_ /2)-(offsetY/2))+ circleRad_ * 2 + offsetY-4);
@@ -181,6 +182,9 @@ public class Board extends GameObject {
             for (int j = 0; j < codeColors_; j++) {
                 hints_[i][j].render(graph);
             }
+        }
+        for (GameObject g : gameObjectsTable_) {
+            g.render(graph);
         }
     }
 

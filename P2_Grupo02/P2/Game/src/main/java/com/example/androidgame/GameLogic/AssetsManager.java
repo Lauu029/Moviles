@@ -28,7 +28,9 @@ public class AssetsManager {
         if(!world)return circleTheme_;
         return worldCircleTheme_;
     }
-    Theme getBackgrounTheme_Theme(boolean world){
+
+    Theme getBackgrounTheme(boolean world){
+
         if(!world)return backgrounTheme_;
         return worldbackgrounTheme_;
     }

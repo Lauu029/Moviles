@@ -32,7 +32,7 @@ public class WorldScene extends Scene {
         int y=0;
          myButtonSound_ = iEngine_.getAudio().newSound("buttonClicked.wav");
          AssetsManager.getInstance().setWorldThem(tema);
-         String imagePath=AssetsManager.getInstance().getBackgrounTheme_Theme(true).getPath()+"foreground.jpg";
+         String imagePath=AssetsManager.getInstance().getBackgrounTheme(true).getPath()+"foreground.jpg";
          backaground_=iEngine_.getGraphics().newImage(imagePath);
         for(int i=0;i<niveles_;i++){
             if(x>=columnas_){x=0;y++;}
