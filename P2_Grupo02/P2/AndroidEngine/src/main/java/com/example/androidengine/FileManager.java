@@ -10,8 +10,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.TreeMap;
 
 public class FileManager {
     private AssetManager myAssetManager_;
@@ -35,18 +35,19 @@ public class FileManager {
 
         return fInput_;
     }
-    public List<InputStream> getFilesInFolder(String folderPath) {
-        List<InputStream> fileStreams = new ArrayList<>();
+
+    public TreeMap<String, InputStream> getFilesInFolder(String folderPath) {
+        TreeMap<String, InputStream> fileStreamsMap = new TreeMap<>();
 
         try {
             String[] fileNames = myAssetManager_.list(folderPath);
 
             if (fileNames != null) {
-                Log.d("MainActivity", "Size:"+fileNames.length);
+                Log.d("MainActivity", "Size:" + fileNames.length);
                 for (String fileName : fileNames) {
                     String filePath = folderPath + fileName;
                     InputStream fileStream = myAssetManager_.open(filePath);
-                    fileStreams.add(fileStream);
+                    fileStreamsMap.put(fileName, fileStream);
 
                     // Realizar operaciones con el InputStream, por ejemplo, leer el contenido del archivo
                     // ...
@@ -63,7 +64,7 @@ public class FileManager {
             throw new RuntimeException(e);
         }
 
-        return fileStreams;
+        return fileStreamsMap;
     }
 
 

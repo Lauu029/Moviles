@@ -20,7 +20,7 @@ public class Circle extends GameObject {
     protected boolean isDaltonics_;
     protected static GameManager gm_;
     protected Image image_;
-    private EnumTheme tematica_;
+    private Theme tematica_;
 
     public Circle(String t, Font f, int r, int x, int y, int row_) {
         this.font_ = f;
@@ -39,7 +39,7 @@ public class Circle extends GameObject {
     }
 
     public void setImage(String image,boolean world) {
-        if (tematica_ != EnumTheme.DEFAULT) {
+        if (tematica_.getName()!= "DEFAULT") {
             String path = AssetsManager.getInstance().getCirleTheme(world).getPath();
             this.image_ = GameManager.getInstance().getIEngine().getGraphics().newImage(path + image + ".png");
         }
@@ -57,7 +57,7 @@ public class Circle extends GameObject {
     public void render(Graphics graph) {
         graph.setColor(this.color_);
         //
-        if (image_ != null && tematica_ != EnumTheme.DEFAULT)
+        if (image_ != null && tematica_.getName()!= "DEFAULT")
             graph.drawImage(image_, this.posX_ - (radius_), this.posY_ - (radius_), this.radius_ * 2, this.radius_ * 2);
         else graph.drawCircle(this.posX_, this.posY_, this.radius_);
         if (this.isDaltonics_) {

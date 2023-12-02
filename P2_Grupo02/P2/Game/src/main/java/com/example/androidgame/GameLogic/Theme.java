@@ -1,21 +1,30 @@
 package com.example.androidgame.GameLogic;
 
-public enum EnumTheme {
-    DEFAULT("default",true),
-    HALLOWEEN("halloween/",true),
-    ADVENTURE("adventure/",true);
+public class Theme {
 
-    private final String path_;
-    boolean purchase_;
+    private String name_;
+    private  String path_;
+    private boolean purchase_;
 
     // Constructor privado para asociar el String con el enum
-    private EnumTheme(String path, boolean purchase_) {
+    public Theme(String name, String path) {
         this.path_ = path;
+        name_=name;
+        purchase_=false;
     }
 
     // Método para obtener el valor asociado con el enum
     public String getPath() {
         return path_;
+    }
+    public String getName() {
+        return name_;
+    }
+    public void setPath(String path) {
+         path_=path;
+    }
+    public void setName(String name) {
+        name_= name;
     }
     public Boolean getPurchased() {
         return purchase_;

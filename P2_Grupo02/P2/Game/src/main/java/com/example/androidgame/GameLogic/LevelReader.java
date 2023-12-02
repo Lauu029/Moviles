@@ -2,20 +2,20 @@ package com.example.androidgame.GameLogic;
 
 import android.util.Log;
 
-import com.example.androidengine.Engine;
 import com.example.androidengine.FileManager;
-import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class LevelReader {
     private String levelPath="Levels/";
     private int numLevels_;
+    private Theme tematica_;
     private ArrayList<Difficulty>levels_;
     LevelReader(){
         levels_=new ArrayList<>();
@@ -26,11 +26,18 @@ public class LevelReader {
     ArrayList<Difficulty>geDifficultylevels(){
         return levels_;
     }
+    Theme getTematicaWorld(){
+        return tematica_;
+    }
     void readWorld(String path){
         FileManager fileManager=GameManager.getInstance().getIEngine().getFileManager();
-        List<InputStream> niveles=fileManager.getFilesInFolder(levelPath+path+"/");
+        TreeMap<String, InputStream> niveles=fileManager.getFilesInFolder(levelPath+path+"/");
         numLevels_=niveles.size();
-        for(InputStream inp:niveles){
+
+        for (Map.Entry<String, InputStream> entry : niveles.entrySet()) {
+            String fileName = entry.getKey();
+            InputStream inp = entry.getValue();
+
             Difficulty dif=new Difficulty();
             JsonNode jsonNode = null;
             Log.d("MainActivity","Leyendo json");
@@ -40,6 +47,13 @@ public class LevelReader {
                 jsonNode = objectMapper.readTree(inp);
             } catch (IOException e) {
                 throw new RuntimeException(e);
+            }
+            if(fileName.compareTo("style.json")==0){
+                String tematica=jsonNode.get("style").asText();
+                String paths=jsonNode.get("path").asText();
+                tematica_=new Theme(tematica,paths);
+
+                continue;
             }
             // Asigna valores a las variables de tu programa desde el JSON
             int codeSize = jsonNode.get("codeSize").asInt();
@@ -60,6 +74,9 @@ public class LevelReader {
                 throw new RuntimeException(e);
             }
         }
+
+
+       // tematica_=tematica;
 
     }
 }

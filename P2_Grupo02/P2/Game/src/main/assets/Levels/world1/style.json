@@ -1,6 +1,5 @@
 { 
-  "codeSize": 1,
-  "codeOpt": 1,
-  "repeat": false,
-  "attempts": 1
+  "style": "HALLOWEEN",
+  "path": "/halloween"
+
 }

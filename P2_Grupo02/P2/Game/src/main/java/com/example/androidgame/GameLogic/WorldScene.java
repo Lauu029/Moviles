@@ -20,6 +20,7 @@ public class WorldScene extends Scene {
         LevelReader read_=new LevelReader();
         read_.readWorld("world1");
         niveles_=read_.getNumLevels();
+        Theme tema=read_.getTematicaWorld();
         ArrayList<Difficulty>diff=read_.geDifficultylevels();
         Graphics graph=iEngine_.getGraphics();
         this.font_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 40, true, true);
@@ -32,6 +33,7 @@ public class WorldScene extends Scene {
         int x=0;
         int y=0;
          myButtonSound_ = iEngine_.getAudio().newSound("buttonClicked.wav");
+         AssetsManager.getInstance().setWorldThem(tema);
         for(int i=0;i<niveles_;i++){
             if(x>=columnas_){x=0;y++;}
             int finalI = i;

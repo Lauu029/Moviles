@@ -24,7 +24,7 @@ public class EndScene extends Scene {
     protected ArrayList<Image>images_ = new ArrayList<Image>();;
     protected boolean win_ = false;
     protected ImageProcessingCallback callback;
-    protected EnumTheme tematica_;
+    protected Theme tematica_;
     public EndScene( boolean win, int[] sol, int intentos) {
        super();
         System.out.print("Scene Width: " + width_ + " Scene Height: " + height_ + "\n");
@@ -101,7 +101,7 @@ public class EndScene extends Scene {
             }
         });
         tematica_=AssetsManager.getInstance().getCirleTheme(false);
-        if(tematica_!= EnumTheme.DEFAULT){
+        if(tematica_.getName()!= "DEFAULT"){
             for(int i=0;i<sol_.length;i++){
                 Log.d("OREO", tematica_.getPath()+(""+(i+1))+".png");
                 Image im=graph.newImage(tematica_.getPath()+(""+(sol_[i]+1))+".png");
@@ -145,7 +145,7 @@ public class EndScene extends Scene {
         int totalCircleWidth = sol_.length * (radius * 2 + offset); // Ancho total de todos los círculos
         int x = (width_ - totalCircleWidth) / 2;
         for (int i = 0; i < sol_.length; i++) {
-            if(tematica_!= EnumTheme.DEFAULT){
+            if(tematica_.getName()!= "DEFAULT"){
                 graph.drawImage(images_.get(i),x + i * (radius * 2 + offset),150,radius*2,radius*2);
             }
             else{

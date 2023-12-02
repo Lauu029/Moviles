@@ -1,9 +1,13 @@
 package com.example.androidgame.GameLogic;
 
+import java.util.TreeMap;
+
 public class AssetsManager {
-    private EnumTheme circleTheme_= EnumTheme.ADVENTURE;
-    private EnumTheme worldCircleTheme_= EnumTheme.HALLOWEEN;
-    private EnumTheme backgrounTheme_;
+
+    private TreeMap<String,TreeMap<String ,Boolean>>tematica_;
+    private Theme circleTheme_= new Theme("DEFAULT","");
+    private Theme worldCircleTheme_=  new Theme("DEFAULT","");
+    private Theme backgrounTheme_;
     private EnumPalette paletteColor_=EnumPalette.DEFAULT;
     private int backgroundColor_=0xFFFFF0F6;
     private int buttonColor_=0XD0FB839B;
@@ -19,7 +23,7 @@ public class AssetsManager {
     private AssetsManager() {
         // Constructor privado
     }
-    EnumTheme getCirleTheme(boolean world){
+    Theme getCirleTheme(boolean world){
         if(!world)return circleTheme_;
         return worldCircleTheme_;
     }
@@ -77,14 +81,46 @@ public class AssetsManager {
                 break;
         }
     }
-    void setCirleTheme(EnumTheme tematica){
-         circleTheme_=tematica;
+    void setCirleTheme(Theme tema,boolean world){
+
+        String temaName = tema.getName();
+
+        if (!tematica_.containsKey(temaName)) {
+            // El tema no existe en el TreeMap, crear uno nuevo y agregarlo
+            TreeMap<String, Boolean> nuevoTema = new TreeMap<>();
+            nuevoTema.put(tema.getPath(), tema.getPurchased());
+            tematica_.put(temaName, nuevoTema);
+        }
+        if(!world)
+        circleTheme_=tema;
+        else{
+            worldCircleTheme_=tema;
+        }
+    }
+    void setWorldThem(Theme tema){
+
+        String temaName = tema.getName();
+
+        if (!tematica_.containsKey(temaName)) {
+            // El tema no existe en el TreeMap, crear uno nuevo y agregarlo
+            TreeMap<String, Boolean> nuevoTema = new TreeMap<>();
+            nuevoTema.put(tema.getPath(), tema.getPurchased());
+            tematica_.put(temaName, nuevoTema);
+        }
+
+        worldCircleTheme_=tema;
+
     }
     public static AssetsManager getInstance() {
         return instance_;
     }
     public static int init() {
         instance_ = new AssetsManager();
+        instance_.tematica_=new TreeMap<String,TreeMap<String ,Boolean>>();
+        String nuevaClave = "DEFAULT";
+        TreeMap<String, Boolean> nuevoValor = new TreeMap<>();
+        nuevoValor.put("", true);
+        instance_.tematica_.put(nuevaClave, nuevoValor);
         return 1;
     }
 

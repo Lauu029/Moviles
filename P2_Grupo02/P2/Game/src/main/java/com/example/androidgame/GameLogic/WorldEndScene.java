@@ -108,7 +108,7 @@ public class WorldEndScene extends EndScene{
         addGameObject(menuButton);
         //carga de imagenes
         tematica_=AssetsManager.getInstance().getCirleTheme(true);
-        if(tematica_!= EnumTheme.DEFAULT){
+        if(tematica_.getName()!= "DEFAULT"){
             for(int i=0;i<sol_.length;i++){
                 Log.d("OREO", tematica_.getPath()+(""+(i+1))+".png");
                 Image im=graph.newImage(tematica_.getPath()+(""+(sol_[i]+1))+".png");
