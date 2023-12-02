@@ -35,7 +35,7 @@ public class MenuScene extends Scene {
                 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 -80, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                SceneManager.getInstance().addScene(new LevelScene());
+                SceneManager.getInstance().addScene(new DifficultyScene());
             }
         });
         this.mundoButton_ = new Button("Explorar Mundos", fontButton_,AssetsManager.getInstance().getButtonColor(),

@@ -36,6 +36,7 @@ public class GameManager {
         instance_.backgroundImage_ = null;
         AssetsManager.init();
         SceneManager.init();
+        LevelManager.init();
         return 1;
     }
 

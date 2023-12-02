@@ -1,10 +1,8 @@
 package com.example.androidgame.GameLogic;
 
-import android.util.Log;
-import android.view.View;
-
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
+import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
 import java.util.ArrayList;
 
@@ -15,13 +13,13 @@ public class WorldScene extends Scene {
     int columnas_=3;
     private Sound myButtonSound_;
     ArrayList<ButtonMundo>botones_;
+    private Image backaground_;
     @Override
     public void init() {
-        LevelReader read_=new LevelReader();
-        read_.readWorld("world1");
-        niveles_=read_.getNumLevels();
-        Theme tema=read_.getTematicaWorld();
-        ArrayList<Difficulty>diff=read_.geDifficultylevels();
+        numberLevel_=LevelManager.getInstance().actualWorld_;
+        Theme tema=LevelManager.getInstance().tema_;
+        ArrayList<Difficulty>diff=LevelManager.getInstance().diff_;
+        niveles_=LevelManager.getInstance().niveles_;
         Graphics graph=iEngine_.getGraphics();
         this.font_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 40, true, true);
         graph.setFont(this.font_);
@@ -34,6 +32,8 @@ public class WorldScene extends Scene {
         int y=0;
          myButtonSound_ = iEngine_.getAudio().newSound("buttonClicked.wav");
          AssetsManager.getInstance().setWorldThem(tema);
+         String imagePath=AssetsManager.getInstance().getBackgrounTheme_Theme(true).getPath()+"foreground.jpg";
+         backaground_=iEngine_.getGraphics().newImage(imagePath);
         for(int i=0;i<niveles_;i++){
             if(x>=columnas_){x=0;y++;}
             int finalI = i;
@@ -43,7 +43,7 @@ public class WorldScene extends Scene {
                     myButtonSound_,false,new ButtonClickListener() {
                 @Override
                 public void onClick() {
-
+                    LevelManager.getInstance().actualLevel_ =finalI;
                     GameManager.getInstance().setLevel(diff.get(finalI));
                     SceneManager.getInstance().addScene(new GameScene(true));
                 }}
@@ -76,7 +76,9 @@ public class WorldScene extends Scene {
         this.addGameObject(next_);
     }
     public void render() {
+
         iEngine_.getGraphics().clear(AssetsManager.getInstance().getBackgroundColor());
+        iEngine_.getGraphics().drawImage(backaground_,0,0,GameManager.getInstance().getHeight_(),GameManager.getInstance().getwidth());
         this.iEngine_.getGraphics().setFont(font_);
         this.iEngine_.getGraphics().setColor(0xFF000000);
         iEngine_.getGraphics().drawText("Mundo "+numberLevel_, width_ / 2, 30);

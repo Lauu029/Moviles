@@ -40,6 +40,7 @@ public class Circle extends GameObject {
     }
 
     public void setImage(String image) {
+
         if (tematica_.getName()!= "DEFAULT") {
             String path = AssetsManager.getInstance().getCirleTheme(world_).getPath();
             this.image_ = GameManager.getInstance().getIEngine().getGraphics().newImage(path + image + ".png");

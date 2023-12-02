@@ -60,7 +60,5 @@ public class SceneManager {
 
     // Other methods and properties of the SceneManager class can go here
 
-    public void doSomething() {
-        System.out.println("Doing something in SceneManager");
-    }
+
 }

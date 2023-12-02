@@ -78,22 +78,25 @@ public class WorldEndScene extends EndScene{
             }
         });
         addGameObject(shareRecordButton_);
+        Difficulty difNextLevel=LevelManager.getInstance().getNextLevelDifficulty();
+        if(difNextLevel!=null) {
+            Button nextLevelButton = new Button("Siguiente Nivel", font1_, AssetsManager.getInstance().getButtonColor(),
+                    AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor()
+                    , 150, 40, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 +20,
+                    /* SceneNames.GAME, GameManager.getInstance_().getLevel().getLevelDiff_(),*/ myButtonSound_, new ButtonClickListener() {
+                @Override
+                public void onClick() {
 
-        Button nextLevelButton = new Button("Siguiente Nivel", font1_, AssetsManager.getInstance().getButtonColor(),
-                AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor()
-                , 150, 40, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 +20,
-                /* SceneNames.GAME, GameManager.getInstance_().getLevel().getLevelDiff_(),*/ myButtonSound_, new ButtonClickListener() {
-            @Override
-            public void onClick() {
 
-                GameInit gameInit = new GameInit(GameManager.getInstance().getLevel().getLevelDiff_());
-                GameManager.getInstance().setLevel(gameInit.getDifficulty());
-                Engine engine_ = GameManager.getInstance().getIEngine();
-                engine_.getAudio().playSound(myButtonSound_, 0);
-                SceneManager.getInstance().addScene(new GameScene(false));
-            }
-        });
-        addGameObject(nextLevelButton);
+                    GameManager.getInstance().setLevel(difNextLevel);
+                    Engine engine_ = GameManager.getInstance().getIEngine();
+                    engine_.getAudio().playSound(myButtonSound_, 0);
+                    SceneManager.getInstance().addScene(new GameScene(true));
+                }
+            });
+            addGameObject(nextLevelButton);
+        }
+
 
         Button menuButton = new Button("Menu", font1_, AssetsManager.getInstance().getButtonColor(),
                 AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor()

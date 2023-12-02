@@ -7,7 +7,8 @@ public class AssetsManager {
     private TreeMap<String,TreeMap<String ,Boolean>>tematica_;
     private Theme circleTheme_= new Theme("DEFAULT","");
     private Theme worldCircleTheme_=  new Theme("DEFAULT","");
-    private Theme backgrounTheme_;
+    private Theme backgrounTheme_= new Theme("DEFAULT","");
+    private Theme worldbackgrounTheme_= new Theme("DEFAULT","");
     private EnumPalette paletteColor_=EnumPalette.DEFAULT;
     private int backgroundColor_=0xFFFFF0F6;
     private int buttonColor_=0XD0FB839B;
@@ -26,6 +27,10 @@ public class AssetsManager {
     Theme getCirleTheme(boolean world){
         if(!world)return circleTheme_;
         return worldCircleTheme_;
+    }
+    Theme getBackgrounTheme_Theme(boolean world){
+        if(!world)return backgrounTheme_;
+        return worldbackgrounTheme_;
     }
     EnumPalette getPaletteColor(){return paletteColor_;}
     public int getBackgroundColor() {
@@ -109,6 +114,7 @@ public class AssetsManager {
         }
 
         worldCircleTheme_=tema;
+        worldbackgrounTheme_=tema;
 
     }
     public static AssetsManager getInstance() {

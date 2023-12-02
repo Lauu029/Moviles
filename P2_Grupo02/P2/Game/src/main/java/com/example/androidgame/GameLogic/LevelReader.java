@@ -29,10 +29,11 @@ public class LevelReader {
     Theme getTematicaWorld(){
         return tematica_;
     }
+
     void readWorld(String path){
         FileManager fileManager=GameManager.getInstance().getIEngine().getFileManager();
         TreeMap<String, InputStream> niveles=fileManager.getFilesInFolder(levelPath+path+"/");
-        numLevels_=niveles.size();
+
 
         for (Map.Entry<String, InputStream> entry : niveles.entrySet()) {
             String fileName = entry.getKey();
@@ -68,13 +69,14 @@ public class LevelReader {
             Boolean repeat = jsonNode.get("repeat").asBoolean();
             dif.setRepeat(repeat);
             levels_.add(dif);
+
             try {
                 inp.close();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
-
+        numLevels_=levels_.size();
 
        // tematica_=tematica;
 

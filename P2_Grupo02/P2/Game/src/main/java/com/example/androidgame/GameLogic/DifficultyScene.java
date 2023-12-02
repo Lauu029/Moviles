@@ -5,12 +5,12 @@ import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Sound;
 
-public class LevelScene extends Scene {
+public class DifficultyScene extends Scene {
     private Font font_;
     private Sound myButtonSound_;
     private Sound myArrowSound_;
 
-    public LevelScene() {
+    public DifficultyScene() {
         super();
     }
 
