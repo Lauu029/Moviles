@@ -19,66 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <SurfaceView
-        android:id="@+id/backgroundShop"
-        android:layout_width="361dp"
-        android:layout_height="370dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="250dp"
-        android:layout_marginEnd="25dp"
-        android:alpha="1100"
-        android:background="#FF0000"
-        android:backgroundTint="#F80202"
-        android:backgroundTintMode="add"
-        android:visibility="invisible"
-        app:flow_horizontalAlign="center"
-        app:flow_verticalAlign="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <SurfaceView
-        android:id="@+id/codeShop"
-        android:layout_width="361dp"
-        android:layout_height="370dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="250dp"
-        android:layout_marginEnd="25dp"
-        android:alpha="1100"
-        android:background="#FFEB3B"
-        android:backgroundTint="#FFEB3B"
-        android:backgroundTintMode="add"
-        android:visibility="invisible"
-        app:flow_horizontalAlign="center"
-        app:flow_verticalAlign="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <SurfaceView
-        android:id="@+id/colorShop"
-        android:layout_width="361dp"
-        android:layout_height="370dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="250dp"
-        android:layout_marginEnd="25dp"
-        android:alpha="1100"
-        android:background="#009688"
-        android:backgroundTint="#02F8C7"
-        android:backgroundTintMode="add"
-        android:visibility="invisible"
-        app:flow_horizontalAlign="center"
-        app:flow_verticalAlign="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="0dp"

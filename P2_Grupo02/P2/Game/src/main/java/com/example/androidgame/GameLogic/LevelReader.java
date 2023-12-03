@@ -41,7 +41,7 @@ public class LevelReader {
 
             Difficulty dif=new Difficulty();
             JsonNode jsonNode = null;
-            Log.d("MainActivity","Leyendo json");
+             Log.d("MainActivity","Leyendo json");
             ObjectMapper objectMapper = new ObjectMapper();
             try {
 

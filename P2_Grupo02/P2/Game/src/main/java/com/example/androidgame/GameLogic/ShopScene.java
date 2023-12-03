@@ -11,18 +11,25 @@ import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
 import com.example.androidgame.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.io.InputStreamReader;
 
 public class ShopScene extends Scene {
     private Sound myArrowSound_;
     private ButtonImage backButton;
     private Font font_;
-    private ArrayList<String> textShops_= new ArrayList<>();
+    private String[] textShops_ = {"fondos", "codigos", "colores"};
+    private String shopName;
     private ButtonImage previousShop_, nextShop_, poohBackground_;
     private int id;
     private Image coinsIcon_;
-    private ArrayList<SurfaceView> surfaceShops_ = new ArrayList<>();
-    private Context context_;
+    private JSONObject shopConfig;
 
     ShopScene() {
         super();
@@ -30,36 +37,18 @@ public class ShopScene extends Scene {
 
     @Override
     public void init() {
-        context_ = iEngine_.getMainActivity().getBaseContext();
+
         myArrowSound_ = iEngine_.getAudio().newSound("arrowButton.wav");
-        surfaceShops_.add(iEngine_.getMainActivity().findViewById(R.id.backgroundShop));
-        surfaceShops_.add(iEngine_.getMainActivity().findViewById(R.id.colorShop));
-        surfaceShops_.add(iEngine_.getMainActivity().findViewById(R.id.codeShop));
-        textShops_.add("Fondos");
-        textShops_.add("Colores");
-        textShops_.add("Codigos");
+        InputStream file = iEngine_.getFileManager().getInputStream("Shop/Shops.json");
+        shopConfig = readShopConfig(file);
         id = 0;
-        iEngine_.getMainActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-                surfaceShops_.get(id).setVisibility(View.VISIBLE);
-
-                //iEngine_.getMainActivity().setContentView(backgroundShop_);
-            }
-        });
+        shopName="";
+        getShopTypeData(textShops_[id]);
 
         backButton = new ButtonImage("flecha.png", 40, 40, 0, 0, myArrowSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                iEngine_.getMainActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        surfaceShops_.get(id).setVisibility(View.INVISIBLE);
-                    }
-                });
                 SceneManager.getInstance().switchToPreviousScene();
-
             }
         });
         previousShop_ = new ButtonImage("FlechasIzq.png", 35, 35, width_ / 2 - 120, 5, myArrowSound_, new ButtonClickListener() {
@@ -69,12 +58,12 @@ public class ShopScene extends Scene {
                 iEngine_.getMainActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        surfaceShops_.get(id).setVisibility(View.INVISIBLE);
-                        if(id==0)id=2;
+
+                        if (id == 0) id = 2;
                         else
-                            id = (id - 1)%3;
-                        surfaceShops_.get(id).setVisibility(View.VISIBLE);
-                        Log.d("MainActivity",String.valueOf(id));
+                            id = (id - 1) % 3;
+                        getShopTypeData(textShops_[id]);
+                        Log.d("MainActivity", String.valueOf(id));
                     }
                 });
             }
@@ -85,9 +74,8 @@ public class ShopScene extends Scene {
                 iEngine_.getMainActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        surfaceShops_.get(id).setVisibility(View.INVISIBLE);
-                        id = (id+ 1) % 3;
-                        surfaceShops_.get(id).setVisibility(View.VISIBLE);
+                        id = (id + 1) % 3;
+                        getShopTypeData(textShops_[id]);
                     }
                 });
             }
@@ -124,7 +112,7 @@ public class ShopScene extends Scene {
         graph.fillRoundRectangle(width_ / 2 - 80, 5, 190, 35, 10);
         graph.setColor(0XFF222222);
         graph.setFont(this.font_);
-        graph.drawText(textShops_.get(id), xText, yText);
+        graph.drawText(shopName, xText, yText);
         graph.drawImage(coinsIcon_, width_ - 60, 50, 40, 40);
         graph.drawText(String.valueOf(GameManager.getInstance().getCoins()), width_ - 40, 100);
 
@@ -134,4 +122,37 @@ public class ShopScene extends Scene {
     public void update(double time) {
     }
 
+    public JSONObject readShopConfig(InputStream file) {
+        try {
+            // Lee el contenido del InputStream proporcionado
+            BufferedReader reader = new BufferedReader(new InputStreamReader(file));
+
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+
+                stringBuilder.append(line);
+            }
+            reader.close();
+
+            // Convierte la cadena JSON en un objeto JSONObject
+            return new JSONObject(stringBuilder.toString());
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+            Log.e("ShopConfigReader", "Error al leer el archivo JSON desde InputStream");
+            return null;
+        }
+    }
+
+    private void getShopTypeData(String type) {
+        if (shopConfig != null) {
+            try {
+                JSONObject config = shopConfig.getJSONObject(type);
+                shopName = config.get("tipo").toString();;
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("MainActivity", "Error al procesar la configuración de la tienda");
+            }
+        }
+    }
 }

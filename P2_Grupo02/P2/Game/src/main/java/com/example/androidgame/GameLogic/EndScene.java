@@ -21,12 +21,14 @@ public class EndScene extends Scene {
     protected Sound myButtonSound_;
     protected int[] totalPossibleColors_ = new int[]{0xFFFFC0CB, 0xFF87CEEB, 0xFF98FB98, 0xFFFFFF99,
             0xFFE6E6FA, 0xFFFFDAB9, 0xFFE7FFAC, 0xFFFF8FAB, 0xFF6FC0AB};
-    protected ArrayList<Image>images_ = new ArrayList<Image>();;
+    protected ArrayList<Image> images_ = new ArrayList<Image>();
+    ;
     protected boolean win_ = false;
     protected ImageProcessingCallback callback;
     protected Theme tematica_;
-    public EndScene( boolean win, int[] sol, int intentos) {
-       super();
+
+    public EndScene(boolean win, int[] sol, int intentos) {
+        super();
         System.out.print("Scene Width: " + width_ + " Scene Height: " + height_ + "\n");
         this.win_ = win;
         this.sol_ = sol;
@@ -51,12 +53,13 @@ public class EndScene extends Scene {
         myButtonSound_ = iEngine_.getAudio().newSound("buttonClicked.wav");
         initButtons();
     }
-    protected void initButtons(){
-        Button buttonDificulty_, buttonReward_, playAgainButton_,shareRecordButton_;
+
+    protected void initButtons() {
+        Button buttonDificulty_, buttonReward_, playAgainButton_, shareRecordButton_;
         Graphics graph = iEngine_.getGraphics();
         playAgainButton_ = new Button("Volver Jugar", font1_, AssetsManager.getInstance().getButtonColor(),
-                AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor()
-                , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 -50,
+                AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor()
+                , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 - 50,
                 /* SceneNames.GAME, GameManager.getInstance_().getLevel().getLevelDiff_(),*/ myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
@@ -69,8 +72,8 @@ public class EndScene extends Scene {
             }
         });
 
-       buttonDificulty_ = new Button("Elegir Dificultad", font1_, AssetsManager.getInstance().getButtonColor(),
-                AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor()
+        buttonDificulty_ = new Button("Elegir Dificultad", font1_, AssetsManager.getInstance().getButtonColor(),
+                AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor()
                 , 150, 50, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 25,
                 /*SceneNames.LEVEL,*/ myButtonSound_, new ButtonClickListener() {
             @Override
@@ -82,8 +85,8 @@ public class EndScene extends Scene {
                 //scene_ = new LevelScene(engine_, sceneWidth, sceneHeight);
             }
         });
-       buttonReward_ = new Button("Nuevas pistas", font1_, AssetsManager.getInstance().getButtonColor(),
-                AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor(),
+        buttonReward_ = new Button("Nuevas pistas", font1_, AssetsManager.getInstance().getButtonColor(),
+                AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor(),
                 150, 50, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 100,
                 myButtonSound_, new ButtonClickListener() {
             @Override
@@ -91,20 +94,20 @@ public class EndScene extends Scene {
                 iEngine_.getMobile().LoadRewardedAd();
             }
         });
-       shareRecordButton_ = new Button("Compartir", font1_, AssetsManager.getInstance().getButtonColor(),
-                AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor(),
-                150, 50, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 +175,
+        shareRecordButton_ = new Button("Compartir", font1_, AssetsManager.getInstance().getButtonColor(),
+                AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor(),
+                150, 50, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 175,
                 myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
                 graph.generateScreenshot(0, 0, width_, height_ / 2 - 40, callback);
             }
         });
-        tematica_=AssetsManager.getInstance().getCirleTheme(false);
-        if(tematica_.getName()!= "DEFAULT"){
-            for(int i=0;i<sol_.length;i++){
-                Log.d("OREO", tematica_.getPath()+(""+(i+1))+".png");
-                Image im=graph.newImage(tematica_.getPath()+(""+(sol_[i]+1))+".png");
+        tematica_ = AssetsManager.getInstance().getCirleTheme(false);
+        if (tematica_.getName() != "DEFAULT") {
+            for (int i = 0; i < sol_.length; i++) {
+                Log.d("OREO", tematica_.getPath() + ("" + (i + 1)) + ".png");
+                Image im = graph.newImage(tematica_.getPath() + ("" + (sol_[i] + 1)) + ".png");
                 images_.add(im);
 
             }
@@ -123,7 +126,6 @@ public class EndScene extends Scene {
             iEngine_.getGraphics().drawText("GAME OVER", width_ / 2, 10);
             iEngine_.getGraphics().setFont(font1_);
             iEngine_.getGraphics().drawText("Te has quedado sin intentos", width_ / 2, 50);
-
 
 
         } else {
@@ -145,12 +147,11 @@ public class EndScene extends Scene {
         int totalCircleWidth = sol_.length * (radius * 2 + offset); // Ancho total de todos los círculos
         int x = (width_ - totalCircleWidth) / 2;
         for (int i = 0; i < sol_.length; i++) {
-            if(tematica_.getName()!= "DEFAULT"){
-                graph.drawImage(images_.get(i),x + i * (radius * 2 + offset),150,radius*2,radius*2);
-            }
-            else{
+            if (tematica_.getName() != "DEFAULT") {
+                graph.drawImage(images_.get(i), x + i * (radius * 2 + offset), 150, radius * 2, radius * 2);
+            } else {
                 graph.setColor(totalPossibleColors_[sol_[i]]);
-                graph.drawCircle(x + i * (radius * 2 + offset) + radius, 150+ radius , radius);
+                graph.drawCircle(x + i * (radius * 2 + offset) + radius, 150 + radius, radius);
             }
 
             if (GameManager.getInstance().getDaltonic()) {

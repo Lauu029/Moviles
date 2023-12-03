@@ -1,0 +1,17 @@
+{
+   "fondos": {
+      "tipo": "Fondos",
+      "numBotones" : 8,
+      "espacio" : 3
+   },
+   "colores": {
+      "tipo": "Colores",
+      "numBotones" : 32,
+      "espacio" : 5
+   },
+   "codigos": {
+      "tipo": "Códigos",
+      "numBotones" : 6,
+      "espacio" : 1
+   }
+}
