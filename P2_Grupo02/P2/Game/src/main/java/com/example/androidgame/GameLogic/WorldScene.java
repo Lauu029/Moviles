@@ -52,7 +52,7 @@ public class WorldScene extends Scene {
         Button next_ = new ButtonImage("FlechasDcha.png", 35, 35, width_ / 2 + 100, 15, myArrowSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                actualWorld_ = (actualWorld_ - 1 + numWorlds_) % numWorlds_;
+                actualWorld_ = (actualWorld_ + 1 + numWorlds_) % numWorlds_;
                 Log.d("MAIN", String.valueOf(actualWorld_));
                 buttonObjects_.clear();
 
