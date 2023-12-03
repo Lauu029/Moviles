@@ -40,11 +40,9 @@ public class WorldEndScene extends EndScene{
             @Override
             public void onClick() {
 
-                GameInit gameInit = new GameInit(GameManager.getInstance().getLevel().getLevelDiff_());
-                GameManager.getInstance().setLevel(gameInit.getDifficulty());
-                Engine engine_ = GameManager.getInstance().getIEngine();
-                engine_.getAudio().playSound(myButtonSound_, 0);
-                SceneManager.getInstance().addScene(new GameScene(false));
+
+                GameManager.getInstance().setLevel(LevelManager.getInstance().getDiff().get(LevelManager.getInstance().getActualLevel()));
+                SceneManager.getInstance().addScene(new GameScene(true));
             }
         });
         addGameObject(retryButton);

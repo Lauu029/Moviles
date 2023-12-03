@@ -5,12 +5,52 @@ import java.util.ArrayList;
 public class LevelManager {
 
     // Unique instance of the class
+   private  LevelReader read_=new LevelReader();
     private static LevelManager instance;
-    public ArrayList<Difficulty> diff_;
-    public Theme tema_;
-    public int niveles_;
-    public int actualLevel_ =0;
-    public int actualWorld_=0;
+    private ArrayList<Difficulty> diff_;
+    private Theme tema_;
+    private int niveles_;
+    private int actualLevel_ =0;
+    private int actualWorld_=0;
+    public ArrayList<Difficulty> getDiff() {
+        return diff_;
+    }
+
+    // Getter y Setter para tema_
+    public Theme getTema() {
+        return tema_;
+    }
+
+    public void setTema(Theme tema) {
+        this.tema_ = tema;
+    }
+
+    // Getter y Setter para niveles_
+    public int getNiveles() {
+        return niveles_;
+    }
+
+    public void setNiveles(int niveles) {
+        this.niveles_ = niveles;
+    }
+
+    // Getter y Setter para actualLevel_
+    public int getActualLevel() {
+        return actualLevel_;
+    }
+
+    public void setActualLevel(int actualLevel) {
+        this.actualLevel_ = actualLevel;
+    }
+
+    // Getter y Setter para actualWorld_
+    public int getActualWorld() {
+        return actualWorld_;
+    }
+
+    public void setActualWorld(int actualWorld) {
+        this.actualWorld_ = actualWorld;
+    }
     // Private constructor to prevent instantiation from outside the class
     private LevelManager() {
         // Private constructor
@@ -27,11 +67,11 @@ public class LevelManager {
     // Initialize the unique instance of SceneManager
     public static void init() {
         instance = new LevelManager();
-        LevelReader read_=new LevelReader();
-        read_.readWorlds("world1");
-        instance.niveles_=read_.getNumLevels(instance.actualWorld_);
-        instance.tema_=read_.getTematicaWorld(instance.actualWorld_);
-        instance.diff_ =read_.geDifficultylevels(instance.actualWorld_);
+
+        instance.read_.readWorlds("world1");
+        instance.niveles_=instance.read_.getNumLevels(instance.actualWorld_);
+        instance.tema_=instance.read_.getTematicaWorld(instance.actualWorld_);
+        instance.diff_ =instance.read_.geDifficultylevels(instance.actualWorld_);
 
     }
     void readWorld(String world){
