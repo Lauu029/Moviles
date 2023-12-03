@@ -151,10 +151,13 @@ public class ShopScene extends Scene {
                         yPos = yPos*2 +20;
                         xPos = 25;
                     }
-                    ButtonImage img = new ButtonImage(path + nombre, 100, 100, xPos,
+                    ButtonImage img = new ButtonImage(path + nombre + "Button.jpg", 100, 100, xPos,
                             yPos, shopingSound, new ButtonClickListener() {
                         @Override
                         public void onClick() {
+                            Image backaground_ = iEngine_.getGraphics().newImage(path + nombre +".jpg");
+                            Theme t=new  Theme("",path + nombre +".jpg","","");
+                            GameManager.getInstance().setBackgroundImage(backaground_);
                         }
                     });
                     xPos += 130;

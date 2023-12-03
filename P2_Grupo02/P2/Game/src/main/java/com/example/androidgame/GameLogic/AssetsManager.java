@@ -112,7 +112,7 @@ public class AssetsManager {
         }
     }
 
-    void setWorldThem(Theme tema) {
+    void setWorldTheme(Theme tema) {
 
         String temaName = tema.getName();
 
@@ -127,7 +127,18 @@ public class AssetsManager {
         worldbackgrounTheme_ = tema;
 
     }
+    void setBackgrounTheme(Theme tema) {
 
+        String temaName = tema.getName();
+
+        if (!tematica_.containsKey(temaName)) {
+            // El tema no existe en el TreeMap, crear uno nuevo y agregarlo
+            TreeMap<String, Boolean> nuevoTema = new TreeMap<>();
+            nuevoTema.put(tema.getPathBolas(), tema.getPurchased());
+            tematica_.put(temaName, nuevoTema);
+        }
+        backgrounTheme_ = tema;
+    }
     public static AssetsManager getInstance() {
         return instance_;
     }

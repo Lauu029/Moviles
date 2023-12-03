@@ -2,7 +2,7 @@
    "fondos": {
       "tipo": "Fondos",
       "ruta" : "Shop/Background/",
-      "ButtonsImages" : ["teletubiesButton.jpg", "vacasButton.jpg", "ositosButton.jpg", "SetitasButton.jpg"]
+      "ButtonsImages" : ["teletubies", "vacas", "ositos", "Setitas"]
    },
    "colores": {
       "tipo": "Colores",

@@ -12,19 +12,20 @@ import java.util.ArrayList;
 
 public class WorldScene extends Scene {
     private Font font_;
-    private int niveles_=0;
-    private int numberLevel_=0;
-    int columnas_=3;
+    private int niveles_ = 0;
+    private int numberLevel_ = 0;
+    int columnas_ = 3;
     private Sound myButtonSound_;
-    ArrayList<ButtonMundo>botones_;
+    ArrayList<ButtonMundo> botones_;
     private Image backaground_;
-    private int numWorlds_=0;
-    int actualWorld_=0;
+    private int numWorlds_ = 0;
+    int actualWorld_ = 0;
     protected ArrayList<GameObject> buttonObjects_ = new ArrayList<>();
+
     @Override
     public void init() {
 
-        Graphics graph=iEngine_.getGraphics();
+        Graphics graph = iEngine_.getGraphics();
         this.font_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 40, true, true);
         graph.setFont(this.font_);
 
@@ -61,54 +62,60 @@ public class WorldScene extends Scene {
             }
         });
         this.addGameObject(next_);
-        numWorlds_=LevelManager.getInstance().getNumWorlds();
+        numWorlds_ = LevelManager.getInstance().getNumWorlds();
         loadWorld();
 
 
     }
-    public void loadWorld(){
+
+    public void loadWorld() {
         LevelManager.getInstance().setActualWorld(actualWorld_);
         LevelManager.getInstance().setNewWorld();
-        int widthScene=GameManager.getInstance().getwidth();
+        int widthScene = GameManager.getInstance().getwidth();
 
 
-        int wButton=(widthScene)/(columnas_+1);
-        int margen=(widthScene-(wButton*columnas_))/(columnas_+1);
-        int x=0;
-        int y=0;
+        int wButton = (widthScene) / (columnas_ + 1);
+        int margen = (widthScene - (wButton * columnas_)) / (columnas_ + 1);
+        int x = 0;
+        int y = 0;
         myButtonSound_ = iEngine_.getAudio().newSound("buttonClicked.wav");
 
-
-        Theme tema=LevelManager.getInstance().getTema();
-        ArrayList<Difficulty>diff=LevelManager.getInstance().getDiff();
-        niveles_=LevelManager.getInstance().getNiveles();
-        AssetsManager.getInstance().setWorldThem(tema);
-        String imagePath=AssetsManager.getInstance().getBackgrounTheme(true).getBackground();
-        backaground_=iEngine_.getGraphics().newImage(imagePath);
-        for(int i=0;i<niveles_;i++){
-            if(x>=columnas_){x=0;y++;}
+        Theme tema = LevelManager.getInstance().getTema();
+        ArrayList<Difficulty> diff = LevelManager.getInstance().getDiff();
+        niveles_ = LevelManager.getInstance().getNiveles();
+        AssetsManager.getInstance().setWorldTheme(tema);
+        String imagePath = AssetsManager.getInstance().getBackgrounTheme(true).getBackground();
+        backaground_ = iEngine_.getGraphics().newImage(imagePath);
+        for (int i = 0; i < niveles_; i++) {
+            if (x >= columnas_) {
+                x = 0;
+                y++;
+            }
             int finalI = i;
-            buttonObjects_.add(new ButtonMundo(""+i,font_,AssetsManager.getInstance().getButtonColor(),
-                    AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor(),
-                    wButton,wButton,25,(x*(wButton+margen))+margen,y*(wButton+margen)+100,
-                    myButtonSound_,false,new ButtonClickListener() {
+            buttonObjects_.add(new ButtonMundo("" + i, font_, AssetsManager.getInstance().getButtonColor(),
+                    AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor(),
+                    wButton, wButton, 25, (x * (wButton + margen)) + margen, y * (wButton + margen) + 100,
+                    myButtonSound_, false, new ButtonClickListener() {
                 @Override
                 public void onClick() {
-                    LevelManager.getInstance().setActualLevel(finalI);;
+                    LevelManager.getInstance().setActualLevel(finalI);
+                    ;
                     GameManager.getInstance().setLevel(diff.get(finalI));
                     SceneManager.getInstance().addScene(new GameScene(true));
-                }}
+                }
+            }
             ));
             x++;
         }
     }
+
     public void render() {
 
         iEngine_.getGraphics().clear(AssetsManager.getInstance().getBackgroundColor());
-        iEngine_.getGraphics().drawImage(backaground_,0,0,GameManager.getInstance().getHeight_(),GameManager.getInstance().getwidth());
+        iEngine_.getGraphics().drawImage(backaground_, 0, 0, GameManager.getInstance().getHeight_(), GameManager.getInstance().getwidth());
         this.iEngine_.getGraphics().setFont(font_);
         this.iEngine_.getGraphics().setColor(0xFF000000);
-        iEngine_.getGraphics().drawText("Mundo "+actualWorld_, width_ / 2, 30);
+        iEngine_.getGraphics().drawText("Mundo " + actualWorld_, width_ / 2, 30);
         for (int i = 0; i < gameObjects_.size(); i++) {
             gameObjects_.get(i).render(iEngine_.getGraphics());
         }
@@ -116,13 +123,15 @@ public class WorldScene extends Scene {
             buttonObjects_.get(i).render(iEngine_.getGraphics());
         }
     }
+
     @Override
     public void update(double time) {
-       super.update(time);
+        super.update(time);
         for (int i = 0; i < buttonObjects_.size(); i++) {
             buttonObjects_.get(i).update(time);
         }
     }
+
     @Override
     public void handleInput(ArrayList<TouchEvent> events) {
         super.handleInput(events);
