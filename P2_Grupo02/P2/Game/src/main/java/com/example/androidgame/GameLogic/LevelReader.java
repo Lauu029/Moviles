@@ -14,27 +14,41 @@ import java.util.TreeMap;
 
 public class LevelReader {
     private String levelPath="Levels/";
-    private int numLevels_;
-    private Theme tematica_;
-    private ArrayList<Difficulty>levels_;
+
+
+    private ArrayList<Theme>tematicas_;
+    ArrayList<ArrayList<Difficulty>>dificultades;
+    private ArrayList<Integer>numNiveles;
+
     LevelReader(){
-        levels_=new ArrayList<>();
+
+        numNiveles=new ArrayList<>();
+        tematicas_=new ArrayList<>();
+        dificultades=new ArrayList<>();
     }
-    int getNumLevels(){
-        return numLevels_;
+    int getNumLevels(int world){
+        return numNiveles.get(world);
     }
-    ArrayList<Difficulty>geDifficultylevels(){
-        return levels_;
+    ArrayList<Difficulty>geDifficultylevels(int world){
+        return dificultades.get(world);
     }
-    Theme getTematicaWorld(){
-        return tematica_;
+    Theme getTematicaWorld(int world){
+        return tematicas_.get(world);
+    }
+    void readWorlds(String path){
+        int numWorlds=1;
+        for(int i=0;i<numWorlds;i++){
+            String pathworld="";
+            readWorld("world1");
+        }
     }
 
     void readWorld(String path){
+
         FileManager fileManager=GameManager.getInstance().getIEngine().getFileManager();
         TreeMap<String, InputStream> niveles=fileManager.getFilesInFolder(levelPath+path+"/");
 
-
+        ArrayList<Difficulty> diff_ =new ArrayList<>();
         for (Map.Entry<String, InputStream> entry : niveles.entrySet()) {
             String fileName = entry.getKey();
             InputStream inp = entry.getValue();
@@ -57,8 +71,8 @@ public class LevelReader {
                 String bolas=jsonNode.get("bolas").asText();
 
 
-                tematica_=new Theme(tematica,background,gameBackground,bolas);
-
+                Theme tematica_=new Theme(tematica,background,gameBackground,bolas);
+                tematicas_.add(tematica_);
                 continue;
             }
             // Asigna valores a las variables de tu programa desde el JSON
@@ -73,7 +87,7 @@ public class LevelReader {
             Log.d("MainActivity","attemps json"+attempts);
             Boolean repeat = jsonNode.get("repeat").asBoolean();
             dif.setRepeat(repeat);
-            levels_.add(dif);
+            diff_.add(dif);
 
             try {
                 inp.close();
@@ -81,8 +95,9 @@ public class LevelReader {
                 throw new RuntimeException(e);
             }
         }
-        numLevels_=levels_.size();
 
+        numNiveles.add( diff_.size());
+        dificultades.add(diff_);
        // tematica_=tematica;
 
     }
