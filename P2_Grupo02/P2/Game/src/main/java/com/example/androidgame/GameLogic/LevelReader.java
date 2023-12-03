@@ -43,7 +43,6 @@ public class LevelReader {
         String[] nameWorld= GameManager.getInstance().getIEngine().getFileManager().getFolderNamesInFolder(levelPath);
 
         for(int i=0;i<nameWorld.length;i++){
-            String pathworld="";
             readWorld(nameWorld[i]);
             numWorlds_++;
         }

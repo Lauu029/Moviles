@@ -16,6 +16,9 @@ public class LevelManager {
     public ArrayList<Difficulty> getDiff() {
         return diff_;
     }
+    public int getNumWorlds(){
+        return numWorlds;
+    }
 
     // Getter y Setter para tema_
     public Theme getTema() {

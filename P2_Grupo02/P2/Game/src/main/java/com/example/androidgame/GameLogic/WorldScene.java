@@ -1,5 +1,7 @@
 package com.example.androidgame.GameLogic;
 
+import android.util.Log;
+
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
@@ -39,33 +41,44 @@ public class WorldScene extends Scene {
             @Override
             public void onClick() {
 
-                actualWorld_=(actualWorld_-1)%numWorlds_;
+                actualWorld_ = (actualWorld_ - 1 + numWorlds_) % numWorlds_;
+                Log.d("MAIN", String.valueOf(actualWorld_));
+                buttonObjects_.clear();
+
+                loadWorld();
             }
         });
         this.addGameObject(previous_);
         Button next_ = new ButtonImage("FlechasDcha.png", 35, 35, width_ / 2 + 100, 15, myArrowSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                actualWorld_=(actualWorld_+1)%numWorlds_;
+                actualWorld_ = (actualWorld_ - 1 + numWorlds_) % numWorlds_;
+                Log.d("MAIN", String.valueOf(actualWorld_));
+                buttonObjects_.clear();
+
+                loadWorld();
+
             }
         });
         this.addGameObject(next_);
-
+        numWorlds_=LevelManager.getInstance().getNumWorlds();
         loadWorld();
 
 
     }
     public void loadWorld(){
-
+        LevelManager.getInstance().setActualWorld(actualWorld_);
+        LevelManager.getInstance().setNewWorld();
         int widthScene=GameManager.getInstance().getwidth();
-        int heightScene=GameManager.getInstance().getHeight_();
+
 
         int wButton=(widthScene)/(columnas_+1);
         int margen=(widthScene-(wButton*columnas_))/(columnas_+1);
         int x=0;
         int y=0;
         myButtonSound_ = iEngine_.getAudio().newSound("buttonClicked.wav");
-        numberLevel_=LevelManager.getInstance().getActualWorld();
+
+
         Theme tema=LevelManager.getInstance().getTema();
         ArrayList<Difficulty>diff=LevelManager.getInstance().getDiff();
         niveles_=LevelManager.getInstance().getNiveles();
@@ -95,7 +108,7 @@ public class WorldScene extends Scene {
         iEngine_.getGraphics().drawImage(backaground_,0,0,GameManager.getInstance().getHeight_(),GameManager.getInstance().getwidth());
         this.iEngine_.getGraphics().setFont(font_);
         this.iEngine_.getGraphics().setColor(0xFF000000);
-        iEngine_.getGraphics().drawText("Mundo "+numberLevel_, width_ / 2, 30);
+        iEngine_.getGraphics().drawText("Mundo "+actualWorld_, width_ / 2, 30);
         for (int i = 0; i < gameObjects_.size(); i++) {
             gameObjects_.get(i).render(iEngine_.getGraphics());
         }
