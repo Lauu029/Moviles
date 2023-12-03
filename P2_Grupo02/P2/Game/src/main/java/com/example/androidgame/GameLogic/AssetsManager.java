@@ -90,7 +90,6 @@ public class AssetsManager {
                 buttonColor_ = hotPinkPalette[1];
                 textColor_ = hotPinkPalette[2];
                 lineColor_ = hotPinkPalette[3];
-
                 break;
         }
     }
@@ -126,18 +125,6 @@ public class AssetsManager {
         worldCircleTheme_ = tema;
         worldbackgrounTheme_ = tema;
 
-    }
-    void setBackgrounTheme(Theme tema) {
-
-        String temaName = tema.getName();
-
-        if (!tematica_.containsKey(temaName)) {
-            // El tema no existe en el TreeMap, crear uno nuevo y agregarlo
-            TreeMap<String, Boolean> nuevoTema = new TreeMap<>();
-            nuevoTema.put(tema.getPathBolas(), tema.getPurchased());
-            tematica_.put(temaName, nuevoTema);
-        }
-        backgrounTheme_ = tema;
     }
     public static AssetsManager getInstance() {
         return instance_;
