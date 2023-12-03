@@ -136,8 +136,16 @@ public class WorldScene extends Scene {
     public void handleInput(ArrayList<TouchEvent> events) {
         super.handleInput(events);
         for (GameObject g : buttonObjects_)
-            for (TouchEvent event : events)
+            for (TouchEvent event : events){
+                if(event.deltaX>0){
+                    actualWorld_ = (actualWorld_ - 1 + numWorlds_) % numWorlds_;
+                    Log.d("MAIN","hola" +String.valueOf(actualWorld_));
+                    buttonObjects_.clear();
+                    loadWorld();
+                }
                 if (g.handleInput(event))
                     return;
+            }
+
     }
 }
