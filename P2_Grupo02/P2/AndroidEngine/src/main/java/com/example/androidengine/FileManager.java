@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import java.util.Arrays;
 import java.util.TreeMap;
 
 public class FileManager {
@@ -35,7 +36,44 @@ public class FileManager {
 
         return fInput_;
     }
+    public String[] getFolderNamesInFolder(String parentFolderPath) {
+        String[] folderNames = null;
 
+        try {
+            String[] fileNames = myAssetManager_.list(parentFolderPath);
+
+            if (fileNames != null) {
+                // Filtra solo los nombres de carpetas
+                folderNames = Arrays.stream(fileNames)
+                        .filter(fileName -> isDirectory(parentFolderPath + fileName))
+                        .toArray(String[]::new);
+            }
+        } catch (IOException e) {
+            Log.d("MainActivity", "Error al obtener carpetas en la carpeta: " + parentFolderPath);
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
+        return folderNames;
+    }
+    private boolean isDirectory(String path) {
+        try {
+            // Intenta abrir el elemento como un InputStream
+            InputStream fileStream = myAssetManager_.open(path);
+
+            // Si se logra abrir, es un archivo, así que cierra el InputStream y devuelve falso
+            if (fileStream != null) {
+                fileStream.close();
+                return false;
+            }
+        } catch (IOException e) {
+            // Si no se puede abrir como InputStream, es probable que sea un directorio
+            return true;
+        }
+
+        // Si hay algún otro error, asume que no es un directorio
+        return false;
+    }
     public TreeMap<String, InputStream> getFilesInFolder(String folderPath) {
         TreeMap<String, InputStream> fileStreamsMap = new TreeMap<>();
 

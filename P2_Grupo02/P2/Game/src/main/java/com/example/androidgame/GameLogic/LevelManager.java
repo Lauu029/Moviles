@@ -12,6 +12,7 @@ public class LevelManager {
     private int niveles_;
     private int actualLevel_ =0;
     private int actualWorld_=0;
+    private int numWorlds;
     public ArrayList<Difficulty> getDiff() {
         return diff_;
     }
@@ -72,12 +73,10 @@ public class LevelManager {
         instance.niveles_=instance.read_.getNumLevels(instance.actualWorld_);
         instance.tema_=instance.read_.getTematicaWorld(instance.actualWorld_);
         instance.diff_ =instance.read_.geDifficultylevels(instance.actualWorld_);
-
+        instance.numWorlds=instance.read_.getNumWorlds_();
     }
-    void readWorld(String world){
-        instance = new LevelManager();
-        LevelReader read_=new LevelReader();
-        read_.readWorld(world);
+    void setNewWorld(){
+
         instance.niveles_=read_.getNumLevels(actualWorld_);
         instance.tema_=read_.getTematicaWorld(actualWorld_);
         instance.diff_ =read_.geDifficultylevels(actualWorld_);

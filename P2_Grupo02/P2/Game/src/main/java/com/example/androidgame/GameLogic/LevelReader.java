@@ -19,7 +19,10 @@ public class LevelReader {
     private ArrayList<Theme>tematicas_;
     ArrayList<ArrayList<Difficulty>>dificultades;
     private ArrayList<Integer>numNiveles;
-
+    private  int numWorlds_ =0;
+    public int getNumWorlds_(){
+        return  numWorlds_;
+    }
     LevelReader(){
 
         numNiveles=new ArrayList<>();
@@ -36,10 +39,13 @@ public class LevelReader {
         return tematicas_.get(world);
     }
     void readWorlds(String path){
-        int numWorlds=1;
-        for(int i=0;i<numWorlds;i++){
+
+        String[] nameWorld= GameManager.getInstance().getIEngine().getFileManager().getFolderNamesInFolder(levelPath);
+
+        for(int i=0;i<nameWorld.length;i++){
             String pathworld="";
-            readWorld("world1");
+            readWorld(nameWorld[i]);
+            numWorlds_++;
         }
     }
 

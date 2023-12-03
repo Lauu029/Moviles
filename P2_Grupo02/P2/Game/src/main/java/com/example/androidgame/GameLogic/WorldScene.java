@@ -4,6 +4,8 @@ import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
+import com.example.androidengine.TouchEvent;
+
 import java.util.ArrayList;
 
 public class WorldScene extends Scene {
@@ -14,42 +16,16 @@ public class WorldScene extends Scene {
     private Sound myButtonSound_;
     ArrayList<ButtonMundo>botones_;
     private Image backaground_;
+    private int numWorlds_=0;
+    int actualWorld_=0;
+    protected ArrayList<GameObject> buttonObjects_ = new ArrayList<>();
     @Override
     public void init() {
-        numberLevel_=LevelManager.getInstance().getActualWorld();
-        Theme tema=LevelManager.getInstance().getTema();
-        ArrayList<Difficulty>diff=LevelManager.getInstance().getDiff();
-        niveles_=LevelManager.getInstance().getNiveles();
+
         Graphics graph=iEngine_.getGraphics();
         this.font_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 40, true, true);
         graph.setFont(this.font_);
-        int widthScene=GameManager.getInstance().getwidth();
-        int heightScene=GameManager.getInstance().getHeight_();
 
-        int wButton=(widthScene)/(columnas_+1);
-        int margen=(widthScene-(wButton*columnas_))/(columnas_+1);
-        int x=0;
-        int y=0;
-         myButtonSound_ = iEngine_.getAudio().newSound("buttonClicked.wav");
-         AssetsManager.getInstance().setWorldThem(tema);
-         String imagePath=AssetsManager.getInstance().getBackgrounTheme(true).getBackground();
-         backaground_=iEngine_.getGraphics().newImage(imagePath);
-        for(int i=0;i<niveles_;i++){
-            if(x>=columnas_){x=0;y++;}
-            int finalI = i;
-            gameObjects_.add(new ButtonMundo(""+i,font_,AssetsManager.getInstance().getButtonColor(),
-                    AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor(),
-                    wButton,wButton,25,(x*(wButton+margen))+margen,y*(wButton+margen)+100,
-                    myButtonSound_,false,new ButtonClickListener() {
-                @Override
-                public void onClick() {
-                    LevelManager.getInstance().setActualLevel(finalI);;
-                    GameManager.getInstance().setLevel(diff.get(finalI));
-                    SceneManager.getInstance().addScene(new GameScene(true));
-                }}
-               ));
-            x++;
-        }
         Sound myArrowSound_ = iEngine_.getAudio().newSound("arrowButton.wav");
         ButtonImage returnButton_ = new ButtonImage("flecha.png", 40, 40, 0, 0, myArrowSound_, new ButtonClickListener() {
             @Override
@@ -63,17 +39,55 @@ public class WorldScene extends Scene {
             @Override
             public void onClick() {
 
-
+                actualWorld_=(actualWorld_-1)%numWorlds_;
             }
         });
         this.addGameObject(previous_);
         Button next_ = new ButtonImage("FlechasDcha.png", 35, 35, width_ / 2 + 100, 15, myArrowSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-
+                actualWorld_=(actualWorld_+1)%numWorlds_;
             }
         });
         this.addGameObject(next_);
+
+        loadWorld();
+
+
+    }
+    public void loadWorld(){
+
+        int widthScene=GameManager.getInstance().getwidth();
+        int heightScene=GameManager.getInstance().getHeight_();
+
+        int wButton=(widthScene)/(columnas_+1);
+        int margen=(widthScene-(wButton*columnas_))/(columnas_+1);
+        int x=0;
+        int y=0;
+        myButtonSound_ = iEngine_.getAudio().newSound("buttonClicked.wav");
+        numberLevel_=LevelManager.getInstance().getActualWorld();
+        Theme tema=LevelManager.getInstance().getTema();
+        ArrayList<Difficulty>diff=LevelManager.getInstance().getDiff();
+        niveles_=LevelManager.getInstance().getNiveles();
+        AssetsManager.getInstance().setWorldThem(tema);
+        String imagePath=AssetsManager.getInstance().getBackgrounTheme(true).getBackground();
+        backaground_=iEngine_.getGraphics().newImage(imagePath);
+        for(int i=0;i<niveles_;i++){
+            if(x>=columnas_){x=0;y++;}
+            int finalI = i;
+            buttonObjects_.add(new ButtonMundo(""+i,font_,AssetsManager.getInstance().getButtonColor(),
+                    AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor(),
+                    wButton,wButton,25,(x*(wButton+margen))+margen,y*(wButton+margen)+100,
+                    myButtonSound_,false,new ButtonClickListener() {
+                @Override
+                public void onClick() {
+                    LevelManager.getInstance().setActualLevel(finalI);;
+                    GameManager.getInstance().setLevel(diff.get(finalI));
+                    SceneManager.getInstance().addScene(new GameScene(true));
+                }}
+            ));
+            x++;
+        }
     }
     public void render() {
 
@@ -85,5 +99,23 @@ public class WorldScene extends Scene {
         for (int i = 0; i < gameObjects_.size(); i++) {
             gameObjects_.get(i).render(iEngine_.getGraphics());
         }
+        for (int i = 0; i < buttonObjects_.size(); i++) {
+            buttonObjects_.get(i).render(iEngine_.getGraphics());
+        }
+    }
+    @Override
+    public void update(double time) {
+       super.update(time);
+        for (int i = 0; i < buttonObjects_.size(); i++) {
+            buttonObjects_.get(i).update(time);
+        }
+    }
+    @Override
+    public void handleInput(ArrayList<TouchEvent> events) {
+        super.handleInput(events);
+        for (GameObject g : buttonObjects_)
+            for (TouchEvent event : events)
+                if (g.handleInput(event))
+                    return;
     }
 }
