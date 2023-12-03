@@ -23,7 +23,7 @@ public class GameScene extends Scene {
     public void init() {
 
         if(AssetsManager.getInstance().getBackgrounTheme(world_).getName()!="DEFAULT"){
-            String imagePath=AssetsManager.getInstance().getBackgrounTheme(world_).getPath()+"foreground.jpg";
+            String imagePath=AssetsManager.getInstance().getBackgrounTheme(world_).getGameBackground();
             backaground_=iEngine_.getGraphics().newImage(imagePath);
         }
 

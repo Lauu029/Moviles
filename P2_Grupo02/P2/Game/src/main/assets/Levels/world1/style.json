@@ -1,5 +1,8 @@
-{ 
+{
   "style": "HALLOWEEN",
-  "path": "halloween/"
+  "background": "halloween/foreground.jpg",
+  "gameBackground":"halloween/foreground.jpg",
+  "bolas": "halloween/bolas/"
+
 
 }

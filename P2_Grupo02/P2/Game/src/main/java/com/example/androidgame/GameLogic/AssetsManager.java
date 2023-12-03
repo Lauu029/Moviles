@@ -5,10 +5,10 @@ import java.util.TreeMap;
 public class AssetsManager {
 
     private TreeMap<String,TreeMap<String ,Boolean>>tematica_;
-    private Theme circleTheme_= new Theme("DEFAULT","");
-    private Theme worldCircleTheme_=  new Theme("DEFAULT","");
-    private Theme backgrounTheme_= new Theme("DEFAULT","");
-    private Theme worldbackgrounTheme_= new Theme("DEFAULT","");
+    private Theme circleTheme_= new Theme("DEFAULT","","","");
+    private Theme worldCircleTheme_=  new Theme("DEFAULT","","","");
+    private Theme backgrounTheme_= new Theme("DEFAULT","","","");
+    private Theme worldbackgrounTheme_= new Theme("DEFAULT","","","");
     private EnumPalette paletteColor_=EnumPalette.DEFAULT;
     private int backgroundColor_=0xFFFFF0F6;
     private int buttonColor_=0XD0FB839B;
@@ -95,7 +95,7 @@ public class AssetsManager {
         if (!tematica_.containsKey(temaName)) {
             // El tema no existe en el TreeMap, crear uno nuevo y agregarlo
             TreeMap<String, Boolean> nuevoTema = new TreeMap<>();
-            nuevoTema.put(tema.getPath(), tema.getPurchased());
+            nuevoTema.put(tema.getPathBolas(), tema.getPurchased());
             tematica_.put(temaName, nuevoTema);
         }
         if(!world)
@@ -111,7 +111,7 @@ public class AssetsManager {
         if (!tematica_.containsKey(temaName)) {
             // El tema no existe en el TreeMap, crear uno nuevo y agregarlo
             TreeMap<String, Boolean> nuevoTema = new TreeMap<>();
-            nuevoTema.put(tema.getPath(), tema.getPurchased());
+            nuevoTema.put(tema.getPathBolas(), tema.getPurchased());
             tematica_.put(temaName, nuevoTema);
         }
 

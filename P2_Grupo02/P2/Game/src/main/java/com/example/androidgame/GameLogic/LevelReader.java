@@ -50,9 +50,14 @@ public class LevelReader {
                 throw new RuntimeException(e);
             }
             if(fileName.compareTo("style.json")==0){
+
                 String tematica=jsonNode.get("style").asText();
-                String paths=jsonNode.get("path").asText();
-                tematica_=new Theme(tematica,paths);
+                String background=jsonNode.get("background").asText();
+                String gameBackground=jsonNode.get("gameBackground").asText();
+                String bolas=jsonNode.get("bolas").asText();
+
+
+                tematica_=new Theme(tematica,background,gameBackground,bolas);
 
                 continue;
             }

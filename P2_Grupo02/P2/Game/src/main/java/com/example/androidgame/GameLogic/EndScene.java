@@ -106,8 +106,8 @@ public class EndScene extends Scene {
         tematica_ = AssetsManager.getInstance().getCirleTheme(false);
         if (tematica_.getName() != "DEFAULT") {
             for (int i = 0; i < sol_.length; i++) {
-                Log.d("OREO", tematica_.getPath() + ("" + (i + 1)) + ".png");
-                Image im = graph.newImage(tematica_.getPath() + ("" + (sol_[i] + 1)) + ".png");
+                Log.d("OREO", tematica_.getPathBolas() + ("" + (i + 1)) + ".png");
+                Image im = graph.newImage(tematica_.getPathBolas() + ("" + (sol_[i] + 1)) + ".png");
                 images_.add(im);
 
             }
