@@ -16,10 +16,10 @@ public class WorldScene extends Scene {
     private Image backaground_;
     @Override
     public void init() {
-        numberLevel_=LevelManager.getInstance().actualWorld_;
-        Theme tema=LevelManager.getInstance().tema_;
-        ArrayList<Difficulty>diff=LevelManager.getInstance().diff_;
-        niveles_=LevelManager.getInstance().niveles_;
+        numberLevel_=LevelManager.getInstance().getActualWorld();
+        Theme tema=LevelManager.getInstance().getTema();
+        ArrayList<Difficulty>diff=LevelManager.getInstance().getDiff();
+        niveles_=LevelManager.getInstance().getNiveles();
         Graphics graph=iEngine_.getGraphics();
         this.font_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 40, true, true);
         graph.setFont(this.font_);
@@ -32,7 +32,7 @@ public class WorldScene extends Scene {
         int y=0;
          myButtonSound_ = iEngine_.getAudio().newSound("buttonClicked.wav");
          AssetsManager.getInstance().setWorldThem(tema);
-         String imagePath=AssetsManager.getInstance().getBackgrounTheme(true).getPath()+"foreground.jpg";
+         String imagePath=AssetsManager.getInstance().getBackgrounTheme(true).getBackground();
          backaground_=iEngine_.getGraphics().newImage(imagePath);
         for(int i=0;i<niveles_;i++){
             if(x>=columnas_){x=0;y++;}
@@ -43,7 +43,7 @@ public class WorldScene extends Scene {
                     myButtonSound_,false,new ButtonClickListener() {
                 @Override
                 public void onClick() {
-                    LevelManager.getInstance().actualLevel_ =finalI;
+                    LevelManager.getInstance().setActualLevel(finalI);;
                     GameManager.getInstance().setLevel(diff.get(finalI));
                     SceneManager.getInstance().addScene(new GameScene(true));
                 }}

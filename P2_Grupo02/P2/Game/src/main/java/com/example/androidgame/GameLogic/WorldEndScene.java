@@ -40,11 +40,9 @@ public class WorldEndScene extends EndScene{
             @Override
             public void onClick() {
 
-                GameInit gameInit = new GameInit(GameManager.getInstance().getLevel().getLevelDiff_());
-                GameManager.getInstance().setLevel(gameInit.getDifficulty());
-                Engine engine_ = GameManager.getInstance().getIEngine();
-                engine_.getAudio().playSound(myButtonSound_, 0);
-                SceneManager.getInstance().addScene(new GameScene(false));
+
+                GameManager.getInstance().setLevel(LevelManager.getInstance().getDiff().get(LevelManager.getInstance().getActualLevel()));
+                SceneManager.getInstance().addScene(new GameScene(true));
             }
         });
         addGameObject(retryButton);
@@ -113,8 +111,8 @@ public class WorldEndScene extends EndScene{
         tematica_=AssetsManager.getInstance().getCirleTheme(true);
         if(tematica_.getName()!= "DEFAULT"){
             for(int i=0;i<sol_.length;i++){
-                Log.d("OREO", tematica_.getPath()+(""+(i+1))+".png");
-                Image im=graph.newImage(tematica_.getPath()+(""+(sol_[i]+1))+".png");
+                Log.d("OREO", tematica_.getPathBolas()+(""+(i+1))+".png");
+                Image im=graph.newImage(tematica_.getPathBolas()+(""+(sol_[i]+1))+".png");
                 images_.add(im);
 
             }
