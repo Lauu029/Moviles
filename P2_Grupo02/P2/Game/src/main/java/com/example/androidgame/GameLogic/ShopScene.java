@@ -11,6 +11,7 @@ import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
 import com.example.androidgame.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,12 +22,13 @@ import java.util.ArrayList;
 import java.io.InputStreamReader;
 
 public class ShopScene extends Scene {
-    private Sound myArrowSound_;
+    private Sound myArrowSound_, shopingSound;
     private ButtonImage backButton;
     private Font font_;
     private String[] textShops_ = {"fondos", "codigos", "colores"};
     private String shopName;
     private ButtonImage previousShop_, nextShop_, poohBackground_;
+    private ArrayList<ButtonImage> shopItems_ = new ArrayList<>();
     private int id;
     private Image coinsIcon_;
     private JSONObject shopConfig;
@@ -39,10 +41,11 @@ public class ShopScene extends Scene {
     public void init() {
 
         myArrowSound_ = iEngine_.getAudio().newSound("arrowButton.wav");
+        shopingSound = iEngine_.getAudio().newSound("cashPurchase.wav");
         InputStream file = iEngine_.getFileManager().getInputStream("Shop/Shops.json");
         shopConfig = readShopConfig(file);
         id = 0;
-        shopName="";
+        shopName = "";
         getShopTypeData(textShops_[id]);
 
         backButton = new ButtonImage("flecha.png", 40, 40, 0, 0, myArrowSound_, new ButtonClickListener() {
@@ -80,21 +83,9 @@ public class ShopScene extends Scene {
                 });
             }
         });
-        poohBackground_ = new ButtonImage("poohBoton.png", 100, 100, width_ / 2, height_ / 2, myArrowSound_, new ButtonClickListener() {
-            @Override
-            public void onClick() {
-                if (GameManager.getInstance().getCoins() >= 20) {
-                    GameManager.getInstance().setBackgroundImage(iEngine_.getGraphics().newImage("pooh.png"));
-                    GameManager.getInstance().addCoins(-20);
-                    poohBackground_.deleteOverlayImage();
-                }
-            }
-        });
-        poohBackground_.addOverlayImage("lock.png");
         this.addGameObject(backButton);
         this.addGameObject(previousShop_);
         this.addGameObject(nextShop_);
-        this.addGameObject(poohBackground_);
         coinsIcon_ = iEngine_.getGraphics().newImage("coin.png");
         font_ = iEngine_.getGraphics().newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
     }
@@ -148,7 +139,28 @@ public class ShopScene extends Scene {
         if (shopConfig != null) {
             try {
                 JSONObject config = shopConfig.getJSONObject(type);
-                shopName = config.get("tipo").toString();;
+                shopName = config.get("tipo").toString();
+                String path = config.get("ruta").toString();
+                JSONArray buttonsArray = config.getJSONArray("ButtonsImages");
+                int yPos = 130;
+                int xPos = 25;
+                for (int i = 0; i < buttonsArray.length(); i++) {
+                    String nombre = buttonsArray.getString(i);
+                    Log.d("BotonesTienda", path + nombre);
+                    if(i>2){
+                        yPos = yPos*2 +20;
+                        xPos = 25;
+                    }
+                    ButtonImage img = new ButtonImage(path + nombre, 100, 100, xPos,
+                            yPos, shopingSound, new ButtonClickListener() {
+                        @Override
+                        public void onClick() {
+                        }
+                    });
+                    xPos += 130;
+                    shopItems_.add(img);
+                    addGameObject(img);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.e("MainActivity", "Error al procesar la configuración de la tienda");

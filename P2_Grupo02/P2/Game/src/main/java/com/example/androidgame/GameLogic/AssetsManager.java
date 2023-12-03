@@ -21,20 +21,26 @@ public class AssetsManager {
     private int hotPinkPalette[]={0xFFe681b0,0xD0d60466,0xFFFFFFFF,0xFF9e0240};
 
     private static AssetsManager instance_;
+
     private AssetsManager() {
         // Constructor privado
     }
-    Theme getCirleTheme(boolean world){
-        if(!world)return circleTheme_;
+
+    Theme getCirleTheme(boolean world) {
+        if (!world) return circleTheme_;
         return worldCircleTheme_;
     }
 
-    Theme getBackgrounTheme(boolean world){
+    Theme getBackgrounTheme(boolean world) {
 
-        if(!world)return backgrounTheme_;
+        if (!world) return backgrounTheme_;
         return worldbackgrounTheme_;
     }
-    EnumPalette getPaletteColor(){return paletteColor_;}
+
+    EnumPalette getPaletteColor() {
+        return paletteColor_;
+    }
+
     public int getBackgroundColor() {
         return backgroundColor_;
     }
@@ -51,44 +57,45 @@ public class AssetsManager {
         return lineColor_;
     }
 
-    public void setPaletteTheme(EnumPalette paletteColor){
+    public void setPaletteTheme(EnumPalette paletteColor) {
 
-        paletteColor_=paletteColor;
-        switch(paletteColor){
+        paletteColor_ = paletteColor;
+        switch (paletteColor) {
             case DEFAULT:
-                backgroundColor_= defaultPalette[0];
-                buttonColor_= defaultPalette[1];
-                textColor_= defaultPalette[2];
-                lineColor_= defaultPalette[3];
+                backgroundColor_ = defaultPalette[0];
+                buttonColor_ = defaultPalette[1];
+                textColor_ = defaultPalette[2];
+                lineColor_ = defaultPalette[3];
                 break;
             case YELLOW:
-                backgroundColor_= yellowPalette[0];
-                buttonColor_= yellowPalette[1];
-                textColor_= yellowPalette[2];
-                lineColor_= yellowPalette[3];
+                backgroundColor_ = yellowPalette[0];
+                buttonColor_ = yellowPalette[1];
+                textColor_ = yellowPalette[2];
+                lineColor_ = yellowPalette[3];
                 break;
             case BLUE:
-                backgroundColor_= bluePalette[0];
-                buttonColor_= bluePalette[1];
-                textColor_= bluePalette[2];
-                lineColor_= bluePalette[3];
+                backgroundColor_ = bluePalette[0];
+                buttonColor_ = bluePalette[1];
+                textColor_ = bluePalette[2];
+                lineColor_ = bluePalette[3];
                 break;
             case GREEN:
-                backgroundColor_= greenPalette[0];
-                buttonColor_= greenPalette[1];
-                textColor_= greenPalette[2];
-                lineColor_= greenPalette[3];
+                backgroundColor_ = greenPalette[0];
+                buttonColor_ = greenPalette[1];
+                textColor_ = greenPalette[2];
+                lineColor_ = greenPalette[3];
                 break;
             case HOT_PINK:
-                backgroundColor_= hotPinkPalette[0];
-                buttonColor_= hotPinkPalette[1];
-                textColor_= hotPinkPalette[2];
-                lineColor_= hotPinkPalette[3];
+                backgroundColor_ = hotPinkPalette[0];
+                buttonColor_ = hotPinkPalette[1];
+                textColor_ = hotPinkPalette[2];
+                lineColor_ = hotPinkPalette[3];
 
                 break;
         }
     }
-    void setCirleTheme(Theme tema,boolean world){
+
+    void setCirleTheme(Theme tema, boolean world) {
 
         String temaName = tema.getName();
 
@@ -98,13 +105,14 @@ public class AssetsManager {
             nuevoTema.put(tema.getPathBolas(), tema.getPurchased());
             tematica_.put(temaName, nuevoTema);
         }
-        if(!world)
-        circleTheme_=tema;
-        else{
-            worldCircleTheme_=tema;
+        if (!world)
+            circleTheme_ = tema;
+        else {
+            worldCircleTheme_ = tema;
         }
     }
-    void setWorldThem(Theme tema){
+
+    void setWorldThem(Theme tema) {
 
         String temaName = tema.getName();
 
@@ -115,24 +123,22 @@ public class AssetsManager {
             tematica_.put(temaName, nuevoTema);
         }
 
-        worldCircleTheme_=tema;
-        worldbackgrounTheme_=tema;
+        worldCircleTheme_ = tema;
+        worldbackgrounTheme_ = tema;
 
     }
+
     public static AssetsManager getInstance() {
         return instance_;
     }
+
     public static int init() {
         instance_ = new AssetsManager();
-        instance_.tematica_=new TreeMap<String,TreeMap<String ,Boolean>>();
+        instance_.tematica_ = new TreeMap<String, TreeMap<String, Boolean>>();
         String nuevaClave = "DEFAULT";
         TreeMap<String, Boolean> nuevoValor = new TreeMap<>();
         nuevoValor.put("", true);
         instance_.tematica_.put(nuevaClave, nuevoValor);
         return 1;
     }
-
-
-
-
 }

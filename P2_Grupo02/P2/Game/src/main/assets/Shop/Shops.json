@@ -1,17 +1,17 @@
 {
    "fondos": {
       "tipo": "Fondos",
-      "numBotones" : 8,
-      "espacio" : 3
+      "ruta" : "Shop/Background/",
+      "ButtonsImages" : ["teletubiesButton.jpg", "vacasButton.jpg", "ositosButton.jpg", "SetitasButton.jpg"]
    },
    "colores": {
       "tipo": "Colores",
-      "numBotones" : 32,
-      "espacio" : 5
+      "ruta": "Assets/Images/Shop/Color",
+      "numBotones" : 6
    },
    "codigos": {
       "tipo": "Códigos",
-      "numBotones" : 6,
-      "espacio" : 1
+      "ruta" : "Assets/Images/Shop/Codes",
+      "numBotones" : 5
    }
 }
