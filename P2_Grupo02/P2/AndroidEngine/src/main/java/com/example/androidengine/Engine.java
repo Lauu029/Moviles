@@ -89,9 +89,11 @@ public class Engine implements Runnable {
             //Reescalado del input dentro de la escena
             for (TouchEvent event : myInput_.getTouchEvent()) {
                 event.x -= myGraphics_.getTranslateX_();
+                event.deltaX -= myGraphics_.getTranslateX_();
                 event.y -= myGraphics_.getTranslateY_();
                 event.x /= myGraphics_.getScale_();
                 event.y /= myGraphics_.getScale_();
+                event.deltaX/=myGraphics_.getScale_();
             }
             //Gestión de eventos de input
             this.myScene_.handleInput(myInput_.getTouchEvent());
