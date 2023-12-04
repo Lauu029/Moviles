@@ -77,6 +77,9 @@ public class WorldEndScene extends EndScene{
         });
         addGameObject(shareRecordButton_);
         Difficulty difNextLevel=LevelManager.getInstance().getNextLevelDifficulty();
+
+        if(LevelManager.getInstance().getActualWorld()==LevelManager.getInstance().getPassedWorld()&&LevelManager.getInstance().getActualLevel()>=LevelManager.getInstance().getPassedLevel_())
+            LevelManager.getInstance().nextPassedLevel();
         if(difNextLevel!=null) {
             Button nextLevelButton = new Button("Siguiente Nivel", font1_, AssetsManager.getInstance().getButtonColor(),
                     AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor()
@@ -89,6 +92,7 @@ public class WorldEndScene extends EndScene{
                     GameManager.getInstance().setLevel(difNextLevel);
                     Engine engine_ = GameManager.getInstance().getIEngine();
                     engine_.getAudio().playSound(myButtonSound_, 0);
+
                     SceneManager.getInstance().addScene(new GameScene(true));
                 }
             });
