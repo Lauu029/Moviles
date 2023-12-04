@@ -102,11 +102,12 @@ public class GameScene extends Scene {
     public void render(){
 
         iEngine_.getGraphics().clear(AssetsManager.getInstance().getBackgroundColor());
-        if(backaground_!=null)
-        iEngine_.getGraphics().drawImage(backaground_,0,0,GameManager.getInstance().getHeight_(),GameManager.getInstance().getwidth());
         if (GameManager.getInstance().getBackgroundImage() != null) {
             iEngine_.getGraphics().drawImage(GameManager.getInstance().getBackgroundImage(), 0, 0, height_, width_);
         }
+        if(backaground_!=null)
+        iEngine_.getGraphics().drawImage(backaground_,0,0,GameManager.getInstance().getHeight_(),GameManager.getInstance().getwidth());
+
         for (int i = 0; i < gameObjects_.size(); i++) {
             gameObjects_.get(i).render(iEngine_.getGraphics());
         }
