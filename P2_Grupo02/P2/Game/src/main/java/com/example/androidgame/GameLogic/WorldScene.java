@@ -20,6 +20,8 @@ public class WorldScene extends Scene {
     private Image backaground_;
     private int numWorlds_ = 0;
     int actualWorld_ = 0;
+    int passedLevel_ = 0;
+    int passedWorld_ = 0;
     protected ArrayList<GameObject> buttonObjects_ = new ArrayList<>();
 
     @Override
@@ -72,8 +74,7 @@ public class WorldScene extends Scene {
         LevelManager.getInstance().setActualWorld(actualWorld_);
         LevelManager.getInstance().setNewWorld();
         int widthScene = GameManager.getInstance().getwidth();
-
-
+        passedLevel_=LevelManager.getInstance().getActualLevel();
         int wButton = (widthScene) / (columnas_ + 1);
         int margen = (widthScene - (wButton * columnas_)) / (columnas_ + 1);
         int x = 0;
@@ -86,22 +87,30 @@ public class WorldScene extends Scene {
         AssetsManager.getInstance().setWorldTheme(tema);
         String imagePath = AssetsManager.getInstance().getBackgrounTheme(true).getBackground();
         backaground_ = iEngine_.getGraphics().newImage(imagePath);
+        passedWorld_=LevelManager.getInstance().getPassedWorld();
+        passedLevel_=LevelManager.getInstance().getPassedLevel_();
         for (int i = 0; i < niveles_; i++) {
             if (x >= columnas_) {
                 x = 0;
                 y++;
             }
             int finalI = i;
+            boolean blocked=true;
+            if(actualWorld_<passedWorld_)blocked=false;
+            else if(actualWorld_==passedWorld_&&i<=passedLevel_)blocked=false;
+            boolean finalBlocked = blocked;
             buttonObjects_.add(new ButtonMundo("" + i, font_, AssetsManager.getInstance().getButtonColor(),
                     AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor(),
                     wButton, wButton, 25, (x * (wButton + margen)) + margen, y * (wButton + margen) + 100,
-                    myButtonSound_, false, new ButtonClickListener() {
+                    myButtonSound_, blocked, new ButtonClickListener() {
                 @Override
                 public void onClick() {
+                    if(!finalBlocked){
                     LevelManager.getInstance().setActualLevel(finalI);
                     ;
                     GameManager.getInstance().setLevel(diff.get(finalI));
                     SceneManager.getInstance().addScene(new GameScene(true));
+                    }
                 }
             }
             ));

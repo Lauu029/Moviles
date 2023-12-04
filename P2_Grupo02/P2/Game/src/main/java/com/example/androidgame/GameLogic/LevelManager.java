@@ -12,7 +12,26 @@ public class LevelManager {
     private int niveles_;
     private int actualLevel_ =0;
     private int actualWorld_=0;
+    private  int passedLevel_=4;
+    private int passedWorld_=1;
     private int numWorlds;
+    public int getPassedLevel_(){
+        return passedLevel_;
+    }
+    public void nextPassedLevel(){
+        if(passedLevel_ +1>=diff_.size()){
+            if(passedWorld_<numWorlds){
+                passedWorld_++;
+                passedLevel_=0;
+            }
+
+        }
+        else passedLevel_++;
+
+    }
+    int getPassedWorld(){
+        return passedWorld_;
+    }
     public ArrayList<Difficulty> getDiff() {
         return diff_;
     }
