@@ -114,7 +114,10 @@ public class GameManager {
         coins_=coins;
     }
     public void saveGameData() {
-        SaveData.saveGameData(myEngine_.getMainActivity(), coins_,AssetsManager.getInstance().getPaletteColor());
+        SaveData.saveGameData(myEngine_.getMainActivity(), coins_,
+                AssetsManager.getInstance().getPaletteColor(),
+                LevelManager.getInstance().getActualWorld(),
+                LevelManager.getInstance().getActualLevel());
     }
 
     // Llamado al iniciar el juego para cargar el progreso del jugador
@@ -122,5 +125,8 @@ public class GameManager {
         SaveData.loadGameData(myEngine_.getMainActivity());
         // Actualiza las variables del GameManager según los datos cargados
         coins_ = getCoins();
+        System.out.println("El mundo desbloqueado es el "+LevelManager.getInstance().getActualWorld());
+        System.out.println("El nivel desbloqueado es el "+LevelManager.getInstance().getActualLevel());
+
     }
 }

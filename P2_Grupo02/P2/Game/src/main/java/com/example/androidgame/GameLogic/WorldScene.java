@@ -107,7 +107,6 @@ public class WorldScene extends Scene {
                 public void onClick() {
                     if(!finalBlocked){
                     LevelManager.getInstance().setActualLevel(finalI);
-                    ;
                     GameManager.getInstance().setLevel(diff.get(finalI));
                     SceneManager.getInstance().addScene(new GameScene(true));
                     }

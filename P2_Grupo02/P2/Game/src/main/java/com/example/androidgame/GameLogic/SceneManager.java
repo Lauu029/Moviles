@@ -27,7 +27,6 @@ public class SceneManager {
     // Method to get the unique instance of the class
     public static SceneManager getInstance() {
         // Returns the unique instance
-
         return instance;
     }
 

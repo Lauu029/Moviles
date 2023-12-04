@@ -11,11 +11,13 @@ public class SaveData {
 
     private static final String FILENAME = "saved_data.json";
 
-    public static void saveGameData(Context context, int coins,EnumPalette palette) {
+    public static void saveGameData(Context context, int coins,EnumPalette palette,int currWorld,int currLevel) {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("coins", coins);
             jsonObject.put("palette", palette.name());
+            jsonObject.put("world", currWorld);
+            jsonObject.put("level", currLevel);
 
             String jsonString = jsonObject.toString();
             FileOutputStream fileOutputStream = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
@@ -44,6 +46,11 @@ public class SaveData {
             String paletteStr = jsonObject.getString("palette");
             EnumPalette paletteEnum=EnumPalette.valueOf(paletteStr);
             AssetsManager.getInstance().setPaletteTheme(paletteEnum);
+
+            int world= jsonObject.getInt("world");
+            LevelManager.getInstance().setActualWorld(world);
+            int level= jsonObject.getInt("level");
+            LevelManager.getInstance().setActualLevel(level);
 
         } catch (JSONException | IOException e) {
             e.printStackTrace();
