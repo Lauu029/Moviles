@@ -127,7 +127,6 @@ public class EndScene extends Scene {
             iEngine_.getGraphics().setFont(font1_);
             iEngine_.getGraphics().drawText("Te has quedado sin intentos", width_ / 2, 50);
 
-
         } else {
             iEngine_.getGraphics().drawText("ENHORABUENA!!", width_ / 2, 10);
             iEngine_.getGraphics().setFont(font1_);

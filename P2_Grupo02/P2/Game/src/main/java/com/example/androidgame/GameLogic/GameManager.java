@@ -34,7 +34,7 @@ public class GameManager {
         instance_.daltonics_ = false;
         instance_.coins_ = 100;
         instance_.backgroundImage_ = null;
-        AssetsManager.init();
+        AssetsManager.init( instance_.myEngine_);
         SceneManager.init();
         LevelManager.init();
         return 1;

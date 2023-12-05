@@ -120,7 +120,8 @@ public class WorldScene extends Scene {
     public void render() {
 
         iEngine_.getGraphics().clear(AssetsManager.getInstance().getBackgroundColor());
-        iEngine_.getGraphics().drawImage(backaground_, 0, 0, GameManager.getInstance().getHeight_(), GameManager.getInstance().getwidth());
+        iEngine_.getGraphics().drawImage(backaground_, 0, 0, GameManager.getInstance().getHeight_(),
+                GameManager.getInstance().getwidth());
         this.iEngine_.getGraphics().setFont(font_);
         this.iEngine_.getGraphics().setColor(0xFF000000);
         iEngine_.getGraphics().drawText("Mundo " + actualWorld_, width_ / 2, 30);

@@ -3,7 +3,9 @@ package com.example.androidgame.GameLogic;
 import com.example.androidengine.Engine;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.IScene;
+import com.example.androidengine.Image;
 import com.example.androidengine.TouchEvent;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.util.ArrayList;
 
@@ -11,20 +13,21 @@ public class Scene implements IScene {
     protected Engine iEngine_;
     protected int width_, height_;
     protected ArrayList<GameObject> gameObjects_ = new ArrayList<>();
+    protected boolean world_ = false;
+    protected Image backgroundImage_ = null;
 
     Scene() {
         iEngine_ = GameManager.getInstance().getIEngine();
         width_ = GameManager.getInstance().getwidth();
         height_ = GameManager.getInstance().getHeight_();
-        Graphics graph = iEngine_.getGraphics();
     }
 
     @Override
     public void render() {
         iEngine_.getGraphics().clear(AssetsManager.getInstance().getBackgroundColor());
-        if (GameManager.getInstance().getBackgroundImage() != null) {
-            iEngine_.getGraphics().drawImage(GameManager.getInstance().getBackgroundImage(), 0, 0, height_, width_);
-        }
+        if (AssetsManager.getInstance().getBackgroundImage(world_) != null)
+            iEngine_.getGraphics().drawImage(AssetsManager.getInstance().getBackgroundImage(world_),
+                    0, 0, height_, width_);
         for (int i = 0; i < gameObjects_.size(); i++) {
             gameObjects_.get(i).render(iEngine_.getGraphics());
         }
@@ -63,4 +66,5 @@ public class Scene implements IScene {
     public void addGameObject(GameObject gm) {
         gameObjects_.add(gm);
     }
+
 }
