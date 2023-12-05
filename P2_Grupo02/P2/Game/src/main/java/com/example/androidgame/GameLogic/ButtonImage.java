@@ -3,6 +3,7 @@ package com.example.androidgame.GameLogic;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
+import com.example.androidengine.TouchEvent;
 
 public class ButtonImage extends Button {
     protected Image buttonImage_;
@@ -10,7 +11,7 @@ public class ButtonImage extends Button {
 
     ButtonImage(String image, int w, int h, int x, int y, Sound buttonSound, ButtonClickListener function) {
         super("", null, AssetsManager.getInstance().getButtonColor(),
-                AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor(), w, h, 0, x, y, buttonSound, function);
+                AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor(), w, h, 0, x, y, buttonSound, function);
         buttonImage_ = GameManager.getInstance().getIEngine().getGraphics().newImage(image);
         overlayImage = null;
     }
@@ -20,13 +21,22 @@ public class ButtonImage extends Button {
 
     @Override
     public void render(Graphics graph) {
-        graph.drawImage(buttonImage_, this.posX_, this.posY_, width_, height_);
-        if (overlayImage != null)
-            graph.drawImage(overlayImage, this.posX_, this.posY_, width_, height_);
+        if (active) {
+            graph.drawImage(buttonImage_, this.posX_, this.posY_, width_, height_);
+            if (overlayImage != null)
+                graph.drawImage(overlayImage, this.posX_+width_/4, this.posY_+height_/4, width_/2, height_/2);
+        }
     }
 
-    public void addOverlayImage(String img) {
-        overlayImage = GameManager.getInstance().getIEngine().getGraphics().newImage(img);
+    public void addOverlayImage(Image img) {
+        overlayImage = img;
+    }
+
+    public boolean handleInput(TouchEvent event) {
+        boolean input = super.handleInput(event);
+        if (input)
+            deleteOverlayImage();
+        return input;
     }
 
     public void deleteOverlayImage() {

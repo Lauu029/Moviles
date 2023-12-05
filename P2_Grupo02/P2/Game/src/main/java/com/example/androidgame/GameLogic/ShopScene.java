@@ -29,9 +29,11 @@ public class ShopScene extends Scene {
     private String shopName;
     private ButtonImage previousShop_, nextShop_, poohBackground_;
     private ArrayList<ButtonImage> shopItems_ = new ArrayList<>();
+    private ArrayList<ArrayList<ButtonImage>> shopItems2 = new ArrayList<>();
     private int id;
     private Image coinsIcon_;
     private JSONObject shopConfig;
+    private Image blockedImage;
 
     ShopScene() {
         super();
@@ -42,12 +44,12 @@ public class ShopScene extends Scene {
 
         myArrowSound_ = iEngine_.getAudio().newSound("arrowButton.wav");
         shopingSound = iEngine_.getAudio().newSound("cashPurchase.wav");
+        blockedImage = iEngine_.getGraphics().newImage("lock.png");
         InputStream file = iEngine_.getFileManager().getInputStream("Shop/Shops.json");
         shopConfig = readShopConfig(file);
         id = 0;
         shopName = "";
         getShopTypeData(textShops_[id]);
-
         backButton = new ButtonImage("flecha.png", 40, 40, 0, 0, myArrowSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
@@ -61,7 +63,9 @@ public class ShopScene extends Scene {
                 iEngine_.getMainActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
+                        for (int i = 0; i < shopItems2.get(id).size(); i++) {
+                            shopItems2.get(id).get(i).changeActive(false);
+                        }
                         if (id == 0) id = 2;
                         else
                             id = (id - 1) % 3;
@@ -77,6 +81,9 @@ public class ShopScene extends Scene {
                 iEngine_.getMainActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        for (int i = 0; i < shopItems2.get(id).size(); i++) {
+                            shopItems2.get(id).get(i).changeActive(false);
+                        }
                         id = (id + 1) % 3;
                         getShopTypeData(textShops_[id]);
                     }
@@ -121,7 +128,6 @@ public class ShopScene extends Scene {
             StringBuilder stringBuilder = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
-
                 stringBuilder.append(line);
             }
             reader.close();
@@ -146,26 +152,24 @@ public class ShopScene extends Scene {
                 int xPos = 25;
                 for (int i = 0; i < buttonsArray.length(); i++) {
                     String nombre = buttonsArray.getString(i);
-                    Log.d("BotonesTienda", path + nombre);
-                    if(i>2){
-                        yPos = yPos*2 +20;
+                    if (i > 2) {
+                        yPos = yPos * 2 + 20;
                         xPos = 25;
                     }
                     ButtonImage img = new ButtonImage(path + nombre + "Button.jpg", 100, 100, xPos,
                             yPos, shopingSound, new ButtonClickListener() {
                         @Override
                         public void onClick() {
-                            Theme themeBackground = new Theme("DEFAULT",path+nombre+".jpg","","");
-                            //Image backaground_ = iEngine_.getGraphics().newImage(path + nombre +".jpg");
-                            //Theme t=new  Theme("",path + nombre +".jpg","","");
+                            Theme themeBackground = new Theme("DEFAULT", path + nombre + ".jpg", "", "");
                             AssetsManager.getInstance().setBackgroundTheme(themeBackground);
-                            //GameManager.getInstance().setBackgroundImage(backaground_);
                         }
                     });
+                    img.addOverlayImage(blockedImage);
                     xPos += 130;
                     shopItems_.add(img);
                     addGameObject(img);
                 }
+                shopItems2.add(shopItems_);
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.e("MainActivity", "Error al procesar la configuración de la tienda");
