@@ -10,9 +10,10 @@ import java.io.IOException;
 public class SaveData {
 
     private static final String FILENAME = "saved_data.json";
-
+    private static Context appContext;
     public static void saveGameData(Context context, int coins,EnumPalette palette,int currWorld,int currLevel) {
         JSONObject jsonObject = new JSONObject();
+        appContext=context;
         try {
             jsonObject.put("coins", coins);
             jsonObject.put("palette", palette.name());
@@ -22,7 +23,6 @@ public class SaveData {
             String jsonString = jsonObject.toString();
             FileOutputStream fileOutputStream = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
             fileOutputStream.write(jsonString.getBytes());
-
             fileOutputStream.close();
         } catch (JSONException | IOException e) {
             e.printStackTrace();
@@ -31,6 +31,7 @@ public class SaveData {
 
     public static void loadGameData(Context context) {
         try {
+            appContext=context;
             FileInputStream fileInputStream = context.openFileInput(FILENAME);
             int size = fileInputStream.available();
             byte[] buffer = new byte[size];
@@ -39,7 +40,7 @@ public class SaveData {
 
             String jsonString = new String(buffer, "UTF-8");
             JSONObject jsonObject = new JSONObject(jsonString);
-
+            //readDataFile();
             int coins = jsonObject.getInt("coins");
             GameManager.getInstance().setCoins(coins);
 
@@ -51,6 +52,22 @@ public class SaveData {
             LevelManager.getInstance().setPassedWorld(world);
             int level= jsonObject.getInt("level");
             LevelManager.getInstance().setPassedLevel(level);
+
+        } catch (JSONException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private static void readDataFile(){
+        try {
+            FileInputStream fileInputStream = appContext.openFileInput(FILENAME);
+            int size = fileInputStream.available();
+            byte[] buffer = new byte[size];
+            fileInputStream.read(buffer);
+            fileInputStream.close();
+
+            String jsonString = new String(buffer, "UTF-8");
+            JSONObject jsonObject = new JSONObject(jsonString);
+            System.out.println(jsonString);
 
         } catch (JSONException | IOException e) {
             e.printStackTrace();

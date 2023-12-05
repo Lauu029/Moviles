@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         GameManager.init(IEngine_, 400, 600);
+
+        //GameManager.getInstance().loadGameData();
         IEngine_.resume();
     }
 
@@ -54,11 +56,16 @@ public class MainActivity extends AppCompatActivity {
         IEngine_.pause();
         GameManager.getInstance().saveGameData();
     }
-
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        Log.d("GAME", "onDestroy called");
+        IEngine_.pause();
+    }
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("TAG", "RESUMEEEE");
+        Log.d("GAME", "RESUMEEEE");
         IEngine_.resume();
         GameManager.getInstance().loadGameData();
         if(getIntent().hasExtra("notification")){

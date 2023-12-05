@@ -1,6 +1,8 @@
 package com.example.androidgame.GameLogic;
 
 
+import android.util.Log;
+
 import com.example.androidengine.Engine;
 import com.example.androidengine.Image;
 
@@ -113,6 +115,7 @@ public class GameManager {
         coins_=coins;
     }
     public void saveGameData() {
+        Log.d("GAME","-----llamado a save gameData-------");
         SaveData.saveGameData(myEngine_.getMainActivity(), coins_,
                 AssetsManager.getInstance().getPaletteColor(),
                 LevelManager.getInstance().getPassedWorld(),
@@ -121,11 +124,10 @@ public class GameManager {
 
     // Llamado al iniciar el juego para cargar el progreso del jugador
     public void loadGameData() {
+        Log.d("GAME","-----llamado a load gameData-------");
         SaveData.loadGameData(myEngine_.getMainActivity());
         // Actualiza las variables del GameManager según los datos cargados
         coins_ = getCoins();
-        System.out.println("El mundo desbloqueado es el "+LevelManager.getInstance().getActualWorld());
-        System.out.println("El nivel desbloqueado es el "+LevelManager.getInstance().getActualLevel());
 
     }
 }
