@@ -48,9 +48,9 @@ public class SaveData {
             AssetsManager.getInstance().setPaletteTheme(paletteEnum);
 
             int world= jsonObject.getInt("world");
-            LevelManager.getInstance().setActualWorld(world);
+            LevelManager.getInstance().setPassedWorld(world);
             int level= jsonObject.getInt("level");
-            LevelManager.getInstance().setActualLevel(level);
+            LevelManager.getInstance().setPassedLevel(level);
 
         } catch (JSONException | IOException e) {
             e.printStackTrace();

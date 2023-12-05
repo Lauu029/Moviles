@@ -88,7 +88,7 @@ public class WorldScene extends Scene {
         String imagePath = AssetsManager.getInstance().getBackgrounTheme(true).getBackground();
         backaground_ = iEngine_.getGraphics().newImage(imagePath);
         passedWorld_=LevelManager.getInstance().getPassedWorld();
-        passedLevel_=LevelManager.getInstance().getPassedLevel_();
+        passedLevel_=LevelManager.getInstance().getPassedLevel();
         for (int i = 0; i < niveles_; i++) {
             if (x >= columnas_) {
                 x = 0;

@@ -78,7 +78,7 @@ public class WorldEndScene extends EndScene{
         addGameObject(shareRecordButton_);
         Difficulty difNextLevel=LevelManager.getInstance().getNextLevelDifficulty();
 
-        if(LevelManager.getInstance().getActualWorld()==LevelManager.getInstance().getPassedWorld()&&LevelManager.getInstance().getActualLevel()>=LevelManager.getInstance().getPassedLevel_())
+        if(LevelManager.getInstance().getActualWorld()==LevelManager.getInstance().getPassedWorld()&&LevelManager.getInstance().getActualLevel()>=LevelManager.getInstance().getPassedLevel())
             LevelManager.getInstance().nextPassedLevel();
         if(difNextLevel!=null) {
             Button nextLevelButton = new Button("Siguiente Nivel", font1_, AssetsManager.getInstance().getButtonColor(),
