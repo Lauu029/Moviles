@@ -15,8 +15,14 @@ public class LevelManager {
     private  int passedLevel_=4;
     private int passedWorld_=1;
     private int numWorlds;
-    public int getPassedLevel_(){
+    public int getPassedLevel(){
         return passedLevel_;
+    }
+    public void setPassedLevel(int passedLevel){
+        passedLevel_=passedLevel;
+    }
+    public void setPassedWorld(int passedWorld){
+        passedWorld_=passedWorld;
     }
     public void nextPassedLevel(){
         if(passedLevel_ +1>=diff_.size()){

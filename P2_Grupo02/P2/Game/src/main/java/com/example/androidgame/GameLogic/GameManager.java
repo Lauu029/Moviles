@@ -2,7 +2,6 @@ package com.example.androidgame.GameLogic;
 
 
 import com.example.androidengine.Engine;
-import com.example.androidengine.IScene;
 import com.example.androidengine.Image;
 
 public class GameManager {
@@ -116,8 +115,8 @@ public class GameManager {
     public void saveGameData() {
         SaveData.saveGameData(myEngine_.getMainActivity(), coins_,
                 AssetsManager.getInstance().getPaletteColor(),
-                LevelManager.getInstance().getActualWorld(),
-                LevelManager.getInstance().getActualLevel());
+                LevelManager.getInstance().getPassedWorld(),
+                LevelManager.getInstance().getPassedLevel());
     }
 
     // Llamado al iniciar el juego para cargar el progreso del jugador
