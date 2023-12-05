@@ -155,9 +155,11 @@ public class ShopScene extends Scene {
                             yPos, shopingSound, new ButtonClickListener() {
                         @Override
                         public void onClick() {
-                            Image backaground_ = iEngine_.getGraphics().newImage(path + nombre +".jpg");
-                            Theme t=new  Theme("",path + nombre +".jpg","","");
-                            GameManager.getInstance().setBackgroundImage(backaground_);
+                            Theme themeBackground = new Theme("DEFAULT",path+nombre+".jpg","","");
+                            //Image backaground_ = iEngine_.getGraphics().newImage(path + nombre +".jpg");
+                            //Theme t=new  Theme("",path + nombre +".jpg","","");
+                            AssetsManager.getInstance().setBackgroundTheme(themeBackground);
+                            //GameManager.getInstance().setBackgroundImage(backaground_);
                         }
                     });
                     xPos += 130;

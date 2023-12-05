@@ -10,6 +10,7 @@ import com.example.androidengine.TouchEvent;
  * los tipos de círculos y una instancia del Game Manager para acceder rápidamente a sus métodos
  * */
 public class Circle extends GameObject {
+
     protected String text_;
     protected Font font_;
     protected int color_;
@@ -59,7 +60,7 @@ public class Circle extends GameObject {
     public void render(Graphics graph) {
         graph.setColor(this.color_);
         //
-        if (image_ != null && tematica_.getName()!= "DEFAULT")
+        if (image_ != null && tematica_.getName()!= "DEFAULT" )
             graph.drawImage(image_, this.posX_ - (radius_), this.posY_ - (radius_), this.radius_ * 2, this.radius_ * 2);
         else graph.drawCircle(this.posX_, this.posY_, this.radius_);
         if (this.isDaltonics_) {
