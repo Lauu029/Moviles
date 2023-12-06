@@ -73,7 +73,7 @@ public class WorldScene extends Scene {
     public void loadWorld() {
         LevelManager.getInstance().setActualWorld(actualWorld_);
         LevelManager.getInstance().setNewWorld();
-        int widthScene = GameManager.getInstance().getwidth();
+        int widthScene = GameManager.getInstance().getWidth();
         passedLevel_=LevelManager.getInstance().getActualLevel();
         int wButton = (widthScene) / (columnas_ + 1);
         int margen = (widthScene - (wButton * columnas_)) / (columnas_ + 1);
@@ -120,8 +120,8 @@ public class WorldScene extends Scene {
     public void render() {
 
         iEngine_.getGraphics().clear(AssetsManager.getInstance().getBackgroundColor());
-        iEngine_.getGraphics().drawImage(backaground_, 0, 0, GameManager.getInstance().getHeight_(),
-                GameManager.getInstance().getwidth());
+        iEngine_.getGraphics().drawImage(backaground_, 0, 0, GameManager.getInstance().getHeight(),
+                GameManager.getInstance().getWidth());
         this.iEngine_.getGraphics().setFont(font_);
         this.iEngine_.getGraphics().setColor(0xFF000000);
         iEngine_.getGraphics().drawText("Mundo " + actualWorld_, width_ / 2, 30);

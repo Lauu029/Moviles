@@ -52,6 +52,7 @@ public class EndScene extends Scene {
         font2_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 30, false, false);
         myButtonSound_ = iEngine_.getAudio().newSound("buttonClicked.wav");
         initButtons();
+
     }
 
     protected void initButtons() {
@@ -100,7 +101,7 @@ public class EndScene extends Scene {
                 myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                graph.generateScreenshot(0, 0, width_, height_ / 2 - 40, callback);
+                graph.generateScreenshot(0, 0, width_, height_ / 3, callback);
             }
         });
         tematica_ = AssetsManager.getInstance().getCirleTheme(false);

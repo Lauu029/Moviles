@@ -72,7 +72,7 @@ public class WorldEndScene extends EndScene{
                 myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                graph.generateScreenshot(0, 0, width_, height_ / 2 - 40, callback);
+                graph.generateScreenshot(0, 0, width_, height_ / 3, callback);
             }
         });
         addGameObject(shareRecordButton_);

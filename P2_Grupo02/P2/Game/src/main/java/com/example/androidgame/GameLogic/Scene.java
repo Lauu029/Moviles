@@ -1,11 +1,9 @@
 package com.example.androidgame.GameLogic;
 
 import com.example.androidengine.Engine;
-import com.example.androidengine.Graphics;
 import com.example.androidengine.IScene;
 import com.example.androidengine.Image;
 import com.example.androidengine.TouchEvent;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.util.ArrayList;
 
@@ -18,8 +16,8 @@ public class Scene implements IScene {
 
     Scene() {
         iEngine_ = GameManager.getInstance().getIEngine();
-        width_ = GameManager.getInstance().getwidth();
-        height_ = GameManager.getInstance().getHeight_();
+        width_ = GameManager.getInstance().getWidth();
+        height_ = GameManager.getInstance().getHeight();
     }
 
     @Override

@@ -41,11 +41,11 @@ public class GameManager {
         return 1;
     }
 
-    public int getwidth() {
+    public int getWidth() {
         return width_;
     }
 
-    public int getHeight_() {
+    public int getHeight() {
         return height_;
     }
 

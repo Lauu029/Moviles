@@ -117,7 +117,7 @@ public class Board extends GameObject {
     //Coloca los círculos centrados en la pantalla dependiendo del espacio disponible y la cantidad de círculos que haya que poner
     private void setCirclesPositions() {
         int offset = 4;
-        int width_ = gm_.getwidth();
+        int width_ = gm_.getWidth();
         int totalCircleWidth = usableColors_ * (this.circleRad_ * 2 + offset); // Ancho total de todos los círculos
         int x_ = (width_ - totalCircleWidth) / 2;
         for (int i = 0; i < usableColors_; i++) {

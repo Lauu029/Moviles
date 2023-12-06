@@ -83,8 +83,8 @@ public class Mobile {
         // myImageView.setImageBitmap(bitmap);
 
         // Luego, puedes llamar al método shareImage para compartir la imagen
-        System.out.println("Procesa imagen");
-        shareImage(bitmap, "¡He superado un nuevo nivel en Mastermind!");
+
+        shareImage(bitmap, "He superado un nuevo nivel en Mastermind!");
     }
     public void shareImage(Bitmap bitmap, String msj) {
         String pathBitmap = MediaStore.Images.Media.insertImage(context_.getContentResolver(), bitmap, "titulo", "descripcion");
