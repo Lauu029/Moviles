@@ -44,30 +44,22 @@ public class MainActivity extends AppCompatActivity {
         }
 
         GameManager.init(IEngine_, 400, 600);
-
-        //GameManager.getInstance().loadGameData();
         IEngine_.resume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        System.out.println("--------------------me pause-------------------------");
-        IEngine_.pause();
         GameManager.getInstance().saveGameData();
-    }
-    @Override
-    protected void onDestroy(){
-        super.onDestroy();
-        Log.d("GAME", "onDestroy called");
+        Log.d("GAME","--------------------me pause-------------------------");
         IEngine_.pause();
     }
     @Override
     protected void onResume() {
         super.onResume();
+        GameManager.getInstance().loadGameData();
         Log.d("GAME", "RESUMEEEE");
         IEngine_.resume();
-        GameManager.getInstance().loadGameData();
         if(getIntent().hasExtra("notification")){
               Log.d("TAG", "NOTIFICATION");
         }
