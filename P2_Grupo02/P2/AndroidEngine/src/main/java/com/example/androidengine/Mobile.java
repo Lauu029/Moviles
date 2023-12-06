@@ -78,11 +78,6 @@ public class Mobile {
         }
     }
     public void processImage(Bitmap bitmap) {
-        // Aquí puedes realizar cualquier procesamiento adicional antes de compartir la imagen
-        // Por ejemplo, mostrar la imagen en una ImageView
-        // myImageView.setImageBitmap(bitmap);
-
-        // Luego, puedes llamar al método shareImage para compartir la imagen
 
         shareImage(bitmap, "He superado un nuevo nivel en Mastermind!");
     }
