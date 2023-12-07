@@ -11,7 +11,6 @@ public class AssetsManager {
     private Theme circleTheme_ = new Theme("DEFAULT", "", "", "");
     private Theme worldCircleTheme_ = new Theme("DEFAULT", "", "", "");
     private Theme backgrounTheme_ = new Theme("DEFAULT", "", "", "");
-    private String globalBackground_ = "";
     private Theme worldbackgrounTheme_ = new Theme("DEFAULT", "", "", "");
     private EnumPalette paletteColor_ = EnumPalette.DEFAULT;
     private int backgroundColor_ = 0xFFFFF0F6;
@@ -36,18 +35,16 @@ public class AssetsManager {
     }
 
     Theme getBackgrounTheme(boolean world) {
-
         if (!world) return backgrounTheme_;
         return worldbackgrounTheme_;
     }
 
     Image getBackgroundImage(boolean world) {
         Image i = null;
-        if (!world){
-            if(backgrounTheme_.getBackground()!="")
+        if (!world) {
+            if (backgrounTheme_.getBackground() != "")
                 return iEngine_.getGraphics().newImage(backgrounTheme_.getBackground());
-        }
-        else if(worldbackgrounTheme_.getBackground()!="")
+        } else if (worldbackgrounTheme_.getBackground() != "")
             return iEngine_.getGraphics().newImage(worldbackgrounTheme_.getBackground());
         return null;
     }

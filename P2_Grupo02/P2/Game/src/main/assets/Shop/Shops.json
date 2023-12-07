@@ -2,6 +2,7 @@
    "fondos": {
       "tipo": "Fondos",
       "ruta" : "Shop/Background/",
+      "extension" : ".jpg",
       "ButtonsImages" : ["teletubies", "vacas", "ositos", "Setitas"]
    },
    "colores": {
@@ -10,8 +11,10 @@
       "numBotones" : 6
    },
    "codigos": {
-      "tipo": "Códigos",
-      "ruta" : "Assets/Images/Shop/Codes",
+      "tipo": "Codigos",
+      "ruta" : "Shop/Codes",
+      "extension" : ".png",
+      "ButtonsImages" : ["Animals","Vegetables"],
       "numBotones" : 5
    }
 }

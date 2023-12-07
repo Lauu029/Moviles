@@ -20,6 +20,8 @@ public class Theme {
     public String getPathBolas() {
         return bolas_;
     }
+    public void setBackground(String background_){ gameBackground_ = background_; }
+    public void setPathBolas(String balls_){ bolas_ = balls_; }
     public String getName() {
         return tematica_;
     }

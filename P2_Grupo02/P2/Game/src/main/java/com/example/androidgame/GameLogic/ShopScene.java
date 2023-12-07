@@ -147,6 +147,7 @@ public class ShopScene extends Scene {
                 JSONObject config = shopConfig.getJSONObject(type);
                 shopName = config.get("tipo").toString();
                 String path = config.get("ruta").toString();
+                String ext = config.get("extension").toString();
                 JSONArray buttonsArray = config.getJSONArray("ButtonsImages");
                 int yPos = 130;
                 int xPos = 25;
@@ -156,12 +157,23 @@ public class ShopScene extends Scene {
                         yPos = yPos * 2 + 20;
                         xPos = 25;
                     }
-                    ButtonImage img = new ButtonImage(path + nombre + "Button.jpg", 100, 100, xPos,
+                    ButtonImage img = new ButtonImage(path + nombre + "Button" + ext, 100, 100, xPos,
                             yPos, shopingSound, new ButtonClickListener() {
                         @Override
                         public void onClick() {
-                            Theme themeBackground = new Theme("DEFAULT", path + nombre + ".jpg", "", "");
-                            AssetsManager.getInstance().setBackgroundTheme(themeBackground);
+                            Theme theme = new Theme("DEFAULT", "", "", "");
+                            switch (shopName) {
+                                case "Fondos":
+                                    theme.setBackground(path + nombre + ext);
+                                    AssetsManager.getInstance().setBackgroundTheme(theme);
+                                    break;
+                                case "Codigos":
+                                    theme.setPathBolas(path + nombre);
+                                    AssetsManager.getInstance().setCirleTheme(theme, false);
+                                    break;
+                                case "Colores":
+                                    break;
+                            }
                         }
                     });
                     img.addOverlayImage(blockedImage);

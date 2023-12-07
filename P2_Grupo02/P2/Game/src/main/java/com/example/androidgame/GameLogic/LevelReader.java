@@ -14,8 +14,6 @@ import java.util.TreeMap;
 
 public class LevelReader {
     private String levelPath="Levels/";
-
-
     private ArrayList<Theme>tematicas_;
     ArrayList<ArrayList<Difficulty>>dificultades;
     private ArrayList<Integer>numNiveles;
