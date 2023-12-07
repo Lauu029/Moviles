@@ -47,14 +47,21 @@ public class ShopScene extends Scene {
         myArrowSound_ = iEngine_.getAudio().newSound("arrowButton.wav");
         shopingSound = iEngine_.getAudio().newSound("cashPurchase.wav");
         blockedImage = iEngine_.getGraphics().newImage("lock.png");
-        noneButton = new ButtonImage("Shop/NudeButton.png",100, 100, 25, 130,
+        noneButton = new ButtonImage("Shop/NudeButton.png", 100, 100, 25, 130,
                 myArrowSound_, null);
         gameObjects_.add(noneButton);
         InputStream file = iEngine_.getFileManager().getInputStream("Shop/Shops.json");
         shopConfig = readShopConfig(file);
         id = 0;
         shopName = "";
-        getShopTypeData(textShops_[id]);
+        for (int i = 0; i < textShops_.length; i++) {
+            getShopTypeData(textShops_[i]);
+            if(i>0){
+                for (int j = 0; j < shopItems2.get(i).size(); i++) {
+                    shopItems2.get(id).get(i).changeActive(false);
+                }
+            }
+        }
         backButton = new ButtonImage("flecha.png", 40, 40, 0, 0, myArrowSound_, new ButtonClickListener() {
             @Override
             public void onClick() {

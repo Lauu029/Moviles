@@ -7,7 +7,9 @@
    },
    "colores": {
       "tipo": "Colores",
-      "ruta": "Assets/Images/Shop/Color",
+      "ruta": "Shop/Color",
+      "extension" : ".png",
+      "ButtonsImages" : ["BluePalette","GreenPalette","PinkkPalette","YellowPalette"],
       "numBotones" : 6
    },
    "codigos": {
