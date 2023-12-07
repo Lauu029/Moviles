@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
@@ -34,6 +35,7 @@ public class ShopScene extends Scene {
     private Image coinsIcon_;
     private JSONObject shopConfig;
     private Image blockedImage;
+    private ButtonImage noneButton;
 
     ShopScene() {
         super();
@@ -45,6 +47,9 @@ public class ShopScene extends Scene {
         myArrowSound_ = iEngine_.getAudio().newSound("arrowButton.wav");
         shopingSound = iEngine_.getAudio().newSound("cashPurchase.wav");
         blockedImage = iEngine_.getGraphics().newImage("lock.png");
+        noneButton = new ButtonImage("Shop/NudeButton.png",100, 100, 25, 130,
+                myArrowSound_, null);
+        gameObjects_.add(noneButton);
         InputStream file = iEngine_.getFileManager().getInputStream("Shop/Shops.json");
         shopConfig = readShopConfig(file);
         id = 0;
@@ -146,17 +151,15 @@ public class ShopScene extends Scene {
             try {
                 JSONObject config = shopConfig.getJSONObject(type);
                 shopName = config.get("tipo").toString();
+
                 String path = config.get("ruta").toString();
                 String ext = config.get("extension").toString();
                 JSONArray buttonsArray = config.getJSONArray("ButtonsImages");
                 int yPos = 130;
                 int xPos = 25;
+                int step = 1;
                 for (int i = 0; i < buttonsArray.length(); i++) {
                     String nombre = buttonsArray.getString(i);
-                    if (i > 2) {
-                        yPos = yPos * 2 + 20;
-                        xPos = 25;
-                    }
                     ButtonImage img = new ButtonImage(path + nombre + "Button" + ext, 100, 100, xPos,
                             yPos, shopingSound, new ButtonClickListener() {
                         @Override
@@ -180,6 +183,10 @@ public class ShopScene extends Scene {
                     xPos += 130;
                     shopItems_.add(img);
                     addGameObject(img);
+                    step = (step + 1) % 3;
+                    if (step == 0) {
+                        yPos = yPos * 2 + 20;
+                    }
                 }
                 shopItems2.add(shopItems_);
             } catch (Exception e) {

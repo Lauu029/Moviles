@@ -60,9 +60,11 @@ public class Button extends GameObject {
                 if (this.posX_ < event.x && this.posX_ + this.width_ > event.x
                         && this.posY_ < event.y && this.posY_ + this.height_ > event.y) {
                     //GameManager.getInstance_().getIEngine().getAudio().stopSound(mySound_);
-                    onClickFunction.onClick();
-                    GameManager.getInstance().getIEngine().getAudio().playSound(mySound_, 0);
-                    return true;
+                    if (onClickFunction != null) {
+                        onClickFunction.onClick();
+                        GameManager.getInstance().getIEngine().getAudio().playSound(mySound_, 0);
+                        return true;
+                    }
                 }
             }
         }
@@ -83,5 +85,9 @@ public class Button extends GameObject {
 
     public void changeActive(boolean active) {
         this.active = active;
+    }
+
+    void setAction(ButtonClickListener b) {
+        this.onClickFunction = b;
     }
 }
