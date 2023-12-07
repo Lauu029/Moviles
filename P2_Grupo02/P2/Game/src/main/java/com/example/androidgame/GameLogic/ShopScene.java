@@ -27,15 +27,16 @@ public class ShopScene extends Scene {
     private ButtonImage backButton;
     private Font font_;
     private String[] textShops_ = {"fondos", "codigos", "colores"};
-    private String shopName;
+    private String[] shopName;
     private ButtonImage previousShop_, nextShop_, poohBackground_;
-    private ArrayList<ButtonImage> shopItems_ = new ArrayList<>();
+
     private ArrayList<ArrayList<ButtonImage>> shopItems2 = new ArrayList<>();
     private int id;
     private Image coinsIcon_;
     private JSONObject shopConfig;
     private Image blockedImage;
     private ButtonImage noneButton;
+    private boolean[] itemsLoaded = {false, false, false};
 
     ShopScene() {
         super();
@@ -53,15 +54,9 @@ public class ShopScene extends Scene {
         InputStream file = iEngine_.getFileManager().getInputStream("Shop/Shops.json");
         shopConfig = readShopConfig(file);
         id = 0;
-        shopName = "";
-        for (int i = 0; i < textShops_.length; i++) {
-            getShopTypeData(textShops_[i]);
-            if(i>0){
-                for (int j = 0; j < shopItems2.get(i).size(); i++) {
-                    shopItems2.get(id).get(i).changeActive(false);
-                }
-            }
-        }
+        shopName = new String[textShops_.length];
+        getShopTypeData(textShops_[id]);
+        itemsLoaded[id] = true;
         backButton = new ButtonImage("flecha.png", 40, 40, 0, 0, myArrowSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
@@ -72,36 +67,43 @@ public class ShopScene extends Scene {
             @Override
             public void onClick() {
 
-                iEngine_.getMainActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        for (int i = 0; i < shopItems2.get(id).size(); i++) {
-                            shopItems2.get(id).get(i).changeActive(false);
-                        }
-                        if (id == 0) id = 2;
-                        else
-                            id = (id - 1) % 3;
-                        getShopTypeData(textShops_[id]);
-                        Log.d("MainActivity", String.valueOf(id));
+                for (int i = 0; i < shopItems2.get(id).size(); i++) {
+                    shopItems2.get(id).get(i).changeActive(false);
+                }
+                if (id == 0) id = 2;
+                else
+                    id = (id - 1) % 3;
+                if (!itemsLoaded[id]) {
+                    getShopTypeData(textShops_[id]);
+                    itemsLoaded[id] = true;
+                } else {
+                    Log.d("MainActivity", "Ya se cargaron los recursos anteriormente de " + textShops_[id]);
+                    for (int i = 0; i < shopItems2.get(id).size(); i++) {
+                        shopItems2.get(id).get(i).changeActive(true);
                     }
-                });
+                }
+                Log.d("MainActivity", String.valueOf(id));
             }
         });
         nextShop_ = new ButtonImage("FlechasDcha.png", 35, 35, width_ / 2 + 120, 5, myArrowSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                iEngine_.getMainActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        for (int i = 0; i < shopItems2.get(id).size(); i++) {
-                            shopItems2.get(id).get(i).changeActive(false);
-                        }
-                        id = (id + 1) % 3;
-                        getShopTypeData(textShops_[id]);
+                for (int i = 0; i < shopItems2.get(id).size(); i++) {
+                    shopItems2.get(id).get(i).changeActive(false);
+                }
+                id = (id + 1) % 3;
+                if (!itemsLoaded[id]) {
+                    getShopTypeData(textShops_[id]);
+                    itemsLoaded[id] = true;
+                } else {
+                    Log.d("MainActivity", "Ya se cargaron los recursos anteriormente de " + textShops_[id]);
+                    for (int i = 0; i < shopItems2.get(id).size(); i++) {
+                        shopItems2.get(id).get(i).changeActive(true);
                     }
-                });
+                }
             }
         });
+
         this.addGameObject(backButton);
         this.addGameObject(previousShop_);
         this.addGameObject(nextShop_);
@@ -122,10 +124,9 @@ public class ShopScene extends Scene {
         graph.fillRoundRectangle(width_ / 2 - 80, 5, 190, 35, 10);
         graph.setColor(0XFF222222);
         graph.setFont(this.font_);
-        graph.drawText(shopName, xText, yText);
+        graph.drawText(shopName[id], xText, yText);
         graph.drawImage(coinsIcon_, width_ - 60, 50, 40, 40);
         graph.drawText(String.valueOf(GameManager.getInstance().getCoins()), width_ - 40, 100);
-
     }
 
     @Override
@@ -157,28 +158,31 @@ public class ShopScene extends Scene {
         if (shopConfig != null) {
             try {
                 JSONObject config = shopConfig.getJSONObject(type);
-                shopName = config.get("tipo").toString();
-
+                shopName[id] = config.get("tipo").toString();
                 String path = config.get("ruta").toString();
                 String ext = config.get("extension").toString();
                 JSONArray buttonsArray = config.getJSONArray("ButtonsImages");
                 int yPos = 130;
-                int xPos = 25;
+                int xPos = 25 + 130;
                 int step = 1;
+                ArrayList<ButtonImage> shopItems_ = new ArrayList<>();
+
+                Log.d("MainActivity", "TAmaño array: " + shopItems_.size());
                 for (int i = 0; i < buttonsArray.length(); i++) {
                     String nombre = buttonsArray.getString(i);
+
                     ButtonImage img = new ButtonImage(path + nombre + "Button" + ext, 100, 100, xPos,
                             yPos, shopingSound, new ButtonClickListener() {
                         @Override
                         public void onClick() {
-                            Theme theme = new Theme("DEFAULT", "", "", "");
-                            switch (shopName) {
+                            Theme theme = new Theme("PURCHASED", "", "", "");
+                            switch (shopName[id]) {
                                 case "Fondos":
                                     theme.setBackground(path + nombre + ext);
                                     AssetsManager.getInstance().setBackgroundTheme(theme);
                                     break;
                                 case "Codigos":
-                                    theme.setPathBolas(path + nombre);
+                                    theme.setPathBolas(path + nombre+"/");
                                     AssetsManager.getInstance().setCirleTheme(theme, false);
                                     break;
                                 case "Colores":
@@ -193,7 +197,9 @@ public class ShopScene extends Scene {
                     step = (step + 1) % 3;
                     if (step == 0) {
                         yPos = yPos * 2 + 20;
+                        xPos=25;
                     }
+                    Log.d("MainActivity", "Button " + nombre + " loaded");
                 }
                 shopItems2.add(shopItems_);
             } catch (Exception e) {

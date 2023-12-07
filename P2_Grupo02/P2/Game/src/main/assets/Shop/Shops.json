@@ -7,14 +7,14 @@
    },
    "colores": {
       "tipo": "Colores",
-      "ruta": "Shop/Color",
+      "ruta": "Shop/Color/",
       "extension" : ".png",
-      "ButtonsImages" : ["BluePalette","GreenPalette","PinkkPalette","YellowPalette"],
+      "ButtonsImages" : ["BluePalette","GreenPalette","PinkPalette","YellowPalette"],
       "numBotones" : 6
    },
    "codigos": {
       "tipo": "Codigos",
-      "ruta" : "Shop/Codes",
+      "ruta" : "Shop/Codes/",
       "extension" : ".png",
       "ButtonsImages" : ["Animals","Vegetables"],
       "numBotones" : 5
