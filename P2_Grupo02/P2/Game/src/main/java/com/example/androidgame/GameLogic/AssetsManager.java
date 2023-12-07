@@ -1,5 +1,7 @@
 package com.example.androidgame.GameLogic;
 
+import android.util.Log;
+
 import com.example.androidengine.Engine;
 import com.example.androidengine.Image;
 
@@ -40,10 +42,11 @@ public class AssetsManager {
     }
 
     Image getBackgroundImage(boolean world) {
-        Image i = null;
         if (!world) {
-            if (backgrounTheme_.getBackground() != "")
+            if (backgrounTheme_.getBackground() != ""){
+                Log.d("MainActivity","aaaaaaaaaaaaaaaaaaaaaa");
                 return iEngine_.getGraphics().newImage(backgrounTheme_.getBackground());
+            }
         } else if (worldbackgrounTheme_.getBackground() != "")
             return iEngine_.getGraphics().newImage(worldbackgrounTheme_.getBackground());
         return null;
@@ -70,7 +73,6 @@ public class AssetsManager {
     }
 
     public void setPaletteTheme(EnumPalette paletteColor) {
-
         paletteColor_ = paletteColor;
         switch (paletteColor) {
             case DEFAULT:

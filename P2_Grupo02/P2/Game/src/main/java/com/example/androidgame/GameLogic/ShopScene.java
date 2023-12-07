@@ -66,8 +66,8 @@ public class ShopScene extends Scene {
         previousShop_ = new ButtonImage("FlechasIzq.png", 35, 35, width_ / 2 - 120, 5, myArrowSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-
                 for (int i = 0; i < shopItems2.get(id).size(); i++) {
+                    Log.d("MainActivity","id= "+id+" pointer: "+i);
                     shopItems2.get(id).get(i).changeActive(false);
                 }
                 if (id == 0) id = 2;
@@ -77,7 +77,6 @@ public class ShopScene extends Scene {
                     getShopTypeData(textShops_[id]);
                     itemsLoaded[id] = true;
                 } else {
-                    Log.d("MainActivity", "Ya se cargaron los recursos anteriormente de " + textShops_[id]);
                     for (int i = 0; i < shopItems2.get(id).size(); i++) {
                         shopItems2.get(id).get(i).changeActive(true);
                     }

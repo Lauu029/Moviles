@@ -1,5 +1,7 @@
 package com.example.androidgame.GameLogic;
 
+import android.util.Log;
+
 public class Theme {
     private String tematica_;
     private String background_;
@@ -20,7 +22,10 @@ public class Theme {
     public String getPathBolas() {
         return bolas_;
     }
-    public void setBackground(String background_){ gameBackground_ = background_; }
+    public void setBackground(String background_){
+    Log.d("MainActivity", "New background");
+        this.background_ = background_;
+    }
     public void setPathBolas(String balls_){ bolas_ = balls_; }
     public String getName() {
         return tematica_;
