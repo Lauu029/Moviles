@@ -33,8 +33,7 @@ public class SceneManager {
 
     // Method to add a scene to the stack
     public void addScene(Scene scene, int idScene) {
-        if (sceneList[idScene] == null){
-            //Log.d("MainActivity","id de la escena: "+idScene);
+        if (sceneList[idScene] == null || idScene == SceneNames.GAME.ordinal()){
             sceneList[idScene] = scene;
             sceneList[idScene].init();
         }

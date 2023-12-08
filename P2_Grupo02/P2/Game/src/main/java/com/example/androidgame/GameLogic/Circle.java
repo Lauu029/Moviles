@@ -30,7 +30,7 @@ public class Circle extends GameObject {
         this.posX_ = x;
         this.posY_ = y;
         this.radius_ = r;
-        this.row_ = row_;
+        this.row_ = row;
         this.isDaltonics_ = GameManager.getInstance().getDaltonic();
         this.tematica_ = AssetsManager.getInstance().getCirleTheme(world);
         world_=world;

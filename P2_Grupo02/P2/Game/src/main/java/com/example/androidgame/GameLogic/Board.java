@@ -1,5 +1,7 @@
 package com.example.androidgame.GameLogic;
 
+import android.util.Log;
+
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.TouchEvent;
@@ -90,6 +92,7 @@ public class Board extends GameObject {
         for (int i = 0; i < this.tries_; i++) {
             for (int j = 0; j < codeColors_; j++) {
                 playerTries_[i][j].setGameTry_(acutalTry_);
+                Log.d("MainActivity","actualtry: "+acutalTry_);
             }
         }
     }
