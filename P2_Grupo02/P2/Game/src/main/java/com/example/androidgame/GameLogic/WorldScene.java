@@ -35,7 +35,7 @@ public class WorldScene extends Scene {
         ButtonImage returnButton_ = new ButtonImage("flecha.png", 40, 40, 0, 0, myArrowSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                SceneManager.getInstance().switchToPreviousScene();
+                SceneManager.getInstance().getScene(SceneNames.MENU.ordinal());
             }
         });
         this.addGameObject(returnButton_);
@@ -58,16 +58,12 @@ public class WorldScene extends Scene {
                 actualWorld_ = (actualWorld_ + 1 + numWorlds_) % numWorlds_;
                 Log.d("MAIN", String.valueOf(actualWorld_));
                 buttonObjects_.clear();
-
                 loadWorld();
-
             }
         });
         this.addGameObject(next_);
         numWorlds_ = LevelManager.getInstance().getNumWorlds();
         loadWorld();
-
-
     }
 
     public void loadWorld() {
@@ -108,7 +104,7 @@ public class WorldScene extends Scene {
                     if(!finalBlocked){
                     LevelManager.getInstance().setActualLevel(finalI);
                     GameManager.getInstance().setLevel(diff.get(finalI));
-                    SceneManager.getInstance().addScene(new GameScene(true));
+                    SceneManager.getInstance().addScene(new GameScene(true), SceneNames.WORLD.ordinal());
                     }
                 }
             }

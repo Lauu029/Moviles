@@ -42,7 +42,7 @@ public class WorldEndScene extends EndScene{
 
 
                 GameManager.getInstance().setLevel(LevelManager.getInstance().getDiff().get(LevelManager.getInstance().getActualLevel()));
-                SceneManager.getInstance().addScene(new GameScene(true));
+                //SceneManager.getInstance().addScene(new GameScene(true));
             }
         });
         addGameObject(retryButton);
@@ -53,7 +53,7 @@ public class WorldEndScene extends EndScene{
                 /*SceneNames.LEVEL,*/ myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                SceneManager.getInstance().addScene(new MenuScene());
+                //SceneManager.getInstance().addScene(new MenuScene());
 
             }
         });
@@ -93,7 +93,7 @@ public class WorldEndScene extends EndScene{
                     Engine engine_ = GameManager.getInstance().getIEngine();
                     engine_.getAudio().playSound(myButtonSound_, 0);
 
-                    SceneManager.getInstance().addScene(new GameScene(true));
+                    //SceneManager.getInstance().addScene(new GameScene(true));
                 }
             });
             addGameObject(nextLevelButton);
@@ -106,7 +106,7 @@ public class WorldEndScene extends EndScene{
                 /*SceneNames.LEVEL,*/ myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                SceneManager.getInstance().addScene(new MenuScene());
+                SceneManager.getInstance().getScene(SceneNames.MENU.ordinal());
 
             }
         });

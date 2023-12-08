@@ -31,8 +31,8 @@ public class Engine implements Runnable {
         myAudio = new Audio(myAssetManager_, mySoundPool_); // Inicializa la clase de audio
         myActivity_ = activity;
         myContext_ = myActivity_.getBaseContext();
-        mobile_ = new Mobile(myContext_,myActivity_);
-        myFileManager_ = new FileManager(myAssetManager_,myContext_);
+        mobile_ = new Mobile(myContext_, myActivity_);
+        myFileManager_ = new FileManager(myAssetManager_, myContext_);
     }
 
     // Metodo para reanudar la ejecución del motor
@@ -93,7 +93,7 @@ public class Engine implements Runnable {
                 event.y -= myGraphics_.getTranslateY_();
                 event.x /= myGraphics_.getScale_();
                 event.y /= myGraphics_.getScale_();
-                event.deltaX/=myGraphics_.getScale_();
+                event.deltaX /= myGraphics_.getScale_();
             }
             //Gestión de eventos de input
             this.myScene_.handleInput(myInput_.getTouchEvent());
@@ -110,7 +110,6 @@ public class Engine implements Runnable {
     //Guardamos e inicializamos la escena que vamos a ejecutar
     public void setScene(IScene myIScene) {
         this.myScene_ = myIScene;
-        myScene_.init();
     }
 
     //Devuelve el objeto que gestiona los gráficos
@@ -140,7 +139,8 @@ public class Engine implements Runnable {
     public Mobile getMobile() {
         return this.mobile_;
     }
-    public FileManager getFileManager(){
+
+    public FileManager getFileManager() {
         return myFileManager_;
     }
 }

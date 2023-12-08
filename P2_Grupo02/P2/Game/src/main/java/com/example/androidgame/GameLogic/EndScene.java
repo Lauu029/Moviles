@@ -69,7 +69,7 @@ public class EndScene extends Scene {
                 GameManager.getInstance().setLevel(gameInit.getDifficulty());
                 Engine engine_ = GameManager.getInstance().getIEngine();
                 engine_.getAudio().playSound(myButtonSound_, 0);
-                SceneManager.getInstance().addScene(new GameScene(false));
+                SceneManager.getInstance().getScene(SceneNames.GAME.ordinal());
             }
         });
 
@@ -82,7 +82,7 @@ public class EndScene extends Scene {
                 GameInit gameInit = new GameInit(GameManager.getInstance().getLevel().getLevelDiff_());
                 GameManager.getInstance().setLevel(gameInit.getDifficulty());
 
-                SceneManager.getInstance().addScene(new DifficultyScene());
+                SceneManager.getInstance().getScene(SceneNames.DIFFICULTY.ordinal());
                 //scene_ = new LevelScene(engine_, sceneWidth, sceneHeight);
             }
         });

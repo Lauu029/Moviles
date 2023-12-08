@@ -41,7 +41,7 @@ public class DifficultyScene extends Scene {
                 public void onClick() {
                     GameInit gameInit = new GameInit(diff[finalI]);
                     GameManager.getInstance().setLevel(gameInit.getDifficulty());
-                    SceneManager.getInstance().addScene(new GameScene(false));
+                    SceneManager.getInstance().addScene(new GameScene(false), SceneNames.GAME.ordinal());
                 }
             });
 
@@ -51,7 +51,7 @@ public class DifficultyScene extends Scene {
         ButtonImage returnButton_ = new ButtonImage("flecha.png", 40, 40, 0, 0, myArrowSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                SceneManager.getInstance().switchToPreviousScene();
+                SceneManager.getInstance().getScene(SceneNames.MENU.ordinal());
             }
         });
         this.addGameObject(returnButton_);

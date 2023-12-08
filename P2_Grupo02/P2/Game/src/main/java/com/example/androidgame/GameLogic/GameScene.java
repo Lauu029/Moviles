@@ -55,7 +55,7 @@ public class GameScene extends Scene {
                 myCrossSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                SceneManager.getInstance().switchToPreviousScene();
+                SceneManager.getInstance().getScene(SceneNames.DIFFICULTY.ordinal());
             }
         });
         this.addGameObject(exitLevel_);
@@ -93,10 +93,10 @@ public class GameScene extends Scene {
     protected void ChangeEndScene(boolean win, int try_) {
         if (!world_) {
             EndScene end = new EndScene(win, mySolution_.getSol_(), try_);
-            SceneManager.getInstance().addScene(end);
+            SceneManager.getInstance().addScene(end, SceneNames.FINAL.ordinal());
         } else {
             WorldEndScene worldEnd = new WorldEndScene(win, mySolution_.getSol_(), try_);
-            SceneManager.getInstance().addScene(worldEnd);
+            SceneManager.getInstance().addScene(worldEnd, SceneNames.WORLD_FINAL.ordinal());
         }
 
     }

@@ -2,11 +2,14 @@ package com.example.androidgame.GameLogic;
 
 import android.util.Log;
 
+import com.example.androidengine.Image;
+
 public class Theme {
     private String tematica_;
     private String background_;
     private String gameBackground_;
     private String bolas_;
+    private Image gameBackgroundImage_,backgroundImage_;
     private boolean purchase_;
 
     // Constructor privado para asociar el String con el enum
@@ -23,7 +26,6 @@ public class Theme {
         return bolas_;
     }
     public void setBackground(String background_){
-    Log.d("MainActivity", "New background");
         this.background_ = background_;
     }
     public void setPathBolas(String balls_){ bolas_ = balls_; }
@@ -36,7 +38,6 @@ public class Theme {
     public String getBackground() {
         return background_;
     }
-
     public Boolean getPurchased() {
         return purchase_;
     }

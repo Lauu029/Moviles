@@ -5,6 +5,15 @@ import android.util.Log;
 import com.example.androidengine.Engine;
 import com.example.androidengine.Image;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class AssetsManager {
@@ -19,11 +28,13 @@ public class AssetsManager {
     private int buttonColor_ = 0XD0FB839B;
     private int textColor_ = 0xFFFFFFFF;
     private int lineColor_ = 0XFF222222;
+    int [][] colorPalettes;
     private int defaultPalette[] = {0xFFFFF0F6, 0XD0FB839B, 0xFFFFFFFF, 0XFF222222};
     private int yellowPalette[] = {0xFFebe57c, 0xD0E3BE2B, 0xFFDB8D07, 0xFFDB8D07};
     private int bluePalette[] = {0xFF70b2e0, 0xD01f438f, 0xFFFFFFFF, 0xFF30ace6};
     private int greenPalette[] = {0xFF66d46b, 0xD040a845, 0xFFFFFFFF, 0xFF18571b};
     private int hotPinkPalette[] = {0xFFe681b0, 0xD0d60466, 0xFFFFFFFF, 0xFF9e0240};
+    private JSONObject paleteReader;
     private Engine iEngine_;
     private static AssetsManager instance_;
 
@@ -44,7 +55,6 @@ public class AssetsManager {
     Image getBackgroundImage(boolean world) {
         if (!world) {
             if (backgrounTheme_.getBackground() != ""){
-                Log.d("MainActivity","aaaaaaaaaaaaaaaaaaaaaa");
                 return iEngine_.getGraphics().newImage(backgrounTheme_.getBackground());
             }
         } else if (worldbackgrounTheme_.getBackground() != "")
@@ -72,7 +82,7 @@ public class AssetsManager {
         return lineColor_;
     }
 
-    public void setPaletteTheme(EnumPalette paletteColor) {
+    public void setPaletteTheme(EnumPalette paletteColor/*int idPalette*/) {
         paletteColor_ = paletteColor;
         switch (paletteColor) {
             case DEFAULT:
@@ -158,5 +168,56 @@ public class AssetsManager {
         nuevoValor.put("", true);
         instance_.tematica_.put(nuevaClave, nuevoValor);
         return 1;
+    }
+void setDefaultPalette(){
+
+}
+void setDefaultbackround(){
+        backgrounTheme_.setBackground("");
+}
+void setDefaultCodes(){
+
+}
+    void getColorPalette() {
+        InputStream file = iEngine_.getFileManager().getInputStream("Shop/Color/Colores.json");
+        JSONObject colorPalettes = readFile(file);
+    }
+
+    int [] getColorsArray(String path, JSONObject json) {
+        if (json != null) {
+            JSONObject config = null;
+            try {
+                config = json.getJSONObject(path);
+                JSONArray colorsArray = config.getJSONArray("Palette");
+                int [] logicArray = new int[colorsArray.length()];
+                for (int i=0;i<colorsArray.length();i++){
+                    logicArray[i]=colorsArray.getInt(i);
+                }
+                return logicArray;
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return null;
+    }
+    public JSONObject readFile(InputStream file) {
+        try {
+            // Lee el contenido del InputStream proporcionado
+            BufferedReader reader = new BufferedReader(new InputStreamReader(file));
+
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+            reader.close();
+
+            // Convierte la cadena JSON en un objeto JSONObject
+            return new JSONObject(stringBuilder.toString());
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+            Log.e("ShopConfigReader", "Error al leer el archivo JSON desde InputStream");
+            return null;
+        }
     }
 }

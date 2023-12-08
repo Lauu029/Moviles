@@ -7,6 +7,8 @@ import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
 import com.example.androidgame.R;
 
+import java.util.Optional;
+
 public class MenuScene extends Scene {
     private Button playButton_;
     private Button storeButton_;
@@ -35,7 +37,7 @@ public class MenuScene extends Scene {
                 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 -80, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                SceneManager.getInstance().addScene(new DifficultyScene());
+                SceneManager.getInstance().addScene(new DifficultyScene(),SceneNames.DIFFICULTY.ordinal());
             }
         });
         this.mundoButton_ = new Button("Explorar Mundos", fontButton_,AssetsManager.getInstance().getButtonColor(),
@@ -43,7 +45,7 @@ public class MenuScene extends Scene {
                 , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 , myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                SceneManager.getInstance().addScene(new WorldScene());
+                SceneManager.getInstance().addScene(new WorldScene(), SceneNames.WORLD.ordinal());
             }
         });
         this.storeButton_ = new Button("Personalizar", fontButton_, AssetsManager.getInstance().getLineColor(),
@@ -51,7 +53,7 @@ public class MenuScene extends Scene {
                 , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 120, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                SceneManager.getInstance().addScene(new ShopScene());
+                SceneManager.getInstance().addScene(new ShopScene(), SceneNames.SHOP.ordinal());
             }
         });
 

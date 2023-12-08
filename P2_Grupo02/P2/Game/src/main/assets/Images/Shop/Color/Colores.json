@@ -1,0 +1,34 @@
+{
+  "Blue": {
+    "Palette": [
+      "0xFF70b2e0",
+      "0xD01f438f",
+      "0xFFFFFFFF",
+      "0xFF30ace6"
+    ]
+  },
+  "Green": {
+    "Palette": [
+      "0xFF66d46b",
+      "0xD040a845",
+      "0xFFFFFFFF",
+      "0xFF18571b"
+    ]
+  },
+  "Pink": {
+    "Palette": [
+      "0xFFe681b0",
+      "0xD0d60466",
+      "0xFFFFFFFF",
+      "0xFF9e0240"
+    ]
+  },
+  "Yellow": {
+    "Palette": [
+      "0xFFebe57c",
+      "0xD0E3BE2B",
+      "0xFFDB8D07",
+      "0xFFDB8D07"
+    ]
+  }
+}

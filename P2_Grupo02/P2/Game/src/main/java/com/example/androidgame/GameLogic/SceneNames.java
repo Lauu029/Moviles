@@ -1,8 +1,12 @@
 package com.example.androidgame.GameLogic;
 
 public enum SceneNames {
-    MENU,
+    MENU ,
+    DIFFICULTY,
     LEVEL,
     GAME,
-    FINAL
+    WORLD,
+    FINAL,
+    WORLD_FINAL,
+    SHOP
 }

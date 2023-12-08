@@ -5,43 +5,47 @@ import java.util.ArrayList;
 public class LevelManager {
 
     // Unique instance of the class
-   private  LevelReader read_=new LevelReader();
+    private LevelReader read_ = new LevelReader();
     private static LevelManager instance;
     private ArrayList<Difficulty> diff_;
     private Theme tema_;
     private int niveles_;
-    private int actualLevel_ =0;
-    private int actualWorld_=0;
-    private  int passedLevel_=4;
-    private int passedWorld_=1;
+    private int actualLevel_ = 0;
+    private int actualWorld_ = 0;
+    private int passedLevel_ = 4;
+    private int passedWorld_ = 1;
     private int numWorlds;
-    public int getPassedLevel(){
+
+    public int getPassedLevel() {
         return passedLevel_;
     }
-    public void setPassedLevel(int passedLevel){
-        passedLevel_=passedLevel;
+
+    public void setPassedLevel(int passedLevel) {
+        passedLevel_ = passedLevel;
     }
-    public void setPassedWorld(int passedWorld){
-        passedWorld_=passedWorld;
+
+    public void setPassedWorld(int passedWorld) {
+        passedWorld_ = passedWorld;
     }
-    public void nextPassedLevel(){
-        if(passedLevel_ +1>=diff_.size()){
-            if(passedWorld_<numWorlds){
+
+    public void nextPassedLevel() {
+        if (passedLevel_ + 1 >= diff_.size()) {
+            if (passedWorld_ < numWorlds) {
                 passedWorld_++;
-                passedLevel_=0;
+                passedLevel_ = 0;
             }
-
-        }
-        else passedLevel_++;
-
+        } else passedLevel_++;
     }
-    int getPassedWorld(){
+
+    int getPassedWorld() {
         return passedWorld_;
     }
+
     public ArrayList<Difficulty> getDiff() {
         return diff_;
     }
-    public int getNumWorlds(){
+
+    public int getNumWorlds() {
         return numWorlds;
     }
 
@@ -80,14 +84,16 @@ public class LevelManager {
     public void setActualWorld(int actualWorld) {
         this.actualWorld_ = actualWorld;
     }
+
     // Private constructor to prevent instantiation from outside the class
     private LevelManager() {
         // Private constructor
     }
-    Difficulty getNextLevelDifficulty(){
-        if(actualLevel_ +1>=diff_.size())return null;
+
+    Difficulty getNextLevelDifficulty() {
+        if (actualLevel_ + 1 >= diff_.size()) return null;
         else {
-            actualLevel_+=1;
+            actualLevel_ += 1;
             return diff_.get(actualLevel_);
         }
 
@@ -98,16 +104,17 @@ public class LevelManager {
         instance = new LevelManager();
 
         instance.read_.readWorlds("world1");
-        instance.niveles_=instance.read_.getNumLevels(instance.actualWorld_);
-        instance.tema_=instance.read_.getTematicaWorld(instance.actualWorld_);
-        instance.diff_ =instance.read_.geDifficultylevels(instance.actualWorld_);
-        instance.numWorlds=instance.read_.getNumWorlds_();
+        instance.niveles_ = instance.read_.getNumLevels(instance.actualWorld_);
+        instance.tema_ = instance.read_.getTematicaWorld(instance.actualWorld_);
+        instance.diff_ = instance.read_.geDifficultylevels(instance.actualWorld_);
+        instance.numWorlds = instance.read_.getNumWorlds_();
     }
-    void setNewWorld(){
 
-        instance.niveles_=read_.getNumLevels(actualWorld_);
-        instance.tema_=read_.getTematicaWorld(actualWorld_);
-        instance.diff_ =read_.geDifficultylevels(actualWorld_);
+    void setNewWorld() {
+
+        instance.niveles_ = read_.getNumLevels(actualWorld_);
+        instance.tema_ = read_.getTematicaWorld(actualWorld_);
+        instance.diff_ = read_.geDifficultylevels(actualWorld_);
     }
 
     // Method to get the unique instance of the class
