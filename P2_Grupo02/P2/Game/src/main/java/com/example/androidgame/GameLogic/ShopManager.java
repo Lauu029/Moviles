@@ -27,18 +27,19 @@ public class ShopManager {
 
     void registerShopItem(String itemType,String itemName){
 
-        if (!itemsState_.containsKey(itemType) ||
-                (itemsState_.containsKey(itemType) && !itemsState_.get(itemType).containsKey(itemName))) {
+        if (!itemsState_.containsKey(itemType)) {
             Map<String, Boolean> nuevoItem=new HashMap<>();
-            nuevoItem.put(itemName, false);
             itemsState_.put(itemType,nuevoItem);
-            Log.d("SHOP","Articulo de la seccion: "+itemType+" con nombre: "+itemName+" registrado");
         }
+        if(itemsState_.containsKey(itemType) && !itemsState_.get(itemType).containsKey(itemName))
+        {
+            itemsState_.get(itemType).put(itemName, false);
+        }
+
     }
     void changeItemState(String itemType,String itemName,boolean bought){
         if(itemsState_.containsKey(itemType) && itemsState_.get(itemType).containsKey(itemName)){
             itemsState_.get(itemType).put(itemName,bought);
-            Log.d("SHOP","Articulo de la seccion: "+itemType+" con nombre: "+itemName+" comprado: "+bought);
         }
     }
 
