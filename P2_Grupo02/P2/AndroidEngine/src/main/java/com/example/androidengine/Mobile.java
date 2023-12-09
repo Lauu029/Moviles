@@ -19,6 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.WorkRequest;
 
@@ -32,6 +34,8 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 import com.google.android.gms.ads.rewarded.RewardItem;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
+
+import java.util.concurrent.TimeUnit;
 
 public class Mobile {
     private Context context_;
@@ -158,6 +162,22 @@ public class Mobile {
             return;
         }
         notificationManager.notify(1, builder.build());
+    }
+    public void programNotification(int time, TimeUnit timeUnit,int icon,String title,String firstText) {
+
+        WorkRequest request = new OneTimeWorkRequest.Builder(ReminderWorker.class)
+                .setInitialDelay(time, timeUnit)
+                .setInputData(new Data.Builder()
+                        .putString("title", title)
+                        .putString("firstText",firstText)
+                        .putInt("notifications_icon", icon)
+                        .putString("notifications_channel_id", CHANNEL_ID)
+                        .putString("package_name", myActivity_.getPackageName())
+                        .build())
+                .build();
+
+        // Programa la tarea para ser ejecutada por el WorkManager
+        WorkManager.getInstance(this.myActivity_.getApplicationContext()).enqueue(request);
     }
     public void sendWork(WorkRequest work){
         WorkManager.getInstance(this.myActivity_.getApplicationContext()).enqueue(work);

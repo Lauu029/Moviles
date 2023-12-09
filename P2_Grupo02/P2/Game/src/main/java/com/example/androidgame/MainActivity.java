@@ -49,25 +49,20 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.e("MainActivity", "AdView is definetly null");
         }
-        createWorkRequest(12);
+        createWorkRequest(15);
         GameManager.init(IEngine_, 400, 600);
         IEngine_.resume();
+        onNewIntent(getIntent());
     }
     private void createWorkRequest(long timeDelayInSeconds) {
-
-        WorkRequest myWorkRequest = new OneTimeWorkRequest.Builder(ReminderWorker.class)
-                .setInitialDelay(timeDelayInSeconds, TimeUnit.SECONDS)
-                .build();
-
-        // Enqueue the work request
-
-        IEngine_.getMobile().sendWork(myWorkRequest);
+        IEngine_.getMobile().programNotification((int)timeDelayInSeconds,TimeUnit.SECONDS,R.drawable.logo,"MASTERMIND","Entra y juega te esperan nuevos niveles!!");
     }
     @Override
     protected void onPause() {
         super.onPause();
         GameManager.getInstance().saveGameData();
         Log.d("GAME","--------------------me pause-------------------------");
+        createWorkRequest(45);
         IEngine_.pause();
     }
     @Override
@@ -76,17 +71,18 @@ public class MainActivity extends AppCompatActivity {
         GameManager.getInstance().loadGameData();
         Log.d("GAME", "RESUMEEEE");
         IEngine_.resume();
-        if(getIntent().hasExtra("notification")){
-              Log.d("TAG", "NOTIFICATION");
-        }
+        onNewIntent(getIntent());
+
     }
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);  // Actualiza el Intent actual con el nuevo Intent recibido
-        System.out.println("---------------------------------nuevo intent-----------------");
-        if(getIntent().hasExtra("notification")){
-            System.out.println("Vengo de una notificacion");
+
+        if (getIntent().hasExtra("notification")) {
+            Log.d("NOTIFI", "NOTIFICATION");
+        } else {
+            Log.d("NOTIFI", "No notification extra found");
         }
     }
 }
