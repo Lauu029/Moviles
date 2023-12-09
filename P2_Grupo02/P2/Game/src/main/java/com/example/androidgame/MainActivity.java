@@ -1,13 +1,18 @@
 package com.example.androidgame;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkRequest;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
 
+import com.example.androidengine.ReminderWorker;
 import com.example.androidgame.GameLogic.AssetsManager;
 import com.example.androidgame.GameLogic.EnumPalette;
 import com.google.android.gms.ads.AdView;
@@ -16,6 +21,8 @@ import com.google.android.gms.ads.AdView;
 import com.example.androidengine.Engine;
 import com.example.androidgame.GameLogic.GameManager;
 import com.example.androidgame.GameLogic.MenuScene;
+
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     private SurfaceView renderView_;
@@ -42,11 +49,25 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.e("MainActivity", "AdView is definetly null");
         }
-
+        createWorkRequest(12);
         GameManager.init(IEngine_, 400, 600);
         IEngine_.resume();
     }
+    private void createWorkRequest(long timeDelayInSeconds) {
+        @SuppressLint("RestrictedApi") Data inputData = new Data.Builder()
+                .putString("title", "Reminder")
+                .putString("message", "Tu mensaje aquí")  // Puedes cambiar esto según tus necesidades
+                .put("mobile", IEngine_.getMobile())  // Suponiendo que Mobile sea Serializable o Parcelable
+                .build();
+        WorkRequest myWorkRequest = new OneTimeWorkRequest.Builder(ReminderWorker.class)
+                .setInitialDelay(timeDelayInSeconds, TimeUnit.SECONDS)
+                .setInputData(inputData)
+                .build();
 
+        // Enqueue the work request
+
+        IEngine_.getMobile().sendWork(myWorkRequest);
+    }
     @Override
     protected void onPause() {
         super.onPause();
