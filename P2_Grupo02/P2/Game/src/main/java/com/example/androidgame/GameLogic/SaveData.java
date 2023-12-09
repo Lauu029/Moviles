@@ -1,17 +1,25 @@
 package com.example.androidgame.GameLogic;
 import android.content.Context;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.DataInput;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SaveData {
 
     private static final String FILENAME = "saved_data.json";
 
-    public static void saveGameData(Context context, int coins,EnumPalette palette,int currWorld,int currLevel) {
+    public static void saveGameData(Context context, int coins,EnumPalette palette,
+                                    int currWorld,int currLevel,Map<String, Map<String, Boolean>> itemsState)
+    {
         JSONObject jsonObject = new JSONObject();
 
         try {
@@ -19,6 +27,17 @@ public class SaveData {
             jsonObject.put("palette", palette.name());
             jsonObject.put("world", currWorld);
             jsonObject.put("level", currLevel);
+
+            //Para registrar el map que contiene la informacion sobre los objetos comprados en la tienda
+            /*JSONObject itemsStateJson = new JSONObject();
+            for (Map.Entry<String, Map<String, Boolean>> entry : itemsState.entrySet()) {
+                String itemType = entry.getKey();
+                Map<String, Boolean> itemMap = entry.getValue();
+                JSONObject itemMapJson = new JSONObject(itemMap);
+                itemsStateJson.put(itemType, itemMapJson);
+            }
+
+            jsonObject.put("itemsState", itemsStateJson);*/
 
             String jsonString = jsonObject.toString();
             FileOutputStream fileOutputStream = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
@@ -50,6 +69,9 @@ public class SaveData {
             LevelManager.getInstance().setPassedWorld(world);
             int level= jsonObject.getInt("level");
             LevelManager.getInstance().setPassedLevel(level);
+
+            // Leer el mapa que guarda la informacion sobre los items compradps
+
 
         } catch (JSONException | IOException e) {
             e.printStackTrace();
