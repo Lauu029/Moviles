@@ -1,5 +1,7 @@
 package com.example.androidgame.GameLogic;
 
+import android.util.Log;
+
 import com.example.androidengine.Engine;
 
 import java.util.HashMap;
@@ -9,7 +11,7 @@ import java.util.TreeMap;
 public class ShopManager {
     //private Engine iEngine_;
     private static ShopManager instance_;
-    private Map<String, Map<String, Boolean>> itemsState_; //Guarda la seccion a la que pertenece, su nombre y si se ha comprado
+    private static Map<String, Map<String, Boolean>> itemsState_; //Guarda la seccion a la que pertenece, su nombre y si se ha comprado
     private ShopManager() {
         // Constructor privado
     }
@@ -19,6 +21,7 @@ public class ShopManager {
 
     public static int init() {
         instance_ = new ShopManager();
+        itemsState_= new HashMap<>();
         return 1;
     }
 
@@ -29,6 +32,7 @@ public class ShopManager {
             Map<String, Boolean> nuevoItem=new HashMap<>();
             nuevoItem.put(itemName, false);
             itemsState_.put(itemType,nuevoItem);
+            Log.d("SHOP","Articulo de la seccion: "+itemType+" con nombre: "+itemName+" registrado");
         }
     }
     void changeItemState(String itemType,String itemName,boolean bought){
