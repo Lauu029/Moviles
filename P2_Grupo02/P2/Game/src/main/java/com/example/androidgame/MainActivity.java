@@ -54,14 +54,9 @@ public class MainActivity extends AppCompatActivity {
         IEngine_.resume();
     }
     private void createWorkRequest(long timeDelayInSeconds) {
-        @SuppressLint("RestrictedApi") Data inputData = new Data.Builder()
-                .putString("title", "Reminder")
-                .putString("message", "Tu mensaje aquí")  // Puedes cambiar esto según tus necesidades
-                .put("mobile", IEngine_.getMobile())  // Suponiendo que Mobile sea Serializable o Parcelable
-                .build();
+
         WorkRequest myWorkRequest = new OneTimeWorkRequest.Builder(ReminderWorker.class)
                 .setInitialDelay(timeDelayInSeconds, TimeUnit.SECONDS)
-                .setInputData(inputData)
                 .build();
 
         // Enqueue the work request

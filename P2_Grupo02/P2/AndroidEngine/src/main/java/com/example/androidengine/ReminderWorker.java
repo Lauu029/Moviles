@@ -1,6 +1,7 @@
 package com.example.androidengine;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -17,7 +18,7 @@ public class ReminderWorker extends Worker {
     @Override
     public Result doWork() {
 
-        mobile.createNotification(0);
+        Log.d("GAME","HOLAAAAAAA K LOKO");
         return Result.success();
     }
 }
