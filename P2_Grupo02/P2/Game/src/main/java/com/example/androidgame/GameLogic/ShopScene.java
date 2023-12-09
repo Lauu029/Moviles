@@ -53,6 +53,7 @@ public class ShopScene extends Scene {
         shopName_ = new String[textShops_.length];
         getShopTypeData(textShops_[id_]);
         itemsLoaded_[id_] = true;
+
         backButton_ = new ButtonImage("flecha.png", 40, 40, 0, 0, myArrowSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
@@ -168,7 +169,7 @@ public class ShopScene extends Scene {
                 Log.d("MainActivity", "Tamaño array: " + shopItems_.size());
                 for (int i = 0; i < buttonsArray.length(); i++) {
                     String nombre = buttonsArray.getString(i);
-
+                    ShopManager.getInstance().registerShopItem(shopName_[id_],nombre);
                     ButtonImage img = new ButtonImage(path + nombre + "Button" + ext, 100, 100, xPos,
                             yPos, shopingSound_, new ButtonClickListener() {
                         @Override
@@ -186,6 +187,7 @@ public class ShopScene extends Scene {
                                 case "Colores":
                                     break;
                             }
+                            ShopManager.getInstance().changeItemState(shopName_[id_],nombre,true);
                         }
                     });
                     img.addOverlayImage(blockedImage);

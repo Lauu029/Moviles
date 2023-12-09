@@ -36,7 +36,7 @@ public class GameScene extends Scene {
         mySolution_.createSolution(lev_.isRepeat(), lev_.getSolutionColors(), lev_.getPosibleColors(), lev_.getTries());
         this.gameBoard_ = new Board(lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_, world_);
         addGameObject(gameBoard_);
-        gm_.setBoard_(this.gameBoard_);
+        gm_.setBoard(this.gameBoard_);
         Sound buttonSound = GameManager.getInstance().getIEngine().getAudio().newSound("colorBlindButton.wav");
         this.buttonColorBlind_ = new ButtonColorBlind("eye_open.png", "eye_closed.png",
                 40, 40, this.width_ - 45, 0, buttonSound, new ButtonClickListener() {
@@ -66,7 +66,7 @@ public class GameScene extends Scene {
      * si se ha ganado el juego o perdido por superar el numero de  intentos y si no se ha ganado
      * ni se ha acabado crea nuevas pistas en la clase tablero y avanza al siguiente intento*/
     public void update(double time) {
-        int[] tempSol = gm_.getLevelSolution_();
+        int[] tempSol = gm_.getLevelSolution();
         int i = 0;
         boolean isComplete = true;
         while (i < tempSol.length && isComplete) {
