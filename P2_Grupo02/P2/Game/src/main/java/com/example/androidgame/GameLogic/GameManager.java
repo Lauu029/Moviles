@@ -38,6 +38,7 @@ public class GameManager {
         AssetsManager.init( instance_.myEngine_);
         SceneManager.init();
         LevelManager.init();
+        ShopManager.init();
         return 1;
     }
 
@@ -70,7 +71,7 @@ public class GameManager {
         return this.levelDificulty_;
     }
 
-    public int[] getLevelSolution_() {
+    public int[] getLevelSolution() {
         return this.levelSolution_;
     }
 
@@ -89,7 +90,7 @@ public class GameManager {
         this.board_.changeDaltonics(this.daltonics_);
     }
 
-    public void setBoard_(Board b) {
+    public void setBoard(Board b) {
         this.board_ = b;
     }
 
