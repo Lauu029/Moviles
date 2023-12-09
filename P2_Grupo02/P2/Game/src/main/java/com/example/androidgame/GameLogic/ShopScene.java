@@ -187,6 +187,7 @@ public class ShopScene extends Scene {
                                 case "Colores":
                                     break;
                             }
+                            ShopManager.getInstance().changeItemState(shopName_[id_],nombre,true);
                         }
                     });
                     img.addOverlayImage(blockedImage);

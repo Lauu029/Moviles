@@ -36,7 +36,10 @@ public class ShopManager {
         }
     }
     void changeItemState(String itemType,String itemName,boolean bought){
-
+        if(itemsState_.containsKey(itemType) && itemsState_.get(itemType).containsKey(itemName)){
+            itemsState_.get(itemType).put(itemName,bought);
+            Log.d("SHOP","Articulo de la seccion: "+itemType+" con nombre: "+itemName+" comprado: "+bought);
+        }
     }
 
 }
