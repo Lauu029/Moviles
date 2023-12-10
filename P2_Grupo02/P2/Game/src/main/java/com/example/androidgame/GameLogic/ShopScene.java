@@ -93,7 +93,6 @@ public class ShopScene extends Scene {
                     getShopTypeData(textShops_[id_]);
                     itemsLoaded_[id_] = true;
                 } else {
-                    Log.d("MainActivity", "Ya se cargaron los recursos anteriormente de " + textShops_[id_]);
                     for (int i = 0; i < totalShopItems_.get(id_).size(); i++) {
                         totalShopItems_.get(id_).get(i).changeActive(true);
                     }
@@ -188,6 +187,7 @@ public class ShopScene extends Scene {
                                     AssetsManager.getInstance().setCirleTheme(theme, false);
                                     break;
                                 case "Colores":
+                                    AssetsManager.getInstance().addNewPalette(nombre);
                                     break;
                             }
                             ShopManager.getInstance().changeItemState(shopName_[id_], nombre, true);

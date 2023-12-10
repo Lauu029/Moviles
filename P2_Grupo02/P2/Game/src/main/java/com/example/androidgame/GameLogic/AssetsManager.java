@@ -2,6 +2,9 @@ package com.example.androidgame.GameLogic;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.example.androidengine.Engine;
 import com.example.androidengine.Image;
 
@@ -14,6 +17,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 public class AssetsManager {
@@ -23,12 +30,13 @@ public class AssetsManager {
     private Theme worldCircleTheme_ = new Theme("DEFAULT", "", "", "");
     private Theme backgrounTheme_ = new Theme("DEFAULT", "", "", "");
     private Theme worldbackgrounTheme_ = new Theme("DEFAULT", "", "", "");
-    private EnumPalette paletteColor_ = EnumPalette.DEFAULT;
+    private String paletteColor_ = "DEFAULT";
     private int backgroundColor_ = 0xFFFFF0F6;
     private int buttonColor_ = 0XD0FB839B;
     private int textColor_ = 0xFFFFFFFF;
     private int lineColor_ = 0XFF222222;
-    int [][] colorPalettes;
+    private HashMap<String, int[]> coloresFondo_ = new HashMap<String, int[]>();
+    private JSONObject colorPalettesJson_;
     private int defaultPalette[] = {0xFFFFF0F6, 0XD0FB839B, 0xFFFFFFFF, 0XFF222222};
     private int yellowPalette[] = {0xFFebe57c, 0xD0E3BE2B, 0xFFDB8D07, 0xFFDB8D07};
     private int bluePalette[] = {0xFF70b2e0, 0xD01f438f, 0xFFFFFFFF, 0xFF30ace6};
@@ -54,7 +62,7 @@ public class AssetsManager {
 
     Image getBackgroundImage(boolean world) {
         if (!world) {
-            if (backgrounTheme_.getBackground() != ""){
+            if (backgrounTheme_.getBackground() != "") {
                 return iEngine_.getGraphics().newImage(backgrounTheme_.getBackground());
             }
         } else if (worldbackgrounTheme_.getBackground() != "")
@@ -62,7 +70,7 @@ public class AssetsManager {
         return null;
     }
 
-    EnumPalette getPaletteColor() {
+    String getPaletteColor() {
         return paletteColor_;
     }
 
@@ -82,40 +90,45 @@ public class AssetsManager {
         return lineColor_;
     }
 
-    public void setPaletteTheme(EnumPalette paletteColor/*int idPalette*/) {
+    public void setPaletteTheme(String paletteColor/*int idPalette*/) {
         paletteColor_ = paletteColor;
-        switch (paletteColor) {
-            case DEFAULT:
-                backgroundColor_ = defaultPalette[0];
-                buttonColor_ = defaultPalette[1];
-                textColor_ = defaultPalette[2];
-                lineColor_ = defaultPalette[3];
-                break;
-            case YELLOW:
-                backgroundColor_ = yellowPalette[0];
-                buttonColor_ = yellowPalette[1];
-                textColor_ = yellowPalette[2];
-                lineColor_ = yellowPalette[3];
-                break;
-            case BLUE:
-                backgroundColor_ = bluePalette[0];
-                buttonColor_ = bluePalette[1];
-                textColor_ = bluePalette[2];
-                lineColor_ = bluePalette[3];
-                break;
-            case GREEN:
-                backgroundColor_ = greenPalette[0];
-                buttonColor_ = greenPalette[1];
-                textColor_ = greenPalette[2];
-                lineColor_ = greenPalette[3];
-                break;
-            case HOT_PINK:
-                backgroundColor_ = hotPinkPalette[0];
-                buttonColor_ = hotPinkPalette[1];
-                textColor_ = hotPinkPalette[2];
-                lineColor_ = hotPinkPalette[3];
-                break;
-        }
+        int[] putColors_ = coloresFondo_.get(paletteColor);
+        backgroundColor_ = putColors_[0];
+        buttonColor_ = putColors_[1];
+        textColor_ = putColors_[2];
+        lineColor_ = putColors_[3];
+//        switch (paletteColor) {
+//            case "DEFAULT":
+//                backgroundColor_ = defaultPalette[0];
+//                buttonColor_ = defaultPalette[1];
+//                textColor_ = defaultPalette[2];
+//                lineColor_ = defaultPalette[3];
+//                break;
+//            case "YELLOW":
+//                backgroundColor_ = yellowPalette[0];
+//                buttonColor_ = yellowPalette[1];
+//                textColor_ = yellowPalette[2];
+//                lineColor_ = yellowPalette[3];
+//                break;
+//            case "BLUE":
+//                backgroundColor_ = bluePalette[0];
+//                buttonColor_ = bluePalette[1];
+//                textColor_ = bluePalette[2];
+//                lineColor_ = bluePalette[3];
+//                break;
+//            case "GREEN":
+//                backgroundColor_ = greenPalette[0];
+//                buttonColor_ = greenPalette[1];
+//                textColor_ = greenPalette[2];
+//                lineColor_ = greenPalette[3];
+//                break;
+//            case "HOT_PINK":
+//                backgroundColor_ = hotPinkPalette[0];
+//                buttonColor_ = hotPinkPalette[1];
+//                textColor_ = hotPinkPalette[2];
+//                lineColor_ = hotPinkPalette[3];
+//                break;
+//        }
     }
 
     void setBackgroundTheme(Theme t) {
@@ -167,31 +180,46 @@ public class AssetsManager {
         TreeMap<String, Boolean> nuevoValor = new TreeMap<>();
         nuevoValor.put("", true);
         instance_.tematica_.put(nuevaClave, nuevoValor);
+        instance_.getColorPalette();
+        instance_.coloresFondo_.put("DEFAULT",instance_.defaultPalette);
         return 1;
     }
-void setDefaultPalette(){
 
-}
-void setDefaultbackround(){
-        backgrounTheme_.setBackground("");
-}
-void setDefaultCodes(){
+    void setDefaultPalette() {
 
-}
-    void getColorPalette() {
-        InputStream file = iEngine_.getFileManager().getInputStream("Shop/Color/Colores.json");
-        JSONObject colorPalettes = readFile(file);
     }
 
-    int [] getColorsArray(String path, JSONObject json) {
-        if (json != null) {
+    void setDefaultbackround() {
+        backgrounTheme_.setBackground("");
+    }
+
+    void setDefaultCodes() {
+
+    }
+
+    void getColorPalette() {
+        InputStream file = iEngine_.getFileManager().getInputStream("Images/Shop/Color/Colores.json");
+        colorPalettesJson_ = readFile(file);
+    }
+
+    void addNewPalette(String color) {
+        if (!coloresFondo_.containsKey(color)) {
+            coloresFondo_.put(color, getColorsArray(color));
+        }
+        setPaletteTheme(color);
+    }
+
+    int[] getColorsArray(String path) {
+        if (colorPalettesJson_ != null) {
             JSONObject config = null;
             try {
-                config = json.getJSONObject(path);
+                config = colorPalettesJson_.getJSONObject(path);
                 JSONArray colorsArray = config.getJSONArray("Palette");
-                int [] logicArray = new int[colorsArray.length()];
-                for (int i=0;i<colorsArray.length();i++){
-                    logicArray[i]=colorsArray.getInt(i);
+                int[] logicArray = new int[colorsArray.length()];
+                for (int i = 0; i < colorsArray.length(); i++) {
+                    String hexColor = colorsArray.getString(i);
+                    int intColor = parseHexToInt(hexColor);
+                    logicArray[i] = intColor;
                 }
                 return logicArray;
             } catch (JSONException e) {
@@ -200,6 +228,14 @@ void setDefaultCodes(){
         }
         return null;
     }
+
+    private static int parseHexToInt(String hex) {
+        // Quitar el prefijo "0x" si está presente
+        hex = hex.substring(2) ;
+        // Convertir el hexadecimal a un entero
+        return (int) Long.parseLong(hex, 16);
+    }
+
     public JSONObject readFile(InputStream file) {
         try {
             // Lee el contenido del InputStream proporcionado

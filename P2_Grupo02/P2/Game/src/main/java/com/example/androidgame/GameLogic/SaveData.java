@@ -17,14 +17,14 @@ public class SaveData {
 
     private static final String FILENAME = "saved_data.json";
 
-    public static void saveGameData(Context context, int coins,EnumPalette palette,
+    public static void saveGameData(Context context, int coins,String palette,
                                     int currWorld,int currLevel,Map<String, Map<String, Boolean>> itemsState)
     {
         JSONObject jsonObject = new JSONObject();
 
         try {
             jsonObject.put("coins", coins);
-            jsonObject.put("palette", palette.name());
+            jsonObject.put("palette", palette);
             jsonObject.put("world", currWorld);
             jsonObject.put("level", currLevel);
 
@@ -62,8 +62,8 @@ public class SaveData {
             GameManager.getInstance().setCoins(coins);
 
             String paletteStr = jsonObject.getString("palette");
-            EnumPalette paletteEnum=EnumPalette.valueOf(paletteStr);
-            AssetsManager.getInstance().setPaletteTheme(paletteEnum);
+            String paletteName = String.valueOf(paletteStr);
+            AssetsManager.getInstance().setPaletteTheme(paletteName);
 
             int world= jsonObject.getInt("world");
             LevelManager.getInstance().setPassedWorld(world);

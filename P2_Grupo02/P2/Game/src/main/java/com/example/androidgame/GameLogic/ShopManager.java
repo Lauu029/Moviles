@@ -54,5 +54,4 @@ public class ShopManager {
         itemsState_=new HashMap<>(nuevoMapa);
         Log.d("GUARDADO","Comprobando el estado de itemsState");
     }
-
 }

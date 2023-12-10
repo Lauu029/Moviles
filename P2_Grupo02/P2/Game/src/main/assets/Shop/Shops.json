@@ -9,8 +9,7 @@
       "tipo": "Colores",
       "ruta": "Shop/Color/",
       "extension" : ".png",
-      "ButtonsImages" : ["BluePalette","GreenPalette","PinkPalette","YellowPalette"],
-      "numBotones" : 6
+      "ButtonsImages" : ["Blue","Green","Pink","Yellow"]
    },
    "codigos": {
       "tipo": "Codigos",
