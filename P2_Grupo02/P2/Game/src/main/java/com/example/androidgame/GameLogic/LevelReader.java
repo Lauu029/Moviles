@@ -24,7 +24,6 @@ public class LevelReader {
     }
 
     LevelReader() {
-
         numNiveles = new ArrayList<>();
         tematicas_ = new ArrayList<>();
         dificultades = new ArrayList<>();
@@ -108,6 +107,5 @@ public class LevelReader {
         numNiveles.add(diff_.size());
         dificultades.add(diff_);
         // tematica_=tematica;
-
     }
 }

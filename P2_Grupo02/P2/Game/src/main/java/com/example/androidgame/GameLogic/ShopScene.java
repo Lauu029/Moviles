@@ -81,6 +81,7 @@ public class ShopScene extends Scene {
                 Log.d("MainActivity", String.valueOf(id_));
             }
         });
+        previousShop_.changeActive(false);
         nextShop_ = new ButtonImage("FlechasDcha.png", 35, 35, width_ / 2 + 120, 5, myArrowSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
@@ -127,6 +128,8 @@ public class ShopScene extends Scene {
 
     @Override
     public void update(double time) {
+        if (!previousShop_.isActive() && id_ >= 1)
+            previousShop_.changeActive(true);
     }
 
     public JSONObject readShopConfig(InputStream file) {
@@ -169,7 +172,7 @@ public class ShopScene extends Scene {
                 Log.d("MainActivity", "Tamaño array: " + shopItems_.size());
                 for (int i = 0; i < buttonsArray.length(); i++) {
                     String nombre = buttonsArray.getString(i);
-                    ShopManager.getInstance().registerShopItem(shopName_[id_],nombre);
+                    ShopManager.getInstance().registerShopItem(shopName_[id_], nombre);
                     ButtonImage img = new ButtonImage(path + nombre + "Button" + ext, 100, 100, xPos,
                             yPos, shopingSound_, new ButtonClickListener() {
                         @Override
@@ -187,7 +190,7 @@ public class ShopScene extends Scene {
                                 case "Colores":
                                     break;
                             }
-                            ShopManager.getInstance().changeItemState(shopName_[id_],nombre,true);
+                            ShopManager.getInstance().changeItemState(shopName_[id_], nombre, true);
                         }
                     });
                     img.addOverlayImage(blockedImage);
@@ -214,15 +217,15 @@ public class ShopScene extends Scene {
         colorPalettes = readShopConfig(file);
     }
 
-    int [] getColorsArray(String path) {
+    int[] getColorsArray(String path) {
         if (colorPalettes != null) {
             JSONObject config = null;
             try {
                 config = shopConfig.getJSONObject(path);
                 JSONArray colorsArray = config.getJSONArray("Palette");
-                int [] logicArray = new int[colorsArray.length()];
-                for (int i=0;i<colorsArray.length();i++){
-                    logicArray[i]=colorsArray.getInt(i);
+                int[] logicArray = new int[colorsArray.length()];
+                for (int i = 0; i < colorsArray.length(); i++) {
+                    logicArray[i] = colorsArray.getInt(i);
                 }
                 return logicArray;
             } catch (JSONException e) {

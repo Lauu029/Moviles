@@ -88,6 +88,7 @@ public class Button extends GameObject {
     public void changeActive(boolean active) {
         this.active = active;
     }
+    public boolean isActive(){ return active;}
 
     void setAction(ButtonClickListener b) {
         this.onClickFunction = b;

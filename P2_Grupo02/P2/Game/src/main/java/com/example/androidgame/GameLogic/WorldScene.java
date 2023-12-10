@@ -70,7 +70,7 @@ public class WorldScene extends Scene {
         LevelManager.getInstance().setActualWorld(actualWorld_);
         LevelManager.getInstance().setNewWorld();
         int widthScene = GameManager.getInstance().getWidth();
-        passedLevel_=LevelManager.getInstance().getActualLevel();
+        passedLevel_ = LevelManager.getInstance().getActualLevel();
         int wButton = (widthScene) / (columnas_ + 1);
         int margen = (widthScene - (wButton * columnas_)) / (columnas_ + 1);
         int x = 0;
@@ -83,17 +83,17 @@ public class WorldScene extends Scene {
         AssetsManager.getInstance().setWorldTheme(tema);
         String imagePath = AssetsManager.getInstance().getBackgrounTheme(true).getBackground();
         backaground_ = iEngine_.getGraphics().newImage(imagePath);
-        passedWorld_=LevelManager.getInstance().getPassedWorld();
-        passedLevel_=LevelManager.getInstance().getPassedLevel();
+        passedWorld_ = LevelManager.getInstance().getPassedWorld();
+        passedLevel_ = LevelManager.getInstance().getPassedLevel();
         for (int i = 0; i < niveles_; i++) {
             if (x >= columnas_) {
                 x = 0;
                 y++;
             }
             int finalI = i;
-            boolean blocked=true;
-            if(actualWorld_<passedWorld_)blocked=false;
-            else if(actualWorld_==passedWorld_&&i<=passedLevel_)blocked=false;
+            boolean blocked = true;
+            if (actualWorld_ < passedWorld_) blocked = false;
+            else if (actualWorld_ == passedWorld_ && i <= passedLevel_) blocked = false;
             boolean finalBlocked = blocked;
             buttonObjects_.add(new ButtonMundo("" + i, font_, AssetsManager.getInstance().getButtonColor(),
                     AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor(),
@@ -101,14 +101,13 @@ public class WorldScene extends Scene {
                     myButtonSound_, blocked, new ButtonClickListener() {
                 @Override
                 public void onClick() {
-                    if(!finalBlocked){
-                    LevelManager.getInstance().setActualLevel(finalI);
-                    GameManager.getInstance().setLevel(diff.get(finalI));
-                    SceneManager.getInstance().addScene(new GameScene(true), SceneNames.WORLD.ordinal());
+                    if (!finalBlocked) {
+                        LevelManager.getInstance().setActualLevel(finalI);
+                        GameManager.getInstance().setLevel(diff.get(finalI));
+                        SceneManager.getInstance().addScene(new GameScene(true), SceneNames.GAME.ordinal());
                     }
                 }
-            }
-            ));
+            }));
             x++;
         }
     }
@@ -141,10 +140,10 @@ public class WorldScene extends Scene {
     public void handleInput(ArrayList<TouchEvent> events) {
         super.handleInput(events);
         for (GameObject g : buttonObjects_)
-            for (TouchEvent event : events){
-                if(event.deltaX>0){
+            for (TouchEvent event : events) {
+                if (event.deltaX > 0) {
                     actualWorld_ = (actualWorld_ - 1 + numWorlds_) % numWorlds_;
-                    Log.d("MAIN","hola" +String.valueOf(actualWorld_));
+                    Log.d("MAIN", "hola" + String.valueOf(actualWorld_));
                     buttonObjects_.clear();
                     loadWorld();
                 }

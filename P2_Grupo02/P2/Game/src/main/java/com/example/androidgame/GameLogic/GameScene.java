@@ -55,7 +55,14 @@ public class GameScene extends Scene {
                 myCrossSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                SceneManager.getInstance().getScene(SceneNames.DIFFICULTY.ordinal());
+                int idScene;
+                if(!world_)
+                    idScene = SceneNames.DIFFICULTY.ordinal();
+                else
+                    idScene= SceneNames.WORLD.ordinal();
+                SceneManager.getInstance().getScene(idScene);
+
+
             }
         });
         this.addGameObject(exitLevel_);

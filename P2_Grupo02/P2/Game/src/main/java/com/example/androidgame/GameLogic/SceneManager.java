@@ -8,7 +8,7 @@ public class SceneManager {
 
     // Scene stack
     //private Stack<Scene> sceneStack = new Stack<>();
-    private Scene[] sceneList = {null, null, null, null, null, null, null, null};
+    private Scene[] sceneList_ = {null, null, null, null, null, null, null, null};
     // Unique instance of the class
     private static SceneManager instance;
     private Engine myEngine_;
@@ -23,6 +23,7 @@ public class SceneManager {
         instance = new SceneManager();
         MenuScene gm = new MenuScene();
         instance.addScene(gm, SceneNames.MENU.ordinal());
+        //instance.worldScenes_ = new Scene[LevelManager.getInstance().getNumWorlds()][20];
     }
 
     // Method to get the unique instance of the class
@@ -33,13 +34,16 @@ public class SceneManager {
 
     // Method to add a scene to the stack
     public void addScene(Scene scene, int idScene) {
-        if (sceneList[idScene] == null || idScene == SceneNames.GAME.ordinal()){
-            sceneList[idScene] = scene;
-            sceneList[idScene].init();
+        if (idScene == SceneNames.WORLD.ordinal())
+            Log.d("MainActivity", "Nueva wordlScene");
+        if (sceneList_[idScene] == null || idScene == SceneNames.GAME.ordinal() || idScene == SceneNames.FINAL.ordinal()) {
+            Log.d("MainActivity","Estoy creando la escena");
+            sceneList_[idScene] = scene;
+            sceneList_[idScene].init();
         }
         //sceneStack.push(scene);
         myEngine_ = GameManager.getInstance().getIEngine();
-        myEngine_.setScene(sceneList[idScene]);
+        myEngine_.setScene(sceneList_[idScene]);
     }
 
     // Method to get the current scene
@@ -54,7 +58,7 @@ public class SceneManager {
 
     // Method to switch to the previous scene
     public void getScene(int idScene) {
-        myEngine_.setScene(sceneList[idScene]);
+        myEngine_.setScene(sceneList_[idScene]);
 //        if (sceneStack.size() > 1) {
 //            sceneStack.pop(); // Removes the current scene
 //            // The new current scene is now the one at the top of the stack
