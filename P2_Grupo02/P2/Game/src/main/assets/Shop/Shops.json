@@ -15,7 +15,7 @@
       "tipo": "Codigos",
       "ruta" : "Shop/Codes/",
       "extension" : ".png",
-      "ButtonsImages" : ["Animals","Vegetables"],
+      "ButtonsImages" : ["Animals","Vegetables","Origami","Japo"],
       "numBotones" : 5
    }
 }
