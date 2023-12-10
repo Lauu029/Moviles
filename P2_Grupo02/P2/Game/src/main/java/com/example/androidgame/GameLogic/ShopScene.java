@@ -27,9 +27,9 @@ public class ShopScene extends Scene {
 
     private ArrayList<ArrayList<ButtonImage>> totalShopItems_ = new ArrayList<>();
     private int id_;
+    private int rectangleColor, fontColor;
     private Image coinsIcon_;
     private JSONObject shopConfig;
-    private JSONObject colorPalettes;
     private Image blockedImage;
     private ButtonImage noneButton_;
     private boolean[] itemsLoaded_ = {false, false, false};
@@ -46,6 +46,8 @@ public class ShopScene extends Scene {
         blockedImage = iEngine_.getGraphics().newImage("lock.png");
         noneButton_ = new ButtonImage("Shop/NudeButton.png", 100, 100, 25, 130,
                 myArrowSound_, null);
+        rectangleColor=AssetsManager.getInstance().getButtonColor();
+        fontColor = AssetsManager.getInstance().getTextColor();
         gameObjects_.add(noneButton_);
         InputStream file = iEngine_.getFileManager().getInputStream("Shop/Shops.json");
         shopConfig = readShopConfig(file);
@@ -116,9 +118,9 @@ public class ShopScene extends Scene {
         xText = width_ / 2 - 80 + 190 / 2;
         yText = 5 + 35 / 2;
         //graph.fillRoundRectangle(this.posX_ - 2, this.posY_ - 2, this.width_ + 4, this.height_ + 4, this.arc_);
-        graph.setColor(0XFFFB839B);
+        graph.setColor(rectangleColor);
         graph.fillRoundRectangle(width_ / 2 - 80, 5, 190, 35, 10);
-        graph.setColor(0XFF222222);
+        graph.setColor(fontColor);
         graph.setFont(this.font_);
         graph.drawText(shopName_[id_], xText, yText);
         graph.drawImage(coinsIcon_, width_ - 60, 50, 40, 40);
@@ -129,6 +131,10 @@ public class ShopScene extends Scene {
     public void update(double time) {
         if (!previousShop_.isActive() && id_ >= 1)
             previousShop_.changeActive(true);
+        if(this.rectangleColor!= AssetsManager.getInstance().getButtonColor())
+            this.rectangleColor = AssetsManager.getInstance().getButtonColor();
+        if(this.fontColor!= AssetsManager.getInstance().getTextColor())
+            this.fontColor = AssetsManager.getInstance().getTextColor();
     }
 
     public JSONObject readShopConfig(InputStream file) {
@@ -159,9 +165,6 @@ public class ShopScene extends Scene {
                 shopName_[id_] = config.get("tipo").toString();
                 String path = config.get("ruta").toString();
                 String ext = config.get("extension").toString();
-                if (type == "Colores") {
-                    getColorPalette(path + shopName_[id_] + ".json");
-                }
                 JSONArray buttonsArray = config.getJSONArray("ButtonsImages");
                 int yPos = 130;
                 int xPos = 25 + 130;
@@ -210,28 +213,5 @@ public class ShopScene extends Scene {
                 Log.e("MainActivity", "Error al procesar la configuración de la tienda");
             }
         }
-    }
-
-    void getColorPalette(String path) {
-        InputStream file = iEngine_.getFileManager().getInputStream(path + ".json");
-        colorPalettes = readShopConfig(file);
-    }
-
-    int[] getColorsArray(String path) {
-        if (colorPalettes != null) {
-            JSONObject config = null;
-            try {
-                config = shopConfig.getJSONObject(path);
-                JSONArray colorsArray = config.getJSONArray("Palette");
-                int[] logicArray = new int[colorsArray.length()];
-                for (int i = 0; i < colorsArray.length(); i++) {
-                    logicArray[i] = colorsArray.getInt(i);
-                }
-                return logicArray;
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return null;
     }
 }

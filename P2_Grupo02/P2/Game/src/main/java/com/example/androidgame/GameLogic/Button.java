@@ -33,6 +33,10 @@ public class Button extends GameObject {
     }
 
     public void update(double time) {
+        if(this.color_!= AssetsManager.getInstance().getButtonColor())
+            this.color_ = AssetsManager.getInstance().getButtonColor();
+        if(this.lineColor_!= AssetsManager.getInstance().getLineColor())
+            this.lineColor_ = AssetsManager.getInstance().getLineColor();
     }
 
     public void render(Graphics graph) {

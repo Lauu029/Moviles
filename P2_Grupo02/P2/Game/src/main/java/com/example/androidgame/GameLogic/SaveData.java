@@ -1,5 +1,6 @@
 package com.example.androidgame.GameLogic;
 import android.content.Context;
+import android.util.Log;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -63,7 +64,7 @@ public class SaveData {
 
             String paletteStr = jsonObject.getString("palette");
             String paletteName = String.valueOf(paletteStr);
-            AssetsManager.getInstance().setPaletteTheme(paletteName);
+            AssetsManager.getInstance().addNewPalette(paletteName);
 
             int world= jsonObject.getInt("world");
             LevelManager.getInstance().setPassedWorld(world);
