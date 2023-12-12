@@ -25,7 +25,7 @@ public class ShopScene extends Scene {
     private String[] shopName_;
     private ButtonImage previousShop_, nextShop_;
 
-    private ArrayList<ArrayList<ButtonImage>> totalShopItems_ = new ArrayList<>();
+    private ArrayList<ArrayList<ShopItem>> totalShopItems_ = new ArrayList<>();
     private int id_;
     private int rectangleColor, fontColor;
     private Image coinsIcon_;
@@ -169,13 +169,13 @@ public class ShopScene extends Scene {
                 int yPos = 130;
                 int xPos = 25 + 130;
                 int step = 1;
-                ArrayList<ButtonImage> shopItems_ = new ArrayList<>();
+                ArrayList<ShopItem> shopItems_ = new ArrayList<>();
 
                 Log.d("MainActivity", "Tamaño array: " + shopItems_.size());
                 for (int i = 0; i < buttonsArray.length(); i++) {
                     String nombre = buttonsArray.getString(i);
                     ShopManager.getInstance().registerShopItem(shopName_[id_], nombre);
-                    ButtonImage img = new ButtonImage(path + nombre + "Button" + ext, 100, 100, xPos,
+                    ShopItem item = new ShopItem(path + nombre + "Button" + ext, 100, 100, xPos,
                             yPos, shopingSound_, new ButtonClickListener() {
                         @Override
                         public void onClick() {
@@ -195,11 +195,11 @@ public class ShopScene extends Scene {
                             }
                             ShopManager.getInstance().changeItemState(shopName_[id_], nombre, true);
                         }
-                    });
-                    img.addOverlayImage(blockedImage);
+                    },id_,i,40);
+                    item.addOverlayImage(blockedImage);
                     xPos += 130;
-                    shopItems_.add(img);
-                    addGameObject(img);
+                    shopItems_.add(item);
+                    addGameObject(item);
                     step = (step + 1) % 3;
                     if (step == 0) {
                         yPos = yPos * 2 + 20;
