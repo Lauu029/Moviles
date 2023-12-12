@@ -172,30 +172,34 @@ public class ShopScene extends Scene {
                 ArrayList<ShopItem> shopItems_ = new ArrayList<>();
 
                 Log.d("MainActivity", "Tamaño array: " + shopItems_.size());
+
                 for (int i = 0; i < buttonsArray.length(); i++) {
                     String nombre = buttonsArray.getString(i);
                     ShopManager.getInstance().registerShopItem(shopName_[id_], nombre);
-                    ShopItem item = new ShopItem(path + nombre + "Button" + ext, 100, 100, xPos,
-                            yPos, shopingSound_, new ButtonClickListener() {
-                        @Override
-                        public void onClick() {
-                            Theme theme = new Theme("PURCHASED", "", "", "");
-                            switch (shopName_[id_]) {
-                                case "Fondos":
-                                    theme.setBackground(path + nombre + ext);
-                                    AssetsManager.getInstance().setBackgroundTheme(theme);
-                                    break;
-                                case "Codigos":
-                                    theme.setPathBolas(path + nombre + "/");
-                                    AssetsManager.getInstance().setCirleTheme(theme, false);
-                                    break;
-                                case "Colores":
-                                    AssetsManager.getInstance().addNewPalette(nombre);
-                                    break;
+
+                    ShopItem item  = new ShopItem(path + nombre + "Button" + ext, 100, 100, xPos,
+                            yPos, shopingSound_, id_, i, 40) {
+
+                            @Override
+                            public void onClick() {
+                                Theme theme = new Theme("PURCHASED", "", "", "");
+                                switch (shopName_[id_]) {
+                                    case "Fondos":
+                                        theme.setBackground(path + nombre + ext);
+                                        AssetsManager.getInstance().setBackgroundTheme(theme);
+                                        break;
+                                    case "Codigos":
+                                        theme.setPathBolas(path + nombre + "/");
+                                        AssetsManager.getInstance().setCirleTheme(theme, false);
+                                        break;
+                                    case "Colores":
+                                        AssetsManager.getInstance().addNewPalette(nombre);
+                                        break;
+                                }
+                                this.buyItem();
+                                ShopManager.getInstance().changeItemState(shopName_[id_], nombre, true);
                             }
-                            ShopManager.getInstance().changeItemState(shopName_[id_], nombre, true);
-                        }
-                    },id_,i,40);
+                    };
                     item.addOverlayImage(blockedImage);
                     xPos += 130;
                     shopItems_.add(item);
