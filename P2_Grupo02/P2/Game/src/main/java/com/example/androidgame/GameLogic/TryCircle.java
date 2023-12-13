@@ -27,7 +27,7 @@ public class TryCircle extends Circle {
             graph.drawImage(image_, this.posX_ - (radius_), this.posY_ - (radius_)+translateY_, this.radius_ * 2, this.radius_ * 2);
         else graph.drawCircle(this.posX_, this.posY_+translateY_, this.radius_);
         if (!this.hasColor_) {
-            graph.setColor(0Xff5c3947);
+            graph.setColor(0Xff454545);
             graph.drawCircle(this.posX_, this.posY_+translateY_, this.radius_ / 3);
         }
         if (this.isDaltonics_) {

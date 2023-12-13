@@ -64,7 +64,7 @@ public class MenuScene extends Scene {
         GameTry game=new GameTry(6,1,40,false);
 
         game.init();
-        game.TranslateY(30);
+        game.TranslateY(60);
         addGameObject(game);
 
 //        iEngine_.getMobile().createNotification(R.drawable.logo);
@@ -72,7 +72,7 @@ public class MenuScene extends Scene {
 
     public void render() {
         super.render();
-        iEngine_.getGraphics().setColor(AssetsManager.getInstance().getBackgroundColor());
+        iEngine_.getGraphics().setColor(AssetsManager.getInstance().getLineColor());
         this.iEngine_.getGraphics().setFont(font_);
         iEngine_.getGraphics().drawText("MasterMind", width_ / 2, 30);
         iEngine_.getGraphics().drawImage(myIcon_, this.width_ / 2 - 80 / 2, this.height_ / 2 - 220, 80, 80);

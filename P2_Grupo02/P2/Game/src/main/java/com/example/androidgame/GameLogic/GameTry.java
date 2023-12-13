@@ -1,5 +1,7 @@
 package com.example.androidgame.GameLogic;
 
+import android.util.Log;
+
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.TouchEvent;
@@ -16,6 +18,7 @@ public class GameTry extends GameObject {
     private int posY_=0;
     private int widthRectangle_;
     int solutionSize_;
+    int hintsPosX_=0;
     private int translateY_=0;
     private Font fuente;
     private boolean world_;
@@ -44,13 +47,31 @@ public class GameTry extends GameObject {
             tries_[i]=new TryCircle(""+(i+1),fuente,radius,StartX+((radius*2+3)*i),posY_+translateY_+height_/2,myTry_,i,world_);
             tries_[i].init();
         }
+        hintsPosX_=StartX+((radius*2+3)*(solutionSize_-1))+radius+15;
 
+        //hints Render
+        int columns = (int) Math.ceil((double) solutionSize_ / 2);
+        Log.d("NOTIFI",columns+ "");
+        int hintsRad=radius/2;
+        int hy=posY_+translateY_+height_/4;
+        int j=0;
+        int i=0;
+        for(int s=0;s<solutionSize_;s++){
+            if(j>=columns){
+                i++;
+                j=0;
+            }
+            hints_[s]=new HintsCircle(""+(i+1),fuente,hintsRad,hintsPosX_+hintsRad*2+(j*(hintsRad*2+3)),hy+(i*(hintsRad*2+3)),i);
+            hints_[s].init();
+            j++;
+        }
     }
 
     public void TranslateY(int y) {
         translateY_+=y;
         for(int i=0;i<solutionSize_;i++){
             tries_[i].TranslateY(y);
+            hints_[i].TranslateY(y);
         }
 
     }
@@ -71,12 +92,16 @@ public class GameTry extends GameObject {
 
         drawRectange(graph);
         drawTextLines(graph);
-
         drawCircles( graph);
+        graph.setColor(AssetsManager.getInstance().getLineColor());
+        graph.setStrokeWidth(3);
+        graph.drawLine(hintsPosX_, posY_ +4+translateY_,hintsPosX_, posY_ +translateY_+height_-4);
+
     }
     void drawCircles(Graphics graph){
         for(int i=0;i<solutionSize_;i++){
             tries_[i].render(graph);
+            hints_[i].render(graph);
         }
     }
 

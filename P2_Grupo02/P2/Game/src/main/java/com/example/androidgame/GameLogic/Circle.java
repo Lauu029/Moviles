@@ -27,7 +27,7 @@ public class Circle extends GameObject {
     public Circle(String t, Font f, int r, int x, int y, int row,boolean world) {
         this.font_ = f;
         this.text_ = t;
-        this.color_ = 0xFFad909c;
+        this.color_ = 0xda7a7a7a;
         this.posX_ = x;
         this.posY_ = y;
         this.radius_ = r;
