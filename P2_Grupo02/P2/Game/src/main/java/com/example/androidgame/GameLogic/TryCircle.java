@@ -24,16 +24,16 @@ public class TryCircle extends Circle {
     public void render(Graphics graph) {
         graph.setColor(this.color_);
         if (image_ != null && this.hasColor_)
-            graph.drawImage(image_, this.posX_ - (radius_), this.posY_ - (radius_), this.radius_ * 2, this.radius_ * 2);
-        else graph.drawCircle(this.posX_, this.posY_, this.radius_);
+            graph.drawImage(image_, this.posX_ - (radius_), this.posY_ - (radius_)+translateY_, this.radius_ * 2, this.radius_ * 2);
+        else graph.drawCircle(this.posX_, this.posY_+translateY_, this.radius_);
         if (!this.hasColor_) {
             graph.setColor(0Xff5c3947);
-            graph.drawCircle(this.posX_, this.posY_, this.radius_ / 3);
+            graph.drawCircle(this.posX_, this.posY_+translateY_, this.radius_ / 3);
         }
         if (this.isDaltonics_) {
             graph.setColor(0xFF000000);
             graph.setFont(this.font_);
-            graph.drawText(this.text_, this.posX_, this.posY_);
+            graph.drawText(this.text_, this.posX_, this.posY_+translateY_);
         }
     }
 

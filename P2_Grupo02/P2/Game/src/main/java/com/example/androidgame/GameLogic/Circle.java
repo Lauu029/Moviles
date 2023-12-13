@@ -16,6 +16,7 @@ public class Circle extends GameObject {
     protected int color_;
     protected int radius_;
     protected int posX_, posY_;
+    protected int translateY_=0;
     protected int idColor_;
     protected int row_, gameTry_;
     protected boolean isDaltonics_;
@@ -61,13 +62,16 @@ public class Circle extends GameObject {
         graph.setColor(this.color_);
         //
         if (image_ != null && tematica_.getName()!= "DEFAULT" )
-            graph.drawImage(image_, this.posX_ - (radius_), this.posY_ - (radius_), this.radius_ * 2, this.radius_ * 2);
-        else graph.drawCircle(this.posX_, this.posY_, this.radius_);
+            graph.drawImage(image_, this.posX_ - (radius_), this.posY_ - (radius_)+translateY_, this.radius_ * 2, this.radius_ * 2);
+        else graph.drawCircle(this.posX_, this.posY_+translateY_, this.radius_);
         if (this.isDaltonics_) {
             graph.setColor(0xFF000000);
             graph.setFont(this.font_);
-            graph.drawText(this.text_, this.posX_, this.posY_);
+            graph.drawText(this.text_, this.posX_, this.posY_+translateY_);
         }
+    }
+    public void TranslateY(int y) {
+        translateY_+=y;
     }
 
     public void init() {

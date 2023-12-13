@@ -45,18 +45,14 @@ public class GameTry extends GameObject {
             tries_[i].init();
         }
 
-
-
-
-
-
-
-
-
     }
 
     public void TranslateY(int y) {
         translateY_+=y;
+        for(int i=0;i<solutionSize_;i++){
+            tries_[i].TranslateY(y);
+        }
+
     }
 
     public void checkSolution(Solution sol) {

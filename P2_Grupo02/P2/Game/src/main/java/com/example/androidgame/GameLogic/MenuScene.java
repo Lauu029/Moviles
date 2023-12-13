@@ -62,7 +62,9 @@ public class MenuScene extends Scene {
         addGameObject(mundoButton_);
         myIcon_ = graph.newImage("logo.png");
         GameTry game=new GameTry(6,1,40,false);
+
         game.init();
+        game.TranslateY(30);
         addGameObject(game);
 
 //        iEngine_.getMobile().createNotification(R.drawable.logo);
