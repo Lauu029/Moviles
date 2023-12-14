@@ -86,7 +86,7 @@ public class MenuScene extends Scene {
     public void update(double time) {
         if(scroll){
             int speed=yFin-yIni;
-            game.TranslateY(speed/100);
+            game.TranslateY(speed/50);
         }
 
         for (int i = 0; i < gameObjects_.size(); i++) {
