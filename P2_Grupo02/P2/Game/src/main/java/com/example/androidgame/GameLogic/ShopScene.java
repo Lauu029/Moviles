@@ -178,9 +178,9 @@ public class ShopScene extends Scene {
                     ShopManager.getInstance().registerShopItem(shopName_[id_], nombre);
 
                     ShopItem item  = new ShopItem(path + nombre + "Button" + ext, 100, 100, xPos,
-                            yPos, shopingSound_, id_, i, 40) {
-
-                            @Override
+                            yPos, shopingSound_, id_, i, 40);
+                    item.setAction(new ButtonClickListener() {
+                        @Override
                             public void onClick() {
                                 Theme theme = new Theme("PURCHASED", "", "", "");
                                 switch (shopName_[id_]) {
@@ -196,10 +196,10 @@ public class ShopScene extends Scene {
                                         AssetsManager.getInstance().addNewPalette(nombre);
                                         break;
                                 }
-                                this.buyItem();
+                                item.buyItem();
                                 ShopManager.getInstance().changeItemState(shopName_[id_], nombre, true);
                             }
-                    };
+                    });
                     item.addOverlayImage(blockedImage);
                     xPos += 130;
                     shopItems_.add(item);

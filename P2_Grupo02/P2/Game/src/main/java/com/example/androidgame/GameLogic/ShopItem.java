@@ -3,7 +3,7 @@ package com.example.androidgame.GameLogic;
 import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
 
-public abstract class ShopItem extends ButtonImage implements ButtonClickListener{
+public class ShopItem extends ButtonImage{
 
     private int sectionId_;
     private int itemId_;
@@ -25,8 +25,8 @@ public abstract class ShopItem extends ButtonImage implements ButtonClickListene
     }
 
     public void buyItem(){
-        unlocked_=true;
-        int currCoins=GameManager.getInstance().getCoins();
+        unlocked_ = true;
+        int currCoins = GameManager.getInstance().getCoins();
         if(currCoins-price_>=0){
             GameManager.getInstance().addCoins(-price_);
         }
@@ -35,9 +35,10 @@ public abstract class ShopItem extends ButtonImage implements ButtonClickListene
         return unlocked_;
     }
 
-    @Override
-    public boolean handleInput(TouchEvent event) {
-        onClick();
-        return true;
-    }
+//    @Override
+//    public boolean handleInput(TouchEvent event) {
+//        super.handleInput(event);
+//       // onClick();
+//        return true;
+//    }
 }
