@@ -76,21 +76,17 @@ public class InputHandler implements View.OnTouchListener {
             }
             returnObject(event);
        }
- //       else if (action==motionEvent.ACTION_MOVE) {
-//            TouchEvent event = getEvent();
-//            event.type = TouchEvent.TouchEventType.TOUCH_DRAG;
-//            float currentX = motionEvent.getX(index);
-//            float deltaX = currentX - startX;
-//
-//            // Define un umbral para determinar si el deslizamiento es lo suficientemente grande
-//            float threshold = 50; // Puedes ajustar este valor según tus necesidades
-//
-//            if (Math.abs(deltaX) > threshold) {
-//
-//                event.deltaX= (int) deltaX;
-//                startX = currentX;
-//            }
-//        }
+        else if (action==motionEvent.ACTION_MOVE) {
+            TouchEvent event = getEvent();
+            event.type = TouchEvent.TouchEventType.TOUCH_DRAG;
+
+             event.x = (int)motionEvent.getX(index);
+             event.y=(int)motionEvent.getY(index);
+            synchronized (this) { //Es necesario sincronizarlo para evitar fallos al borrar los elementos de esta lista
+                myPendingEvents_.add(event);
+            }
+            returnObject(event);
+        }
         return true;
     }
 }
