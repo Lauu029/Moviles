@@ -93,7 +93,7 @@ public class AssetsManager {
     public void setPaletteTheme(String paletteColor/*int idPalette*/) {
         paletteColor_ = paletteColor;
         int[] putColors_ = coloresFondo_.get(paletteColor);
-        Log.d("MainActivity","Numero de colores: "+putColors_.length);
+        //Log.d("MainActivity","Numero de colores: "+putColors_.length);
 //        for(int i=0;i<coloresFondo_.size();i++){
 //            Log.d("MainActivity",coloresFondo_[i]);
 //        }
