@@ -19,7 +19,7 @@ public class SaveData {
     private static final String FILENAME = "saved_data.json";
 
     public static void saveGameData(Context context, int coins,String palette,
-                                    int currWorld,int currLevel,Map<String, Map<String, Boolean>> itemsState)
+                                    int currWorld,int currLevel/*,Map<String, Map<String, Boolean>> itemsState*/)
     {
         JSONObject jsonObject = new JSONObject();
 

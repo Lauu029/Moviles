@@ -175,29 +175,31 @@ public class ShopScene extends Scene {
 
                 for (int i = 0; i < buttonsArray.length(); i++) {
                     String nombre = buttonsArray.getString(i);
-                    ShopManager.getInstance().registerShopItem(shopName_[id_], nombre);
+                    ShopManager.getInstance().registerShopItem(id_,i);
 
                     ShopItem item  = new ShopItem(path + nombre + "Button" + ext, 100, 100, xPos,
-                            yPos, shopingSound_, id_, i, 40);
+                            yPos, shopingSound_, id_, i, 1);
                     item.setAction(new ButtonClickListener() {
                         @Override
                             public void onClick() {
-                                Theme theme = new Theme("PURCHASED", "", "", "");
-                                switch (shopName_[id_]) {
-                                    case "Fondos":
-                                        theme.setBackground(path + nombre + ext);
-                                        AssetsManager.getInstance().setBackgroundTheme(theme);
-                                        break;
-                                    case "Codigos":
-                                        theme.setPathBolas(path + nombre + "/");
-                                        AssetsManager.getInstance().setCirleTheme(theme, false);
-                                        break;
-                                    case "Colores":
-                                        AssetsManager.getInstance().addNewPalette(nombre);
-                                        break;
-                                }
                                 item.buyItem();
-                                ShopManager.getInstance().changeItemState(shopName_[id_], nombre, true);
+                                if(item.isUnlocked())
+                                {
+                                    Theme theme = new Theme("PURCHASED", "", "", "");
+                                    switch (shopName_[id_]) {
+                                        case "Fondos":
+                                            theme.setBackground(path + nombre + ext);
+                                            AssetsManager.getInstance().setBackgroundTheme(theme);
+                                            break;
+                                        case "Codigos":
+                                            theme.setPathBolas(path + nombre + "/");
+                                            AssetsManager.getInstance().setCirleTheme(theme, false);
+                                            break;
+                                        case "Colores":
+                                            AssetsManager.getInstance().addNewPalette(nombre);
+                                            break;
+                                    }
+                                }
                             }
                     });
                     item.addOverlayImage(blockedImage);
