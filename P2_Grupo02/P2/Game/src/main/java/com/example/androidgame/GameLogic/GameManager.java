@@ -120,8 +120,8 @@ public class GameManager {
         SaveData.saveGameData(myEngine_.getMainActivity(), coins_,
                 AssetsManager.getInstance().getPaletteColor(),
                 LevelManager.getInstance().getPassedWorld(),
-                LevelManager.getInstance().getPassedLevel(),
-                ShopManager.getInstance().getItemsState());
+                LevelManager.getInstance().getPassedLevel()//,
+                /*ShopManager.getInstance().getItemsState()*/);
     }
 
     // Llamado al iniciar el juego para cargar el progreso del jugador
