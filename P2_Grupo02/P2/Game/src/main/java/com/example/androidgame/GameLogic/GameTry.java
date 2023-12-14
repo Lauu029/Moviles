@@ -12,6 +12,7 @@ public class GameTry extends GameObject {
     private TryCircle[] tries_;
     private HintsCircle[] hints_;
     private int myTry_;
+    private int renderTry;
     private int height_;
     private int screenWidth_;
     private int posX_=7;
@@ -26,6 +27,7 @@ public class GameTry extends GameObject {
         tries_ = new TryCircle[solutionSize];
         hints_ = new HintsCircle[solutionSize];
         myTry_ = numTries;
+        renderTry=myTry_+1;
         screenWidth_=GameManager.getInstance().getWidth();
         height_=height;
         widthRectangle_=screenWidth_-(posX_*2);
@@ -34,7 +36,6 @@ public class GameTry extends GameObject {
     }
     @Override
     void init() {
-
         int offsetX=height_;
         int radius= (int) ((height_) / 2.5f);
         int spaceCircles=widthRectangle_/2;
@@ -73,7 +74,6 @@ public class GameTry extends GameObject {
             tries_[i].TranslateY(y);
             hints_[i].TranslateY(y);
         }
-
     }
 
     public void checkSolution(Solution sol) {
@@ -111,19 +111,35 @@ public class GameTry extends GameObject {
         graph.fillRoundRectangle(posX_, posY_ +translateY_ , widthRectangle_ , height_, 10);
         graph.setColor(AssetsManager.getInstance().getLineColor());
         graph.drawRoundRectangle(posX_, posY_+translateY_  , widthRectangle_ , height_, 10);
-
     }
     void drawTextLines(Graphics graph){
         graph.setFont(fuente);
-        graph.drawText(""+myTry_,posX_+20, posY_ +translateY_+(height_/3));
+        graph.drawText(""+renderTry,posX_+20, posY_ +translateY_+(height_/3));
         graph.setStrokeWidth(3);
         graph.drawLine(posX_+40, posY_ +4+translateY_,posX_+40, posY_ +translateY_+height_-4);
 
     }
 
-
     @Override
     boolean handleInput(TouchEvent event) {
         return false;
+    }
+
+    void setGameTry(int t){
+        for (TryCircle try_: tries_) {
+            try_.setGameTry_(t);
+        }
+    }
+    public void setNewHints(int correctPositions, int correctColors) {
+        int pos = 0;
+
+        for (int i = 0; i < correctPositions; i++) {
+            hints_[pos].putHintColor(true);
+            pos++;
+        }
+        for (int i = 0; i < correctColors; i++) {
+            hints_[pos].putHintColor(false);
+            pos++;
+        }
     }
 }

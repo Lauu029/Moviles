@@ -12,7 +12,7 @@ public class GameManager {
 
     private int width_, height_;
     private Difficulty levelDificulty_;
-    private Board board_;
+    private myBoard board_;
     private int[] levelSolution_;
     private boolean daltonics_;
     private int coins_;
@@ -87,10 +87,10 @@ public class GameManager {
 
     public void changeDaltonicsMode() {
         this.daltonics_ = !this.daltonics_;
-        this.board_.changeDaltonics(this.daltonics_);
+        //this.board_.changeDaltonics(this.daltonics_);
     }
 
-    public void setBoard(Board b) {
+    public void setBoard(myBoard b) {
         this.board_ = b;
     }
 
