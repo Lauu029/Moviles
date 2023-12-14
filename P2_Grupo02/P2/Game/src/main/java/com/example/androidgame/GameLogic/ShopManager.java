@@ -11,7 +11,7 @@ import java.util.TreeMap;
 public class ShopManager {
     //private Engine iEngine_;
     private static ShopManager instance_;
-    private static Map<String, Map<String, Boolean>> itemsState_; //Guarda la seccion a la que pertenece, su nombre y si se ha comprado
+    private static Map<Integer, Map<Integer, Boolean>> itemsState_; //Guarda la seccion a la que pertenece, su nombre y si se ha comprado
     private ShopManager() {
         // Constructor privado
     }
@@ -24,34 +24,31 @@ public class ShopManager {
         itemsState_= new HashMap<>();
         return 1;
     }
-    Map<String, Map<String, Boolean>> getItemsState(){
+    Map<Integer, Map<Integer, Boolean>> getItemsState(){
         return itemsState_;
     }
-    void registerShopItem(String itemType,String itemName){
+    void registerShopItem( Integer typeId,Integer itemId){
 
-        if (!itemsState_.containsKey(itemType)) {
-            Map<String, Boolean> nuevoItem=new HashMap<>();
-            itemsState_.put(itemType,nuevoItem);
+        if (!itemsState_.containsKey(typeId)) {
+            Map<Integer, Boolean> nuevoItem=new HashMap<>();
+            itemsState_.put(typeId,nuevoItem);
 
         }
-        else{ Log.d("SHOP","Ya contiene la seccion: "+itemType);}
-        if(itemsState_.containsKey(itemType) && !itemsState_.get(itemType).containsKey(itemName))
+        else{ Log.d("SHOP","Ya contiene la seccion: "+typeId);}
+        if(itemsState_.containsKey(itemId) && !itemsState_.get(typeId).containsKey(itemId))
         {
-            itemsState_.get(itemType).put(itemName, false);
+            itemsState_.get(typeId).put(itemId, false);
         }
-        else{ Log.d("SHOP","Ya contiene la seccion: "+itemType+" y el objeto "+itemName);}
+        else{ Log.d("SHOP","Ya contiene la seccion: "+typeId+" y el objeto "+itemId);}
     }
-    void changeItemState(String itemType,String itemName,boolean bought){
-        if(itemsState_.containsKey(itemType) && itemsState_.get(itemType).containsKey(itemName)){
-            itemsState_.get(itemType).put(itemName,bought);
-            Log.d("SHOP","Has comprado en la seccion: "+itemType+" y el objeto "+itemName);
+    void changeItemState(Integer typeId,Integer itemId,boolean bought){
+        if(itemsState_.containsKey(typeId) && itemsState_.get(typeId).containsKey(itemId)){
+            itemsState_.get(typeId).put(itemId,bought);
+            Log.d("SHOP","Has comprado en la seccion: "+typeId+" y el objeto "+itemId);
         }
         else{
-            Log.d("SHOP","No contiene "+itemType+" y el objeto "+itemName+", no lo puedes comprar");
+            Log.d("SHOP","No contiene "+typeId+" y el objeto "+itemId+", no lo puedes comprar");
         }
     }
-    void setItemsState(Map<String,Map<String,Boolean>> nuevoMapa){
-        itemsState_=new HashMap<>(nuevoMapa);
-        Log.d("GUARDADO","Comprobando el estado de itemsState");
-    }
+
 }

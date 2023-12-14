@@ -5,8 +5,10 @@ import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
+import com.example.androidengine.TouchEvent;
 import com.example.androidgame.R;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class MenuScene extends Scene {
@@ -17,7 +19,10 @@ public class MenuScene extends Scene {
     private Font fontButton_;
     private Image myIcon_;
     private Sound myButtonSound_;
-
+    boolean scroll;
+    int yIni;
+    int yFin;
+    GameTry game;
     public MenuScene() {
         super();
     }
@@ -61,7 +66,7 @@ public class MenuScene extends Scene {
         addGameObject(storeButton_);
         addGameObject(mundoButton_);
         myIcon_ = graph.newImage("logo.png");
-        GameTry game=new GameTry(6,1,40,false);
+        game=new GameTry(6,1,40,false);
 
         game.init();
         game.TranslateY(60);
@@ -69,7 +74,7 @@ public class MenuScene extends Scene {
 
 //        iEngine_.getMobile().createNotification(R.drawable.logo);
     }
-
+    @Override
     public void render() {
         super.render();
         iEngine_.getGraphics().setColor(AssetsManager.getInstance().getLineColor());
@@ -77,5 +82,37 @@ public class MenuScene extends Scene {
         iEngine_.getGraphics().drawText("MasterMind", width_ / 2, 30);
         iEngine_.getGraphics().drawImage(myIcon_, this.width_ / 2 - 80 / 2, this.height_ / 2 - 220, 80, 80);
     }
+    @Override
+    public void update(double time) {
+        if(scroll){
+            int speed=yFin-yIni;
+            game.TranslateY(speed/50);
+        }
+
+        for (int i = 0; i < gameObjects_.size(); i++) {
+            gameObjects_.get(i).update(time);
+        }
+    }
+    @Override
+
+    public void handleInput(ArrayList<TouchEvent> events) {
+        for(TouchEvent event:events){
+            if(event.type== TouchEvent.TouchEventType.TOUCH_DOWN){
+                yIni=event.y;
+            }
+            else if(event.type==TouchEvent.TouchEventType.TOUCH_DRAG){
+                scroll=true;
+                yFin=event.y;
+            }
+            else if(event.type==TouchEvent.TouchEventType.TOUCH_UP){
+                scroll=false;
+            }
+        }
+        for (GameObject g : gameObjects_)
+            for (TouchEvent event : events)
+                if (g.handleInput(event))
+                    return;
+    }
+
 
 }
