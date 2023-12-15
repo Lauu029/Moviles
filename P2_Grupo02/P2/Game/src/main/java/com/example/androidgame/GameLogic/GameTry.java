@@ -22,6 +22,7 @@ public class GameTry extends GameObject {
     int hintsPosX_=0;
     private int translateY_=0;
     private Font fuente;
+
     private boolean world_;
     GameTry(int solutionSize, int numTries,int height,boolean world_) {
         tries_ = new TryCircle[solutionSize];
@@ -89,14 +90,12 @@ public class GameTry extends GameObject {
 
     @Override
     void render(Graphics graph) {
-
         drawRectange(graph);
         drawTextLines(graph);
         drawCircles( graph);
         graph.setColor(AssetsManager.getInstance().getLineColor());
         graph.setStrokeWidth(3);
         graph.drawLine(hintsPosX_, posY_ +4+translateY_,hintsPosX_, posY_ +translateY_+height_-4);
-
     }
     void drawCircles(Graphics graph){
         for(int i=0;i<solutionSize_;i++){
@@ -117,14 +116,15 @@ public class GameTry extends GameObject {
         graph.drawText(""+renderTry,posX_+20, posY_ +translateY_+(height_/3));
         graph.setStrokeWidth(3);
         graph.drawLine(posX_+40, posY_ +4+translateY_,posX_+40, posY_ +translateY_+height_-4);
-
     }
 
     @Override
     boolean handleInput(TouchEvent event) {
+        for (TryCircle try_:tries_) {
+            try_.handleInput(event);
+        }
         return false;
     }
-
     void setGameTry(int t){
         for (TryCircle try_: tries_) {
             try_.setGameTry_(t);
@@ -140,6 +140,16 @@ public class GameTry extends GameObject {
         for (int i = 0; i < correctColors; i++) {
             hints_[pos].putHintColor(false);
             pos++;
+        }
+    }
+    public void putNewColor(int id, int color) {
+        for (int i = 0; i < tries_.length; i++) {
+            if (!tries_[i].hasColor()) {
+                tries_[i].setColor(color, id);
+                tries_[i].setImage("" + (id + 1));
+                GameManager.getInstance().putColorSolution(i, id);
+                break;
+            }
         }
     }
 }

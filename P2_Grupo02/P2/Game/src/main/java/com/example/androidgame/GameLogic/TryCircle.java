@@ -41,9 +41,10 @@ public class TryCircle extends Circle {
     de intento temporal. Controla que solo se pueda pulsar si el jugador está en el intento en el
     que está cada círculo*/
     public boolean handleInput(TouchEvent event) {
-        if (event.type == TouchEvent.TouchEventType.TOUCH_UP)
+        if (event.type == TouchEvent.TouchEventType.TOUCH_DOWN)
             if (this.posX_ - this.radius_ < event.x && this.posX_ + this.radius_ > event.x
-                    && this.posY_ - this.radius_ < event.y && this.posY_ + this.radius_ > event.y) {
+                    && this.posY_+translateY_ - this.radius_ < event.y && this.posY_ +translateY_+ this.radius_ > event.y) {
+                Log.d("MainActivity", "row: "+this.row_+" gametry: "+this.gameTry_);
                 if (this.hasColor_ && this.row_ == this.gameTry_) {
                     this.color_ = 0xFFad909c;
                     this.hasColor_ = false;

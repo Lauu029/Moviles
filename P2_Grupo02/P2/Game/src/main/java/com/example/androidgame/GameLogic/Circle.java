@@ -71,7 +71,7 @@ public class Circle extends GameObject {
         }
     }
     public void TranslateY(int y) {
-        translateY_+=y;
+        translateY_ += y;
     }
 
     public void init() {
