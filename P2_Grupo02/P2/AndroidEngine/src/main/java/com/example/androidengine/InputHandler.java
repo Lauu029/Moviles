@@ -55,12 +55,12 @@ public class InputHandler implements View.OnTouchListener {
         int index = motionEvent.getActionIndex(); //Devuelve el índice de puntero asociado
         int finger = motionEvent.getPointerId(index); //Dedo que realiza el toque (pantallas multitactil)
         int action = motionEvent.getActionMasked();
-        float startX = 0;
+
         if (action == motionEvent.ACTION_DOWN) { //Comprueba que tipo de accion ha realizado (pulsar, levantar)
             TouchEvent event = getEvent();
             event.x = (int) motionEvent.getX(index); //Obtiene las coordenadas donde ha tenido lugar la accion
             event.y = (int) motionEvent.getY(index);
-            startX=event.x;
+
             event.type = TouchEvent.TouchEventType.TOUCH_DOWN;
             synchronized (this) { //Es necesario sincronizarlo para evitar fallos al borrar los elementos de esta lista
                 myPendingEvents_.add(event);

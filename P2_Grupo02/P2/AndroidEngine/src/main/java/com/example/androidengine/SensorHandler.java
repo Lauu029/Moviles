@@ -27,7 +27,7 @@ public class SensorHandler implements SensorEventListener {
             float zAxis = event.values[2];
 
             // Puedes utilizar los valores de los ejes aquí según tus necesidades
-            Log.d("SensorHandler", "Acelerómetro - X: " + xAxis + ", Y: " + yAxis + ", Z: " + zAxis);
+//            Log.d("SensorHandler", "Acelerómetro - X: " + xAxis + ", Y: " + yAxis + ", Z: " + zAxis);
         }
     }
 

@@ -7,6 +7,6 @@ public class TouchEvent {
         CLICK,
         TOUCH_DRAG
     };
-    public int x, y,deltaX;
+    public int x, y;
     public TouchEventType type;
 }

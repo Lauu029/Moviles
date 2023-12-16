@@ -116,6 +116,11 @@ public class myBoard extends GameObject {
                 return true;
         return false;
     }
+    public void TranslateY(int transY){
+        for (int i=0;i<gameTries_.length;i++){
+            gameTries_[i].TranslateY(transY);
+        }
+    }
 
     public int getAcutalTry_() {
         return acutalTry_;

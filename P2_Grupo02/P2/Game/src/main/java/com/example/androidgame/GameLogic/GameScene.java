@@ -1,8 +1,13 @@
 package com.example.androidgame.GameLogic;
 
+import android.util.Log;
+
 import com.example.androidengine.Font;
 import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
+import com.example.androidengine.TouchEvent;
+
+import java.util.ArrayList;
 
 public class GameScene extends Scene {
     private Solution mySolution_;
@@ -12,7 +17,9 @@ public class GameScene extends Scene {
     private Difficulty lev_;
     private GameManager gm_;
     private Sound myCrossSound_;
-
+    boolean scroll;
+    int yIni;
+    int yFin;
     Image backaground_;
 
     public GameScene(boolean world) {
@@ -73,6 +80,14 @@ public class GameScene extends Scene {
      * si se ha ganado el juego o perdido por superar el numero de  intentos y si no se ha ganado
      * ni se ha acabado crea nuevas pistas en la clase tablero y avanza al siguiente intento*/
     public void update(double time) {
+        if(scroll){
+            int speed=yFin-yIni;
+            //Log.d("HOLA","Speed " + speed );
+
+            gameBoard_.TranslateY(speed);
+            yIni=yFin;
+
+        }
         int[] tempSol = gm_.getLevelSolution();
         int i = 0;
         boolean isComplete = true;
@@ -120,6 +135,28 @@ public class GameScene extends Scene {
         super.render();
         for (int i = 0; i < gameObjects_.size(); i++) {
             gameObjects_.get(i).render(iEngine_.getGraphics());
+        }
+    }
+    @Override
+    public void handleInput(ArrayList<TouchEvent> events){
+        super.handleInput(events);
+        for(TouchEvent event:events){
+            if(event.type== TouchEvent.TouchEventType.TOUCH_DOWN){
+                yIni=event.y;
+
+            }
+            else if(event.type==TouchEvent.TouchEventType.TOUCH_DRAG){
+
+
+                scroll=true;
+
+                yFin=event.y;
+                Log.d("HOLA","yfin " + yFin );
+
+            }
+            else if(event.type==TouchEvent.TouchEventType.TOUCH_UP){
+                scroll=false;
+            }
         }
     }
 }
