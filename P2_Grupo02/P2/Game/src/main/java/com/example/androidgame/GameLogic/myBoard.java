@@ -22,6 +22,7 @@ public class myBoard extends GameObject {
     private GameManager gm_;
     //para gestionar todos los inputs y renders de la clase tablero
     private ArrayList<GameObject> gameObjectsTable_ = new ArrayList<>();
+
     private Font font1_, font2_, font3_;
     private int hintsPos_;
     private boolean world_;
@@ -50,6 +51,7 @@ public class myBoard extends GameObject {
             gameTries_[i].TranslateY(offset);
             offset += 50;
             gameObjectsTable_.add(gameTries_[i]);
+
         }
         int circleRad_ = 20;
         offset = 4;
@@ -63,6 +65,7 @@ public class myBoard extends GameObject {
             usableColorsCircles_[i].setImage("" + (i + 1));
             usableColorsCircles_[i].setIdColor_(i);
             gameObjectsTable_.add(usableColorsCircles_[i]);
+
         }
     }
 
@@ -83,13 +86,21 @@ public class myBoard extends GameObject {
 
     @Override
     public void update(double time) {
-        for (GameObject g : gameObjectsTable_) {
-            g.update(time);
+        for(int i=0;i<gameTries_.length;i++){
+            gameTries_[i].update(time);
+        }
+        for(int i=0;i<usableColorsCircles_.length;i++){
+            usableColorsCircles_[i].update(time);
         }
     }
 
     @Override
     public void render(Graphics graph) {
+        for(int i=0;i<gameTries_.length;i++){
+            gameTries_[i].render(graph);
+        }
+        graph.setColor(AssetsManager.getInstance().getBackgroundColor());
+        graph.fillRectangle(0, 0, sceneWidth_, sceneHeight_/6);
         graph.setColor(AssetsManager.getInstance().getButtonColor());
         graph.fillRectangle(0, sceneHeight_ - 50, sceneWidth_, 50);
         graph.setFont(font2_);
@@ -97,9 +108,10 @@ public class myBoard extends GameObject {
         graph.drawText("Averigua el codigo", sceneWidth_ / 2, 10);
         graph.setFont(font3_);
         graph.drawText("Te quedan " + (this.tries_ - acutalTry_) + " intentos", sceneWidth_ / 2, 50);
-        for (GameObject g : gameObjectsTable_) {
-            g.render(graph);
+        for(int i=0;i<usableColorsCircles_.length;i++){
+            usableColorsCircles_[i].render(graph);
         }
+
     }
 
     @Override

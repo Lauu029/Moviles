@@ -151,7 +151,7 @@ public class GameScene extends Scene {
                 scroll=true;
 
                 yFin=event.y;
-                Log.d("HOLA","yfin " + yFin );
+
 
             }
             else if(event.type==TouchEvent.TouchEventType.TOUCH_UP){
