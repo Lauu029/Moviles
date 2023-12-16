@@ -6,13 +6,16 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkRequest;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
 
 import com.example.androidengine.ReminderWorker;
+import com.example.androidengine.SensorHandler;
 import com.example.androidgame.GameLogic.AssetsManager;
 import com.example.androidgame.GameLogic.EnumPalette;
 import com.google.android.gms.ads.AdView;
@@ -27,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 public class MainActivity extends AppCompatActivity {
     private SurfaceView renderView_;
     private Engine IEngine_;
-
+    private SensorHandler sensor_;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         GameManager.init(IEngine_, 400, 600);
         IEngine_.resume();
         onNewIntent(getIntent());
+        sensor_=new SensorHandler(this);
     }
     private void createWorkRequest(long timeDelayInSeconds) {
         IEngine_.getMobile().programNotification((int)timeDelayInSeconds,TimeUnit.SECONDS,R.drawable.logo,"MASTERMIND","Entra y juega te esperan nuevos niveles!!");
@@ -63,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         GameManager.getInstance().saveGameData();
         Log.d("GAME","--------------------me pause-------------------------");
         createWorkRequest(45);
+        sensor_.onPause();;
         IEngine_.pause();
     }
     @Override
@@ -70,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         GameManager.getInstance().loadGameData();
         Log.d("GAME", "RESUMEEEE");
+        sensor_.onResume();
         IEngine_.resume();
         onNewIntent(getIntent());
 
