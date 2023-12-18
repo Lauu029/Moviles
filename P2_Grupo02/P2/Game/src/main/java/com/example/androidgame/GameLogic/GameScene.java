@@ -82,7 +82,7 @@ public class GameScene extends Scene {
     public void update(double time) {
         if(scroll){
             int speed=yFin-yIni;
-            //Log.d("HOLA","Speed " + speed );
+//            Log.d("HOLA","Speed " + speed );
 
             gameBoard_.TranslateY(speed);
             yIni=yFin;

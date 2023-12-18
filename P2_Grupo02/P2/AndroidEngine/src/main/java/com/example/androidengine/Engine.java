@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.media.SoundPool;
+import android.util.Log;
 import android.view.SurfaceView;
 
 public class Engine implements Runnable {
@@ -93,6 +94,7 @@ public class Engine implements Runnable {
                 event.y -= myGraphics_.getTranslateY_();
                 event.x /= myGraphics_.getScale_();
                 event.y /= myGraphics_.getScale_();
+                Log.d("HOLA","Speed " +  event.y );
 
             }
             //Gestión de eventos de input

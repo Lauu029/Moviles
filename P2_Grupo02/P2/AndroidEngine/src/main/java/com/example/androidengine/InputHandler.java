@@ -1,5 +1,6 @@
 package com.example.androidengine;
 
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
@@ -82,6 +83,7 @@ public class InputHandler implements View.OnTouchListener {
 
              event.x = (int)motionEvent.getX(index);
              event.y=(int)motionEvent.getY(index);
+
             synchronized (this) { //Es necesario sincronizarlo para evitar fallos al borrar los elementos de esta lista
                 myPendingEvents_.add(event);
             }
