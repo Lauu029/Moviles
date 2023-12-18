@@ -24,7 +24,7 @@ public class GameTry extends GameObject {
     private Font fuente;
 
     private boolean world_;
-    GameTry(int solutionSize, int numTries,int height,boolean world_) {
+    GameTry(int solutionSize, int numTries,int height,boolean world) {
         tries_ = new TryCircle[solutionSize];
         hints_ = new HintsCircle[solutionSize];
         myTry_ = numTries;
@@ -34,6 +34,7 @@ public class GameTry extends GameObject {
         widthRectangle_=screenWidth_-(posX_*2);
         fuente = GameManager.getInstance().getIEngine().getGraphics().newFont("Hexenkoetel-qZRv1.ttf", height, false, false);
         solutionSize_=solutionSize;
+        world_=world;
     }
     @Override
     void init() {

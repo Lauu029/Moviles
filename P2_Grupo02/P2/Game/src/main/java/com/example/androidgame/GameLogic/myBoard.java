@@ -46,7 +46,7 @@ public class myBoard extends GameObject {
         gameTries_ = new GameTry[tries_];
         int offset = 100;
         for (int i = 0; i < tries_; i++) {
-            gameTries_[i] = new GameTry(codeColors_, i, 40, false);
+            gameTries_[i] = new GameTry(codeColors_, i, 40, world);
             gameTries_[i].init();
             gameTries_[i].TranslateY(offset);
             offset += 50;
