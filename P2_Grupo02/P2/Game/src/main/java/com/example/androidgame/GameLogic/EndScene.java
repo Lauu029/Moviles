@@ -136,8 +136,8 @@ public class EndScene extends Scene {
             iEngine_.getGraphics().drawText(tries_ + " intentos:", width_ / 2, 80);
             iEngine_.getGraphics().setFont(font1_);
             iEngine_.getGraphics().drawText("codigo:", width_ / 2, 120);
-            drawCircles(iEngine_.getGraphics());
         }
+            drawCircles(iEngine_.getGraphics());
 
     }
 
@@ -165,7 +165,6 @@ public class EndScene extends Scene {
     @Override
     public void update(double time) {
         if(waitingForReward_){
-            Log.d("Rewarded", "A la espera estoy");
             boolean earned = iEngine_.getMobile().hasEarnedReward();
             if(earned){
                 GameScene gs = (GameScene) SceneManager.getInstance().getScene(SceneNames.GAME.ordinal());
