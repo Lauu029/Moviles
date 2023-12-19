@@ -178,6 +178,7 @@ public class Graphics {
     protected int getWidth_() {
         return width_;
     }
+    Canvas getMyCanvas(){ return myCanvas_;}
     //Metodo que devuelve el alto del canvas
     protected int getHeight_() {
         return height_;

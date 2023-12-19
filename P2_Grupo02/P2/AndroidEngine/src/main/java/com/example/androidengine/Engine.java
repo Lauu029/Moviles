@@ -76,7 +76,7 @@ public class Engine implements Runnable {
         while (this.running_ && this.myView_.getWidth() == 0) ;
 
         long lastFrameTime = System.nanoTime();
-
+        boolean isScaled = false;
         // Bucle de juego principal.
         while (running_) {
             long currentTime = System.nanoTime();
@@ -85,8 +85,11 @@ public class Engine implements Runnable {
 
             //Tiempo entre frames
             double elapsedTime = (double) nanoElapsedTime / 1.0E9;
-            //Reescalado de la escena (por si ha aumentado o reducido su tamaño)
-            myGraphics_.resize(myScene_.getWidth_(), myScene_.getHeight_());
+            //Reescalado de la escena
+            if (!isScaled && myGraphics_.getMyCanvas().getHeight() != 0) {
+                isScaled = true;
+                myGraphics_.resize(myScene_.getWidth_(), myScene_.getHeight_());
+            }
 
             //Reescalado del input dentro de la escena
             for (TouchEvent event : myInput_.getTouchEvent()) {
