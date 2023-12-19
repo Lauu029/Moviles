@@ -14,7 +14,7 @@ public class myBoard extends GameObject {
     private boolean canRepeat_;
     private boolean daltonics_;
     private int acutalTry_;
-
+    private int limitUp, limitDown;
     //Lógica de espacio y dimensiones en la pantalla
     private int sceneWidth_, sceneHeight_;
     private GameTry[] gameTries_;
@@ -43,10 +43,12 @@ public class myBoard extends GameObject {
         this.sceneHeight_ = scH;
         this.daltonics_ = false;
         usableColorsCircles_ = new SolutionCircle[usableColors_];
+        limitUp = sceneHeight_ / 6;
+        limitDown = sceneHeight_ - 50;
         gameTries_ = new GameTry[tries_];
         int offset = 100;
         for (int i = 0; i < tries_; i++) {
-            gameTries_[i] = new GameTry(codeColors_, i, 40, world);
+            gameTries_[i] = new GameTry(codeColors_, i, 40, world, limitUp, limitDown);
             gameTries_[i].init();
             gameTries_[i].TranslateY(offset);
             offset += 50;
@@ -86,21 +88,21 @@ public class myBoard extends GameObject {
 
     @Override
     public void update(double time) {
-        for(int i=0;i<gameTries_.length;i++){
+        for (int i = 0; i < gameTries_.length; i++) {
             gameTries_[i].update(time);
         }
-        for(int i=0;i<usableColorsCircles_.length;i++){
+        for (int i = 0; i < usableColorsCircles_.length; i++) {
             usableColorsCircles_[i].update(time);
         }
     }
 
     @Override
     public void render(Graphics graph) {
-        for(int i=0;i<gameTries_.length;i++){
+        for (int i = 0; i < gameTries_.length; i++) {
             gameTries_[i].render(graph);
         }
-        graph.setColor(AssetsManager.getInstance().getBackgroundColor());
-        graph.fillRectangle(0, 0, sceneWidth_, sceneHeight_/6);
+//        graph.setColor(AssetsManager.getInstance().getBackgroundColor());
+//        graph.fillRectangle(0, 0, sceneWidth_, sceneHeight_/6);
         graph.setColor(AssetsManager.getInstance().getButtonColor());
         graph.fillRectangle(0, sceneHeight_ - 50, sceneWidth_, 50);
         graph.setFont(font2_);
@@ -108,10 +110,9 @@ public class myBoard extends GameObject {
         graph.drawText("Averigua el codigo", sceneWidth_ / 2, 10);
         graph.setFont(font3_);
         graph.drawText("Te quedan " + (this.tries_ - acutalTry_) + " intentos", sceneWidth_ / 2, 50);
-        for(int i=0;i<usableColorsCircles_.length;i++){
+        for (int i = 0; i < usableColorsCircles_.length; i++) {
             usableColorsCircles_[i].render(graph);
         }
-
     }
 
     @Override
@@ -128,8 +129,9 @@ public class myBoard extends GameObject {
                 return true;
         return false;
     }
-    public void TranslateY(int transY){
-        for (int i=0;i<gameTries_.length;i++){
+
+    public void TranslateY(int transY) {
+        for (int i = 0; i < gameTries_.length; i++) {
             gameTries_[i].TranslateY(transY);
         }
     }
