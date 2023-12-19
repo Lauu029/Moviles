@@ -23,7 +23,7 @@ public class myBoard extends GameObject {
     //para gestionar todos los inputs y renders de la clase tablero
     private ArrayList<GameObject> gameObjectsTable_ = new ArrayList<>();
 
-    private Font font1_, font2_, font3_;
+    private Font font1_, font2_, font3_, circleFont;
     private int hintsPos_;
     private boolean world_;
     //Colores totales que puede llegar a haber en una partida
@@ -113,6 +113,8 @@ public class myBoard extends GameObject {
     public void init() {
         font2_ = gm_.getIEngine().getGraphics().newFont("Lexendt.ttf", 20, true, false);
         font3_ = gm_.getIEngine().getGraphics().newFont("Lexendt.ttf", 17, false, false);
+        circleFont = GameManager.getInstance().getIEngine().getGraphics().
+                newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
     }
 
 
@@ -148,13 +150,20 @@ public class myBoard extends GameObject {
             gameTries_.add(g);
             gameObjectsTable_.add(g);
             tries_++;
-
         }
         nexTry();
     }
 
     int getTotalTries(){
         return tries_;
+    }
+    public void changeDaltonics(boolean dalt) {
+        for (GameTry g: gameTries_) {
+            g.changeDaltonics(dalt);
+        }
+        for(SolutionCircle s : usableColorsCircles_){
+            s.setDaltonics_(dalt);
+        }
     }
 
 }

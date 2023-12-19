@@ -168,4 +168,9 @@ public class GameTry extends GameObject {
     public int getButtonPosition(){
         return translateY_+height_;
     }
+    public void changeDaltonics(boolean dalt) {
+        for (TryCircle try_ : tries_) {
+            try_.setDaltonics_(dalt);
+        }
+    }
 }

@@ -64,7 +64,7 @@ public class Circle extends GameObject {
         if (image_ != null && tematica_.getName()!= "DEFAULT" )
             graph.drawImage(image_, this.posX_ - (radius_), this.posY_ - (radius_)+translateY_, this.radius_ * 2, this.radius_ * 2);
         else graph.drawCircle(this.posX_, this.posY_+translateY_, this.radius_);
-        if (this.isDaltonics_) {
+        if (this.isDaltonics_ && image_ ==null) {
             graph.setColor(0xFF000000);
             graph.setFont(this.font_);
             graph.drawText(this.text_, this.posX_, this.posY_+translateY_);

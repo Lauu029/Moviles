@@ -87,7 +87,7 @@ public class GameManager {
 
     public void changeDaltonicsMode() {
         this.daltonics_ = !this.daltonics_;
-        //this.board_.changeDaltonics(this.daltonics_);
+        this.board_.changeDaltonics(this.daltonics_);
     }
 
     public void setBoard(myBoard b) {
