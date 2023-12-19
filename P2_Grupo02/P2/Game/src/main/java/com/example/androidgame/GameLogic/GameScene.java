@@ -17,7 +17,7 @@ public class GameScene extends Scene {
     private Difficulty lev_;
     private GameManager gm_;
     private Sound myCrossSound_;
-    boolean scroll;
+    boolean scroll=false;
     int yIni;
     int yFin;
     Image backaground_;
@@ -142,7 +142,10 @@ public class GameScene extends Scene {
         super.handleInput(events);
         for(TouchEvent event:events){
             if(event.type== TouchEvent.TouchEventType.TOUCH_DOWN){
-                yIni=event.y;
+                if(!scroll){
+                    yIni=event.y;
+                }
+
 
             }
             else if(event.type==TouchEvent.TouchEventType.TOUCH_DRAG){
@@ -151,7 +154,7 @@ public class GameScene extends Scene {
                 scroll=true;
 
                 yFin=event.y;
-
+                Log.d("MEMUERO",""+yFin);
 
             }
             else if(event.type==TouchEvent.TouchEventType.TOUCH_UP){

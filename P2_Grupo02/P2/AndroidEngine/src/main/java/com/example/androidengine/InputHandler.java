@@ -1,5 +1,6 @@
 package com.example.androidengine;
 
+import android.text.method.Touch;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
@@ -41,12 +42,11 @@ public class InputHandler implements View.OnTouchListener {
         }
     }
     // Devuelve un objeto TouchEvent al pool
-    private void returnObject(TouchEvent obj) {
-        if (usedEvents_.contains(obj)) {
-            usedEvents_.remove(obj);
-            freeEvents_.add(obj);
-        } else {
-            throw new IllegalArgumentException("The object is not in use.");
+    void FreePool(){
+
+        while (!usedEvents_.isEmpty()) {
+            TouchEvent event = usedEvents_.remove(0);
+            freeEvents_.add(event);
         }
     }
     //Se llama cuando un evento touch se envía a una vista
@@ -66,7 +66,7 @@ public class InputHandler implements View.OnTouchListener {
             synchronized (this) { //Es necesario sincronizarlo para evitar fallos al borrar los elementos de esta lista
                 myPendingEvents_.add(event);
             }
-            returnObject(event);
+            //returnObject(event);
         } else if (action == motionEvent.ACTION_UP) {
             TouchEvent event = getEvent();
             event.x = (int) motionEvent.getX(index); //Obtiene las coordenadas donde ha tenido lugar la accion
@@ -75,7 +75,7 @@ public class InputHandler implements View.OnTouchListener {
             synchronized (this) { //Es necesario sincronizarlo para evitar fallos al borrar los elementos de esta lista
                 myPendingEvents_.add(event);
             }
-            returnObject(event);
+            //returnObject(event);
        }
         else if (action==motionEvent.ACTION_MOVE) {
             TouchEvent event = getEvent();
@@ -87,7 +87,7 @@ public class InputHandler implements View.OnTouchListener {
             synchronized (this) { //Es necesario sincronizarlo para evitar fallos al borrar los elementos de esta lista
                 myPendingEvents_.add(event);
             }
-            returnObject(event);
+            //returnObject(event);
         }
         return true;
     }
