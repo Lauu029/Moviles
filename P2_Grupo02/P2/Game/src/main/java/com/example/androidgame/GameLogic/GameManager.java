@@ -13,7 +13,7 @@ public class GameManager {
     private int width_, height_;
     private Difficulty levelDificulty_;
     private myBoard board_;
-    private int[] levelSolution_;
+    private int [] levelSolution_;
     private boolean daltonics_;
     private int coins_;
     private Image backgroundImage_;

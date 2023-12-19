@@ -17,7 +17,7 @@ public class myBoard extends GameObject {
     private int limitUp, limitDown;
     //Lógica de espacio y dimensiones en la pantalla
     private int sceneWidth_, sceneHeight_;
-    private GameTry[] gameTries_;
+    private ArrayList<GameTry> gameTries_;
     private SolutionCircle[] usableColorsCircles_;
     private GameManager gm_;
     //para gestionar todos los inputs y renders de la clase tablero
@@ -45,29 +45,27 @@ public class myBoard extends GameObject {
         usableColorsCircles_ = new SolutionCircle[usableColors_];
         limitUp = sceneHeight_ / 6 + 10;
         limitDown = sceneHeight_ - 50;
-        gameTries_ = new GameTry[tries_];
+        gameTries_ = new ArrayList<>();
         int offset = 100;
         for (int i = 0; i < tries_; i++) {
-            gameTries_[i] = new GameTry(codeColors_, i, 40, world, limitUp, limitDown);
-            gameTries_[i].init();
-            gameTries_[i].TranslateY(offset);
+            GameTry g = new GameTry(codeColors_, i, 40, world, limitUp, limitDown);
+            g.init();
+            g.TranslateY(offset);
             offset += 50;
-            gameObjectsTable_.add(gameTries_[i]);
-
+            gameTries_.add(g);
+            gameObjectsTable_.add(g);
         }
         int circleRad_ = 20;
         offset = 4;
         int totalCircleWidth = usableColors_ * (circleRad_ * 2 + offset); // Ancho total de todos los círculos
         int x_ = (sceneWidth_ - totalCircleWidth) / 2;
         for (int i = 0; i < usableColors_; i++) {
-            Log.d("MainActivity", "Color added");
             usableColorsCircles_[i] = new SolutionCircle(Integer.toString(i), this.font1_, 20, 0, 0, -1, world_);
             usableColorsCircles_[i].setPositions(x_ + i * (circleRad_ * 2 + offset) + circleRad_, sceneHeight_ - 45 + circleRad_);
             usableColorsCircles_[i].setColor_(totalPossibleColors[i]);
             usableColorsCircles_[i].setImage("" + (i + 1));
             usableColorsCircles_[i].setIdColor_(i);
             gameObjectsTable_.add(usableColorsCircles_[i]);
-
         }
     }
 
@@ -77,19 +75,19 @@ public class myBoard extends GameObject {
         acutalTry_++;
         gm_.resetLevelSolution();
         for (int i = 0; i < this.tries_; i++) {
-            gameTries_[i].setGameTry(acutalTry_);
+            gameTries_.get(i).setGameTry(acutalTry_);
         }
     }
 
     //Coloca las pistas para el siguiente intento dependiendo de la cantidad de colores y posiciones correctas
     public void setNewHints(int correctPositions, int correctColors) {
-        gameTries_[acutalTry_].setNewHints(correctPositions, correctColors);
+        gameTries_.get(acutalTry_).setNewHints(correctPositions, correctColors);
     }
 
     @Override
     public void update(double time) {
-        for (int i = 0; i < gameTries_.length; i++) {
-            gameTries_[i].update(time);
+        for (int i = 0; i < gameTries_.size(); i++) {
+            gameTries_.get(i).update(time);
         }
         for (int i = 0; i < usableColorsCircles_.length; i++) {
             usableColorsCircles_[i].update(time);
@@ -98,11 +96,8 @@ public class myBoard extends GameObject {
 
     @Override
     public void render(Graphics graph) {
-        for (int i = 0; i < gameTries_.length; i++) {
-            gameTries_[i].render(graph);
-        }
-//        graph.setColor(AssetsManager.getInstance().getBackgroundColor());
-//        graph.fillRectangle(0, 0, sceneWidth_, sceneHeight_/6);
+        for (int i = 0; i < gameTries_.size(); i++)
+            gameTries_.get(i).render(graph);
         graph.setColor(AssetsManager.getInstance().getButtonColor());
         graph.fillRectangle(0, sceneHeight_ - 50, sceneWidth_, 50);
         graph.setFont(font2_);
@@ -110,9 +105,8 @@ public class myBoard extends GameObject {
         graph.drawText("Averigua el codigo", sceneWidth_ / 2, 10);
         graph.setFont(font3_);
         graph.drawText("Te quedan " + (this.tries_ - acutalTry_) + " intentos", sceneWidth_ / 2, 50);
-        for (int i = 0; i < usableColorsCircles_.length; i++) {
+        for (int i = 0; i < usableColorsCircles_.length; i++)
             usableColorsCircles_[i].render(graph);
-        }
     }
 
     @Override
@@ -131,8 +125,8 @@ public class myBoard extends GameObject {
     }
 
     public void TranslateY(int transY) {
-        for (int i = 0; i < gameTries_.length; i++) {
-            gameTries_[i].TranslateY(transY);
+        for (int i = 0; i < gameTries_.size(); i++) {
+            gameTries_.get(i).TranslateY(transY);
         }
     }
 
@@ -141,7 +135,26 @@ public class myBoard extends GameObject {
     }
 
     public void putNewColor(int id, int color) {
-        gameTries_[acutalTry_].putNewColor(id, color);
+        gameTries_.get(acutalTry_).putNewColor(id, color);
+    }
+
+    public void addNewTries(int newTries) {
+        int offset = gameTries_.get(tries_ - 1).getButtonPosition()+10;
+        for (int i = 0; i < newTries; i++) {
+            GameTry g = new GameTry(codeColors_, tries_, 40, world_, limitUp, limitDown);
+            g.init();
+            g.TranslateY(offset);
+            offset += 50;
+            gameTries_.add(g);
+            gameObjectsTable_.add(g);
+            tries_++;
+
+        }
+        nexTry();
+    }
+
+    int getTotalTries(){
+        return tries_;
     }
 
 }

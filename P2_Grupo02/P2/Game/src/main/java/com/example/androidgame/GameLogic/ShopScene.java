@@ -62,7 +62,7 @@ public class ShopScene extends Scene {
         backButton_ = new ButtonImage("flecha.png", 40, 40, 0, 0, myArrowSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                SceneManager.getInstance().getScene(SceneNames.MENU.ordinal());
+                SceneManager.getInstance().setScene(SceneNames.MENU.ordinal());
             }
         });
         previousShop_ = new ButtonImage("FlechasIzq.png", 35, 35, width_ / 2 - 120, 5, myArrowSound_, new ButtonClickListener() {

@@ -51,7 +51,7 @@ public class DifficultyScene extends Scene {
         ButtonImage returnButton_ = new ButtonImage("flecha.png", 40, 40, 0, 0, myArrowSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                SceneManager.getInstance().getScene(SceneNames.MENU.ordinal());
+                SceneManager.getInstance().setScene(SceneNames.MENU.ordinal());
             }
         });
         this.addGameObject(returnButton_);

@@ -67,7 +67,7 @@ public class GameScene extends Scene {
                     idScene = SceneNames.DIFFICULTY.ordinal();
                 else
                     idScene= SceneNames.WORLD.ordinal();
-                SceneManager.getInstance().getScene(idScene);
+                SceneManager.getInstance().setScene(idScene);
 
 
             }
@@ -102,7 +102,7 @@ public class GameScene extends Scene {
             if (mySolution_.getCorrectPos(try_) == this.lev_.getSolutionColors()) {
                 ChangeEndScene(true, try_);
 
-            } else if (try_ == lev_.getTries() - 1) {
+            } else if (try_ ==gameBoard_.getTotalTries() - 1) {
                 ChangeEndScene(false, try_);
             } else {
                 gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
@@ -161,5 +161,8 @@ public class GameScene extends Scene {
                 scroll=false;
             }
         }
+    }
+    public void addTriesToBoard(int numTries){
+        gameBoard_.addNewTries(numTries);
     }
 }

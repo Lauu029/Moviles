@@ -26,7 +26,7 @@ public class Solution {
         Random rand = new Random();
         //aqui se guardan las soluciones para luego ser renderizadas,registerSols[x][0] hara ref a la posiciones correctas,
         //registerSols[x][1] hara ref a lod colores correctos
-        this.registeredSols_ = new int[maxTries][2];
+        this.registeredSols_ = new int[maxTries + 2][2];
         // Generar un número aleatorio en el rango
 
         for (int i = 0; i < solutionSize_; i++) {

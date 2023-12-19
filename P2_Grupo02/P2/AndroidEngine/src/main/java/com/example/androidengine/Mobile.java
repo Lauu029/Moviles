@@ -44,6 +44,7 @@ public class Mobile {
     private Activity myActivity_;
     private static final String CHANNEL_ID = "MasterMind";
     private RewardedAd rewardedAd_;
+    private boolean rewardOwned_;
 
     public Mobile(Context c, Activity activity) {
         this.context_ = c;
@@ -100,6 +101,7 @@ public class Mobile {
     }
 
     public void LoadRewardedAd() {
+        rewardOwned_=false;
         myActivity_.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -109,6 +111,7 @@ public class Mobile {
                         public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
                             // Handle the reward.
                             Log.d("MainActivity", "The user earned the reward.");
+                            rewardOwned_=true;
                             //int rewardAmount = rewardItem.getAmount();
                             //String rewardType = rewardItem.getType();
                         }
@@ -119,6 +122,9 @@ public class Mobile {
                 }
             }
         });
+    }
+    public boolean hasEarnedReward(){
+        return rewardOwned_;
     }
 
     private void createNotificationChannel() {

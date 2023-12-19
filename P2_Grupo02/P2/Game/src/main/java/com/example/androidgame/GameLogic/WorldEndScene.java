@@ -103,7 +103,7 @@ public class WorldEndScene extends EndScene{
                 /*SceneNames.LEVEL,*/ myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                SceneManager.getInstance().getScene(SceneNames.MENU.ordinal());
+                SceneManager.getInstance().setScene(SceneNames.MENU.ordinal());
 
             }
         });

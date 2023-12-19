@@ -165,4 +165,7 @@ public class GameTry extends GameObject {
             }
         }
     }
+    public int getButtonPosition(){
+        return translateY_+height_;
+    }
 }
