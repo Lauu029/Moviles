@@ -87,13 +87,10 @@ public class WorldEndScene extends EndScene{
                     /* SceneNames.GAME, GameManager.getInstance_().getLevel().getLevelDiff_(),*/ myButtonSound_, new ButtonClickListener() {
                 @Override
                 public void onClick() {
-
-
                     GameManager.getInstance().setLevel(difNextLevel);
                     Engine engine_ = GameManager.getInstance().getIEngine();
                     engine_.getAudio().playSound(myButtonSound_, 0);
-
-                    //SceneManager.getInstance().addScene(new GameScene(true));
+                    SceneManager.getInstance().addScene(new GameScene(true),SceneNames.GAME.ordinal());
                 }
             });
             addGameObject(nextLevelButton);
