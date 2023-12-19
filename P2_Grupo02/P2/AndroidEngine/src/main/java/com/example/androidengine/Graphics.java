@@ -10,6 +10,7 @@ import android.graphics.RectF;
 import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.util.Log;
 import android.view.PixelCopy;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -46,6 +47,7 @@ public class Graphics {
         //Calcula el factor de escalado para el tamanyo deseado
         float scaleW = (float) width_ / (float) sceneWidth;
         float scaleH = (float) height_ / (float) sceneHeight;
+        Log.d("EscaladoPocho", "CanvasHeight: "+height_);
         //Guarda el menor de los factores
         if (scaleW < scaleH)
             scale_ = scaleW;

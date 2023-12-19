@@ -52,7 +52,7 @@ public class Mobile {
         MobileAds.initialize(this.context_, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {
-                Log.d("MainActivity", "Starting");
+
             }
         });
         adRequest_ = new AdRequest.Builder().build();

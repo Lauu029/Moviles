@@ -87,6 +87,7 @@ public class Engine implements Runnable {
             double elapsedTime = (double) nanoElapsedTime / 1.0E9;
             //Reescalado de la escena (por si ha aumentado o reducido su tamaño)
             myGraphics_.resize(myScene_.getWidth_(), myScene_.getHeight_());
+
             //Reescalado del input dentro de la escena
             for (TouchEvent event : myInput_.getTouchEvent()) {
                 event.x -= myGraphics_.getTranslateX_();
