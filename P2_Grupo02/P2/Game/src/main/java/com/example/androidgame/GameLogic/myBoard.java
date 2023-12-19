@@ -43,7 +43,7 @@ public class myBoard extends GameObject {
         this.sceneHeight_ = scH;
         this.daltonics_ = false;
         usableColorsCircles_ = new SolutionCircle[usableColors_];
-        limitUp = sceneHeight_ / 6;
+        limitUp = sceneHeight_ / 6 + 10;
         limitDown = sceneHeight_ - 50;
         gameTries_ = new GameTry[tries_];
         int offset = 100;
