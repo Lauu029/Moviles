@@ -24,8 +24,8 @@ public class ShopScene extends Scene {
     private String[] textShops_ = {"fondos", "codigos", "colores"};
     private String[] shopName_;
     private ButtonImage previousShop_, nextShop_;
-
-    private ArrayList<ArrayList<ShopItem>> totalShopItems_ = new ArrayList<>();
+    private ArrayList<ShopItem>[] totalShopItems_;
+    private ButtonClickListener[] nullButtonFunctions;
     private int id_;
     private int rectangleColor, fontColor;
     private Image coinsIcon_;
@@ -46,12 +46,15 @@ public class ShopScene extends Scene {
         blockedImage = iEngine_.getGraphics().newImage("lock.png");
         noneButton_ = new ButtonImage("Shop/NudeButton.png", 100, 100, 25, 130,
                 myArrowSound_, null);
-        rectangleColor=AssetsManager.getInstance().getButtonColor();
+        rectangleColor = AssetsManager.getInstance().getButtonColor();
         fontColor = AssetsManager.getInstance().getTextColor();
         gameObjects_.add(noneButton_);
+        totalShopItems_ = (ArrayList<ShopItem>[]) new ArrayList[3];
         InputStream file = iEngine_.getFileManager().getInputStream("Shop/Shops.json");
         shopConfig = readShopConfig(file);
+        initializeNudeButtonFunctions();
         id_ = 0;
+        noneButton_.setAction(nullButtonFunctions[id_]);
         shopName_ = new String[textShops_.length];
         getShopTypeData(textShops_[id_]);
         itemsLoaded_[id_] = true;
@@ -65,38 +68,41 @@ public class ShopScene extends Scene {
         previousShop_ = new ButtonImage("FlechasIzq.png", 35, 35, width_ / 2 - 120, 5, myArrowSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                for (int i = 0; i < totalShopItems_.get(id_).size(); i++) {
+                Log.d("MainActivity", "id: " + id_ + " size");
+                for (int i = 0; i < totalShopItems_[id_].size(); i++) {
                     Log.d("MainActivity", "id= " + id_ + " pointer: " + i);
-                    totalShopItems_.get(id_).get(i).changeActive(false);
+                    totalShopItems_[id_].get(i).changeActive(false);
                 }
                 if (id_ == 0) id_ = 2;
                 else
                     id_ = (id_ - 1) % 3;
+                noneButton_.setAction(nullButtonFunctions[id_]);
                 if (!itemsLoaded_[id_]) {
                     getShopTypeData(textShops_[id_]);
                     itemsLoaded_[id_] = true;
                 } else {
-                    for (int i = 0; i < totalShopItems_.get(id_).size(); i++) {
-                        totalShopItems_.get(id_).get(i).changeActive(true);
+                    for (int i = 0; i < totalShopItems_[id_].size(); i++) {
+                        totalShopItems_[id_].get(i).changeActive(true);
                     }
                 }
                 Log.d("MainActivity", String.valueOf(id_));
             }
         });
-        previousShop_.changeActive(false);
+        //previousShop_.changeActive(false);
         nextShop_ = new ButtonImage("FlechasDcha.png", 35, 35, width_ / 2 + 120, 5, myArrowSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                for (int i = 0; i < totalShopItems_.get(id_).size(); i++) {
-                    totalShopItems_.get(id_).get(i).changeActive(false);
+                for (int i = 0; i < totalShopItems_[id_].size(); i++) {
+                    totalShopItems_[id_].get(i).changeActive(false);
                 }
                 id_ = (id_ + 1) % 3;
+                noneButton_.setAction(nullButtonFunctions[id_]);
                 if (!itemsLoaded_[id_]) {
                     getShopTypeData(textShops_[id_]);
                     itemsLoaded_[id_] = true;
                 } else {
-                    for (int i = 0; i < totalShopItems_.get(id_).size(); i++) {
-                        totalShopItems_.get(id_).get(i).changeActive(true);
+                    for (int i = 0; i < totalShopItems_[id_].size(); i++) {
+                        totalShopItems_[id_].get(i).changeActive(true);
                     }
                 }
             }
@@ -129,11 +135,9 @@ public class ShopScene extends Scene {
 
     @Override
     public void update(double time) {
-        if (!previousShop_.isActive() && id_ >= 1)
-            previousShop_.changeActive(true);
-        if(this.rectangleColor!= AssetsManager.getInstance().getButtonColor())
+        if (this.rectangleColor != AssetsManager.getInstance().getButtonColor())
             this.rectangleColor = AssetsManager.getInstance().getButtonColor();
-        if(this.fontColor!= AssetsManager.getInstance().getTextColor())
+        if (this.fontColor != AssetsManager.getInstance().getTextColor())
             this.fontColor = AssetsManager.getInstance().getTextColor();
     }
 
@@ -175,32 +179,31 @@ public class ShopScene extends Scene {
 
                 for (int i = 0; i < buttonsArray.length(); i++) {
                     String nombre = buttonsArray.getString(i);
-                    ShopManager.getInstance().registerShopItem(id_,i);
+                    ShopManager.getInstance().registerShopItem(id_, i);
 
-                    ShopItem item  = new ShopItem(path + nombre + "Button" + ext, 100, 100, xPos,
+                    ShopItem item = new ShopItem(path + nombre + "Button" + ext, 100, 100, xPos,
                             yPos, shopingSound_, id_, i, 1);
                     item.setAction(new ButtonClickListener() {
                         @Override
-                            public void onClick() {
-                                item.buyItem();
-                                if(item.isUnlocked())
-                                {
-                                    Theme theme = new Theme("PURCHASED", "", "", "");
-                                    switch (shopName_[id_]) {
-                                        case "Fondos":
-                                            theme.setBackground(path + nombre + ext);
-                                            AssetsManager.getInstance().setBackgroundTheme(theme);
-                                            break;
-                                        case "Codigos":
-                                            theme.setPathBolas(path + nombre + "/");
-                                            AssetsManager.getInstance().setCirleTheme(theme, false);
-                                            break;
-                                        case "Colores":
-                                            AssetsManager.getInstance().addNewPalette(nombre);
-                                            break;
-                                    }
+                        public void onClick() {
+                            item.buyItem();
+                            if (item.isUnlocked()) {
+                                Theme theme = new Theme("PURCHASED", "", "", "");
+                                switch (shopName_[id_]) {
+                                    case "Fondos":
+                                        theme.setBackground(path + nombre + ext);
+                                        AssetsManager.getInstance().setBackgroundTheme(theme);
+                                        break;
+                                    case "Codigos":
+                                        theme.setPathBolas(path + nombre + "/");
+                                        AssetsManager.getInstance().setCirleTheme(theme, false);
+                                        break;
+                                    case "Colores":
+                                        AssetsManager.getInstance().addNewPalette(nombre);
+                                        break;
                                 }
                             }
+                        }
                     });
                     item.addOverlayImage(blockedImage);
                     xPos += 130;
@@ -213,11 +216,33 @@ public class ShopScene extends Scene {
                     }
                     Log.d("MainActivity", "Button " + nombre + " loaded");
                 }
-                totalShopItems_.add(shopItems_);
+                totalShopItems_[id_] = shopItems_;
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.e("MainActivity", "Error al procesar la configuración de la tienda");
             }
         }
+    }
+
+    private void initializeNudeButtonFunctions() {
+        nullButtonFunctions = new ButtonClickListener[3];
+        nullButtonFunctions[0] = new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                AssetsManager.getInstance().setDefaultBackground();
+            }
+        };
+        nullButtonFunctions[1] = new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                AssetsManager.getInstance().setDefaultCodes();
+            }
+        };
+        nullButtonFunctions[2] = new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                AssetsManager.getInstance().setDefaultPalette();
+            }
+        };
     }
 }

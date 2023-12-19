@@ -2,9 +2,6 @@ package com.example.androidgame.GameLogic;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.example.androidengine.Engine;
 import com.example.androidengine.Image;
 
@@ -16,11 +13,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 
 public class AssetsManager {
@@ -93,46 +86,10 @@ public class AssetsManager {
     public void setPaletteTheme(String paletteColor/*int idPalette*/) {
         paletteColor_ = paletteColor;
         int[] putColors_ = coloresFondo_.get(paletteColor);
-        //Log.d("MainActivity","Numero de colores: "+putColors_.length);
-//        for(int i=0;i<coloresFondo_.size();i++){
-//            Log.d("MainActivity",coloresFondo_[i]);
-//        }
         backgroundColor_ = putColors_[0];
         buttonColor_ = putColors_[1];
         textColor_ = putColors_[2];
         lineColor_ = putColors_[3];
-//        switch (paletteColor) {
-//            case "DEFAULT":
-//                backgroundColor_ = defaultPalette[0];
-//                buttonColor_ = defaultPalette[1];
-//                textColor_ = defaultPalette[2];
-//                lineColor_ = defaultPalette[3];
-//                break;
-//            case "YELLOW":
-//                backgroundColor_ = yellowPalette[0];
-//                buttonColor_ = yellowPalette[1];
-//                textColor_ = yellowPalette[2];
-//                lineColor_ = yellowPalette[3];
-//                break;
-//            case "BLUE":
-//                backgroundColor_ = bluePalette[0];
-//                buttonColor_ = bluePalette[1];
-//                textColor_ = bluePalette[2];
-//                lineColor_ = bluePalette[3];
-//                break;
-//            case "GREEN":
-//                backgroundColor_ = greenPalette[0];
-//                buttonColor_ = greenPalette[1];
-//                textColor_ = greenPalette[2];
-//                lineColor_ = greenPalette[3];
-//                break;
-//            case "HOT_PINK":
-//                backgroundColor_ = hotPinkPalette[0];
-//                buttonColor_ = hotPinkPalette[1];
-//                textColor_ = hotPinkPalette[2];
-//                lineColor_ = hotPinkPalette[3];
-//                break;
-//        }
     }
 
     void setBackgroundTheme(Theme t) {
@@ -166,10 +123,8 @@ public class AssetsManager {
             nuevoTema.put(tema.getPathBolas(), tema.getPurchased());
             tematica_.put(temaName, nuevoTema);
         }
-
         worldCircleTheme_ = tema;
         worldbackgrounTheme_ = tema;
-
     }
 
     public static AssetsManager getInstance() {
@@ -185,20 +140,21 @@ public class AssetsManager {
         nuevoValor.put("", true);
         instance_.tematica_.put(nuevaClave, nuevoValor);
         instance_.getColorPalette();
-        instance_.coloresFondo_.put("DEFAULT",instance_.defaultPalette);
+        instance_.coloresFondo_.put("DEFAULT", instance_.defaultPalette);
         return 1;
     }
 
     void setDefaultPalette() {
-
+        paletteColor_ = "DEFAULT";
+        setPaletteTheme(paletteColor_);
     }
 
-    void setDefaultbackround() {
+    void setDefaultBackground() {
         backgrounTheme_.setBackground("");
     }
 
     void setDefaultCodes() {
-
+        circleTheme_ = new Theme("DEFAULT", "", "", "");
     }
 
     void getColorPalette() {
@@ -213,7 +169,7 @@ public class AssetsManager {
         setPaletteTheme(color);
     }
 
-    int[] getColorsArray(String path) {
+    private int[] getColorsArray(String path) {
         if (colorPalettesJson_ != null) {
             JSONObject config = null;
             try {
@@ -235,7 +191,7 @@ public class AssetsManager {
 
     private static int parseHexToInt(String hex) {
         // Quitar el prefijo "0x" si está presente
-        hex = hex.substring(2) ;
+        hex = hex.substring(2);
         // Convertir el hexadecimal a un entero
         return (int) Long.parseLong(hex, 16);
     }
