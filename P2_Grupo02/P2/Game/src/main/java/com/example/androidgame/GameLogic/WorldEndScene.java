@@ -7,8 +7,8 @@ import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
 
 public class WorldEndScene extends EndScene{
-    public WorldEndScene(boolean win, int[] sol, int intentos) {
-        super(win, sol, intentos, true);
+    public WorldEndScene(boolean win, int[] sol, int intentos, boolean canGetReward) {
+        super(win, sol, intentos, canGetReward);
     }
     @Override
     protected void initButtons(){
@@ -18,8 +18,6 @@ public class WorldEndScene extends EndScene{
 
     }
     void GameOver(){
-
-
         Graphics graph = iEngine_.getGraphics();
 
         Button moreTryesButton_ = new Button("+2 intentos", font2_, AssetsManager.getInstance().getButtonColor(),
@@ -58,12 +56,8 @@ public class WorldEndScene extends EndScene{
             }
         });
         addGameObject(menuButton);
-
-
     }
     void WinButtons(){
-
-
         Graphics graph = iEngine_.getGraphics();
 
         Button shareRecordButton_ = new Button("Compartir", font2_, AssetsManager.getInstance().getButtonColor(),

@@ -27,7 +27,7 @@ public class EndScene extends Scene {
     protected boolean win_ = false;
     protected ImageProcessingCallback callback;
     protected Theme tematica_;
-    boolean canGetReward_;
+   protected boolean canGetReward_;
 
     public EndScene(boolean win, int[] sol, int intentos, boolean canGetReward) {
         super();

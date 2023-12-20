@@ -114,7 +114,7 @@ public class GameScene extends Scene {
             EndScene end = new EndScene(win, mySolution_.getSol_(), try_, canGetReward_);
             SceneManager.getInstance().addScene(end, SceneNames.FINAL.ordinal());
         } else {
-            WorldEndScene worldEnd = new WorldEndScene(win, mySolution_.getSol_(), try_);
+            WorldEndScene worldEnd = new WorldEndScene(win, mySolution_.getSol_(), try_, canGetReward_);
             SceneManager.getInstance().addScene(worldEnd, SceneNames.WORLD_FINAL.ordinal());
         }
 

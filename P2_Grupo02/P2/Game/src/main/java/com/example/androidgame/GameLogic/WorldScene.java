@@ -141,7 +141,6 @@ public class WorldScene extends Scene {
         super.handleInput(events);
         for (GameObject g : buttonObjects_)
             for (TouchEvent event : events) {
-
                 if (g.handleInput(event))
                     return;
             }
