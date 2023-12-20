@@ -17,25 +17,21 @@ public class GameScene extends Scene {
     private Difficulty lev_;
     private GameManager gm_;
     private Sound myCrossSound_;
-    boolean scroll;
+    boolean scroll = false;
     int yIni;
     int yFin;
+    boolean canGetReward_;
     Image backaground_;
 
     public GameScene(boolean world) {
         super();
         world_ = world;
+        canGetReward_ = true;
 
     }
 
     //Inicializa los botones, el tablero y la solución
     public void init() {
-
-//        if(AssetsManager.getInstance().getBackgrounTheme(world_).getName()!="DEFAULT"){
-//            String imagePath = AssetsManager.getInstance().getBackgroundImage(world_);
-//            backaground_ = iEngine_.getGraphics().newImage(imagePath);
-//        }
-
         this.font_ = this.iEngine_.getGraphics().newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
         this.gm_ = GameManager.getInstance();
         this.lev_ = this.gm_.getLevel();
@@ -63,11 +59,11 @@ public class GameScene extends Scene {
             @Override
             public void onClick() {
                 int idScene;
-                if(!world_)
+                if (!world_)
                     idScene = SceneNames.DIFFICULTY.ordinal();
                 else
-                    idScene= SceneNames.WORLD.ordinal();
-                SceneManager.getInstance().getScene(idScene);
+                    idScene = SceneNames.WORLD.ordinal();
+                SceneManager.getInstance().setScene(idScene);
 
 
             }
@@ -80,12 +76,12 @@ public class GameScene extends Scene {
      * si se ha ganado el juego o perdido por superar el numero de  intentos y si no se ha ganado
      * ni se ha acabado crea nuevas pistas en la clase tablero y avanza al siguiente intento*/
     public void update(double time) {
-        if(scroll){
-            int speed=yFin-yIni;
+        if (scroll) {
+            int speed = yFin - yIni;
 //            Log.d("HOLA","Speed " + speed );
 
             gameBoard_.TranslateY(speed);
-            yIni=yFin;
+            yIni = yFin;
 
         }
         int[] tempSol = gm_.getLevelSolution();
@@ -102,7 +98,7 @@ public class GameScene extends Scene {
             if (mySolution_.getCorrectPos(try_) == this.lev_.getSolutionColors()) {
                 ChangeEndScene(true, try_);
 
-            } else if (try_ == lev_.getTries() - 1) {
+            } else if (try_ == gameBoard_.getTotalTries() - 1) {
                 ChangeEndScene(false, try_);
             } else {
                 gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
@@ -114,10 +110,11 @@ public class GameScene extends Scene {
 
     protected void ChangeEndScene(boolean win, int try_) {
         if (!world_) {
-            EndScene end = new EndScene(win, mySolution_.getSol_(), try_);
+            if (win) canGetReward_ = false;
+            EndScene end = new EndScene(win, mySolution_.getSol_(), try_, canGetReward_);
             SceneManager.getInstance().addScene(end, SceneNames.FINAL.ordinal());
         } else {
-            WorldEndScene worldEnd = new WorldEndScene(win, mySolution_.getSol_(), try_);
+            WorldEndScene worldEnd = new WorldEndScene(win, mySolution_.getSol_(), try_, canGetReward_);
             SceneManager.getInstance().addScene(worldEnd, SceneNames.WORLD_FINAL.ordinal());
         }
 
@@ -137,26 +134,33 @@ public class GameScene extends Scene {
             gameObjects_.get(i).render(iEngine_.getGraphics());
         }
     }
+
     @Override
-    public void handleInput(ArrayList<TouchEvent> events){
+    public void handleInput(ArrayList<TouchEvent> events) {
         super.handleInput(events);
-        for(TouchEvent event:events){
-            if(event.type== TouchEvent.TouchEventType.TOUCH_DOWN){
-                yIni=event.y;
-
-            }
-            else if(event.type==TouchEvent.TouchEventType.TOUCH_DRAG){
-
-
-                scroll=true;
-
-                yFin=event.y;
+        for (TouchEvent event : events) {
+            if (event.type == TouchEvent.TouchEventType.TOUCH_DOWN) {
+                if (!scroll) {
+                    yIni = event.y;
+                }
 
 
-            }
-            else if(event.type==TouchEvent.TouchEventType.TOUCH_UP){
-                scroll=false;
+            } else if (event.type == TouchEvent.TouchEventType.TOUCH_DRAG) {
+
+
+                scroll = true;
+
+                yFin = event.y;
+                Log.d("MEMUERO", "" + yFin);
+
+            } else if (event.type == TouchEvent.TouchEventType.TOUCH_UP) {
+                scroll = false;
             }
         }
+    }
+
+    public void addTriesToBoard(int numTries) {
+        gameBoard_.addNewTries(numTries);
+        canGetReward_ = false;
     }
 }

@@ -57,7 +57,7 @@ public class SceneManager {
     }
 
     // Method to switch to the previous scene
-    public void getScene(int idScene) {
+    public void setScene(int idScene) {
         myEngine_.setScene(sceneList_[idScene]);
 //        if (sceneStack.size() > 1) {
 //            sceneStack.pop(); // Removes the current scene
@@ -65,6 +65,9 @@ public class SceneManager {
 //            myEngine_=GameManager.getInstance().getIEngine();
 //            myEngine_.setScene(getCurrentScene());
 //        }
+    }
+    public Scene getScene(int idScene){
+        return sceneList_[idScene];
     }
 
     // Other methods and properties of the SceneManager class can go here

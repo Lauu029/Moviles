@@ -44,6 +44,21 @@ public class Mobile {
     private Activity myActivity_;
     private static final String CHANNEL_ID = "MasterMind";
     private RewardedAd rewardedAd_;
+    private boolean rewardEarned_;
+
+    class MyRewardedAdLoadCallback extends RewardedAdLoadCallback {
+        @Override
+        public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+            Log.d("MainActivity", loadAdError.toString());
+            rewardedAd_ = null;
+        }
+
+        @Override
+        public void onAdLoaded(@NonNull RewardedAd ad) {
+            rewardedAd_ = ad;
+            Log.d("MainActivity", "Rewarded ad was loaded.");
+        }
+    }
 
     public Mobile(Context c, Activity activity) {
         this.context_ = c;
@@ -52,7 +67,7 @@ public class Mobile {
         MobileAds.initialize(this.context_, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {
-                Log.d("MainActivity", "Starting");
+
             }
         });
         adRequest_ = new AdRequest.Builder().build();
@@ -64,8 +79,8 @@ public class Mobile {
             }
 
             @Override
-            public void onAdLoaded(@NonNull RewardedAd ad) {
-                rewardedAd_ = ad;
+            public void onAdLoaded(@NonNull RewardedAd rewardedAd) {
+                rewardedAd_ = rewardedAd;
                 Log.d("MainActivity", "Rewarded ad was loaded.");
             }
         });
@@ -81,25 +96,13 @@ public class Mobile {
             Log.e("MainActivity", "AdView is null");
         }
     }
-    public void processImage(Bitmap bitmap) {
-
-        shareImage(bitmap, "He superado un nuevo nivel en Mastermind!");
-    }
-    public void shareImage(Bitmap bitmap, String msj) {
-        String pathBitmap = MediaStore.Images.Media.insertImage(context_.getContentResolver(), bitmap, "titulo", "descripcion");
-        Uri uri = Uri.parse(pathBitmap);
-        Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
-        shareIntent.setType("image/*");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, msj);
-        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-        this.myActivity_.startActivity(Intent.createChooser(shareIntent, "ActicityTitle"));
-    }
 
     public void Init() {
 
     }
 
     public void LoadRewardedAd() {
+        rewardEarned_ = false;
         myActivity_.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -109,8 +112,7 @@ public class Mobile {
                         public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
                             // Handle the reward.
                             Log.d("MainActivity", "The user earned the reward.");
-                            //int rewardAmount = rewardItem.getAmount();
-                            //String rewardType = rewardItem.getType();
+                            rewardEarned_ = true;
                         }
                     });
                 } else {
@@ -119,6 +121,48 @@ public class Mobile {
                 }
             }
         });
+        loadNewRewardedAd();
+    }
+
+    public boolean hasEarnedReward() {
+        return rewardEarned_;
+    }
+
+    private void loadNewRewardedAd() {
+        myActivity_.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                RewardedAd.load(context_, "ca-app-pub-3940256099942544/5224354917", adRequest_,
+                        new RewardedAdLoadCallback() {
+                            @Override
+                            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                                Log.d("MainActivity", loadAdError.toString());
+                                rewardedAd_ = null;
+                            }
+
+                            @Override
+                            public void onAdLoaded(@NonNull RewardedAd rewardedAd) {
+                                rewardedAd_ = rewardedAd;
+                                Log.d("MainActivity", "Rewarded ad was loaded.");
+                            }
+                        });
+            }
+        });
+    }
+
+    public void processImage(Bitmap bitmap) {
+
+        shareImage(bitmap, "He superado un nuevo nivel en Mastermind!");
+    }
+
+    public void shareImage(Bitmap bitmap, String msj) {
+        String pathBitmap = MediaStore.Images.Media.insertImage(context_.getContentResolver(), bitmap, "titulo", "descripcion");
+        Uri uri = Uri.parse(pathBitmap);
+        Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+        shareIntent.setType("image/*");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, msj);
+        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        this.myActivity_.startActivity(Intent.createChooser(shareIntent, "ActicityTitle"));
     }
 
     private void createNotificationChannel() {
@@ -163,13 +207,14 @@ public class Mobile {
         }
         notificationManager.notify(1, builder.build());
     }
-    public void programNotification(int time, TimeUnit timeUnit,int icon,String title,String firstText) {
+
+    public void programNotification(int time, TimeUnit timeUnit, int icon, String title, String firstText) {
 
         WorkRequest request = new OneTimeWorkRequest.Builder(ReminderWorker.class)
                 .setInitialDelay(time, timeUnit)
                 .setInputData(new Data.Builder()
                         .putString("title", title)
-                        .putString("firstText",firstText)
+                        .putString("firstText", firstText)
                         .putInt("notifications_icon", icon)
                         .putString("notifications_channel_id", CHANNEL_ID)
                         .putString("package_name", myActivity_.getPackageName())
@@ -179,7 +224,8 @@ public class Mobile {
         // Programa la tarea para ser ejecutada por el WorkManager
         WorkManager.getInstance(this.myActivity_.getApplicationContext()).enqueue(request);
     }
-    public void sendWork(WorkRequest work){
+
+    public void sendWork(WorkRequest work) {
         WorkManager.getInstance(this.myActivity_.getApplicationContext()).enqueue(work);
     }
 }

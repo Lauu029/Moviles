@@ -21,7 +21,6 @@ public class ButtonImage extends Button {
     public void render(Graphics graph) {
         if (active) {
             graph.drawImage(buttonImage_, this.posX_, this.posY_, width_, height_);
-
         }
     }
 

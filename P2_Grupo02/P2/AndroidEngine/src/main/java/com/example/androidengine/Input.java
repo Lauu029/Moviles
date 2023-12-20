@@ -23,6 +23,8 @@ public class Input {
     }
     public synchronized void myEventsClear() {
         myTouchEvent_.clear();
-    } // Limpia la lista de eventos
+        myInputHandler_.FreePool();
+
+    }
 
 }
