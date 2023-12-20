@@ -44,10 +44,11 @@ public class ShopItem extends ButtonImage{
     public boolean isUnlocked(){
         return unlocked_;
     }
+    public void setUnlocked(boolean isUnlocked){unlocked_=true;}
     @Override
     public void render(Graphics graph){
         super.render(graph);
-        if (overlayImage != null)
+        if (!unlocked_)
             graph.drawImage(overlayImage, this.posX_+width_/4, this.posY_+height_/4, width_/2, height_/2);
     }
     public void addOverlayImage(Image img) {

@@ -79,38 +79,20 @@ public class SaveData {
             LevelManager.getInstance().setPassedLevel(level);
 
             // Nuevo mapa que guarda la información sobre los items comprados
-            Map<String, Map<String, Boolean>> itemsStateMap = new HashMap<>();
 
             for (Map.Entry<String, Map<String, Boolean>> typeEntry : ShopManager.getInstance().getItemsState().entrySet()) {
                 String typeId = typeEntry.getKey();
                 JSONArray itemsArray =jsonObject.getJSONArray(typeId);
-                
+
                 for (int i=0; i<itemsArray.length(); i++) {
                     String itemId = itemsArray.getString(i);
                     ShopManager.getInstance().registerShopItem(typeId,itemId);
+                    ShopManager.getInstance().changeItemState(typeId,itemId,true);
                 }
             }
 
-            /*for (int i=0; i<jsonObject.names().length(); i++) {
-
-                String key=jsonObject.names().getString(i);
-
-                if (!key.equals("coins") && !key.equals("palette") && !key.equals("world") && !key.equals("level")) {
-                    //COdigos,fondos etc
-                    String typeId = key;
-                    //Nombre del item
-                    String itemId = jsonObject.getString(typeId);
-                    // Obtener o crear el mapa correspondiente al tipo de item
-                    Map<String, Boolean> itemMap = itemsStateMap.getOrDefault(typeId, new HashMap<>());
-                    // Marcar el item como comprado en el mapa
-                    itemMap.put(itemId, true);
-                    // Actualizar
-                    itemsStateMap.put(typeId, itemMap);
-                }
-            }*/
-
             // Guardar el mapa recuperado en la instancia de ShopManager
-            ShopManager.getInstance().setItemsStateMap(itemsStateMap);
+
 
 
         } catch (JSONException | IOException e) {
