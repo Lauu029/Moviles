@@ -1,9 +1,12 @@
 package com.example.androidgame.GameLogic;
 
 
+import android.util.Log;
+
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
+import com.example.androidengine.SensorHandler;
 import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
 import com.example.androidgame.R;
@@ -18,17 +21,18 @@ public class MenuScene extends Scene {
     private Font font_;
     private Font fontButton_;
     private Image myIcon_;
-    private Sound myButtonSound_;
-    boolean scroll;
-    int yIni;
-    int yFin;
+    private Sound myButtonSound_,maracaSound_;
+    private float lastShakeTime=0.0f;
+    private  final float SHAKE_THRESHOLD = 30f;
     GameTry game;
+    SensorHandler sensor_;
     public MenuScene() {
         super();
     }
     @Override
     public void init() {
 
+        sensor_=new SensorHandler(iEngine_.getMainActivity());
         //creacion de la solucion
         Graphics graph = iEngine_.getGraphics();
         this.font_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 40, true, true);
@@ -36,12 +40,14 @@ public class MenuScene extends Scene {
 
         fontButton_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
         myButtonSound_ = iEngine_.getAudio().newSound("menuButton.wav");
+        maracaSound_ = iEngine_.getAudio().newSound("maraca.mp3");
 
         this.playButton_ = new Button("Partida Rapida", fontButton_,AssetsManager.getInstance().getButtonColor(),
                 AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor(),
                 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 -80, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
+                sensor_.onResume();
                 SceneManager.getInstance().addScene(new DifficultyScene(),SceneNames.DIFFICULTY.ordinal());
             }
         });
@@ -50,6 +56,7 @@ public class MenuScene extends Scene {
                 , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 , myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
+                sensor_.onResume();
                 SceneManager.getInstance().addScene(new WorldScene(), SceneNames.WORLD.ordinal());
             }
         });
@@ -58,6 +65,7 @@ public class MenuScene extends Scene {
                 , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 120, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
+                sensor_.onResume();
                 SceneManager.getInstance().addScene(new ShopScene(), SceneNames.SHOP.ordinal());
             }
         });
@@ -66,13 +74,7 @@ public class MenuScene extends Scene {
         addGameObject(storeButton_);
         addGameObject(mundoButton_);
         myIcon_ = graph.newImage("logo.png");
-       // game=new GameTry(6,1,40,false);
 
-//        game.init();
-//        game.TranslateY(60);
-//        addGameObject(game);
-
-//        iEngine_.getMobile().createNotification(R.drawable.logo);
     }
     @Override
     public void render() {
@@ -84,10 +86,21 @@ public class MenuScene extends Scene {
     }
     @Override
     public void update(double time) {
-//        if(scroll){
-//            int speed=yFin-yIni;
-//           // game.TranslateY(speed/50);
-//        }
+        float[]axis=sensor_.getAxis();
+
+        // Calcular la aceleración total
+        float acceleration = axis[0]* axis[0]* + axis[1] * axis[1] + axis[2]* axis[2];
+        lastShakeTime+=time;
+
+        // Verificar si se ha producido un "shake"
+        if (acceleration > (SHAKE_THRESHOLD*SHAKE_THRESHOLD)) {
+            if ( lastShakeTime > 0.75) {
+               lastShakeTime = 0;
+                GameManager.getInstance().getIEngine().getAudio().playSound(maracaSound_, 0);
+
+            }
+        }
+
 
         for (int i = 0; i < gameObjects_.size(); i++) {
             gameObjects_.get(i).update(time);
@@ -96,18 +109,7 @@ public class MenuScene extends Scene {
     @Override
 
     public void handleInput(ArrayList<TouchEvent> events) {
-        for(TouchEvent event:events){
-            if(event.type== TouchEvent.TouchEventType.TOUCH_DOWN){
-                yIni=event.y;
-            }
-            else if(event.type==TouchEvent.TouchEventType.TOUCH_DRAG){
-                scroll=true;
-                yFin=event.y;
-            }
-            else if(event.type==TouchEvent.TouchEventType.TOUCH_UP){
-                scroll=false;
-            }
-        }
+
         for (GameObject g : gameObjects_)
             for (TouchEvent event : events)
                 if (g.handleInput(event))
