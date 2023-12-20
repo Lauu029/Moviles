@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,13 +35,16 @@ public class SaveData {
                 String typeId = typeEntry.getKey();
                 Map<String, Boolean> itemMap = typeEntry.getValue();
 
+                JSONArray itemsArray = new JSONArray();
+
                 for (Map.Entry<String, Boolean> itemEntry : itemMap.entrySet()) {
                     String itemId = itemEntry.getKey();
                     boolean isBought = itemEntry.getValue();
                     if (isBought) {
-                        jsonObject.put(typeId,typeEntry);
+                        itemsArray.put(itemId);
                     }
                 }
+                jsonObject.put(typeId, itemsArray);
             }
 
             String jsonString = jsonObject.toString();
@@ -74,7 +78,39 @@ public class SaveData {
             int level= jsonObject.getInt("level");
             LevelManager.getInstance().setPassedLevel(level);
 
-            // Leer el mapa que guarda la informacion sobre los items compradps
+            // Nuevo mapa que guarda la información sobre los items comprados
+            Map<String, Map<String, Boolean>> itemsStateMap = new HashMap<>();
+
+            for (Map.Entry<String, Map<String, Boolean>> typeEntry : ShopManager.getInstance().getItemsState().entrySet()) {
+                String typeId = typeEntry.getKey();
+                JSONArray itemsArray =jsonObject.getJSONArray(typeId);
+                
+                for (int i=0; i<itemsArray.length(); i++) {
+                    String itemId = itemsArray.getString(i);
+                    ShopManager.getInstance().registerShopItem(typeId,itemId);
+                }
+            }
+
+            /*for (int i=0; i<jsonObject.names().length(); i++) {
+
+                String key=jsonObject.names().getString(i);
+
+                if (!key.equals("coins") && !key.equals("palette") && !key.equals("world") && !key.equals("level")) {
+                    //COdigos,fondos etc
+                    String typeId = key;
+                    //Nombre del item
+                    String itemId = jsonObject.getString(typeId);
+                    // Obtener o crear el mapa correspondiente al tipo de item
+                    Map<String, Boolean> itemMap = itemsStateMap.getOrDefault(typeId, new HashMap<>());
+                    // Marcar el item como comprado en el mapa
+                    itemMap.put(itemId, true);
+                    // Actualizar
+                    itemsStateMap.put(typeId, itemMap);
+                }
+            }*/
+
+            // Guardar el mapa recuperado en la instancia de ShopManager
+            ShopManager.getInstance().setItemsStateMap(itemsStateMap);
 
 
         } catch (JSONException | IOException e) {

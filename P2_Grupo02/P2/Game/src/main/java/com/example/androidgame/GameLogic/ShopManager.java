@@ -35,7 +35,7 @@ public class ShopManager {
 
         }
         else{ Log.d("SHOP","Ya contiene la seccion: "+typeId);}
-        if(itemsState_.containsKey(itemId) && !itemsState_.get(typeId).containsKey(itemId))
+        if(itemsState_.containsKey(typeId) && !itemsState_.get(typeId).containsKey(itemId))
         {
             itemsState_.get(typeId).put(itemId, false);
         }
@@ -49,6 +49,9 @@ public class ShopManager {
         else{
             Log.d("SHOP","No contiene "+typeId+" y el objeto "+itemId+", no lo puedes comprar");
         }
+    }
+    public void setItemsStateMap(Map<String,Map<String,Boolean>> nuevoMapa){
+        itemsState_=nuevoMapa;
     }
 
 }
