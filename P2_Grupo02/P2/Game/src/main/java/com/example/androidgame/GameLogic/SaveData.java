@@ -30,15 +30,18 @@ public class SaveData {
             jsonObject.put("level", currLevel);
 
             //Para registrar el map que contiene la informacion sobre los objetos comprados en la tienda
-            /*JSONObject itemsStateJson = new JSONObject();
-            for (Map.Entry<String, Map<String, Boolean>> entry : itemsState.entrySet()) {
-                String itemType = entry.getKey();
-                Map<String, Boolean> itemMap = entry.getValue();
-                JSONObject itemMapJson = new JSONObject(itemMap);
-                itemsStateJson.put(itemType, itemMapJson);
-            }
+            for (Map.Entry<String, Map<String, Boolean>> typeEntry : ShopManager.getInstance().getItemsState().entrySet()) {
+                String typeId = typeEntry.getKey();
+                Map<String, Boolean> itemMap = typeEntry.getValue();
 
-            jsonObject.put("itemsState", itemsStateJson);*/
+                for (Map.Entry<String, Boolean> itemEntry : itemMap.entrySet()) {
+                    String itemId = itemEntry.getKey();
+                    boolean isBought = itemEntry.getValue();
+                    if (isBought) {
+                        jsonObject.put(typeId,typeEntry);
+                    }
+                }
+            }
 
             String jsonString = jsonObject.toString();
             FileOutputStream fileOutputStream = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);

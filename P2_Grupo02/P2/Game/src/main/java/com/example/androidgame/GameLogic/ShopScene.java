@@ -179,10 +179,10 @@ public class ShopScene extends Scene {
 
                 for (int i = 0; i < buttonsArray.length(); i++) {
                     String nombre = buttonsArray.getString(i);
-                    ShopManager.getInstance().registerShopItem(id_, i);
+                    ShopManager.getInstance().registerShopItem(shopName_[id_],nombre);
 
-                    ShopItem item = new ShopItem(path + nombre + "Button" + ext, 100, 100, xPos,
-                            yPos, shopingSound_, id_, i, 1);
+                    ShopItem item  = new ShopItem(path + nombre + "Button" + ext, 100, 100, xPos,
+                            yPos, shopingSound_, shopName_[id_],nombre, 1);
                     item.setAction(new ButtonClickListener() {
                         @Override
                         public void onClick() {

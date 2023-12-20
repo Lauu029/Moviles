@@ -11,7 +11,7 @@ import java.util.TreeMap;
 public class ShopManager {
     //private Engine iEngine_;
     private static ShopManager instance_;
-    private static Map<Integer, Map<Integer, Boolean>> itemsState_; //Guarda la seccion a la que pertenece, su nombre y si se ha comprado
+    private static Map<String, Map<String, Boolean>> itemsState_; //Guarda la seccion a la que pertenece, su nombre y si se ha comprado
     private ShopManager() {
         // Constructor privado
     }
@@ -24,13 +24,13 @@ public class ShopManager {
         itemsState_= new HashMap<>();
         return 1;
     }
-    Map<Integer, Map<Integer, Boolean>> getItemsState(){
+    Map<String, Map<String, Boolean>> getItemsState(){
         return itemsState_;
     }
-    void registerShopItem( Integer typeId,Integer itemId){
+    void registerShopItem( String typeId,String itemId){
 
         if (!itemsState_.containsKey(typeId)) {
-            Map<Integer, Boolean> nuevoItem=new HashMap<>();
+            Map<String, Boolean> nuevoItem=new HashMap<>();
             itemsState_.put(typeId,nuevoItem);
 
         }
@@ -41,7 +41,7 @@ public class ShopManager {
         }
         else{ Log.d("SHOP","Ya contiene la seccion: "+typeId+" y el objeto "+itemId);}
     }
-    void changeItemState(Integer typeId,Integer itemId,boolean bought){
+    void changeItemState(String typeId,String itemId,boolean bought){
         if(itemsState_.containsKey(typeId) && itemsState_.get(typeId).containsKey(itemId)){
             itemsState_.get(typeId).put(itemId,bought);
             Log.d("SHOP","Has comprado en la seccion: "+typeId+" y el objeto "+itemId);

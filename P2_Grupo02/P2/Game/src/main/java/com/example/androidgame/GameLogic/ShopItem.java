@@ -7,18 +7,18 @@ import com.example.androidengine.TouchEvent;
 
 public class ShopItem extends ButtonImage{
 
-    private int sectionId_;
-    private int itemId_;
+    private String sectionId_;
+    private String itemId_;
     private boolean unlocked_;
     private int price_;
     protected Image overlayImage;
 
     public ShopItem(String image, int w, int h, int x, int y, Sound buttonSound,
-                     int sectionId,int itemId,int price) {
+                     String sectionName,String itemName,int price) {
         super(image, w, h, x, y, buttonSound, null);
         unlocked_=false;
-        sectionId_=sectionId;
-        itemId_=itemId;
+        sectionId_=sectionName;
+        itemId_=itemName;
         price_=price;
         overlayImage = null;
 
