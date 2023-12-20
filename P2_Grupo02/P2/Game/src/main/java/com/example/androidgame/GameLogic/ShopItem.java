@@ -33,12 +33,13 @@ public class ShopItem extends ButtonImage{
     public void buyItem(){
 
         int currCoins = GameManager.getInstance().getCoins();
-        if(currCoins-price_>=0){
+        unlocked_ = true;
+        ShopManager.getInstance().changeItemState(sectionId_, itemId_, unlocked_);
+        /*if(currCoins-price_>=0){
             GameManager.getInstance().addCoins(-price_);
-            unlocked_ = true;
-            ShopManager.getInstance().changeItemState(sectionId_, itemId_, unlocked_);
+
             deleteOverlayImage();
-        }
+        }*/
 
     }
     public boolean isUnlocked(){

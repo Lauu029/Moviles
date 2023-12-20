@@ -44,7 +44,7 @@ public class ShopManager {
     void changeItemState(String typeId,String itemId,boolean bought){
         if(itemsState_.containsKey(typeId) && itemsState_.get(typeId).containsKey(itemId)){
             itemsState_.get(typeId).put(itemId,bought);
-            Log.d("SHOP","Has comprado en la seccion: "+typeId+" y el objeto "+itemId);
+            Log.d("COMPRA","Has comprado en la seccion: "+typeId+" y el objeto "+itemId);
         }
         else{
             Log.d("SHOP","No contiene "+typeId+" y el objeto "+itemId+", no lo puedes comprar");

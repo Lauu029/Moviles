@@ -90,11 +90,6 @@ public class SaveData {
                     ShopManager.getInstance().changeItemState(typeId,itemId,true);
                 }
             }
-
-            // Guardar el mapa recuperado en la instancia de ShopManager
-
-
-
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
