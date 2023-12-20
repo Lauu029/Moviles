@@ -1,5 +1,6 @@
 package com.example.androidgame.GameLogic;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -12,8 +13,8 @@ public class Solution {
     private int actualTry_ = 0;
     private int correctPos_ = 0, correctColor_ = 0;
     private int solutionSize_;
-    private int[][] registeredSols_;
 
+    private ArrayList<int[]> registeredSols_ = new ArrayList<>();
     void createSolution(Boolean repeat, int colorGame, int posibleColor, int maxTries) {
 
         this.solutionSize_ = colorGame;
@@ -26,7 +27,7 @@ public class Solution {
         Random rand = new Random();
         //aqui se guardan las soluciones para luego ser renderizadas,registerSols[x][0] hara ref a la posiciones correctas,
         //registerSols[x][1] hara ref a lod colores correctos
-        this.registeredSols_ = new int[maxTries + 2][2];
+
         // Generar un número aleatorio en el rango
 
         for (int i = 0; i < solutionSize_; i++) {
@@ -82,19 +83,18 @@ public class Solution {
             }
         }
         if (correctPos_ == solutionSize_) win_ = true;
-        registeredSols_[actualTry_][0] = correctPos_;
-        registeredSols_[actualTry_][1] = correctColor_;
 
+        registeredSols_.add(new int[]{correctPos_, correctColor_});
         resetMap();
         actualTry_++;
     }
 
     public int getCorrectPos(int try_) {
-        return registeredSols_[try_][0];
+        return registeredSols_.get(try_)[0];
     }
 
     public int getCorrectColor(int try_) {
-        return registeredSols_[try_][1];
+        return registeredSols_.get(try_)[1];
     }
 
     private void resetMap() {
