@@ -8,7 +8,7 @@ import com.example.androidengine.Image;
 
 public class WorldEndScene extends EndScene{
     public WorldEndScene(boolean win, int[] sol, int intentos) {
-        super(win, sol, intentos);
+        super(win, sol, intentos, true);
     }
     @Override
     protected void initButtons(){
