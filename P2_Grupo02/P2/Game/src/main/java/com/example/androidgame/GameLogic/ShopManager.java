@@ -50,8 +50,5 @@ public class ShopManager {
             Log.d("SHOP","No contiene "+typeId+" y el objeto "+itemId+", no lo puedes comprar");
         }
     }
-    public void setItemsStateMap(Map<String,Map<String,Boolean>> nuevoMapa){
-        itemsState_=nuevoMapa;
-    }
 
 }
