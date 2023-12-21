@@ -132,9 +132,8 @@ public class GameScene extends Scene {
         super.handleInput(events);
         for (TouchEvent event : events) {
             if (event.type == TouchEvent.TouchEventType.TOUCH_DOWN) {
-                if (!scroll) {
+                if (!scroll)
                     yIni = event.y;
-                }
             } else if (event.type == TouchEvent.TouchEventType.TOUCH_DRAG) {
                 scroll = true;
                 yFin = event.y;
