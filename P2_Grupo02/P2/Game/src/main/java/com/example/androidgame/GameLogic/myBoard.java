@@ -29,7 +29,7 @@ public class myBoard extends GameObject {
     //Colores totales que puede llegar a haber en una partida
     private int[] totalPossibleColors = new int[]{0xFFFFC0CB, 0xFF87CEEB, 0xFF98FB98, 0xFFFFFF99,
             0xFFE6E6FA, 0xFFFFDAB9, 0xFFE7FFAC, 0xFFFF8FAB, 0xFF6FC0AB};
-
+    private int upTryPos_,downTryPos_,upRenderPos_,downRenderPos_;
     myBoard(int codeColors_, int tries_, int usableColors, boolean canRepeat_, int scW, int scH, boolean world) {
         gm_ = GameManager.getInstance();
         world_ = world;
@@ -47,6 +47,10 @@ public class myBoard extends GameObject {
         limitDown = sceneHeight_ - 50;
         gameTries_ = new ArrayList<>();
         int offset = 100;
+        upRenderPos_=55;
+        downRenderPos_=sceneHeight_ - 50;
+
+        upTryPos_=offset;
         for (int i = 0; i < tries_; i++) {
             GameTry g = new GameTry(codeColors_, i, 40, world, limitUp, limitDown);
             g.init();
@@ -55,6 +59,7 @@ public class myBoard extends GameObject {
             gameTries_.add(g);
             gameObjectsTable_.add(g);
         }
+        downTryPos_=offset-10;
         int circleRad_ = 20;
         offset = 4;
         int totalCircleWidth = usableColors_ * (circleRad_ * 2 + offset); // Ancho total de todos los círculos
@@ -82,6 +87,12 @@ public class myBoard extends GameObject {
     //Coloca las pistas para el siguiente intento dependiendo de la cantidad de colores y posiciones correctas
     public void setNewHints(int correctPositions, int correctColors) {
         gameTries_.get(acutalTry_).setNewHints(correctPositions, correctColors);
+    }
+    public int getUpTryPos(){
+        return upTryPos_;
+    }
+    public int getDownTryPos(){
+        return downTryPos_;
     }
 
     @Override

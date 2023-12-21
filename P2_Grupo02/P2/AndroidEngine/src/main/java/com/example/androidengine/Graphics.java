@@ -81,13 +81,16 @@ public class Graphics {
     public Image newImage(String name) {
         Bitmap bitmap = null;
         InputStream is = null;
+
         try {
             is = this.myAssetManager_.open(path_+name); //Abre el archivo
         } catch (IOException e) {
-            throw new RuntimeException(e);
+
         }
+
         if (is != null)
             bitmap = BitmapFactory.decodeStream(is);
+        else return null;
 
         return new Image(bitmap);
     }

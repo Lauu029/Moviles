@@ -29,9 +29,8 @@ public class EndScene extends Scene {
     protected Theme tematica_;
    protected boolean canGetReward_;
 
-    public EndScene(boolean win, int[] sol, int intentos, boolean canGetReward) {
+    public EndScene(boolean win, int[] sol, int intentos) {
         super();
-        this.canGetReward_ = canGetReward;
         System.out.print("Scene Width: " + width_ + " Scene Height: " + height_ + "\n");
         this.win_ = win;
         this.sol_ = sol;
@@ -170,6 +169,8 @@ public class EndScene extends Scene {
     @Override
     public void update(double time) {
         if (waitingForReward_) {
+            Log.d("AY","update");
+
             boolean earned = iEngine_.getMobile().hasEarnedReward();
             if (earned) {
                 GameScene gs = (GameScene) SceneManager.getInstance().getScene(SceneNames.GAME.ordinal());

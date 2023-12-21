@@ -86,7 +86,7 @@ public class Engine implements Runnable {
             //Tiempo entre frames
             double elapsedTime = (double) nanoElapsedTime / 1.0E9;
             //Reescalado de la escena
-            if (!isScaled && myGraphics_.getMyCanvas().getHeight() != 0) {
+            if (!isScaled && myGraphics_.getMyCanvas().getHeight() >= 10) {
                 isScaled = true;
                 myGraphics_.resize(myScene_.getWidth_(), myScene_.getHeight_());
             }
