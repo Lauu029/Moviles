@@ -45,6 +45,7 @@ public class Mobile {
     private static final String CHANNEL_ID = "MasterMind";
     private RewardedAd rewardedAd_;
     private boolean rewardEarned_;
+    private RewardedAddEarned rewardEarnedMethod_;
 
     class MyRewardedAdLoadCallback extends RewardedAdLoadCallback {
         @Override
@@ -112,6 +113,7 @@ public class Mobile {
                         public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
                             // Handle the reward.
                             Log.d("MainActivity", "The user earned the reward.");
+                            rewardEarnedMethod_.OnRewardedEarned();
                             rewardEarned_ = true;
                         }
                     });

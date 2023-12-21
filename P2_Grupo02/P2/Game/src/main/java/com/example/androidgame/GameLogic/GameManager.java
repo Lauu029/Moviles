@@ -130,6 +130,5 @@ public class GameManager {
         SaveData.loadGameData(myEngine_.getMainActivity());
         // Actualiza las variables del GameManager según los datos cargados
         coins_ = getCoins();
-
     }
 }
