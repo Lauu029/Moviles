@@ -179,15 +179,17 @@ public class ShopScene extends Scene {
 
                 for (int i = 0; i < buttonsArray.length(); i++) {
                     String nombre = buttonsArray.getString(i);
-                    ShopManager.getInstance().registerShopItem(shopName_[id_],nombre);
 
                     ShopItem item  = new ShopItem(path + nombre + "Button" + ext, 100, 100, xPos,
                             yPos, shopingSound_, shopName_[id_],nombre, 1);
+                    //Registramos ese item
+                    ShopManager.getInstance().registerShopItem(shopName_[id_],nombre);
+                    item.addOverlayImage(blockedImage);
                     item.setAction(new ButtonClickListener() {
                         @Override
                         public void onClick() {
-                            item.buyItem();
-                            if (item.isUnlocked()) {
+                            //Si no esta comprado ya, y tiene dinero para comprarlo
+                            if (item.buyItem()) {
                                 Theme theme = new Theme("PURCHASED", "", "", "");
                                 switch (shopName_[id_]) {
                                     case "Fondos":
@@ -205,7 +207,6 @@ public class ShopScene extends Scene {
                             }
                         }
                     });
-                    item.addOverlayImage(blockedImage);
                     xPos += 130;
                     shopItems_.add(item);
                     addGameObject(item);

@@ -50,5 +50,14 @@ public class ShopManager {
             Log.d("SHOP","No contiene "+typeId+" y el objeto "+itemId+", no lo puedes comprar");
         }
     }
-
+    boolean itemIsLocked(String typeId,String itemId){
+        boolean isLocked;
+        if(itemsState_.containsKey(typeId) && itemsState_.get(typeId).containsKey(itemId)) {
+            isLocked= itemsState_.get(typeId).get(itemId);
+        }
+        else{
+            isLocked=true;
+        }
+        return isLocked;
+    }
 }
