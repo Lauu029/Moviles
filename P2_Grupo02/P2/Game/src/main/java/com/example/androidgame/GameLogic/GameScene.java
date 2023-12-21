@@ -78,8 +78,6 @@ public class GameScene extends Scene {
     public void update(double time) {
         if (scroll) {
             int speed = yFin - yIni;
-//            Log.d("HOLA","Speed " + speed );
-
             gameBoard_.TranslateY(speed);
             yIni = yFin;
 
@@ -99,6 +97,7 @@ public class GameScene extends Scene {
                 ChangeEndScene(true, try_);
 
             } else if (try_ == gameBoard_.getTotalTries() - 1) {
+                gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
                 ChangeEndScene(false, try_);
             } else {
                 gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
@@ -109,26 +108,19 @@ public class GameScene extends Scene {
     }
 
     protected void ChangeEndScene(boolean win, int try_) {
+        Log.d("Cojones","Es mundo: "+world_);
         if (!world_) {
             if (win) canGetReward_ = false;
-            EndScene end = new EndScene(win, mySolution_.getSol_(), try_, canGetReward_);
+            EndScene end = new EndScene(win, mySolution_.getSol_(), try_);
             SceneManager.getInstance().addScene(end, SceneNames.FINAL.ordinal());
         } else {
-            WorldEndScene worldEnd = new WorldEndScene(win, mySolution_.getSol_(), try_, canGetReward_);
+            WorldEndScene worldEnd = new WorldEndScene(win, mySolution_.getSol_(), try_);
             SceneManager.getInstance().addScene(worldEnd, SceneNames.WORLD_FINAL.ordinal());
         }
-
     }
 
     @Override
     public void render() {
-
-//        iEngine_.getGraphics().clear(AssetsManager.getInstance().getBackgroundColor());
-//        if (GameManager.getInstance().getBackgroundImage() != null) {
-//            iEngine_.getGraphics().drawImage(GameManager.getInstance().getBackgroundImage(), 0, 0, height_, width_);
-//        }
-//        if(backaground_!=null)
-//        iEngine_.getGraphics().drawImage(backaground_,0,0,GameManager.getInstance().getHeight_(),GameManager.getInstance().getwidth());
         super.render();
         for (int i = 0; i < gameObjects_.size(); i++) {
             gameObjects_.get(i).render(iEngine_.getGraphics());
@@ -140,19 +132,11 @@ public class GameScene extends Scene {
         super.handleInput(events);
         for (TouchEvent event : events) {
             if (event.type == TouchEvent.TouchEventType.TOUCH_DOWN) {
-                if (!scroll) {
+                if (!scroll)
                     yIni = event.y;
-                }
-
-
             } else if (event.type == TouchEvent.TouchEventType.TOUCH_DRAG) {
-
-
                 scroll = true;
-
                 yFin = event.y;
-
-
             } else if (event.type == TouchEvent.TouchEventType.TOUCH_UP) {
                 scroll = false;
             }
