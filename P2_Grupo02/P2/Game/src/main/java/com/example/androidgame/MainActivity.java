@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        System.out.println("--------------me creo-----------------------");
+
         setContentView(R.layout.activity_main);
 
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
@@ -60,17 +60,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         GameManager.getInstance().saveGameData();
-        Log.d("GAME","--------------------me pause-------------------------");
         createWorkRequest(45);
-
         IEngine_.pause();
     }
     @Override
     protected void onResume() {
         super.onResume();
         GameManager.getInstance().loadGameData();
-        Log.d("GAME", "RESUMEEEE");
-
         IEngine_.resume();
         onNewIntent(getIntent());
 

@@ -138,7 +138,6 @@ public class GameScene extends Scene {
             } else if (event.type == TouchEvent.TouchEventType.TOUCH_DRAG) {
                 scroll = true;
                 yFin = event.y;
-
             } else if (event.type == TouchEvent.TouchEventType.TOUCH_UP) {
                 scroll = false;
             }

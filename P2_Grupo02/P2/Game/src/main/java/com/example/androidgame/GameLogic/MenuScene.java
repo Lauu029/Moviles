@@ -23,7 +23,7 @@ public class MenuScene extends Scene {
     private Image myIcon_;
     private Sound myButtonSound_,maracaSound_;
     private float lastShakeTime=0.0f;
-    private  final float SHAKE_THRESHOLD = 30f;
+    private  final float SHAKE_THRESHOLD = 10f;
     GameTry game;
     SensorHandler sensor_;
     public MenuScene() {
@@ -89,7 +89,7 @@ public class MenuScene extends Scene {
         float[]axis=sensor_.getAxis();
 
         // Calcular la aceleración total
-        float acceleration = axis[0]* axis[0]* + axis[1] * axis[1] + axis[2]* axis[2];
+        float acceleration = axis[0]* axis[0] + axis[1] * axis[1] + axis[2]* axis[2];
         lastShakeTime+=time;
 
         // Verificar si se ha producido un "shake"

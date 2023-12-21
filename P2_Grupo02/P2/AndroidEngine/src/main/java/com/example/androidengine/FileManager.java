@@ -29,7 +29,7 @@ public class FileManager {
             fInput_ =  this.myAssetManager_.open(f);
 
         } catch (IOException e) {
-            Log.d("MainActivity", "jolin "+f);
+
             throw new RuntimeException(e);
         }
 
@@ -81,7 +81,7 @@ public class FileManager {
             String[] fileNames = myAssetManager_.list(folderPath);
 
             if (fileNames != null) {
-                Log.d("MainActivity", "Size:" + fileNames.length);
+
                 for (String fileName : fileNames) {
                     String filePath = folderPath + fileName;
                     InputStream fileStream = myAssetManager_.open(filePath);

@@ -27,9 +27,6 @@ public class SensorHandler implements SensorEventListener {
             Axis_[0] = event.values[0];
             Axis_[1] = event.values[1];
             Axis_[2] = event.values[2];
-
-
-//            Log.d("SensorHandler", "Acelerómetro - X: " + xAxis + ", Y: " + yAxis + ", Z: " + zAxis);
         }
     }
 
