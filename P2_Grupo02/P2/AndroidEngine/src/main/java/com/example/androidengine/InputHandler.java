@@ -28,7 +28,7 @@ public class InputHandler implements View.OnTouchListener {
         return myPendingEvents_;
     }
     // Limpia la lista de eventos pendientes
-    public void myPendingEventsClear() {
+    public synchronized void  myPendingEventsClear() {
         myPendingEvents_.clear();
     }
     // Obtiene un objeto TouchEvent del pool
@@ -42,7 +42,7 @@ public class InputHandler implements View.OnTouchListener {
         }
     }
     // Devuelve un objeto TouchEvent al pool
-    void FreePool(){
+    void  FreePool(){
 
         while (!usedEvents_.isEmpty()) {
             TouchEvent event = usedEvents_.remove(0);
@@ -54,7 +54,7 @@ public class InputHandler implements View.OnTouchListener {
     public boolean onTouch(View view, MotionEvent motionEvent) {
 
         int index = motionEvent.getActionIndex(); //Devuelve el índice de puntero asociado
-        int finger = motionEvent.getPointerId(index); //Dedo que realiza el toque (pantallas multitactil)
+
         int action = motionEvent.getActionMasked();
 
         if (action == motionEvent.ACTION_DOWN) { //Comprueba que tipo de accion ha realizado (pulsar, levantar)
@@ -87,7 +87,7 @@ public class InputHandler implements View.OnTouchListener {
             synchronized (this) { //Es necesario sincronizarlo para evitar fallos al borrar los elementos de esta lista
                 myPendingEvents_.add(event);
             }
-            //returnObject(event);
+
         }
         return true;
     }
