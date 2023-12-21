@@ -36,6 +36,8 @@ public class Board extends GameObject {
     private Font font1_, font2_, font3_;
     private int hintsPos_;
     private boolean world_;
+    private int posUpTrys_;
+    private int posDownTrys;
     Board(int codeColors_, int tries_, int usableColors, boolean canRepeat_, int scW, int scH,boolean world) {
         gm_ = GameManager.getInstance();
         world_=world;
