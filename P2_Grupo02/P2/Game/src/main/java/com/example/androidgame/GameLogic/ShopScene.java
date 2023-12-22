@@ -43,7 +43,7 @@ public class ShopScene extends Scene {
         Log.d("MainActivity", "Me leo la tienda");
         myArrowSound_ = iEngine_.getAudio().newSound("arrowButton.wav");
         shopingSound_ = iEngine_.getAudio().newSound("cashPurchase.wav");
-        blockedImage_ = iEngine_.getGraphics().newImage("lock.png");
+
         noneButton_ = new ButtonImage("Shop/NudeButton.png", 100, 100, 25, 130,
                 myArrowSound_, null);
         rectangleColor = AssetsManager.getInstance().getButtonColor();
@@ -179,8 +179,9 @@ public class ShopScene extends Scene {
 
                 for (int i = 0; i < buttonsArray.length(); i++) {
                     String nombre = buttonsArray.getString(i);
+                    Image blocked = iEngine_.getGraphics().newImage("lock.png");
                     ShopItem item  = new ShopItem(path + nombre + "Button" + ext, 100, 100, xPos,
-                            yPos, shopingSound_, shopName_[id_],nombre, 1,blockedImage_);
+                            yPos, shopingSound_, shopName_[id_],nombre, 1,blocked);
                     //Registramos ese item
                     ShopManager.getInstance().registerShopItem(shopName_[id_],nombre);
 
@@ -203,7 +204,7 @@ public class ShopScene extends Scene {
                                         AssetsManager.getInstance().addNewPalette(nombre);
                                         break;
                                 }
-
+                                item.deleteOverlayImage();
                             }
                         }
                     });

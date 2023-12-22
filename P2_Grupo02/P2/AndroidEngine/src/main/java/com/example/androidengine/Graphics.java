@@ -109,19 +109,18 @@ public class Graphics {
     }
     //Dibuja una imagen en una determinada posicion a partir de un rectangulo origen y otro destino
     public void drawImage(Image image, int posX, int posY, int height, int widht) {
-        if (image != null && image.isVisible()) {
-            Image imageAndroid = (Image) image;
+        if (image.isVisible()) {
             Rect src = new Rect();
             src.left = 0;
             src.top = 0;
-            src.right = imageAndroid.getWidth();
-            src.bottom = imageAndroid.getHeight();
+            src.right = image.getWidth();
+            src.bottom = image.getHeight();
             Rect dst = new Rect();
             dst.left = posX;
             dst.top = posY;
             dst.right = posX + widht;
             dst.bottom = posY + height;
-            this.myCanvas_.drawBitmap(imageAndroid.getImage(), src, dst, this.myPaint_);
+            this.myCanvas_.drawBitmap(image.getImage(), src, dst, this.myPaint_);
         }
     }
     //Establece el color con el que se va a pintar
