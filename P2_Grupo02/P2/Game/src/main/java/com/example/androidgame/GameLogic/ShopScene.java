@@ -188,8 +188,8 @@ public class ShopScene extends Scene {
                     item.setAction(new ButtonClickListener() {
                         @Override
                         public void onClick() {
-                            //Si no esta comprado ya, y tiene dinero para comprarlo
-                            if (item.buyItem()) {
+                            //Si no esta comprado ya y tiene dinero para comprarlo o ya esta comprado
+                            if (item.buyItem() || !ShopManager.getInstance().itemIsLocked(shopName_[id_],nombre)) {
                                 Theme theme = new Theme("PURCHASED", "", "", "");
                                 switch (shopName_[id_]) {
                                     case "Fondos":

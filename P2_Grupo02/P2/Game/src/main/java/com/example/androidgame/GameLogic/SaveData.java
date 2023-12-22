@@ -19,8 +19,7 @@ public class SaveData {
 
     private static final String FILENAME = "saved_data.json";
 
-    public static void saveGameData(Context context, int coins,String palette,
-                                    int currWorld,int currLevel/*,Map<String, Map<String, Boolean>> itemsState*/)
+    public static void saveGameData(Context context, int coins,String palette, int currWorld,int currLevel)
     {
         JSONObject jsonObject = new JSONObject();
 
@@ -31,12 +30,12 @@ public class SaveData {
             jsonObject.put("level", currLevel);
 
             //Para registrar el map que contiene la informacion sobre los objetos comprados en la tienda
+            JSONObject sectionItem = new JSONObject();
+            JSONArray shopArray = new JSONArray();
             for (Map.Entry<String, Map<String, Boolean>> typeEntry : ShopManager.getInstance().getItemsState().entrySet()) {
                 String typeId = typeEntry.getKey();
                 Map<String, Boolean> itemMap = typeEntry.getValue();
-
                 JSONArray itemsArray = new JSONArray();
-
                 for (Map.Entry<String, Boolean> itemEntry : itemMap.entrySet()) {
                     String itemId = itemEntry.getKey();
                     boolean isLocked = itemEntry.getValue();
@@ -44,9 +43,10 @@ public class SaveData {
                         itemsArray.put(itemId);
                     }
                 }
-                jsonObject.put(typeId, itemsArray);
+                sectionItem.put(typeId,itemsArray);
             }
-
+            shopArray.put(sectionItem);
+            jsonObject.put("tienda", shopArray);
             String jsonString = jsonObject.toString();
             FileOutputStream fileOutputStream = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
             fileOutputStream.write(jsonString.getBytes());

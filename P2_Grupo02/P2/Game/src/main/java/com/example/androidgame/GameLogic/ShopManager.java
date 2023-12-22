@@ -27,12 +27,11 @@ public class ShopManager {
     Map<String, Map<String, Boolean>> getItemsState(){
         return itemsState_;
     }
-    void registerShopItem( String typeId,String itemId){
+    void registerShopItem(String typeId,String itemId){
 
         if (!itemsState_.containsKey(typeId)) {
             Map<String, Boolean> nuevoItem=new HashMap<>();
             itemsState_.put(typeId,nuevoItem);
-
         }
         else{ Log.d("SHOP","Ya contiene la seccion: "+typeId);}
         if(itemsState_.containsKey(typeId) && !itemsState_.get(typeId).containsKey(itemId))
