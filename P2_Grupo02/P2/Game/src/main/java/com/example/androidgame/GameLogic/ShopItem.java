@@ -19,7 +19,7 @@ public class ShopItem extends ButtonImage{
         sectionId_=sectionName;
         itemId_=itemName;
         price_=price;
-        blockedImage_=blockedImage;
+        this.blockedImage_=blockedImage;
         shopingSound_=buttonSound;
 
     }
@@ -30,7 +30,6 @@ public class ShopItem extends ButtonImage{
         if(currCoins-price_>=0 && ShopManager.getInstance().itemIsLocked(sectionId_,itemId_)){
             GameManager.getInstance().addCoins(-price_);
             ShopManager.getInstance().changeItemState(sectionId_,itemId_,false);
-            deleteOverlayImage();
             //Solo suena si de verdad lo puede comprar
             GameManager.getInstance().getIEngine().getAudio().playSound(shopingSound_, 0);
             canBuy=true;
@@ -40,12 +39,12 @@ public class ShopItem extends ButtonImage{
     @Override
     public void render(Graphics graph){
         super.render(graph);
-        if (ShopManager.getInstance().itemIsLocked(sectionId_,itemId_))
-            graph.drawImage(blockedImage_, this.posX_+width_/4, this.posY_+height_/4, width_/2, height_/2);
+        if (this.blockedImage_.isVisible())
+            graph.drawImage( this.blockedImage_, this.posX_+width_/4, this.posY_+height_/4, width_/2, height_/2);
     }
 
     public void deleteOverlayImage() {
-        blockedImage_.setVisibility(false);
+        this.blockedImage_.setVisibility(false);
     }
 
 }
