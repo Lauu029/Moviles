@@ -36,7 +36,8 @@ public class SceneManager {
     public void addScene(Scene scene, int idScene) {
         if (idScene == SceneNames.WORLD.ordinal())
             Log.d("MainActivity", "Nueva wordlScene");
-        if (sceneList_[idScene] == null || idScene == SceneNames.GAME.ordinal() || idScene == SceneNames.FINAL.ordinal()) {
+        if (sceneList_[idScene] == null || idScene == SceneNames.GAME.ordinal() ||
+                idScene == SceneNames.FINAL.ordinal()||idScene == SceneNames.WORLD_FINAL.ordinal()) {
             Log.d("MainActivity","Estoy creando la escena");
             sceneList_[idScene] = scene;
             sceneList_[idScene].init();

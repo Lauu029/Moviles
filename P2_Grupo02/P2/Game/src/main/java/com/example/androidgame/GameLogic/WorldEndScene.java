@@ -85,7 +85,7 @@ public class WorldEndScene extends EndScene {
             Button nextLevelButton = new Button("Siguiente Nivel", font1_, AssetsManager.getInstance().getButtonColor(),
                     AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor()
                     , 150, 40, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 20,
-                    /* SceneNames.GAME, GameManager.getInstance_().getLevel().getLevelDiff_(),*/ myButtonSound_, new ButtonClickListener() {
+                    myButtonSound_, new ButtonClickListener() {
                 @Override
                 public void onClick() {
                     GameManager.getInstance().setLevel(difNextLevel);
@@ -101,7 +101,7 @@ public class WorldEndScene extends EndScene {
         Button menuButton = new Button("Menu", font1_, AssetsManager.getInstance().getButtonColor(),
                 AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor()
                 , 150, 40, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 100,
-                /*SceneNames.LEVEL,*/ myButtonSound_, new ButtonClickListener() {
+                 myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
                 SceneManager.getInstance().setScene(SceneNames.MENU.ordinal());
@@ -121,9 +121,5 @@ public class WorldEndScene extends EndScene {
         }
 
     }
-//
-//    @Override
-//    public void update(double time) {
-//        super.update(time);
-//    }
+
 }

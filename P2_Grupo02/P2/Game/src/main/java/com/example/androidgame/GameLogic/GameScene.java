@@ -152,7 +152,6 @@ public class GameScene extends Scene {
             }
         }
     }
-
     public void addTriesToBoard(int numTries) {
         gameBoard_.addNewTries(numTries);
         canGetReward_ = false;
