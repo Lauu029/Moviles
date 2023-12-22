@@ -2,7 +2,7 @@ package com.example.androidgame.GameLogic;
 import android.content.Context;
 import android.util.Log;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
