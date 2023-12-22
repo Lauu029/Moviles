@@ -22,7 +22,7 @@ public class GameScene extends Scene {
     int yFin;
     boolean canGetReward_;
     Image backaground_;
-
+    private int upTryPos_,downTryPos_,upRenderPos_,downRenderPos_;
     public GameScene(boolean world) {
         super();
         world_ = world;
@@ -69,6 +69,13 @@ public class GameScene extends Scene {
             }
         });
         this.addGameObject(exitLevel_);
+        upTryPos_=gameBoard_.getUpTryPos();
+        downTryPos_=gameBoard_.getDownTryPos();
+        downRenderPos_=gameBoard_.getdownRenderPos();
+        upRenderPos_=gameBoard_.getupRenderPos();
+
+
+
     }
 
     /*Comprueba si todas las casillas del intento actual se han llenado con algún color
@@ -78,8 +85,11 @@ public class GameScene extends Scene {
     public void update(double time) {
         if (scroll) {
             int speed = yFin - yIni;
-            gameBoard_.TranslateY(speed);
-            yIni = yFin;
+            if(gameBoard_.getUpTryPos()<upRenderPos_||gameBoard_.getDownTryPos()>downRenderPos_){
+
+                gameBoard_.TranslateY(speed);
+                yIni = yFin;
+            }
 
         }
         int[] tempSol = gm_.getLevelSolution();

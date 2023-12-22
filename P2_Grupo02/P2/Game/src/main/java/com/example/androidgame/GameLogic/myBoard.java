@@ -46,7 +46,7 @@ public class myBoard extends GameObject {
         limitUp = sceneHeight_ / 6 + 10;
         limitDown = sceneHeight_ - 50;
         gameTries_ = new ArrayList<>();
-        int offset = 100;
+        int offset = limitUp;
         upRenderPos_=55;
         downRenderPos_=sceneHeight_ - 50;
 
@@ -94,7 +94,12 @@ public class myBoard extends GameObject {
     public int getDownTryPos(){
         return downTryPos_;
     }
-
+    public int getdownRenderPos(){
+        return limitDown;
+    }
+    public int getupRenderPos(){
+        return limitUp;
+    }
     @Override
     public void update(double time) {
         for (int i = 0; i < gameTries_.size(); i++) {
@@ -141,6 +146,9 @@ public class myBoard extends GameObject {
         for (int i = 0; i < gameTries_.size(); i++) {
             gameTries_.get(i).TranslateY(transY);
         }
+        upTryPos_+=transY;
+        downTryPos_+=transY;
+
     }
 
     public int getAcutalTry_() {
