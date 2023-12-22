@@ -16,8 +16,10 @@ public class ShopItem extends ButtonImage{
     private Font itemFont_;
     private Sound shopingSound_;
     private Image blockedImage_;
+    private Image coinImage_;
     public ShopItem(String image, int w, int h, int x, int y, Sound buttonSound,
-                     String sectionName,String itemName,int price,Image blockedImage, Font font) {
+                     String sectionName,String itemName,int price,Image blockedImage,
+                    Image coinImage, Font font) {
         super(image, w, h, x, y, null, null);
         sectionId_=sectionName;
         itemId_=itemName;
@@ -25,7 +27,7 @@ public class ShopItem extends ButtonImage{
         this.blockedImage_=blockedImage;
         shopingSound_=buttonSound;
         itemFont_=font;
-
+        coinImage_=coinImage;
     }
     public boolean buyItem(){
         boolean canBuy=false;
@@ -44,13 +46,14 @@ public class ShopItem extends ButtonImage{
     }
 
     public void render(Graphics graph){
+        super.render(graph);
         if (active) {
-            graph.drawImage(buttonImage_, this.posX_, this.posY_, width_, height_);
             if (ShopManager.getInstance().itemIsLocked(sectionId_,itemId_))
             {
                 graph.drawImage( this.blockedImage_, this.posX_+width_/4, this.posY_+height_/4, width_/2, height_/2);
                 graph.setFont(itemFont_);
-                graph.drawText(String.valueOf(price_),this.posX_+width_/2,this.posY_+height_+20);
+                graph.drawText(String.valueOf(price_),(this.posX_+width_/2) - 10,this.posY_+height_+20);
+                graph.drawImage( this.coinImage_, this.posX_+width_/2,this.posY_+height_+10,30,30);
             }
         }
     }

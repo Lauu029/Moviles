@@ -30,7 +30,7 @@ public class ShopScene extends Scene {
     private int rectangleColor, fontColor;
     private Image coinsIcon_;
     private JSONObject shopConfig;
-    private Image blockedImage_;
+
     private ButtonImage noneButton_;
     private boolean[] itemsLoaded_ = {false, false, false};
 
@@ -176,16 +176,17 @@ public class ShopScene extends Scene {
                 int step = 1;
                 ArrayList<ShopItem> shopItems_ = new ArrayList<>();
 
-                Log.d("MainActivity", "Tamaño array: " + shopItems_.size());
                 Font fuente=iEngine_.getGraphics().newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
+                Image blocked = iEngine_.getGraphics().newImage("lock.png");
+                Image coins= iEngine_.getGraphics().newImage("coin.png");
+
                 for (int i = 0; i < buttonsArray.length(); i++) {
                     String nombre = buttonsArray.getString(i);
-                    Image blocked = iEngine_.getGraphics().newImage("lock.png");
 
                     int precio=preciosArray.getInt(i);
                     ShopItem item  = new ShopItem(path + nombre + "Button" + ext, 100, 100, xPos,
                             yPos, shopingSound_, shopName_[id_],nombre,precio
-                            ,blocked,fuente);
+                            ,blocked,coins,fuente);
                     //Registramos ese item
                     ShopManager.getInstance().registerShopItem(shopName_[id_],nombre);
 
