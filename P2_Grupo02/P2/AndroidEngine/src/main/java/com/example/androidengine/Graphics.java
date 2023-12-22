@@ -108,19 +108,21 @@ public class Graphics {
         myPaint_.setStrokeWidth(width);
     }
     //Dibuja una imagen en una determinada posicion a partir de un rectangulo origen y otro destino
-    public void drawImage(Image iimage, int posX, int posY, int height, int widht) {
-        Image imageAndroid = (Image) iimage;
-        Rect src = new Rect();
-        src.left = 0;
-        src.top = 0;
-        src.right = imageAndroid.getWidth();
-        src.bottom = imageAndroid.getHeight();
-        Rect dst = new Rect();
-        dst.left = posX;
-        dst.top = posY;
-        dst.right = posX + widht;
-        dst.bottom = posY + height;
-        this.myCanvas_.drawBitmap(imageAndroid.getImage(), src, dst, this.myPaint_);
+    public void drawImage(Image image, int posX, int posY, int height, int widht) {
+        if (image != null && image.isVisible()) {
+            Image imageAndroid = (Image) image;
+            Rect src = new Rect();
+            src.left = 0;
+            src.top = 0;
+            src.right = imageAndroid.getWidth();
+            src.bottom = imageAndroid.getHeight();
+            Rect dst = new Rect();
+            dst.left = posX;
+            dst.top = posY;
+            dst.right = posX + widht;
+            dst.bottom = posY + height;
+            this.myCanvas_.drawBitmap(imageAndroid.getImage(), src, dst, this.myPaint_);
+        }
     }
     //Establece el color con el que se va a pintar
     public void setColor(int color_) {

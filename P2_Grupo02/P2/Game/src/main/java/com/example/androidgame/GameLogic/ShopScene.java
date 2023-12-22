@@ -30,7 +30,7 @@ public class ShopScene extends Scene {
     private int rectangleColor, fontColor;
     private Image coinsIcon_;
     private JSONObject shopConfig;
-    private Image blockedImage;
+    private Image blockedImage_;
     private ButtonImage noneButton_;
     private boolean[] itemsLoaded_ = {false, false, false};
 
@@ -43,7 +43,7 @@ public class ShopScene extends Scene {
         Log.d("MainActivity", "Me leo la tienda");
         myArrowSound_ = iEngine_.getAudio().newSound("arrowButton.wav");
         shopingSound_ = iEngine_.getAudio().newSound("cashPurchase.wav");
-        blockedImage = iEngine_.getGraphics().newImage("lock.png");
+        blockedImage_ = iEngine_.getGraphics().newImage("lock.png");
         noneButton_ = new ButtonImage("Shop/NudeButton.png", 100, 100, 25, 130,
                 myArrowSound_, null);
         rectangleColor = AssetsManager.getInstance().getButtonColor();
@@ -179,12 +179,11 @@ public class ShopScene extends Scene {
 
                 for (int i = 0; i < buttonsArray.length(); i++) {
                     String nombre = buttonsArray.getString(i);
-
                     ShopItem item  = new ShopItem(path + nombre + "Button" + ext, 100, 100, xPos,
-                            yPos, shopingSound_, shopName_[id_],nombre, 1);
+                            yPos, shopingSound_, shopName_[id_],nombre, 1,blockedImage_);
                     //Registramos ese item
                     ShopManager.getInstance().registerShopItem(shopName_[id_],nombre);
-                    item.addOverlayImage(blockedImage);
+
                     item.setAction(new ButtonClickListener() {
                         @Override
                         public void onClick() {
