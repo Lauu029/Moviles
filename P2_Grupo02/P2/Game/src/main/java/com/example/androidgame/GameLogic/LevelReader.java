@@ -1,13 +1,17 @@
 package com.example.androidgame.GameLogic;
 
-import android.util.Log;
+
 
 import com.example.androidengine.FileManager;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
@@ -50,7 +54,62 @@ public class LevelReader {
             numWorlds_++;
         }
     }
+    private JSONObject readJsonFromInputStream(InputStream inp) {
+        try {
+            // Lee el contenido del InputStream proporcionado
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inp));
 
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+            reader.close();
+
+            // Convierte la cadena JSON en un objeto JSONObject
+            return new JSONObject(stringBuilder.toString());
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al leer el archivo JSON desde InputStream", e);
+        }
+    }
+
+    private Theme readThemeFromJson(InputStream inp) {
+        try {
+            JSONObject jsonObject = readJsonFromInputStream(inp);
+
+            String tematica = jsonObject.getString("style");
+            String background = jsonObject.getString("background");
+            String gameBackground = jsonObject.getString("gameBackground");
+            String bolas = jsonObject.getString("bolas");
+
+            Theme tematica_ = new Theme(tematica, background, gameBackground, bolas);
+            return tematica_;
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Difficulty readDifficultyFromJson(InputStream inp) {
+        try {
+            JSONObject jsonObject = readJsonFromInputStream(inp);
+
+            int codeSize = jsonObject.getInt("codeSize");
+            int codeOpt = jsonObject.getInt("codeOpt");
+            int attempts = jsonObject.getInt("attempts");
+            boolean repeat = jsonObject.getBoolean("repeat");
+
+            Difficulty dif = new Difficulty();
+            dif.setSolutionColors(codeSize);
+            dif.setPosibleColors(codeOpt);
+            dif.setTries(attempts);
+            dif.setRepeat(repeat);
+
+            return dif;
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+    }
     void readWorld(String path) {
 
         FileManager fileManager = GameManager.getInstance().getIEngine().getFileManager();
@@ -62,40 +121,12 @@ public class LevelReader {
             InputStream inp = entry.getValue();
 
             Difficulty dif = new Difficulty();
-            JsonNode jsonNode = null;
-            Log.d("MainActivity", "Leyendo json");
-            ObjectMapper objectMapper = new ObjectMapper();
-            try {
 
-                jsonNode = objectMapper.readTree(inp);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
             if (fileName.compareTo("style.json") == 0) {
-
-                String tematica = jsonNode.get("style").asText();
-                String background = jsonNode.get("background").asText();
-                String gameBackground = jsonNode.get("gameBackground").asText();
-                String bolas = jsonNode.get("bolas").asText();
-
-
-                Theme tematica_ = new Theme(tematica, background, gameBackground, bolas);
-                tematicas_.add(tematica_);
+                tematicas_.add(readThemeFromJson(inp));
                 continue;
             }
-            // Asigna valores a las variables de tu programa desde el JSON
-            int codeSize = jsonNode.get("codeSize").asInt();
-            dif.setSolutionColors(codeSize);
-
-            int codeOpt = jsonNode.get("codeOpt").asInt();
-            dif.setPosibleColors(codeOpt);
-
-            int attempts = jsonNode.get("attempts").asInt();
-            dif.setTries(attempts);
-            Log.d("MainActivity", "attemps json" + attempts);
-            Boolean repeat = jsonNode.get("repeat").asBoolean();
-            dif.setRepeat(repeat);
-            diff_.add(dif);
+            diff_.add(readDifficultyFromJson(inp));
 
             try {
                 inp.close();
@@ -106,6 +137,5 @@ public class LevelReader {
 
         numNiveles.add(diff_.size());
         dificultades.add(diff_);
-        // tematica_=tematica;
     }
 }

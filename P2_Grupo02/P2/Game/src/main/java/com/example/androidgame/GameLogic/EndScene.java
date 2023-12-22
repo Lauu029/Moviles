@@ -27,7 +27,7 @@ public class EndScene extends Scene {
     protected boolean win_ = false;
     protected ImageProcessingCallback callback;
     protected Theme tematica_;
-   protected boolean canGetReward_;
+    protected boolean canGetReward_;
 
     public EndScene(boolean win, int[] sol, int intentos) {
         super();
@@ -95,19 +95,18 @@ public class EndScene extends Scene {
                 graph.generateScreenshot(0, 0, width_, height_ / 3, callback);
             }
         });
-        if (canGetReward_) {
-            buttonReward_ = new Button("Nuevas pistas", font1_, AssetsManager.getInstance().getButtonColor(),
-                    AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor(),
-                    150, 50, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 175,
-                    myButtonSound_, new ButtonClickListener() {
-                @Override
-                public void onClick() {
-                    iEngine_.getMobile().LoadRewardedAd();
-                    waitingForReward_ = true;
-                }
-            });
-            addGameObject(buttonReward_);
-        }
+        buttonReward_ = new Button("Nuevas pistas", font1_, AssetsManager.getInstance().getButtonColor(),
+                AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor(),
+                150, 50, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 175,
+                myButtonSound_, new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                iEngine_.getMobile().LoadRewardedAd();
+                waitingForReward_ = true;
+            }
+        });
+        addGameObject(buttonReward_);
+        RewardedAddBehaviour rewardedAddBehaviour = new RewardedAddBehaviour(2);
         tematica_ = AssetsManager.getInstance().getCirleTheme(false);
         if (tematica_.getName() != "DEFAULT") {
             for (int i = 0; i < sol_.length; i++) {
@@ -168,16 +167,16 @@ public class EndScene extends Scene {
 
     @Override
     public void update(double time) {
-        if (waitingForReward_) {
-            Log.d("AY","update");
-
-            boolean earned = iEngine_.getMobile().hasEarnedReward();
-            if (earned) {
-                GameScene gs = (GameScene) SceneManager.getInstance().getScene(SceneNames.GAME.ordinal());
-                gs.addTriesToBoard(2);
-                SceneManager.getInstance().setScene(SceneNames.GAME.ordinal());
-                waitingForReward_ = false;
-            }
-        }
+//        if (waitingForReward_) {
+//            Log.d("AY","update");
+//
+//            boolean earned = iEngine_.getMobile().hasEarnedReward();
+//            if (earned) {
+//                GameScene gs = (GameScene) SceneManager.getInstance().getScene(SceneNames.GAME.ordinal());
+//                gs.addTriesToBoard(2);
+//                SceneManager.getInstance().setScene(SceneNames.GAME.ordinal());
+//                waitingForReward_ = false;
+//            }
+//        }
     }
 }
