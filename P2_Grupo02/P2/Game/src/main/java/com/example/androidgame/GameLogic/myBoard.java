@@ -1,14 +1,12 @@
 package com.example.androidgame.GameLogic;
 
-import android.util.Log;
-
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.TouchEvent;
 
 import java.util.ArrayList;
 
-public class myBoard extends GameObject {
+public class MyBoard extends GameObject {
     //Relativo a la dificultad del nivel
     private int codeColors_, usableColors_, tries_;
     private boolean canRepeat_;
@@ -30,7 +28,7 @@ public class myBoard extends GameObject {
     private int[] totalPossibleColors = new int[]{0xFFFFC0CB, 0xFF87CEEB, 0xFF98FB98, 0xFFFFFF99,
             0xFFE6E6FA, 0xFFFFDAB9, 0xFFE7FFAC, 0xFFFF8FAB, 0xFF6FC0AB};
     private int upTryPos_,downTryPos_,upRenderPos_,downRenderPos_;
-    myBoard(int codeColors_, int tries_, int usableColors, boolean canRepeat_, int scW, int scH, boolean world) {
+    MyBoard(int codeColors_, int tries_, int usableColors, boolean canRepeat_, int scW, int scH, boolean world) {
         gm_ = GameManager.getInstance();
         world_ = world;
         this.font1_ = gm_.getIEngine().getGraphics().newFont("Lexendt.ttf", 20, false, false);
