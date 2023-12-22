@@ -47,19 +47,6 @@ public class Mobile {
     private boolean rewardEarned_;
     private RewardedAddEarned rewardEarnedMethod_;
 
-    class MyRewardedAdLoadCallback extends RewardedAdLoadCallback {
-        @Override
-        public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-            Log.d("MainActivity", loadAdError.toString());
-            rewardedAd_ = null;
-        }
-
-        @Override
-        public void onAdLoaded(@NonNull RewardedAd ad) {
-            rewardedAd_ = ad;
-            Log.d("MainActivity", "Rewarded ad was loaded.");
-        }
-    }
 
     public Mobile(Context c, Activity activity) {
         this.context_ = c;
@@ -85,6 +72,10 @@ public class Mobile {
                 Log.d("MainActivity", "Rewarded ad was loaded.");
             }
         });
+    }
+
+    public void assignRewardPrice(RewardedAddEarned r) {
+        this.rewardEarnedMethod_ = r;
     }
 
     public void loadAdBanner(AdView adView) {
