@@ -68,7 +68,10 @@ public class Button extends GameObject {
                     //GameManager.getInstance_().getIEngine().getAudio().stopSound(mySound_);
                     if (onClickFunction != null) {
                         onClickFunction.onClick();
-                        GameManager.getInstance().getIEngine().getAudio().playSound(mySound_, 0);
+                        if(mySound_!=null)
+                        {
+                            GameManager.getInstance().getIEngine().getAudio().playSound(mySound_, 0);
+                        }
                         return true;
                     }
                 }

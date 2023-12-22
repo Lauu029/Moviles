@@ -39,8 +39,8 @@ public class SaveData {
 
                 for (Map.Entry<String, Boolean> itemEntry : itemMap.entrySet()) {
                     String itemId = itemEntry.getKey();
-                    boolean isBought = itemEntry.getValue();
-                    if (isBought) {
+                    boolean isLocked = itemEntry.getValue();
+                    if (!isLocked) {
                         itemsArray.put(itemId);
                     }
                 }
@@ -87,7 +87,7 @@ public class SaveData {
                 for (int i=0; i<itemsArray.length(); i++) {
                     String itemId = itemsArray.getString(i);
                     ShopManager.getInstance().registerShopItem(typeId,itemId);
-                    ShopManager.getInstance().changeItemState(typeId,itemId,true);
+                    ShopManager.getInstance().changeItemState(typeId,itemId,false);
                 }
             }
         } catch (JSONException | IOException e) {

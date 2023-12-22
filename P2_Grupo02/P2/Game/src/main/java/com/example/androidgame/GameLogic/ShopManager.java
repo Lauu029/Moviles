@@ -37,13 +37,13 @@ public class ShopManager {
         else{ Log.d("SHOP","Ya contiene la seccion: "+typeId);}
         if(itemsState_.containsKey(typeId) && !itemsState_.get(typeId).containsKey(itemId))
         {
-            itemsState_.get(typeId).put(itemId, false);
+            itemsState_.get(typeId).put(itemId, true);
         }
         else{ Log.d("SHOP","Ya contiene la seccion: "+typeId+" y el objeto "+itemId);}
     }
-    void changeItemState(String typeId,String itemId,boolean bought){
+    void changeItemState(String typeId,String itemId,boolean locked){
         if(itemsState_.containsKey(typeId) && itemsState_.get(typeId).containsKey(itemId)){
-            itemsState_.get(typeId).put(itemId,bought);
+            itemsState_.get(typeId).put(itemId,locked);
             Log.d("COMPRA","Has comprado en la seccion: "+typeId+" y el objeto "+itemId);
         }
         else{
@@ -51,12 +51,11 @@ public class ShopManager {
         }
     }
     boolean itemIsLocked(String typeId,String itemId){
-        boolean isLocked;
+        boolean isLocked=true;
         if(itemsState_.containsKey(typeId) && itemsState_.get(typeId).containsKey(itemId)) {
-            isLocked= itemsState_.get(typeId).get(itemId);
-        }
-        else{
-            isLocked=true;
+           if(!itemsState_.get(typeId).get(itemId)){
+               isLocked=false;
+           }
         }
         return isLocked;
     }

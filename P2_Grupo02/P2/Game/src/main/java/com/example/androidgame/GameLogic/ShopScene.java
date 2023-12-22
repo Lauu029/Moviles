@@ -204,6 +204,7 @@ public class ShopScene extends Scene {
                                         AssetsManager.getInstance().addNewPalette(nombre);
                                         break;
                                 }
+
                             }
                         }
                     });
