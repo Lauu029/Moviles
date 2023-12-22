@@ -3,19 +3,22 @@
       "tipo": "Fondos",
       "ruta" : "Shop/Background/",
       "extension" : ".jpg",
-      "ButtonsImages" : ["teletubies", "vacas", "ositos", "Setitas"]
+      "ButtonsImages" : ["teletubies", "vacas", "ositos", "Setitas"],
+      "precios": [10,10,20,30]
    },
    "colores": {
       "tipo": "Colores",
       "ruta": "Shop/Color/",
       "extension" : ".png",
-      "ButtonsImages" : ["Blue","Green","Pink","Yellow"]
+      "ButtonsImages" : ["Blue","Green","Pink","Yellow"],
+      "precios": [15,10,25,10]
    },
    "codigos": {
       "tipo": "Codigos",
       "ruta" : "Shop/Codes/",
       "extension" : ".png",
       "ButtonsImages" : ["Animals","Vegetables","Origami","Japo"],
-      "numBotones" : 5
+      "numBotones" : 5,
+      "precios": [20,25,10,20]
    }
 }

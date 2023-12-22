@@ -1,5 +1,8 @@
 package com.example.androidgame.GameLogic;
 
+import android.util.Log;
+
+import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
@@ -10,20 +13,20 @@ public class ShopItem extends ButtonImage{
     private String sectionId_;
     private String itemId_;
     private int price_;
-
+    private Font itemFont_;
     private Sound shopingSound_;
     private Image blockedImage_;
     public ShopItem(String image, int w, int h, int x, int y, Sound buttonSound,
-                     String sectionName,String itemName,int price,Image blockedImage) {
+                     String sectionName,String itemName,int price,Image blockedImage, Font font) {
         super(image, w, h, x, y, null, null);
         sectionId_=sectionName;
         itemId_=itemName;
         price_=price;
         this.blockedImage_=blockedImage;
         shopingSound_=buttonSound;
+        itemFont_=font;
 
     }
-
     public boolean buyItem(){
         boolean canBuy=false;
         int currCoins = GameManager.getInstance().getCoins();
@@ -33,18 +36,24 @@ public class ShopItem extends ButtonImage{
             //Solo suena si de verdad lo puede comprar
             GameManager.getInstance().getIEngine().getAudio().playSound(shopingSound_, 0);
             canBuy=true;
+        }else
+        {
+            Log.d("BUY","No tienes dinero o ya esta comprado");
         }
         return canBuy;
     }
-    @Override
+
     public void render(Graphics graph){
-        super.render(graph);
-        if (this.blockedImage_.isVisible())
-            graph.drawImage( this.blockedImage_, this.posX_+width_/4, this.posY_+height_/4, width_/2, height_/2);
+        if (active) {
+            graph.drawImage(buttonImage_, this.posX_, this.posY_, width_, height_);
+            if (ShopManager.getInstance().itemIsLocked(sectionId_,itemId_))
+            {
+                graph.drawImage( this.blockedImage_, this.posX_+width_/4, this.posY_+height_/4, width_/2, height_/2);
+                graph.setFont(itemFont_);
+                graph.drawText(String.valueOf(price_),this.posX_+width_/2,this.posY_+height_+20);
+            }
+        }
     }
 
-    public void deleteOverlayImage() {
-        this.blockedImage_.setVisibility(false);
-    }
 
 }

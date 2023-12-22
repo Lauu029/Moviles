@@ -169,6 +169,7 @@ public class ShopScene extends Scene {
                 shopName_[id_] = config.get("tipo").toString();
                 String path = config.get("ruta").toString();
                 String ext = config.get("extension").toString();
+                JSONArray preciosArray = config.getJSONArray("precios");
                 JSONArray buttonsArray = config.getJSONArray("ButtonsImages");
                 int yPos = 130;
                 int xPos = 25 + 130;
@@ -176,12 +177,15 @@ public class ShopScene extends Scene {
                 ArrayList<ShopItem> shopItems_ = new ArrayList<>();
 
                 Log.d("MainActivity", "Tamaño array: " + shopItems_.size());
-
+                Font fuente=iEngine_.getGraphics().newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
                 for (int i = 0; i < buttonsArray.length(); i++) {
                     String nombre = buttonsArray.getString(i);
                     Image blocked = iEngine_.getGraphics().newImage("lock.png");
+
+                    int precio=preciosArray.getInt(i);
                     ShopItem item  = new ShopItem(path + nombre + "Button" + ext, 100, 100, xPos,
-                            yPos, shopingSound_, shopName_[id_],nombre, 1,blocked);
+                            yPos, shopingSound_, shopName_[id_],nombre,precio
+                            ,blocked,fuente);
                     //Registramos ese item
                     ShopManager.getInstance().registerShopItem(shopName_[id_],nombre);
 
@@ -204,7 +208,7 @@ public class ShopScene extends Scene {
                                         AssetsManager.getInstance().addNewPalette(nombre);
                                         break;
                                 }
-                                item.deleteOverlayImage();
+
                             }
                         }
                     });
