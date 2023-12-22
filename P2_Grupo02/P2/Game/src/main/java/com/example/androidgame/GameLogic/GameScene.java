@@ -85,12 +85,12 @@ public class GameScene extends Scene {
     public void update(double time) {
         if (scroll) {
             int speed = yFin - yIni;
-            if(gameBoard_.getUpTryPos()<upRenderPos_||gameBoard_.getDownTryPos()>downRenderPos_){
+            if((gameBoard_.getUpTryPos()<upRenderPos_&&speed>0)||(gameBoard_.getDownTryPos()>downRenderPos_&&speed<0)){
 
                 gameBoard_.TranslateY(speed);
-                yIni = yFin;
-            }
 
+            }
+            yIni = yFin;
         }
         int[] tempSol = gm_.getLevelSolution();
         int i = 0;
