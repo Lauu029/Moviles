@@ -78,14 +78,14 @@ public class SaveData {
             int level= jsonObject.getInt("level");
             LevelManager.getInstance().setPassedLevel(level);
 
-            // Nuevo mapa que guarda la información sobre los items comprados
+            // Registramos en el mapa las cosas desbloqueadas
+            JSONObject tiendaInfo=jsonObject.getJSONArray("tienda").getJSONObject(0);
+            for (int i=0; i<tiendaInfo.length(); i++) {
+                String typeId = tiendaInfo.names().getString(i);
+                JSONArray itemsArray =tiendaInfo.getJSONArray(typeId);
 
-            for (Map.Entry<String, Map<String, Boolean>> typeEntry : ShopManager.getInstance().getItemsState().entrySet()) {
-                String typeId = typeEntry.getKey();
-                JSONArray itemsArray =jsonObject.getJSONArray(typeId);
-
-                for (int i=0; i<itemsArray.length(); i++) {
-                    String itemId = itemsArray.getString(i);
+                for (int j=0; j<itemsArray.length(); j++) {
+                    String itemId = itemsArray.getString(j);
                     ShopManager.getInstance().registerShopItem(typeId,itemId);
                     ShopManager.getInstance().changeItemState(typeId,itemId,false);
                 }
