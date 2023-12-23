@@ -40,7 +40,7 @@ public class SceneManager {
         if (idScene == SceneNames.WORLD.ordinal())
             Log.d("MainActivity", "Nueva wordlScene");
         if (sceneList_[idScene] == null || idScene == SceneNames.GAME.ordinal() ||
-                idScene == SceneNames.FINAL.ordinal()||idScene == SceneNames.WORLD_FINAL.ordinal()) {
+                idScene == SceneNames.FINAL.ordinal()||idScene == SceneNames.WORLD_FINAL.ordinal()||idScene == SceneNames.WORLD.ordinal()) {
             Log.d("MainActivity","Estoy creando la escena");
             sceneList_[idScene] = scene;
             sceneList_[idScene].init();
@@ -48,12 +48,14 @@ public class SceneManager {
 
         myEngine_ = GameManager.getInstance().getIEngine();
         myEngine_.setScene(sceneList_[idScene]);
+
     }
 
 
     // Method to switch to the previous scene
     public void setScene(int idScene) {
         myEngine_.setScene(sceneList_[idScene]);
+        sceneList_[idScene].init();
 
     }
     public Scene getScene(int idScene){

@@ -37,7 +37,7 @@ public class WorldScene extends Scene {
 
     @Override
     public void init() {
-
+        buttonObjects_.clear();
         Graphics graph = iEngine_.getGraphics();
         this.font_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 40, true, true);
         graph.setFont(this.font_);
@@ -56,7 +56,7 @@ public class WorldScene extends Scene {
             public void onClick() {
 
                 actualWorld_ = (actualWorld_ - 1 + numWorlds_) % numWorlds_;
-                Log.d("MAIN", String.valueOf(actualWorld_));
+
                 buttonObjects_.clear();
 
                 loadWorld();
@@ -81,7 +81,7 @@ public class WorldScene extends Scene {
         LevelManager.getInstance().setActualWorld(actualWorld_);
         LevelManager.getInstance().setNewWorld();
         int widthScene = GameManager.getInstance().getWidth();
-        passedLevel_ = LevelManager.getInstance().getActualLevel();
+
         int wButton = (widthScene) / (columnas_ + 1);
         int margen = (widthScene - (wButton * columnas_)) / (columnas_ + 1);
         int x = 0;
@@ -96,6 +96,7 @@ public class WorldScene extends Scene {
         backaground_ = iEngine_.getGraphics().newImage(imagePath);
         passedWorld_ = LevelManager.getInstance().getPassedWorld();
         passedLevel_ = LevelManager.getInstance().getPassedLevel();
+        Log.d("LEVELLS",passedLevel_+"");
         for (int i = 0; i < niveles_; i++) {
             if (x >= columnas_) {
                 x = 0;
