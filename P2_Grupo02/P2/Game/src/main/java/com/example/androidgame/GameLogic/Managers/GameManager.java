@@ -1,10 +1,14 @@
-package com.example.androidgame.GameLogic;
+package com.example.androidgame.GameLogic.Managers;
 
 
 import android.util.Log;
 
 import com.example.androidengine.Engine;
 import com.example.androidengine.Image;
+import com.example.androidgame.GameLogic.Board;
+import com.example.androidgame.GameLogic.Difficulty;
+import com.example.androidgame.GameLogic.SaveData;
+import com.example.androidgame.GameLogic.ShopManager;
 
 public class GameManager {
     private static GameManager instance_;
@@ -112,7 +116,7 @@ public class GameManager {
     public void addCoins(int amount){
         coins_+=amount;
     }
-    protected void setCoins(int coins){
+    public void setCoins(int coins){
         coins_=coins;
     }
 

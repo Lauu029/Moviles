@@ -8,13 +8,13 @@ import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
 import com.example.androidengine.ImageProcessingCallback;
 import com.example.androidengine.Sound;
-import com.example.androidgame.GameLogic.AssetsManager;
+import com.example.androidgame.GameLogic.Managers.AssetsManager;
 import com.example.androidgame.GameLogic.Buttons.Button;
 import com.example.androidgame.GameLogic.Buttons.ButtonClickListener;
 import com.example.androidgame.GameLogic.GameInit;
-import com.example.androidgame.GameLogic.GameManager;
+import com.example.androidgame.GameLogic.Managers.GameManager;
 import com.example.androidgame.GameLogic.RewardedAddBehaviour;
-import com.example.androidgame.GameLogic.SceneManager;
+import com.example.androidgame.GameLogic.Managers.SceneManager;
 import com.example.androidgame.GameLogic.Theme;
 
 import java.util.ArrayList;

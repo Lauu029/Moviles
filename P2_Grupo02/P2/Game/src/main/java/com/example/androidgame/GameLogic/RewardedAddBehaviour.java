@@ -1,6 +1,7 @@
 package com.example.androidgame.GameLogic;
 
 import com.example.androidengine.RewardedAddEarned;
+import com.example.androidgame.GameLogic.Managers.SceneManager;
 import com.example.androidgame.GameLogic.Scenes.GameScene;
 import com.example.androidgame.GameLogic.Scenes.SceneNames;
 

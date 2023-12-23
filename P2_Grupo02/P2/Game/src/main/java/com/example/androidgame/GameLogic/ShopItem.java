@@ -7,6 +7,7 @@ import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
 import com.example.androidgame.GameLogic.Buttons.ButtonImage;
+import com.example.androidgame.GameLogic.Managers.GameManager;
 
 public class ShopItem extends ButtonImage {
 

@@ -1,9 +1,10 @@
-package com.example.androidgame.GameLogic;
+package com.example.androidgame.GameLogic.Managers;
 
 import android.util.Log;
 
 import com.example.androidengine.Engine;
 import com.example.androidengine.Image;
+import com.example.androidgame.GameLogic.Theme;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,11 +59,11 @@ public class AssetsManager {
             return iEngine_.getGraphics().newImage(worldbackgrounTheme_.getBackground());
         return null;
     }
-    String getBackgroundPath(){
+    public String getBackgroundPath(){
         return backgrounTheme_.getBackground();
     }
 
-    String getPaletteColor() {
+    public String getPaletteColor() {
         return paletteColor_;
     }
 

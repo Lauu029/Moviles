@@ -7,6 +7,9 @@ import com.example.androidengine.Sound;
 import com.example.androidgame.GameLogic.Buttons.Button;
 import com.example.androidgame.GameLogic.Buttons.ButtonClickListener;
 import com.example.androidgame.GameLogic.Buttons.ButtonImage;
+import com.example.androidgame.GameLogic.Managers.AssetsManager;
+import com.example.androidgame.GameLogic.Managers.GameManager;
+import com.example.androidgame.GameLogic.Managers.SceneManager;
 import com.example.androidgame.GameLogic.Scenes.GameScene;
 import com.example.androidgame.GameLogic.Scenes.Scene;
 import com.example.androidgame.GameLogic.Scenes.SceneNames;
@@ -40,7 +43,7 @@ public class DifficultyScene extends Scene {
         for (int i = 0; i < 4; i++) {
 
             int finalI = i;
-            Button but = new Button(names[i], font_,AssetsManager.getInstance().getButtonColor() ,//colors[i]
+            Button but = new Button(names[i], font_, AssetsManager.getInstance().getButtonColor() ,//colors[i]
                     AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor(),150, 50, 35, this.width_ / 2 - 150 / 2,
                     100 * i + 100, myButtonSound_, new ButtonClickListener() {
                 @Override

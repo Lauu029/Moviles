@@ -4,8 +4,8 @@ import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
-import com.example.androidgame.GameLogic.AssetsManager;
-import com.example.androidgame.GameLogic.GameManager;
+import com.example.androidgame.GameLogic.Managers.AssetsManager;
+import com.example.androidgame.GameLogic.Managers.GameManager;
 import com.example.androidgame.GameLogic.GameObject;
 
 public class Button extends GameObject {

@@ -4,8 +4,8 @@ import com.example.androidengine.Engine;
 import com.example.androidengine.IScene;
 import com.example.androidengine.Image;
 import com.example.androidengine.TouchEvent;
-import com.example.androidgame.GameLogic.AssetsManager;
-import com.example.androidgame.GameLogic.GameManager;
+import com.example.androidgame.GameLogic.Managers.AssetsManager;
+import com.example.androidgame.GameLogic.Managers.GameManager;
 import com.example.androidgame.GameLogic.GameObject;
 
 import java.util.ArrayList;

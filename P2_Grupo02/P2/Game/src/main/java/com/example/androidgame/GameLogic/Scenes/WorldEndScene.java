@@ -5,13 +5,13 @@ import android.util.Log;
 import com.example.androidengine.Engine;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
-import com.example.androidgame.GameLogic.AssetsManager;
+import com.example.androidgame.GameLogic.Managers.AssetsManager;
 import com.example.androidgame.GameLogic.Buttons.Button;
 import com.example.androidgame.GameLogic.Buttons.ButtonClickListener;
 import com.example.androidgame.GameLogic.Difficulty;
-import com.example.androidgame.GameLogic.GameManager;
-import com.example.androidgame.GameLogic.LevelManager;
-import com.example.androidgame.GameLogic.SceneManager;
+import com.example.androidgame.GameLogic.Managers.GameManager;
+import com.example.androidgame.GameLogic.Managers.LevelManager;
+import com.example.androidgame.GameLogic.Managers.SceneManager;
 
 public class WorldEndScene extends EndScene {
     private Image coinImage_;

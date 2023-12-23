@@ -4,7 +4,7 @@ import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
-import com.example.androidgame.GameLogic.GameManager;
+import com.example.androidgame.GameLogic.Managers.GameManager;
 
 public class ButtonMundo extends Button {
     protected Image lockImage_;

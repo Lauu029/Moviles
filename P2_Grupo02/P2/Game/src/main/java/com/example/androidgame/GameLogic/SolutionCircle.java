@@ -3,6 +3,7 @@ package com.example.androidgame.GameLogic;
 import com.example.androidengine.Font;
 import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
+import com.example.androidgame.GameLogic.Managers.GameManager;
 
 /* Clase correspondiente a los círculos de colores que se usan para adivinar la combinación.
  * Extiende la clase Círculo y se encarga de avisar al GameManager cuando se ha pulsado uno para que
@@ -11,7 +12,7 @@ public class SolutionCircle extends Circle {
     private Sound myButtonSound_;
     public SolutionCircle(String t, Font f, int r, int x, int y, int row_,boolean world) {
         super(t, f, r, x, y, row_,world);
-        myButtonSound_=GameManager.getInstance().getIEngine().getAudio().newSound("circleSound.wav");
+        myButtonSound_= GameManager.getInstance().getIEngine().getAudio().newSound("circleSound.wav");
     }
 
     public boolean handleInput(TouchEvent event) {

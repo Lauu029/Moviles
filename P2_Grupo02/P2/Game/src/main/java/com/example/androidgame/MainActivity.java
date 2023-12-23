@@ -1,15 +1,9 @@
 package com.example.androidgame;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.work.Data;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkRequest;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
@@ -19,7 +13,7 @@ import com.google.android.gms.ads.AdView;
 
 
 import com.example.androidengine.Engine;
-import com.example.androidgame.GameLogic.GameManager;
+import com.example.androidgame.GameLogic.Managers.GameManager;
 
 import java.util.concurrent.TimeUnit;
 

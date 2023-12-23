@@ -5,8 +5,8 @@ import android.util.Log;
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.TouchEvent;
-
-import java.util.ArrayList;
+import com.example.androidgame.GameLogic.Managers.AssetsManager;
+import com.example.androidgame.GameLogic.Managers.GameManager;
 
 public class GameTry extends GameObject {
     private TryCircle[] tries_;

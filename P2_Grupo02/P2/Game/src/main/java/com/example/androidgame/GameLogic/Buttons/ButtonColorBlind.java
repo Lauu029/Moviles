@@ -3,7 +3,7 @@ package com.example.androidgame.GameLogic.Buttons;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
-import com.example.androidgame.GameLogic.GameManager;
+import com.example.androidgame.GameLogic.Managers.GameManager;
 
 public class ButtonColorBlind extends ButtonImage {
     private Image buttonImage_open_;

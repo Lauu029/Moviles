@@ -4,8 +4,8 @@ import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
-import com.example.androidgame.GameLogic.AssetsManager;
-import com.example.androidgame.GameLogic.GameManager;
+import com.example.androidgame.GameLogic.Managers.AssetsManager;
+import com.example.androidgame.GameLogic.Managers.GameManager;
 
 public class ButtonImage extends Button {
     protected Image buttonImage_;

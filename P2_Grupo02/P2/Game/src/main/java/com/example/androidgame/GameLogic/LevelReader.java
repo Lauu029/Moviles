@@ -3,6 +3,7 @@ package com.example.androidgame.GameLogic;
 
 
 import com.example.androidengine.FileManager;
+import com.example.androidgame.GameLogic.Managers.GameManager;
 
 
 import org.json.JSONException;
@@ -27,25 +28,25 @@ public class LevelReader {
         return numWorlds_;
     }
 
-    LevelReader() {
+    public LevelReader() {
         numNiveles = new ArrayList<>();
         tematicas_ = new ArrayList<>();
         dificultades = new ArrayList<>();
     }
 
-    int getNumLevels(int world) {
+    public int getNumLevels(int world) {
         return numNiveles.get(world);
     }
 
-    ArrayList<Difficulty> geDifficultylevels(int world) {
+    public ArrayList<Difficulty> geDifficultylevels(int world) {
         return dificultades.get(world);
     }
 
-    Theme getTematicaWorld(int world) {
+    public Theme getTematicaWorld(int world) {
         return tematicas_.get(world);
     }
 
-    void readWorlds(String path) {
+    public void readWorlds(String path) {
 
         String[] nameWorld = GameManager.getInstance().getIEngine().getFileManager().getFolderNamesInFolder(levelPath);
 

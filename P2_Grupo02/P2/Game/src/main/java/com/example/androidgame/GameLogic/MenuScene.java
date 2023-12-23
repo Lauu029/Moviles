@@ -9,6 +9,9 @@ import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
 import com.example.androidgame.GameLogic.Buttons.Button;
 import com.example.androidgame.GameLogic.Buttons.ButtonClickListener;
+import com.example.androidgame.GameLogic.Managers.AssetsManager;
+import com.example.androidgame.GameLogic.Managers.GameManager;
+import com.example.androidgame.GameLogic.Managers.SceneManager;
 import com.example.androidgame.GameLogic.Scenes.Scene;
 import com.example.androidgame.GameLogic.Scenes.SceneNames;
 import com.example.androidgame.GameLogic.Scenes.ShopScene;
@@ -44,7 +47,7 @@ public class MenuScene extends Scene {
         myButtonSound_ = iEngine_.getAudio().newSound("menuButton.wav");
         maracaSound_ = iEngine_.getAudio().newSound("maraca.mp3");
 
-        this.playButton_ = new Button("Partida Rapida", fontButton_,AssetsManager.getInstance().getButtonColor(),
+        this.playButton_ = new Button("Partida Rapida", fontButton_, AssetsManager.getInstance().getButtonColor(),
                 AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor(),
                 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 -80, myButtonSound_, new ButtonClickListener() {
             @Override

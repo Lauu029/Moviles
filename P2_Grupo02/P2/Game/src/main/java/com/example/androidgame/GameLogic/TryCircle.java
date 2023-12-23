@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.TouchEvent;
+import com.example.androidgame.GameLogic.Managers.GameManager;
 
 /* Clase correspondiente a los círculos que forman la solución. Extiende la clase círculo.
  * id_row almacena la posición en la fila en la que está cada círculo para poner la solución y
