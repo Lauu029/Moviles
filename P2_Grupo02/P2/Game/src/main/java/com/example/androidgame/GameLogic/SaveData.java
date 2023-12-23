@@ -88,7 +88,7 @@ public class SaveData {
             String hashJSON= NDKManager.generateHash(primerHash);
             String segundoHash= codigo2+hashJSON;
             String finalHash=NDKManager.generateHash(segundoHash);
-            
+
             //Leer el archivo de hash
             FileInputStream hashInputStream = context.openFileInput(HASHFILE);
             int sizeHash = hashInputStream.available();
@@ -97,15 +97,15 @@ public class SaveData {
             hashInputStream.close();
             String hashString = new String(bufferHash, "UTF-8");
 
-            if(finalHash!=hashString){
-                Log.d("HASH","Pero te crees que naci de una lechuga?");
-            }else
-            {
-                Log.d("HASH","Bien hecho");
+            //Si intenta cambiar los datos le endeudamos con 100 monedas
+            if(!finalHash.equals(hashString)){
+                GameManager.getInstance().setCoins(-100);
             }
-
-            int coins = jsonObject.getInt("coins");
-            GameManager.getInstance().setCoins(coins);
+            else
+            {
+                int coins = jsonObject.getInt("coins");
+                GameManager.getInstance().setCoins(coins);
+            }
 
             String paletteStr = jsonObject.getString("palette");
             String paletteName = String.valueOf(paletteStr);
