@@ -121,10 +121,10 @@ public class SaveData {
             LevelManager.getInstance().setPassedLevel(level);
 
             String backgroundImage = jsonObject.getString("background");
-            AssetsManager.getInstance().setBackgroundTheme(new Theme("DEFAULT",backgroundImage,"",""));
+            AssetsManager.getInstance().setBackgroundTheme(new Theme("PURCHASED",backgroundImage,"",""));
 
             String codesPath = jsonObject.getString("codes");
-            AssetsManager.getInstance().setCirleTheme(new Theme("DEFAULT", "","",codesPath),false);
+            AssetsManager.getInstance().setCirleTheme(new Theme("PURCHASED", "","",codesPath),false);
             // Registramos en el mapa las cosas desbloqueadas
             JSONObject tiendaInfo = jsonObject.getJSONArray("tienda").getJSONObject(0);
             for (int i = 0; i < tiendaInfo.length(); i++) {

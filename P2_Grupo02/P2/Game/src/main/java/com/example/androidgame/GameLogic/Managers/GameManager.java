@@ -126,8 +126,7 @@ public class GameManager {
                 LevelManager.getInstance().getPassedWorld(),
                 LevelManager.getInstance().getPassedLevel(),
                 AssetsManager.getInstance().getBackgroundPath(),
-                AssetsManager.getInstance().getCirleTheme(false).getPathBolas()//,
-                /*ShopManager.getInstance().getItemsState()*/);
+                AssetsManager.getInstance().getCirleTheme(false).getPathBolas());
     }
 
     // Llamado al iniciar el juego para cargar el progreso del jugador
