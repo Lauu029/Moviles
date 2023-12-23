@@ -28,7 +28,7 @@ public class Board extends GameObject {
     private int[] totalPossibleColors = new int[]{0xFFFFC0CB, 0xFF87CEEB, 0xFF98FB98, 0xFFFFFF99,
             0xFFE6E6FA, 0xFFFFDAB9, 0xFFE7FFAC, 0xFFFF8FAB, 0xFF6FC0AB};
     private int upTryPos_,downTryPos_,upRenderPos_,downRenderPos_;
-    Board(int codeColors_, int tries_, int usableColors, boolean canRepeat_, int scW, int scH, boolean world) {
+    public Board(int codeColors_, int tries_, int usableColors, boolean canRepeat_, int scW, int scH, boolean world) {
         gm_ = GameManager.getInstance();
         world_ = world;
         this.font1_ = gm_.getIEngine().getGraphics().newFont("Lexendt.ttf", 20, false, false);
@@ -74,7 +74,7 @@ public class Board extends GameObject {
 
     /*Avanza al siguiente intento y resetea la solución tempporal, avisa a todos los cículos para que
      * actualicen la información del intento actual de la partida*/
-    void nexTry() {
+    public void nexTry() {
         acutalTry_++;
         gm_.resetLevelSolution();
         for (int i = 0; i < this.tries_; i++) {
@@ -172,7 +172,7 @@ public class Board extends GameObject {
         nexTry();
     }
 
-    int getTotalTries(){
+    public int getTotalTries(){
         return tries_;
     }
     public void changeDaltonics(boolean dalt) {

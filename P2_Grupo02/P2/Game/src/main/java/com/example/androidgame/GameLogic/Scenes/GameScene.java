@@ -1,4 +1,4 @@
-package com.example.androidgame.GameLogic;
+package com.example.androidgame.GameLogic.Scenes;
 
 import android.util.Log;
 
@@ -6,6 +6,15 @@ import com.example.androidengine.Font;
 import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
+import com.example.androidgame.GameLogic.Board;
+import com.example.androidgame.GameLogic.ButtonClickListener;
+import com.example.androidgame.GameLogic.ButtonColorBlind;
+import com.example.androidgame.GameLogic.ButtonImage;
+import com.example.androidgame.GameLogic.Difficulty;
+import com.example.androidgame.GameLogic.GameManager;
+import com.example.androidgame.GameLogic.GameObject;
+import com.example.androidgame.GameLogic.SceneManager;
+import com.example.androidgame.GameLogic.Solution;
 
 import java.util.ArrayList;
 

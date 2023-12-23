@@ -1,4 +1,4 @@
-package com.example.androidgame.GameLogic;
+package com.example.androidgame.GameLogic.Scenes;
 
 import android.util.Log;
 
@@ -6,6 +6,16 @@ import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
+import com.example.androidgame.GameLogic.AssetsManager;
+import com.example.androidgame.GameLogic.ButtonClickListener;
+import com.example.androidgame.GameLogic.ButtonImage;
+import com.example.androidgame.GameLogic.GameManager;
+import com.example.androidgame.GameLogic.SceneManager;
+import com.example.androidgame.GameLogic.Scenes.Scene;
+import com.example.androidgame.GameLogic.Scenes.SceneNames;
+import com.example.androidgame.GameLogic.ShopItem;
+import com.example.androidgame.GameLogic.ShopManager;
+import com.example.androidgame.GameLogic.Theme;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,7 +44,7 @@ public class ShopScene extends Scene {
     private ButtonImage noneButton_;
     private boolean[] itemsLoaded_ = {false, false, false};
 
-    ShopScene() {
+    public ShopScene() {
         super();
     }
 

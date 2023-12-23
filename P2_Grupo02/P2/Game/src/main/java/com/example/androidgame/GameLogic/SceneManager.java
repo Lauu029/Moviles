@@ -3,6 +3,8 @@ package com.example.androidgame.GameLogic;
 import android.util.Log;
 
 import com.example.androidengine.Engine;
+import com.example.androidgame.GameLogic.Scenes.Scene;
+import com.example.androidgame.GameLogic.Scenes.SceneNames;
 
 public class SceneManager {
 

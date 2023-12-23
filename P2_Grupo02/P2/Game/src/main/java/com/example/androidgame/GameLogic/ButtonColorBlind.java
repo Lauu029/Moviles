@@ -7,7 +7,7 @@ import com.example.androidengine.Sound;
 public class ButtonColorBlind extends ButtonImage {
     private Image buttonImage_open_;
 
-    ButtonColorBlind(String eyeOpenImage, String eyeClosedImage,int w, int h, int x, int y, Sound buttonSound, ButtonClickListener function) {
+    public ButtonColorBlind(String eyeOpenImage, String eyeClosedImage, int w, int h, int x, int y, Sound buttonSound, ButtonClickListener function) {
         super(eyeClosedImage ,w,h,x,y,GameManager.getInstance().getIEngine().getAudio().newSound("colorBlindButton.wav"),function);
         buttonImage_open_ = GameManager.getInstance().getIEngine().getGraphics().newImage(eyeOpenImage);
     }

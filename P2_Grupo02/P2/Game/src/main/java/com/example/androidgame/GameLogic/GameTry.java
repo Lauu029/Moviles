@@ -42,7 +42,7 @@ public class GameTry extends GameObject {
     }
 
     @Override
-    void init() {
+    public void init() {
         int offsetX = height_;
         int radius = (int) ((height_) / 2.5f);
         int spaceCircles = widthRectangle_ / 2;
@@ -88,14 +88,14 @@ public class GameTry extends GameObject {
     }
 
     @Override
-    void update(double time) {
+    public void update(double time) {
         for (int i = 0; i < solutionSize_; i++) {
             tries_[i].update(time);
         }
     }
 
     @Override
-    void render(Graphics graph) {
+    public void render(Graphics graph) {
         if(translateY_+height_ <= maxY_ && translateY_+height_>=minY_) {
             drawRectange(graph);
             drawTextLines(graph);
@@ -129,7 +129,7 @@ public class GameTry extends GameObject {
     }
 
     @Override
-    boolean handleInput(TouchEvent event) {
+    public boolean handleInput(TouchEvent event) {
         for (TryCircle try_ : tries_) {
             try_.handleInput(event);
         }

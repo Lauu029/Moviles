@@ -39,17 +39,17 @@ public class AssetsManager {
         // Constructor privado
     }
 
-    Theme getCirleTheme(boolean world) {
+    public Theme getCirleTheme(boolean world) {
         if (!world) return circleTheme_;
         return worldCircleTheme_;
     }
 
-    Theme getBackgrounTheme(boolean world) {
+    public Theme getBackgrounTheme(boolean world) {
         if (!world) return backgrounTheme_;
         return worldbackgrounTheme_;
     }
 
-    Image getBackgroundImage(boolean world) {
+    public Image getBackgroundImage(boolean world) {
         if (!world) {
             if (backgrounTheme_.getBackground() != "") {
                 return iEngine_.getGraphics().newImage(backgrounTheme_.getBackground());
@@ -91,11 +91,11 @@ public class AssetsManager {
         lineColor_ = putColors_[3];
     }
 
-    void setBackgroundTheme(Theme t) {
+    public void setBackgroundTheme(Theme t) {
         this.backgrounTheme_ = t;
     }
 
-    void setCirleTheme(Theme tema, boolean world) {
+    public void setCirleTheme(Theme tema, boolean world) {
 
         String temaName = tema.getName();
 
@@ -112,7 +112,7 @@ public class AssetsManager {
         }
     }
 
-    void setWorldTheme(Theme tema) {
+    public void setWorldTheme(Theme tema) {
 
         String temaName = tema.getName();
 
@@ -143,16 +143,16 @@ public class AssetsManager {
         return 1;
     }
 
-    void setDefaultPalette() {
+    public void setDefaultPalette() {
         paletteColor_ = "DEFAULT";
         setPaletteTheme(paletteColor_);
     }
 
-    void setDefaultBackground() {
+    public void setDefaultBackground() {
         backgrounTheme_.setBackground("");
     }
 
-    void setDefaultCodes() {
+    public void setDefaultCodes() {
         circleTheme_ = new Theme("DEFAULT", "", "", "");
     }
 
@@ -161,7 +161,7 @@ public class AssetsManager {
         colorPalettesJson_ = readFile(file);
     }
 
-    void addNewPalette(String color) {
+    public void addNewPalette(String color) {
         if (!coloresFondo_.containsKey(color)) {
             coloresFondo_.put(color, getColorsArray(color));
         }

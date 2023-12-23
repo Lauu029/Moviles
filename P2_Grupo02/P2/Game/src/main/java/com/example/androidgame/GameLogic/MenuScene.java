@@ -1,18 +1,18 @@
 package com.example.androidgame.GameLogic;
 
 
-import android.util.Log;
-
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
 import com.example.androidengine.SensorHandler;
 import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
-import com.example.androidgame.R;
+import com.example.androidgame.GameLogic.Scenes.Scene;
+import com.example.androidgame.GameLogic.Scenes.SceneNames;
+import com.example.androidgame.GameLogic.Scenes.ShopScene;
+import com.example.androidgame.GameLogic.Scenes.WorldScene;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class MenuScene extends Scene {
     private Button playButton_;
@@ -48,7 +48,7 @@ public class MenuScene extends Scene {
             @Override
             public void onClick() {
                 sensor_.onResume();
-                SceneManager.getInstance().addScene(new DifficultyScene(),SceneNames.DIFFICULTY.ordinal());
+                SceneManager.getInstance().addScene(new DifficultyScene(), SceneNames.DIFFICULTY.ordinal());
             }
         });
         this.mundoButton_ = new Button("Explorar Mundos", fontButton_,AssetsManager.getInstance().getButtonColor(),

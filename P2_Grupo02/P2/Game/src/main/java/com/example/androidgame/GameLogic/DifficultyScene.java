@@ -4,6 +4,9 @@ package com.example.androidgame.GameLogic;
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Sound;
+import com.example.androidgame.GameLogic.Scenes.GameScene;
+import com.example.androidgame.GameLogic.Scenes.Scene;
+import com.example.androidgame.GameLogic.Scenes.SceneNames;
 
 public class DifficultyScene extends Scene {
     private Font font_;

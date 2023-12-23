@@ -1,9 +1,12 @@
-package com.example.androidgame.GameLogic;
+package com.example.androidgame.GameLogic.Scenes;
 
 import com.example.androidengine.Engine;
 import com.example.androidengine.IScene;
 import com.example.androidengine.Image;
 import com.example.androidengine.TouchEvent;
+import com.example.androidgame.GameLogic.AssetsManager;
+import com.example.androidgame.GameLogic.GameManager;
+import com.example.androidgame.GameLogic.GameObject;
 
 import java.util.ArrayList;
 
@@ -14,7 +17,7 @@ public class Scene implements IScene {
     protected boolean world_ = false;
     protected Image backgroundImage_ = null;
 
-    Scene() {
+    protected Scene() {
         iEngine_ = GameManager.getInstance().getIEngine();
         width_ = GameManager.getInstance().getWidth();
         height_ = GameManager.getInstance().getHeight();

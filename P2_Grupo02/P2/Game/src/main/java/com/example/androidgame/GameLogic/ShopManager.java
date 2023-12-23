@@ -27,7 +27,7 @@ public class ShopManager {
     Map<String, Map<String, Boolean>> getItemsState(){
         return itemsState_;
     }
-    void registerShopItem(String typeId,String itemId){
+    public void registerShopItem(String typeId, String itemId){
 
         if (!itemsState_.containsKey(typeId)) {
             Map<String, Boolean> nuevoItem=new HashMap<>();
@@ -49,7 +49,7 @@ public class ShopManager {
             Log.d("SHOP","No contiene "+typeId+" y el objeto "+itemId+", no lo puedes comprar");
         }
     }
-    boolean itemIsLocked(String typeId,String itemId){
+    public boolean itemIsLocked(String typeId, String itemId){
         boolean isLocked=true;
         if(itemsState_.containsKey(typeId) && itemsState_.get(typeId).containsKey(itemId)) {
            if(!itemsState_.get(typeId).get(itemId)){
