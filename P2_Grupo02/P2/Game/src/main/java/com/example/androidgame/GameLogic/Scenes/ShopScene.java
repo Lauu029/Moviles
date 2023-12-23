@@ -41,7 +41,7 @@ public class ShopScene extends Scene {
 
     private ButtonImage noneButton_;
     private boolean[] itemsLoaded_ = {false, false, false};
-
+    private ShopItem selectedItem_;
     public ShopScene() {
         super();
     }
@@ -187,6 +187,7 @@ public class ShopScene extends Scene {
                 Font fuente=iEngine_.getGraphics().newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
                 Image blocked = iEngine_.getGraphics().newImage("lock.png");
                 Image coins= iEngine_.getGraphics().newImage("coin.png");
+                Image selected= iEngine_.getGraphics().newImage("selected.png");
 
                 for (int i = 0; i < buttonsArray.length(); i++) {
                     String nombre = buttonsArray.getString(i);
@@ -194,7 +195,7 @@ public class ShopScene extends Scene {
                     int precio=preciosArray.getInt(i);
                     ShopItem item  = new ShopItem(path + nombre + "Button" + ext, 100, 100, xPos,
                             yPos, shopingSound_, shopName_[id_],nombre,precio
-                            ,blocked,coins,fuente);
+                            ,blocked,coins,selected,fuente);
                     //Registramos ese item
                     ShopManager.getInstance().registerShopItem(shopName_[id_],nombre);
 
@@ -203,6 +204,9 @@ public class ShopScene extends Scene {
                         public void onClick() {
                             //Si no esta comprado ya y tiene dinero para comprarlo o ya esta comprado
                             if (item.buyItem() || !ShopManager.getInstance().itemIsLocked(shopName_[id_],nombre)) {
+                                for (ShopItem otherItem : totalShopItems_[id_]) {
+                                    otherItem.changeSelected(false);
+                                }
                                 Theme theme = new Theme("PURCHASED", "", "", "");
                                 switch (shopName_[id_]) {
                                     case "Fondos":
@@ -217,6 +221,8 @@ public class ShopScene extends Scene {
                                         AssetsManager.getInstance().addNewPalette(nombre);
                                         break;
                                 }
+                                item.changeSelected(true);
+                                selectedItem_=item;
 
                             }
                         }
@@ -244,18 +250,27 @@ public class ShopScene extends Scene {
         nullButtonFunctions[0] = new ButtonClickListener() {
             @Override
             public void onClick() {
+                for (ShopItem allItems : totalShopItems_[0]) {
+                    allItems.changeSelected(false);
+                }
                 AssetsManager.getInstance().setDefaultBackground();
             }
         };
         nullButtonFunctions[1] = new ButtonClickListener() {
             @Override
             public void onClick() {
+                for (ShopItem allItems : totalShopItems_[1]) {
+                    allItems.changeSelected(false);
+                }
                 AssetsManager.getInstance().setDefaultCodes();
             }
         };
         nullButtonFunctions[2] = new ButtonClickListener() {
             @Override
             public void onClick() {
+                for (ShopItem allItems : totalShopItems_[2]) {
+                    allItems.changeSelected(false);
+                }
                 AssetsManager.getInstance().setDefaultPalette();
             }
         };

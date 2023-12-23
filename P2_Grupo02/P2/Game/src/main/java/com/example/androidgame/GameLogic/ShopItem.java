@@ -19,9 +19,11 @@ public class ShopItem extends ButtonImage {
     private Sound shopingSound_;
     private Image blockedImage_;
     private Image coinImage_;
+    private Image selectedImage_;
+    private boolean selected_;
     public ShopItem(String image, int w, int h, int x, int y, Sound buttonSound,
                      String sectionName,String itemName,int price,Image blockedImage,
-                    Image coinImage, Font font) {
+                    Image coinImage,Image selectedImage, Font font) {
         super(image, w, h, x, y, null, null);
         sectionId_=sectionName;
         itemId_=itemName;
@@ -30,6 +32,8 @@ public class ShopItem extends ButtonImage {
         shopingSound_=buttonSound;
         itemFont_=font;
         coinImage_=coinImage;
+        selectedImage_=selectedImage;
+        selected_=false;
     }
     public boolean buyItem(){
         boolean canBuy=false;
@@ -57,8 +61,17 @@ public class ShopItem extends ButtonImage {
                 graph.drawText(String.valueOf(price_),(this.posX_+width_/2) - 10,this.posY_+height_+20);
                 graph.drawImage( this.coinImage_, this.posX_+width_/2,this.posY_+height_+10,30,30);
             }
+            else
+            {
+                if(selected_)
+                {
+                    graph.drawImage( this.selectedImage_, this.posX_-5, this.posY_-5, width_+10, height_+10);
+                }
+            }
         }
     }
-
+    public void changeSelected(boolean selected){
+        selected_=selected;
+    }
 
 }
