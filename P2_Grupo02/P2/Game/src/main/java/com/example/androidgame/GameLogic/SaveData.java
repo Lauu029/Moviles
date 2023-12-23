@@ -3,8 +3,7 @@ package com.example.androidgame.GameLogic;
 import android.content.Context;
 import android.util.Log;
 
-
-import com.example.androidgame.NDKManager;
+import com.example.androidengine.NDKManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,7 +51,7 @@ public class SaveData {
 
             //Vamos a generar el hash
             String s="GARBANZOS";
-            String hash=NDKManager.generateHash(s);
+            String hash= NDKManager.generateHash(s);
             Log.d("NDK",hash);
             FileOutputStream fileOutputStream = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
             fileOutputStream.write(jsonString.getBytes());
