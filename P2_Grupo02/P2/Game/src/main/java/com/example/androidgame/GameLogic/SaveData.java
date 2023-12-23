@@ -19,7 +19,8 @@ public class SaveData {
 
     private static final String FILENAME = "saved_data.json";
 
-    public static void saveGameData(Context context, int coins, String palette, int currWorld, int currLevel, String backgroundPath) {
+    public static void saveGameData(Context context, int coins, String palette, int currWorld, int currLevel,
+                                    String backgroundPath, String codePath) {
         JSONObject jsonObject = new JSONObject();
 
         try {
@@ -28,6 +29,7 @@ public class SaveData {
             jsonObject.put("world", currWorld);
             jsonObject.put("level", currLevel);
             jsonObject.put("background", backgroundPath);
+            jsonObject.put("codes",codePath);
             //Para registrar el map que contiene la informacion sobre los objetos comprados en la tienda
             JSONObject sectionItem = new JSONObject();
             JSONArray shopArray = new JSONArray();
@@ -79,6 +81,9 @@ public class SaveData {
 
             String backgroundImage = jsonObject.getString("background");
             AssetsManager.getInstance().setBackgroundTheme(new Theme("DEFAULT",backgroundImage,"",""));
+
+            String codesPath = jsonObject.getString("codes");
+            AssetsManager.getInstance().setCirleTheme(new Theme("DEFAULT", "","",codesPath),false);
             // Registramos en el mapa las cosas desbloqueadas
             JSONObject tiendaInfo = jsonObject.getJSONArray("tienda").getJSONObject(0);
             for (int i = 0; i < tiendaInfo.length(); i++) {
