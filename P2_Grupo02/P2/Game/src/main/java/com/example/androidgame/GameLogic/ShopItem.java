@@ -6,9 +6,9 @@ import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
-import com.example.androidengine.TouchEvent;
+import com.example.androidgame.GameLogic.Buttons.ButtonImage;
 
-public class ShopItem extends ButtonImage{
+public class ShopItem extends ButtonImage {
 
     private String sectionId_;
     private String itemId_;

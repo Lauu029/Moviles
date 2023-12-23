@@ -7,6 +7,8 @@ import com.example.androidengine.Image;
 import com.example.androidengine.SensorHandler;
 import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
+import com.example.androidgame.GameLogic.Buttons.Button;
+import com.example.androidgame.GameLogic.Buttons.ButtonClickListener;
 import com.example.androidgame.GameLogic.Scenes.Scene;
 import com.example.androidgame.GameLogic.Scenes.SceneNames;
 import com.example.androidgame.GameLogic.Scenes.ShopScene;

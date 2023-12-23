@@ -1,9 +1,11 @@
-package com.example.androidgame.GameLogic;
+package com.example.androidgame.GameLogic.Buttons;
 
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
+import com.example.androidgame.GameLogic.AssetsManager;
+import com.example.androidgame.GameLogic.GameManager;
 
 public class ButtonImage extends Button {
     protected Image buttonImage_;

@@ -1,4 +1,4 @@
-package com.example.androidgame.GameLogic;
+package com.example.androidgame.GameLogic.Buttons;
 
 public interface ButtonClickListener {
     void onClick();

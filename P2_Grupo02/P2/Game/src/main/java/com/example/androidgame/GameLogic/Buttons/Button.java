@@ -1,11 +1,12 @@
-package com.example.androidgame.GameLogic;
-
-import android.util.Log;
+package com.example.androidgame.GameLogic.Buttons;
 
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
+import com.example.androidgame.GameLogic.AssetsManager;
+import com.example.androidgame.GameLogic.GameManager;
+import com.example.androidgame.GameLogic.GameObject;
 
 public class Button extends GameObject {
     protected String text_;

@@ -1,11 +1,12 @@
-package com.example.androidgame.GameLogic;
+package com.example.androidgame.GameLogic.Buttons;
 
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
+import com.example.androidgame.GameLogic.GameManager;
 
-public class ButtonMundo extends Button{
+public class ButtonMundo extends Button {
     protected Image lockImage_;
     Boolean locked_;
     protected int color_,lineColor_,textColor_;
