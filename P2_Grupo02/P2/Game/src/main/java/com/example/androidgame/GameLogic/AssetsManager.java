@@ -31,10 +31,6 @@ public class AssetsManager {
     private HashMap<String, int[]> coloresFondo_ = new HashMap<String, int[]>();
     private JSONObject colorPalettesJson_;
     private int defaultPalette[] = {0xFFFFF0F6, 0XD0FB839B, 0xFFFFFFFF, 0XFF222222};
-    private int yellowPalette[] = {0xFFebe57c, 0xD0E3BE2B, 0xFFDB8D07, 0xFFDB8D07};
-    private int bluePalette[] = {0xFF70b2e0, 0xD01f438f, 0xFFFFFFFF, 0xFF30ace6};
-    private int greenPalette[] = {0xFF66d46b, 0xD040a845, 0xFFFFFFFF, 0xFF18571b};
-    private int hotPinkPalette[] = {0xFFe681b0, 0xD0d60466, 0xFFFFFFFF, 0xFF9e0240};
     private JSONObject paleteReader;
     private Engine iEngine_;
     private static AssetsManager instance_;

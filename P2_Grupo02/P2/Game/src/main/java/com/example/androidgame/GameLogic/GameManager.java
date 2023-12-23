@@ -122,7 +122,8 @@ public class GameManager {
                 AssetsManager.getInstance().getPaletteColor(),
                 LevelManager.getInstance().getPassedWorld(),
                 LevelManager.getInstance().getPassedLevel(),
-                AssetsManager.getInstance().getBackgroundPath()//,
+                AssetsManager.getInstance().getBackgroundPath(),
+                AssetsManager.getInstance().getCirleTheme(false).getPathBolas()//,
                 /*ShopManager.getInstance().getItemsState()*/);
     }
 
