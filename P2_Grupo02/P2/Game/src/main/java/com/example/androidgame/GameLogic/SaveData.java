@@ -17,7 +17,9 @@ import java.util.Map;
 public class SaveData {
 
     private static final String FILENAME = "saved_data.json";
-
+    private static final String HASHFILE= "hash_data.json";
+    private static String codigo1_="GARBANZOS";
+    private static String codigo2="BUSTAMANTE";
     public static void saveGameData(Context context, int coins, String palette, int currWorld, int currLevel,
                                     String backgroundPath, String codePath) {
         JSONObject jsonObject = new JSONObject();
@@ -49,13 +51,21 @@ public class SaveData {
             jsonObject.put("tienda", shopArray);
             String jsonString = jsonObject.toString();
 
-            //Vamos a generar el hash
-            String s="GARBANZOS";
-            String hash= NDKManager.generateHash(s);
-            Log.d("NDK",hash);
             FileOutputStream fileOutputStream = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
             fileOutputStream.write(jsonString.getBytes());
             fileOutputStream.close();
+
+            //Vamos a generar el hash
+            String primerHash= codigo1_+jsonString;
+            String hashJSON= NDKManager.generateHash(primerHash);
+            String segundoHash= codigo2+hashJSON;
+            String finalHash=NDKManager.generateHash(segundoHash);
+
+            //Lo guardamos en otro archivo
+            FileOutputStream fileOutputStream2 = context.openFileOutput(HASHFILE, Context.MODE_PRIVATE);
+            fileOutputStream2.write(finalHash.getBytes());
+            fileOutputStream2.close();
+
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
