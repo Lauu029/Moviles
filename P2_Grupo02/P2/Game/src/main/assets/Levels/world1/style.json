@@ -1,6 +1,6 @@
 {
   "style": "HALLOWEEN",
-  "background": "halloween/foreground.jpg",
+  "background": "halloween/back.jpg",
   "gameBackground":"halloween/back.jpg",
   "bolas": "halloween/bolas/"
 

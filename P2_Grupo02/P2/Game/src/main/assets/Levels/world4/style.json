@@ -1,7 +1,7 @@
 {
   "style": "ADVENTURE",
   "background": "adventure/foreground.jpg",
-  "gameBackground":"adventure/game.jpg",
+  "gameBackground":"adventure/foreground.jpg",
   "bolas": "adventure/bolas/"
 
 }
