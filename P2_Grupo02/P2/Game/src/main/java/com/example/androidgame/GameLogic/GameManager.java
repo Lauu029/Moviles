@@ -115,6 +115,7 @@ public class GameManager {
     protected void setCoins(int coins){
         coins_=coins;
     }
+
     public void saveGameData() {
         Log.d("GAME","-----llamado a save gameData-------");
         SaveData.saveGameData(myEngine_.getMainActivity(), coins_,
