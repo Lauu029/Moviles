@@ -88,13 +88,14 @@ public class SaveData {
             String hashJSON= NDKManager.generateHash(primerHash);
             String segundoHash= codigo2+hashJSON;
             String finalHash=NDKManager.generateHash(segundoHash);
+            
             //Leer el archivo de hash
             FileInputStream hashInputStream = context.openFileInput(HASHFILE);
-            int size2 = hashInputStream.available();
-            byte[] buffer2 = new byte[size2];
-            hashInputStream.read(buffer2);
+            int sizeHash = hashInputStream.available();
+            byte[] bufferHash = new byte[sizeHash];
+            hashInputStream.read(bufferHash);
             hashInputStream.close();
-            String hashString = new String(buffer, "UTF-8");
+            String hashString = new String(bufferHash, "UTF-8");
 
             if(finalHash!=hashString){
                 Log.d("HASH","Pero te crees que naci de una lechuga?");
