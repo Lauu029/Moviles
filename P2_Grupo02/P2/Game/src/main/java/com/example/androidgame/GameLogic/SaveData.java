@@ -62,9 +62,9 @@ public class SaveData {
             String finalHash=NDKManager.generateHash(segundoHash);
 
             //Lo guardamos en otro archivo
-            FileOutputStream fileOutputStream2 = context.openFileOutput(HASHFILE, Context.MODE_PRIVATE);
-            fileOutputStream2.write(finalHash.getBytes());
-            fileOutputStream2.close();
+            FileOutputStream hashOutputStream = context.openFileOutput(HASHFILE, Context.MODE_PRIVATE);
+            hashOutputStream.write(finalHash.getBytes());
+            hashOutputStream.close();
 
         } catch (JSONException | IOException e) {
             e.printStackTrace();
@@ -81,6 +81,28 @@ public class SaveData {
 
             String jsonString = new String(buffer, "UTF-8");
             JSONObject jsonObject = new JSONObject(jsonString);
+
+            //Aqui volvemos a hacer el hash
+            //Vamos a generar el hash
+            String primerHash= codigo1_+jsonString;
+            String hashJSON= NDKManager.generateHash(primerHash);
+            String segundoHash= codigo2+hashJSON;
+            String finalHash=NDKManager.generateHash(segundoHash);
+            //Leer el archivo de hash
+            FileInputStream hashInputStream = context.openFileInput(HASHFILE);
+            int size2 = hashInputStream.available();
+            byte[] buffer2 = new byte[size2];
+            hashInputStream.read(buffer2);
+            hashInputStream.close();
+            String hashString = new String(buffer, "UTF-8");
+
+            if(finalHash!=hashString){
+                Log.d("HASH","Pero te crees que naci de una lechuga?");
+            }else
+            {
+                Log.d("HASH","Bien hecho");
+            }
+
             int coins = jsonObject.getInt("coins");
             GameManager.getInstance().setCoins(coins);
 
