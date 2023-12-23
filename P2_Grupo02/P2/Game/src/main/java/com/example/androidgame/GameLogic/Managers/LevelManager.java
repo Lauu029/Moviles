@@ -32,6 +32,9 @@ public class LevelManager {
     public void addTries(ArrayList<Integer> trie){
         tries_.add(trie);
     }
+    public void setTries(ArrayList<ArrayList<Integer>>savedTries){
+        tries_=savedTries;
+    }
     public ArrayList<ArrayList<Integer>> getTries(){
         return tries_;
     }

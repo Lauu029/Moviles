@@ -156,6 +156,28 @@ public class SaveData {
                     ShopManager.getInstance().changeItemState(typeId, itemId, false);
                 }
             }
+
+            //Leemos la informacion acerca de la partida guardada
+            int savedWorld=jsonObject.getInt("playingWorld");
+            LevelManager.getInstance().setActualWorld(savedWorld);
+            int savedLevel=jsonObject.getInt("playingLevel");
+            LevelManager.getInstance().setActualLevel(savedLevel);
+
+            //Nuevo arrayList de intentos
+            ArrayList<ArrayList<Integer>> currentTries= new ArrayList<>();
+            JSONArray triesArray= jsonObject.getJSONArray("tries");
+            for(int i=0; i<triesArray.length();i++)
+            {
+                JSONArray tryArray=triesArray.getJSONArray(i);
+                ArrayList<Integer> triesList= new ArrayList<>();
+
+                for(int j=0; j<tryArray.length(); j++)
+                {
+                    triesList.add(tryArray.getInt(j));
+                }
+                currentTries.add(triesList);
+            }
+            LevelManager.getInstance().setTries(currentTries);
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
