@@ -1,7 +1,7 @@
 package com.example.androidgame.GameLogic;
+
 import android.content.Context;
 import android.util.Log;
-
 
 
 import org.json.JSONArray;
@@ -19,8 +19,7 @@ public class SaveData {
 
     private static final String FILENAME = "saved_data.json";
 
-    public static void saveGameData(Context context, int coins,String palette, int currWorld,int currLevel)
-    {
+    public static void saveGameData(Context context, int coins, String palette, int currWorld, int currLevel, String backgroundPath) {
         JSONObject jsonObject = new JSONObject();
 
         try {
@@ -28,7 +27,7 @@ public class SaveData {
             jsonObject.put("palette", palette);
             jsonObject.put("world", currWorld);
             jsonObject.put("level", currLevel);
-
+            jsonObject.put("background", backgroundPath);
             //Para registrar el map que contiene la informacion sobre los objetos comprados en la tienda
             JSONObject sectionItem = new JSONObject();
             JSONArray shopArray = new JSONArray();
@@ -43,7 +42,7 @@ public class SaveData {
                         itemsArray.put(itemId);
                     }
                 }
-                sectionItem.put(typeId,itemsArray);
+                sectionItem.put(typeId, itemsArray);
             }
             shopArray.put(sectionItem);
             jsonObject.put("tienda", shopArray);
@@ -73,21 +72,23 @@ public class SaveData {
             String paletteName = String.valueOf(paletteStr);
             AssetsManager.getInstance().addNewPalette(paletteName);
 
-            int world= jsonObject.getInt("world");
+            int world = jsonObject.getInt("world");
             LevelManager.getInstance().setPassedWorld(world);
-            int level= jsonObject.getInt("level");
+            int level = jsonObject.getInt("level");
             LevelManager.getInstance().setPassedLevel(level);
 
+            String backgroundImage = jsonObject.getString("background");
+            AssetsManager.getInstance().setBackgroundTheme(new Theme("DEFAULT",backgroundImage,"",""));
             // Registramos en el mapa las cosas desbloqueadas
-            JSONObject tiendaInfo=jsonObject.getJSONArray("tienda").getJSONObject(0);
-            for (int i=0; i<tiendaInfo.length(); i++) {
+            JSONObject tiendaInfo = jsonObject.getJSONArray("tienda").getJSONObject(0);
+            for (int i = 0; i < tiendaInfo.length(); i++) {
                 String typeId = tiendaInfo.names().getString(i);
-                JSONArray itemsArray =tiendaInfo.getJSONArray(typeId);
+                JSONArray itemsArray = tiendaInfo.getJSONArray(typeId);
 
-                for (int j=0; j<itemsArray.length(); j++) {
+                for (int j = 0; j < itemsArray.length(); j++) {
                     String itemId = itemsArray.getString(j);
-                    ShopManager.getInstance().registerShopItem(typeId,itemId);
-                    ShopManager.getInstance().changeItemState(typeId,itemId,false);
+                    ShopManager.getInstance().registerShopItem(typeId, itemId);
+                    ShopManager.getInstance().changeItemState(typeId, itemId, false);
                 }
             }
         } catch (JSONException | IOException e) {

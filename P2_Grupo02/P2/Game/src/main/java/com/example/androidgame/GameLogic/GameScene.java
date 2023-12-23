@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class GameScene extends Scene {
     private Solution mySolution_;
     private ButtonColorBlind buttonColorBlind_;
-    private MyBoard gameBoard_;
+    private Board gameBoard_;
     private Font font_;
     private Difficulty lev_;
     private GameManager gm_;
@@ -37,7 +37,7 @@ public class GameScene extends Scene {
         this.lev_ = this.gm_.getLevel();
         mySolution_ = new Solution();
         mySolution_.createSolution(lev_.isRepeat(), lev_.getSolutionColors(), lev_.getPosibleColors(), lev_.getTries());
-        this.gameBoard_ = new MyBoard(lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_, world_);
+        this.gameBoard_ = new Board(lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_, world_);
         addGameObject(gameBoard_);
         gm_.setBoard(this.gameBoard_);
         Sound buttonSound = GameManager.getInstance().getIEngine().getAudio().newSound("colorBlindButton.wav");

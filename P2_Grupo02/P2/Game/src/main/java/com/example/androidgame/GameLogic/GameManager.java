@@ -12,7 +12,7 @@ public class GameManager {
 
     private int width_, height_;
     private Difficulty levelDificulty_;
-    private MyBoard board_;
+    private Board board_;
     private int [] levelSolution_;
     private boolean daltonics_;
     private int coins_;
@@ -90,7 +90,7 @@ public class GameManager {
         this.board_.changeDaltonics(this.daltonics_);
     }
 
-    public void setBoard(MyBoard b) {
+    public void setBoard(Board b) {
         this.board_ = b;
     }
 
@@ -101,14 +101,14 @@ public class GameManager {
     public int getCoins() {
         return this.coins_;
     }
-
-    public Image getBackgroundImage() {
-        return backgroundImage_;
-    }
-
-    public void setBackgroundImage(Image i) {
-        backgroundImage_ = i;
-    }
+//
+//    public Image getBackgroundImage() {
+//        return backgroundImage_;
+//    }
+//
+//    public void setBackgroundImage(Image i) {
+//        backgroundImage_ = i;
+//    }
     public void addCoins(int amount){
         coins_+=amount;
     }
@@ -121,7 +121,8 @@ public class GameManager {
         SaveData.saveGameData(myEngine_.getMainActivity(), coins_,
                 AssetsManager.getInstance().getPaletteColor(),
                 LevelManager.getInstance().getPassedWorld(),
-                LevelManager.getInstance().getPassedLevel()//,
+                LevelManager.getInstance().getPassedLevel(),
+                AssetsManager.getInstance().getBackgroundPath()//,
                 /*ShopManager.getInstance().getItemsState()*/);
     }
 
