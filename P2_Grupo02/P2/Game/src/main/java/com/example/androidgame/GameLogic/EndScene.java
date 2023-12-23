@@ -140,8 +140,9 @@ public class EndScene extends Scene {
             iEngine_.getGraphics().drawText(tries_ + " intentos:", width_ / 2, 80);
             iEngine_.getGraphics().setFont(font1_);
             iEngine_.getGraphics().drawText("codigo:", width_ / 2, 120);
+            drawCircles(iEngine_.getGraphics());
         }
-        drawCircles(iEngine_.getGraphics());
+
 
     }
 

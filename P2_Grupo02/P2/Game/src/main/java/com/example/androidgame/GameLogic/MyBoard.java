@@ -167,6 +167,7 @@ public class MyBoard extends GameObject {
             gameTries_.add(g);
             gameObjectsTable_.add(g);
             tries_++;
+            downTryPos_+=50;
         }
         nexTry();
     }
