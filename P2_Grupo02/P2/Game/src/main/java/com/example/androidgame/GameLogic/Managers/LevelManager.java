@@ -21,8 +21,15 @@ public class LevelManager {
     private int passedLevel_ = 0;
     private int passedWorld_ = 0;
     private int numWorlds;
+    private int savedWorld_;
+    private  int savedLevel_;
     private ArrayList<Integer> currentSolution_;
    private ArrayList<ArrayList<Integer>>tries_;
+
+    public void setSavedWorld(int savedWorld){ savedWorld_=savedWorld;}
+    public void setSavedLevel(int savedLevel){ savedLevel_=savedLevel;}
+    public int getSavedWorld(){return savedWorld_;}
+    public int getSavedLevel(){return savedLevel_;}
     public int getPassedLevel() {
         return passedLevel_;
     }

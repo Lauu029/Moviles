@@ -46,6 +46,7 @@ public class GameScene extends Scene {
         this.gm_ = GameManager.getInstance();
         this.lev_ = this.gm_.getLevel();
         mySolution_ = new Solution();
+        
         mySolution_.createSolution(lev_.isRepeat(), lev_.getSolutionColors(), lev_.getPosibleColors(), lev_.getTries());
         
         ArrayList<Integer> sol = new ArrayList<>();

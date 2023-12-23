@@ -168,9 +168,9 @@ public class SaveData {
 
             //Leemos la informacion acerca de la partida guardada
             int savedWorld=jsonObject.getInt("playingWorld");
-            LevelManager.getInstance().setActualWorld(savedWorld);
+            LevelManager.getInstance().setSavedWorld(savedWorld);
             int savedLevel=jsonObject.getInt("playingLevel");
-            LevelManager.getInstance().setActualLevel(savedLevel);
+            LevelManager.getInstance().setSavedLevel(savedLevel);
 
             //Nuevo arrayList de intentos
             ArrayList<ArrayList<Integer>> currentTries= new ArrayList<>();
