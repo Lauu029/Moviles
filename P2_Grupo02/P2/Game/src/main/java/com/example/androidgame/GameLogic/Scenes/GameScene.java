@@ -13,6 +13,7 @@ import com.example.androidgame.GameLogic.Buttons.ButtonImage;
 import com.example.androidgame.GameLogic.Difficulty;
 import com.example.androidgame.GameLogic.Managers.GameManager;
 import com.example.androidgame.GameLogic.GameObject;
+import com.example.androidgame.GameLogic.Managers.LevelManager;
 import com.example.androidgame.GameLogic.Managers.SceneManager;
 import com.example.androidgame.GameLogic.Solution;
 
@@ -45,7 +46,6 @@ public class GameScene extends Scene {
         this.gm_ = GameManager.getInstance();
         this.lev_ = this.gm_.getLevel();
         mySolution_ = new Solution();
-
         mySolution_.createSolution(lev_.isRepeat(), lev_.getSolutionColors(), lev_.getPosibleColors(), lev_.getTries());
         this.gameBoard_ = new Board(lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_, world_);
         addGameObject(gameBoard_);
@@ -68,6 +68,7 @@ public class GameScene extends Scene {
                 myCrossSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
+                LevelManager.getInstance().clearTries();
                 int idScene;
                 if (!world_)
                     idScene = SceneNames.DIFFICULTY.ordinal();
@@ -111,6 +112,8 @@ public class GameScene extends Scene {
             i++;
         }
         if (isComplete) {
+            if(world_)
+            LevelManager.getInstance().addTries(tempSol);
             mySolution_.check(tempSol);
             int try_ = this.gameBoard_.getAcutalTry_();
             if (mySolution_.getCorrectPos(try_) == this.lev_.getSolutionColors()) {
@@ -118,6 +121,7 @@ public class GameScene extends Scene {
 
             } else if (try_ == gameBoard_.getTotalTries() - 1) {
                 gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
+                LevelManager.getInstance().clearTries();
                 ChangeEndScene(false, try_);
             } else {
                 gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));

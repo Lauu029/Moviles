@@ -1,5 +1,7 @@
 package com.example.androidgame.GameLogic.Managers;
 
+import android.util.Log;
+
 import com.example.androidgame.GameLogic.Difficulty;
 import com.example.androidgame.GameLogic.Utils.LevelReader;
 import com.example.androidgame.GameLogic.Theme;
@@ -19,7 +21,7 @@ public class LevelManager {
     private int passedLevel_ = 4;
     private int passedWorld_ = 1;
     private int numWorlds;
-
+   private ArrayList<int[]>tries_;
     public int getPassedLevel() {
         return passedLevel_;
     }
@@ -27,7 +29,13 @@ public class LevelManager {
     public void setPassedLevel(int passedLevel) {
         passedLevel_ = passedLevel;
     }
+    public void addTries( int[] trie){
+        tries_.add(trie);
 
+    }
+    public void clearTries(){
+        tries_.clear();
+    }
     public void setPassedWorld(int passedWorld) {
         passedWorld_ = passedWorld;
     }
@@ -77,6 +85,7 @@ public class LevelManager {
     }
 
     public void setActualLevel(int actualLevel) {
+        tries_.clear();
         this.actualLevel_ = actualLevel;
     }
 
@@ -98,6 +107,7 @@ public class LevelManager {
         if (actualLevel_ + 1 >= diff_.size()) return null;
         else {
             actualLevel_ += 1;
+            tries_.clear();
             return diff_.get(actualLevel_);
         }
 
@@ -106,7 +116,7 @@ public class LevelManager {
     // Initialize the unique instance of SceneManager
     public static void init() {
         instance = new LevelManager();
-
+        instance.tries_=new ArrayList<>();
         instance.read_.readWorlds("world1");
         instance.niveles_ = instance.read_.getNumLevels(instance.actualWorld_);
         instance.tema_ = instance.read_.getTematicaWorld(instance.actualWorld_);
