@@ -1,7 +1,6 @@
-package com.example.androidgame.GameLogic;
+package com.example.androidgame.GameLogic.Scenes;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import com.example.androidengine.Engine;
 import com.example.androidengine.Font;
@@ -9,6 +8,14 @@ import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
 import com.example.androidengine.ImageProcessingCallback;
 import com.example.androidengine.Sound;
+import com.example.androidgame.GameLogic.AssetsManager;
+import com.example.androidgame.GameLogic.Buttons.Button;
+import com.example.androidgame.GameLogic.Buttons.ButtonClickListener;
+import com.example.androidgame.GameLogic.GameInit;
+import com.example.androidgame.GameLogic.GameManager;
+import com.example.androidgame.GameLogic.RewardedAddBehaviour;
+import com.example.androidgame.GameLogic.SceneManager;
+import com.example.androidgame.GameLogic.Theme;
 
 import java.util.ArrayList;
 
@@ -69,7 +76,7 @@ public class EndScene extends Scene {
                 GameManager.getInstance().setLevel(gameInit.getDifficulty());
                 Engine engine_ = GameManager.getInstance().getIEngine();
                 engine_.getAudio().playSound(myButtonSound_, 0);
-                SceneManager.getInstance().addScene(new GameScene(false),SceneNames.GAME.ordinal());
+                SceneManager.getInstance().addScene(new GameScene(false), SceneNames.GAME.ordinal());
             }
         });
 

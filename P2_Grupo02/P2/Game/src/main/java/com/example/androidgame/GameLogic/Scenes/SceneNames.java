@@ -1,4 +1,4 @@
-package com.example.androidgame.GameLogic;
+package com.example.androidgame.GameLogic.Scenes;
 
 public enum SceneNames {
     MENU ,

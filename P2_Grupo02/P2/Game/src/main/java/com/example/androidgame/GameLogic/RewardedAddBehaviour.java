@@ -1,8 +1,8 @@
 package com.example.androidgame.GameLogic;
 
-import android.util.Log;
-
 import com.example.androidengine.RewardedAddEarned;
+import com.example.androidgame.GameLogic.Scenes.GameScene;
+import com.example.androidgame.GameLogic.Scenes.SceneNames;
 
 public class RewardedAddBehaviour implements RewardedAddEarned {
     private int numTries_;

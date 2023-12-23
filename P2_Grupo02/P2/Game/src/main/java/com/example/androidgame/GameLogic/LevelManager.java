@@ -37,7 +37,7 @@ public class LevelManager {
         } else passedLevel_++;
     }
 
-    int getPassedWorld() {
+    public int getPassedWorld() {
         return passedWorld_;
     }
 
@@ -90,7 +90,7 @@ public class LevelManager {
         // Private constructor
     }
 
-    Difficulty getNextLevelDifficulty() {
+    public Difficulty getNextLevelDifficulty() {
         if (actualLevel_ + 1 >= diff_.size()) return null;
         else {
             actualLevel_ += 1;
@@ -110,7 +110,7 @@ public class LevelManager {
         instance.numWorlds = instance.read_.getNumWorlds_();
     }
 
-    void setNewWorld() {
+    public void setNewWorld() {
 
         instance.niveles_ = read_.getNumLevels(actualWorld_);
         instance.tema_ = read_.getTematicaWorld(actualWorld_);

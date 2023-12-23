@@ -1,11 +1,12 @@
-package com.example.androidgame.GameLogic;
-
-import android.util.Log;
+package com.example.androidgame.GameLogic.Buttons;
 
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
+import com.example.androidgame.GameLogic.AssetsManager;
+import com.example.androidgame.GameLogic.GameManager;
+import com.example.androidgame.GameLogic.GameObject;
 
 public class Button extends GameObject {
     protected String text_;
@@ -16,7 +17,7 @@ public class Button extends GameObject {
     private ButtonClickListener onClickFunction;
     protected boolean active = true;
 
-    Button(String t, Font f, int backgroundColor, int textColor, int lineColor, int w, int h, int a, int x, int y, Sound buttonSound, ButtonClickListener function) {
+    public Button(String t, Font f, int backgroundColor, int textColor, int lineColor, int w, int h, int a, int x, int y, Sound buttonSound, ButtonClickListener function) {
         this.text_ = t;
         this.font_ = f;
         this.color_ = backgroundColor;
@@ -57,7 +58,7 @@ public class Button extends GameObject {
     }
 
     @Override
-    void init() {
+    public void init() {
     }
 
     public boolean handleInput(TouchEvent event) {
@@ -97,7 +98,7 @@ public class Button extends GameObject {
     }
     public boolean isActive(){ return active;}
 
-    void setAction(ButtonClickListener b) {
+    public void setAction(ButtonClickListener b) {
         this.onClickFunction = b;
     }
 }

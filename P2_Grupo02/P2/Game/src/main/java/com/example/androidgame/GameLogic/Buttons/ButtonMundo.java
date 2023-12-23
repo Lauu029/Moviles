@@ -1,15 +1,16 @@
-package com.example.androidgame.GameLogic;
+package com.example.androidgame.GameLogic.Buttons;
 
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
+import com.example.androidgame.GameLogic.GameManager;
 
-public class ButtonMundo extends Button{
+public class ButtonMundo extends Button {
     protected Image lockImage_;
     Boolean locked_;
     protected int color_,lineColor_,textColor_;
-    ButtonMundo(String t, Font f, int backgroundColor,int textColor,int lineColor, int w, int h, int a, int x, int y, Sound buttonSound,Boolean locked, ButtonClickListener function) {
+    public ButtonMundo(String t, Font f, int backgroundColor, int textColor, int lineColor, int w, int h, int a, int x, int y, Sound buttonSound, Boolean locked, ButtonClickListener function) {
         super(t, f, backgroundColor,textColor,lineColor,w, h, a, x, y, buttonSound, function);
        Graphics graphics= GameManager.getInstance().getIEngine().getGraphics();
        lockImage_=graphics.newImage("lock.png");

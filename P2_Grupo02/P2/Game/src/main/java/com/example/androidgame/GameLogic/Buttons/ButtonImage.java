@@ -1,20 +1,22 @@
-package com.example.androidgame.GameLogic;
+package com.example.androidgame.GameLogic.Buttons;
 
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
 import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
+import com.example.androidgame.GameLogic.AssetsManager;
+import com.example.androidgame.GameLogic.GameManager;
 
 public class ButtonImage extends Button {
     protected Image buttonImage_;
 
-    ButtonImage(String image, int w, int h, int x, int y, Sound buttonSound, ButtonClickListener function) {
+    public ButtonImage(String image, int w, int h, int x, int y, Sound buttonSound, ButtonClickListener function) {
         super("", null, AssetsManager.getInstance().getButtonColor(),
                 AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor(), w, h, 0, x, y, buttonSound, function);
         buttonImage_ = GameManager.getInstance().getIEngine().getGraphics().newImage(image);
     }
 
-    void init() {
+    public void init() {
     }
 
     @Override
