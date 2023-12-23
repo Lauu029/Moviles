@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.e("MainActivity", "AdView is definetly null");
         }
-        createWorkRequest(15);
+
         GameManager.init(IEngine_, 400, 600);
         IEngine_.resume();
         onNewIntent(getIntent());
@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (getIntent().hasExtra("notification")) {
             Log.d("NOTIFI", "NOTIFICATION");
+            GameManager.getInstance().addCoins(5);
         } else {
             Log.d("NOTIFI", "No notification extra found");
         }
