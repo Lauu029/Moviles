@@ -1,3 +1,5 @@
+#include <jni.h>
+
 // Write C++ code here.
 //
 // Do not forget to dynamically load the C++ library into your application.
@@ -15,3 +17,8 @@
 //         System.loadLibrary("AndroidEngine")
 //      }
 //    }
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_com_example_androidengine_NDKManager_generateHash(JNIEnv *env, jclass clazz, jstring data) {
+    // TODO: implement generateHash()
+}
