@@ -23,7 +23,7 @@ public class WorldEndScene extends EndScene {
     void GameOver() {
         Graphics graph = iEngine_.getGraphics();
 
-        Button moreTryesButton_ = new Button("+2 intentos", font2_, AssetsManager.getInstance().getButtonColor(),
+        Button moreTriesButton_ = new Button("+2 intentos", font2_, AssetsManager.getInstance().getButtonColor(),
                 AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor(),
                 180, 60, 15, this.width_ / 2 - (180 / 2), this.height_ / 2 - 100,
                 myButtonSound_, new ButtonClickListener() {
@@ -34,7 +34,7 @@ public class WorldEndScene extends EndScene {
                 waitingForReward_=true;
             }
         });
-        addGameObject(moreTryesButton_);
+        addGameObject(moreTriesButton_);
 
         Button retryButton = new Button("Volver a intentar", font1_, AssetsManager.getInstance().getButtonColor(),
                 AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor()
@@ -42,8 +42,9 @@ public class WorldEndScene extends EndScene {
                 /* SceneNames.GAME, GameManager.getInstance_().getLevel().getLevelDiff_(),*/ myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                GameManager.getInstance().setLevel(LevelManager.getInstance().getDiff().get(LevelManager.getInstance().getActualLevel()));
-                //SceneManager.getInstance().addScene(new GameScene(true));
+                GameManager.getInstance().setLevel(LevelManager.getInstance().getDiff()
+                        .get(LevelManager.getInstance().getActualLevel()));
+                SceneManager.getInstance().addScene(new GameScene(true), SceneNames.GAME.ordinal());
             }
         });
         addGameObject(retryButton);
@@ -99,8 +100,6 @@ public class WorldEndScene extends EndScene {
             });
             addGameObject(nextLevelButton);
         }
-
-
         Button menuButton = new Button("Menu", font1_, AssetsManager.getInstance().getButtonColor(),
                 AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor()
                 , 150, 40, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 180,
