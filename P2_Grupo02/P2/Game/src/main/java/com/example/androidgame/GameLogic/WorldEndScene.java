@@ -7,13 +7,16 @@ import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
 
 public class WorldEndScene extends EndScene {
+    private Image coinImage_;
     public WorldEndScene(boolean win, int[] sol, int intentos) {
         super(win, sol, intentos);
     }
 
     @Override
     protected void initButtons() {
-        if (win_) WinButtons();
+        if (win_) {
+            GameManager.getInstance().addCoins(10);
+            WinButtons();}
         else GameOver();
     }
 
@@ -66,10 +69,10 @@ public class WorldEndScene extends EndScene {
 
     void WinButtons() {
         Graphics graph = iEngine_.getGraphics();
-
+        coinImage_=graph.newImage("coin.png");
         Button shareRecordButton_ = new Button("Compartir", font2_, AssetsManager.getInstance().getButtonColor(),
                 AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor(),
-                180, 60, 15, this.width_ / 2 - (180 / 2), this.height_ / 2 - 80,
+                180, 60, 15, this.width_ / 2 - (180 / 2), this.height_ / 2 ,
                 myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
@@ -84,7 +87,7 @@ public class WorldEndScene extends EndScene {
         if (difNextLevel != null) {
             Button nextLevelButton = new Button("Siguiente Nivel", font1_, AssetsManager.getInstance().getButtonColor(),
                     AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor()
-                    , 150, 40, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 20,
+                    , 150, 40, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 100,
                     myButtonSound_, new ButtonClickListener() {
                 @Override
                 public void onClick() {
@@ -100,7 +103,7 @@ public class WorldEndScene extends EndScene {
 
         Button menuButton = new Button("Menu", font1_, AssetsManager.getInstance().getButtonColor(),
                 AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor()
-                , 150, 40, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 100,
+                , 150, 40, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 180,
                  myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
@@ -121,5 +124,15 @@ public class WorldEndScene extends EndScene {
         }
 
     }
+    public void render() {
+        super.render();
+        if(win_){
+            Graphics graph=GameManager.getInstance().getIEngine().getGraphics();
+            graph.drawImage(coinImage_,this.width_ / 2-120,this.height_ / 2-80,60,60);
+            graph.setFont(font2_);
+            graph.drawText("+10 - Total:"+GameManager.getInstance().getCoins(),this.width_ / 2+45,this.height_ / 2-60);
+        }
+    }
+
 
 }
