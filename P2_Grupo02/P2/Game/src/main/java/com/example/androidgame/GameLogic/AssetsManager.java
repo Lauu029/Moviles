@@ -62,6 +62,9 @@ public class AssetsManager {
             return iEngine_.getGraphics().newImage(worldbackgrounTheme_.getBackground());
         return null;
     }
+    String getBackgroundPath(){
+        return backgrounTheme_.getBackground();
+    }
 
     String getPaletteColor() {
         return paletteColor_;
