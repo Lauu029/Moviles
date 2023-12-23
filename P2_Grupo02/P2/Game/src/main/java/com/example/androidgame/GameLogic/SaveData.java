@@ -4,17 +4,15 @@ import android.content.Context;
 import android.util.Log;
 
 
-import com.example.androidengine.NDKManager;
+import com.example.androidgame.NDKManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.DataInput;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 public class SaveData {
