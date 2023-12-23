@@ -15,6 +15,10 @@ public class Solution {
     private int solutionSize_;
 
     private ArrayList<int[]> registeredSols_ = new ArrayList<>();
+
+    void setSolution (int []sol){
+        sol_=sol;
+    }
     public void createSolution(Boolean repeat, int colorGame, int posibleColor, int maxTries) {
 
         this.solutionSize_ = colorGame;
