@@ -1,9 +1,11 @@
-package com.example.androidgame.GameLogic;
+package com.example.androidgame.GameLogic.Utils;
 
 
 
 import com.example.androidengine.FileManager;
+import com.example.androidgame.GameLogic.Difficulty;
 import com.example.androidgame.GameLogic.Managers.GameManager;
+import com.example.androidgame.GameLogic.Theme;
 
 
 import org.json.JSONException;

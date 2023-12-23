@@ -1,4 +1,4 @@
-package com.example.androidgame.GameLogic;
+package com.example.androidgame.GameLogic.Scenes;
 
 
 import com.example.androidengine.Font;
@@ -7,6 +7,8 @@ import com.example.androidengine.Sound;
 import com.example.androidgame.GameLogic.Buttons.Button;
 import com.example.androidgame.GameLogic.Buttons.ButtonClickListener;
 import com.example.androidgame.GameLogic.Buttons.ButtonImage;
+import com.example.androidgame.GameLogic.GameInit;
+import com.example.androidgame.GameLogic.LevelDifficulty;
 import com.example.androidgame.GameLogic.Managers.AssetsManager;
 import com.example.androidgame.GameLogic.Managers.GameManager;
 import com.example.androidgame.GameLogic.Managers.SceneManager;

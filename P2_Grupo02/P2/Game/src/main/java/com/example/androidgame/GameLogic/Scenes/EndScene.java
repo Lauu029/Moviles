@@ -13,7 +13,7 @@ import com.example.androidgame.GameLogic.Buttons.Button;
 import com.example.androidgame.GameLogic.Buttons.ButtonClickListener;
 import com.example.androidgame.GameLogic.GameInit;
 import com.example.androidgame.GameLogic.Managers.GameManager;
-import com.example.androidgame.GameLogic.RewardedAddBehaviour;
+import com.example.androidgame.GameLogic.Utils.RewardedAddBehaviour;
 import com.example.androidgame.GameLogic.Managers.SceneManager;
 import com.example.androidgame.GameLogic.Theme;
 

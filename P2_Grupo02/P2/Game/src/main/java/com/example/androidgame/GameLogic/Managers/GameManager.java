@@ -7,8 +7,7 @@ import com.example.androidengine.Engine;
 import com.example.androidengine.Image;
 import com.example.androidgame.GameLogic.Board;
 import com.example.androidgame.GameLogic.Difficulty;
-import com.example.androidgame.GameLogic.SaveData;
-import com.example.androidgame.GameLogic.ShopManager;
+import com.example.androidgame.GameLogic.Utils.SaveData;
 
 public class GameManager {
     private static GameManager instance_;

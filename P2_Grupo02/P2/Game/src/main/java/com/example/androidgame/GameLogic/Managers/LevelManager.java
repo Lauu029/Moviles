@@ -1,7 +1,7 @@
 package com.example.androidgame.GameLogic.Managers;
 
 import com.example.androidgame.GameLogic.Difficulty;
-import com.example.androidgame.GameLogic.LevelReader;
+import com.example.androidgame.GameLogic.Utils.LevelReader;
 import com.example.androidgame.GameLogic.Theme;
 
 import java.util.ArrayList;

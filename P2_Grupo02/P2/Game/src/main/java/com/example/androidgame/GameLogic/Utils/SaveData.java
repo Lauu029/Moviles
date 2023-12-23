@@ -1,12 +1,13 @@
-package com.example.androidgame.GameLogic;
+package com.example.androidgame.GameLogic.Utils;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.example.androidengine.NDKManager;
 import com.example.androidgame.GameLogic.Managers.AssetsManager;
 import com.example.androidgame.GameLogic.Managers.GameManager;
 import com.example.androidgame.GameLogic.Managers.LevelManager;
+import com.example.androidgame.GameLogic.Managers.ShopManager;
+import com.example.androidgame.GameLogic.Theme;
 
 import org.json.JSONArray;
 import org.json.JSONException;

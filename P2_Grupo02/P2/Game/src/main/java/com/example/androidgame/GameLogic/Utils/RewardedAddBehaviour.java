@@ -1,4 +1,4 @@
-package com.example.androidgame.GameLogic;
+package com.example.androidgame.GameLogic.Utils;
 
 import com.example.androidengine.RewardedAddEarned;
 import com.example.androidgame.GameLogic.Managers.SceneManager;

@@ -3,7 +3,7 @@ package com.example.androidgame.GameLogic.Managers;
 import android.util.Log;
 
 import com.example.androidengine.Engine;
-import com.example.androidgame.GameLogic.MenuScene;
+import com.example.androidgame.GameLogic.Scenes.MenuScene;
 import com.example.androidgame.GameLogic.Scenes.Scene;
 import com.example.androidgame.GameLogic.Scenes.SceneNames;
 

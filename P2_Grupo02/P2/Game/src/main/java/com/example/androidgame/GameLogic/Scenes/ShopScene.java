@@ -12,7 +12,7 @@ import com.example.androidgame.GameLogic.Buttons.ButtonImage;
 import com.example.androidgame.GameLogic.Managers.GameManager;
 import com.example.androidgame.GameLogic.Managers.SceneManager;
 import com.example.androidgame.GameLogic.ShopItem;
-import com.example.androidgame.GameLogic.ShopManager;
+import com.example.androidgame.GameLogic.Managers.ShopManager;
 import com.example.androidgame.GameLogic.Theme;
 
 import org.json.JSONArray;

@@ -1,12 +1,9 @@
-package com.example.androidgame.GameLogic;
+package com.example.androidgame.GameLogic.Managers;
 
 import android.util.Log;
 
-import com.example.androidengine.Engine;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class ShopManager {
     //private Engine iEngine_;
@@ -24,7 +21,7 @@ public class ShopManager {
         itemsState_= new HashMap<>();
         return 1;
     }
-    Map<String, Map<String, Boolean>> getItemsState(){
+    public Map<String, Map<String, Boolean>> getItemsState(){
         return itemsState_;
     }
     public void registerShopItem(String typeId, String itemId){
@@ -40,7 +37,7 @@ public class ShopManager {
         }
         else{ Log.d("SHOP","Ya contiene la seccion: "+typeId+" y el objeto "+itemId);}
     }
-    void changeItemState(String typeId,String itemId,boolean locked){
+    public void changeItemState(String typeId, String itemId, boolean locked){
         if(itemsState_.containsKey(typeId) && itemsState_.get(typeId).containsKey(itemId)){
             itemsState_.get(typeId).put(itemId,locked);
             Log.d("COMPRA","Has comprado en la seccion: "+typeId+" y el objeto "+itemId);
