@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class SaveData {
@@ -52,9 +53,27 @@ public class SaveData {
                 sectionItem.put(typeId, itemsArray);
             }
             shopArray.put(sectionItem);
-            jsonObject.put("tienda", shopArray);
-            String jsonString = jsonObject.toString();
+            jsonObject.put("shop", shopArray);
 
+            //Guardado de progreso de un nivel
+            JSONArray triesArray= new JSONArray();
+            ArrayList<ArrayList<Integer>> levelArray= LevelManager.getInstance().getTries();
+
+            for(int i=0; i<levelArray.size(); i++)
+            {
+                JSONArray tryArray=new JSONArray();
+                for(int j=0; j<levelArray.get(i).size(); j++)
+                {
+                    tryArray.put(levelArray.get(i).get(j));
+                }
+                triesArray.put(tryArray);
+            }
+            jsonObject.put("tries",triesArray);
+            //Guardado de nivel en el que estaba jugando
+            jsonObject.put("playingWorld",LevelManager.getInstance().getActualWorld());
+            jsonObject.put("playingLevel",LevelManager.getInstance().getActualLevel());
+
+            String jsonString = jsonObject.toString();
             FileOutputStream fileOutputStream = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
             fileOutputStream.write(jsonString.getBytes());
             fileOutputStream.close();
@@ -126,7 +145,7 @@ public class SaveData {
             String codesPath = jsonObject.getString("codes");
             AssetsManager.getInstance().setCirleTheme(new Theme("PURCHASED", "","",codesPath),false);
             // Registramos en el mapa las cosas desbloqueadas
-            JSONObject tiendaInfo = jsonObject.getJSONArray("tienda").getJSONObject(0);
+            JSONObject tiendaInfo = jsonObject.getJSONArray("shop").getJSONObject(0);
             for (int i = 0; i < tiendaInfo.length(); i++) {
                 String typeId = tiendaInfo.names().getString(i);
                 JSONArray itemsArray = tiendaInfo.getJSONArray(typeId);

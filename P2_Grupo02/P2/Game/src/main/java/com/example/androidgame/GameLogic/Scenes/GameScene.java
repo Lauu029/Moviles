@@ -112,8 +112,15 @@ public class GameScene extends Scene {
             i++;
         }
         if (isComplete) {
-            if(world_)
-            LevelManager.getInstance().addTries(tempSol);
+            if(world_){
+                ArrayList<Integer> tempArray= new ArrayList<>();
+                for(int j=0; j<tempSol.length; j++)
+                {
+                    tempArray.add(tempSol[j]);
+                }
+                LevelManager.getInstance().addTries(tempArray);
+            }
+
             mySolution_.check(tempSol);
             int try_ = this.gameBoard_.getAcutalTry_();
             if (mySolution_.getCorrectPos(try_) == this.lev_.getSolutionColors()) {

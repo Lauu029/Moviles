@@ -21,7 +21,7 @@ public class LevelManager {
     private int passedLevel_ = 4;
     private int passedWorld_ = 1;
     private int numWorlds;
-   private ArrayList<int[]>tries_;
+   private ArrayList<ArrayList<Integer>>tries_;
     public int getPassedLevel() {
         return passedLevel_;
     }
@@ -29,9 +29,11 @@ public class LevelManager {
     public void setPassedLevel(int passedLevel) {
         passedLevel_ = passedLevel;
     }
-    public void addTries( int[] trie){
+    public void addTries(ArrayList<Integer> trie){
         tries_.add(trie);
-
+    }
+    public ArrayList<ArrayList<Integer>> getTries(){
+        return tries_;
     }
     public void clearTries(){
         tries_.clear();
