@@ -86,32 +86,39 @@ public class EndScene extends Scene {
                 //scene_ = new LevelScene(engine_, sceneWidth, sceneHeight);
             }
         });
-        shareRecordButton_ = new Button("Compartir", font1_, AssetsManager.getInstance().getButtonColor(),
-                AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor(),
-                150, 50, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 100,
-                myButtonSound_, new ButtonClickListener() {
-            @Override
-            public void onClick() {
-                graph.generateScreenshot(0, 0, width_, height_ / 3, callback);
-            }
-        });
-        buttonReward_ = new Button("Nuevas pistas", font1_, AssetsManager.getInstance().getButtonColor(),
-                AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor(),
-                150, 50, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 175,
-                myButtonSound_, new ButtonClickListener() {
-            @Override
-            public void onClick() {
-                iEngine_.getMobile().LoadRewardedAd();
-                waitingForReward_ = true;
-            }
-        });
-        addGameObject(buttonReward_);
+        if(win_){
+            shareRecordButton_ = new Button("Compartir", font1_, AssetsManager.getInstance().getButtonColor(),
+                    AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor(),
+                    150, 50, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 100,
+                    myButtonSound_, new ButtonClickListener() {
+                @Override
+                public void onClick() {
+                    graph.generateScreenshot(0, 0, width_, height_ / 3, callback);
+                }
+            });
+            addGameObject(shareRecordButton_);
+        }
+        if(!win_){
+            buttonReward_ = new Button("Nuevas pistas", font1_, AssetsManager.getInstance().getButtonColor(),
+                    AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor(),
+                    150, 50, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 100,
+                    myButtonSound_, new ButtonClickListener() {
+                @Override
+                public void onClick() {
+                    iEngine_.getMobile().LoadRewardedAd();
+                    waitingForReward_ = true;
+                }
+            });
+            addGameObject(buttonReward_);
+        }
+
+
         RewardedAddBehaviour rewardedAddBehaviour = new RewardedAddBehaviour(2);
         iEngine_.getMobile().assignRewardPrice(rewardedAddBehaviour);
         tematica_ = AssetsManager.getInstance().getCirleTheme(false);
         if (tematica_.getName() != "DEFAULT") {
             for (int i = 0; i < sol_.length; i++) {
-                Log.d("OREO", tematica_.getPathBolas() + ("" + (i + 1)) + ".png");
+
                 Image im = graph.newImage(tematica_.getPathBolas() + ("" + (sol_[i] + 1)) + ".png");
                 images_.add(im);
 
@@ -120,7 +127,7 @@ public class EndScene extends Scene {
         addGameObject(playAgainButton_);
         addGameObject(buttonDificulty_);
 
-        addGameObject(shareRecordButton_);
+
     }
 
     public void render() {
@@ -140,8 +147,9 @@ public class EndScene extends Scene {
             iEngine_.getGraphics().drawText(tries_ + " intentos:", width_ / 2, 80);
             iEngine_.getGraphics().setFont(font1_);
             iEngine_.getGraphics().drawText("codigo:", width_ / 2, 120);
+            drawCircles(iEngine_.getGraphics());
         }
-        drawCircles(iEngine_.getGraphics());
+
 
     }
 
@@ -166,18 +174,5 @@ public class EndScene extends Scene {
         }
     }
 
-    @Override
-    public void update(double time) {
-//        if (waitingForReward_) {
-//            Log.d("AY","update");
-//
-//            boolean earned = iEngine_.getMobile().hasEarnedReward();
-//            if (earned) {
-//                GameScene gs = (GameScene) SceneManager.getInstance().getScene(SceneNames.GAME.ordinal());
-//                gs.addTriesToBoard(2);
-//                SceneManager.getInstance().setScene(SceneNames.GAME.ordinal());
-//                waitingForReward_ = false;
-//            }
-//        }
-    }
+
 }
