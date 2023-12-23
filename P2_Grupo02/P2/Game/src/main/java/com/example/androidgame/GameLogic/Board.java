@@ -88,6 +88,9 @@ public class Board extends GameObject {
     public void setNewHints(int correctPositions, int correctColors) {
         gameTries_.get(acutalTry_).setNewHints(correctPositions, correctColors);
     }
+    public void setHints(int correctPositions, int correctColors, int myTry) {
+        gameTries_.get(myTry).setNewHints(correctPositions, correctColors);
+    }
     public int getUpTryPos(){
         return upTryPos_;
     }
@@ -150,7 +153,9 @@ public class Board extends GameObject {
         downTryPos_+=transY;
 
     }
-
+    public GameTry getTryByIndex(int index){
+        return gameTries_.get(index);
+    }
     public int getAcutalTry_() {
         return acutalTry_;
     }

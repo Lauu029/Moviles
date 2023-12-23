@@ -8,6 +8,8 @@ import com.example.androidengine.TouchEvent;
 import com.example.androidgame.GameLogic.Managers.AssetsManager;
 import com.example.androidgame.GameLogic.Managers.GameManager;
 
+import java.util.ArrayList;
+
 public class GameTry extends GameObject {
     private TryCircle[] tries_;
     private HintsCircle[] hints_;
@@ -82,11 +84,11 @@ public class GameTry extends GameObject {
             hints_[i].TranslateY(y);
         }
     }
-
-    public void checkSolution(Solution sol) {
-
+    public void setIdTries(ArrayList<Integer> triesIds){
+        for (int i = 0; i < solutionSize_; i++) {
+            tries_[i].setIdColor_(triesIds.get(i));
+        }
     }
-
     @Override
     public void update(double time) {
         for (int i = 0; i < solutionSize_; i++) {

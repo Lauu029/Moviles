@@ -103,7 +103,7 @@ public class LevelManager {
     }
 
     public void setActualLevel(int actualLevel) {
-        tries_.clear();
+        //tries_.clear();
         this.actualLevel_ = actualLevel;
     }
 
