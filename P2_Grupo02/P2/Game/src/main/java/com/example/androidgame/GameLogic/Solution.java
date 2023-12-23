@@ -1,5 +1,7 @@
 package com.example.androidgame.GameLogic;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -17,7 +19,14 @@ public class Solution {
     private ArrayList<int[]> registeredSols_ = new ArrayList<>();
 
     public void setSolution (int []sol){
+        solutionSize_=sol.length;
+
         sol_=sol;
+        for (int i = 0; i < solutionSize_; i++) {
+            Map<Integer, Boolean> s = new HashMap<>();
+            s.put(i, false);
+            solution.put(sol[i], s);
+        }
     }
     public void createSolution(Boolean repeat, int colorGame, int posibleColor, int maxTries) {
 
@@ -89,6 +98,7 @@ public class Solution {
         if (correctPos_ == solutionSize_) win_ = true;
 
         registeredSols_.add(new int[]{correctPos_, correctColor_});
+
         resetMap();
         actualTry_++;
     }
