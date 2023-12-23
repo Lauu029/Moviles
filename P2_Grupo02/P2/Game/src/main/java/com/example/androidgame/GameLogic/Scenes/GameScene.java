@@ -93,9 +93,11 @@ public class GameScene extends Scene {
                 for(int j=0; j<gameTry.length; j++)
                 {
                     gameTry[j]=savedTries.get(i).get(j);
+                    gameBoard_.putColor(gameTry[j]);
                 }
                 mySolution_.check(gameTry);
                 gameBoard_.setHints(mySolution_.getCorrectPos(i),mySolution_.getCorrectColor(i),i);
+                gameBoard_.nexTry();
             }
 
         }
@@ -174,10 +176,11 @@ public class GameScene extends Scene {
             int try_ = this.gameBoard_.getAcutalTry_();
             if (mySolution_.getCorrectPos(try_) == this.lev_.getSolutionColors()) {
                 ChangeEndScene(true, try_);
+                LevelManager.getInstance().clearTries();
 
             } else if (try_ == gameBoard_.getTotalTries() - 1) {
                 gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
-                LevelManager.getInstance().clearTries();
+
                 ChangeEndScene(false, try_);
             } else {
                 gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
