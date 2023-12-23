@@ -47,6 +47,16 @@ public class GameScene extends Scene {
         this.lev_ = this.gm_.getLevel();
         mySolution_ = new Solution();
         mySolution_.createSolution(lev_.isRepeat(), lev_.getSolutionColors(), lev_.getPosibleColors(), lev_.getTries());
+        
+        ArrayList<Integer> sol = new ArrayList<>();
+        int [] array =mySolution_.getSol();
+        for(int i=0; i<mySolution_.getSol().length;i++)
+        {
+            int num=array[i];
+            sol.add(num);
+        }
+        LevelManager.getInstance().setCurrentSolution(sol); //Guardamos la solucion de ete nivel
+
         this.gameBoard_ = new Board(lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_, world_);
         addGameObject(gameBoard_);
         gm_.setBoard(this.gameBoard_);
@@ -142,10 +152,10 @@ public class GameScene extends Scene {
         Log.d("Cojones","Es mundo: "+world_);
         if (!world_) {
             if (win) canGetReward_ = false;
-            EndScene end = new EndScene(win, mySolution_.getSol_(), try_);
+            EndScene end = new EndScene(win, mySolution_.getSol(), try_);
             SceneManager.getInstance().addScene(end, SceneNames.FINAL.ordinal());
         } else {
-            WorldEndScene worldEnd = new WorldEndScene(win, mySolution_.getSol_(), try_);
+            WorldEndScene worldEnd = new WorldEndScene(win, mySolution_.getSol(), try_);
             SceneManager.getInstance().addScene(worldEnd, SceneNames.WORLD_FINAL.ordinal());
         }
     }

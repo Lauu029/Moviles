@@ -73,6 +73,15 @@ public class SaveData {
             jsonObject.put("playingWorld",LevelManager.getInstance().getActualWorld());
             jsonObject.put("playingLevel",LevelManager.getInstance().getActualLevel());
 
+            //Tenemos que guardar la solucion del nivel en el que estabamos
+            JSONArray solArray= new JSONArray();
+            ArrayList<Integer> savedSol= LevelManager.getInstance().getCurrentSolution();
+            for (int i=0; i<savedSol.size();i++)
+            {
+                solArray.put(savedSol.get(i));
+            }
+            jsonObject.put("solution",solArray);
+
             String jsonString = jsonObject.toString();
             FileOutputStream fileOutputStream = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
             fileOutputStream.write(jsonString.getBytes());
@@ -178,6 +187,16 @@ public class SaveData {
                 currentTries.add(triesList);
             }
             LevelManager.getInstance().setTries(currentTries);
+
+            //Reestablecemos la solucion guardada
+            JSONArray solArray=jsonObject.getJSONArray("solution");
+            ArrayList<Integer> savedSolution = new ArrayList<>();
+            for(int i=0;i<solArray.length(); i++)
+            {
+                savedSolution.add(solArray.getInt(i));
+            }
+            LevelManager.getInstance().setCurrentSolution(savedSolution);
+
         } catch (JSONException | IOException e) {
             e.printStackTrace();
         }

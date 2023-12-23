@@ -18,14 +18,20 @@ public class LevelManager {
     private int niveles_;
     private int actualLevel_ = 0;
     private int actualWorld_ = 0;
-    private int passedLevel_ = 4;
-    private int passedWorld_ = 1;
+    private int passedLevel_ = 0;
+    private int passedWorld_ = 0;
     private int numWorlds;
+    private ArrayList<Integer> currentSolution_;
    private ArrayList<ArrayList<Integer>>tries_;
     public int getPassedLevel() {
         return passedLevel_;
     }
-
+    public ArrayList<Integer> getCurrentSolution(){
+        return currentSolution_;
+    }
+    public void setCurrentSolution(ArrayList<Integer> savedSolution){
+        currentSolution_=savedSolution;
+    }
     public void setPassedLevel(int passedLevel) {
         passedLevel_ = passedLevel;
     }

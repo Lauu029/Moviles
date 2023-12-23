@@ -51,7 +51,7 @@ public class Solution {
         }
     }
 
-    public int[] getSol_() {
+    public int[] getSol() {
         return sol_;
     }
 
