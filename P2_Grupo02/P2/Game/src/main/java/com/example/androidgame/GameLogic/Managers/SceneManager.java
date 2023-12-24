@@ -29,29 +29,27 @@ public class SceneManager {
         return instance;
     }
 
-
+    //Añade una nueva escena, si la escena no es de tipo final, juego o mundo y ya estaba creada simplemente la carga
     public void addScene(Scene scene, int idScene) {
         if (sceneList_[idScene] == null || idScene == SceneNames.GAME.ordinal() ||
-                idScene == SceneNames.FINAL.ordinal()||idScene == SceneNames.WORLD_FINAL.ordinal()||idScene == SceneNames.WORLD.ordinal()) {
+                idScene == SceneNames.FINAL.ordinal() || idScene == SceneNames.WORLD_FINAL.ordinal() || idScene == SceneNames.WORLD.ordinal()) {
             sceneList_[idScene] = scene;
             sceneList_[idScene].init();
-            if(idScene == SceneNames.GAME.ordinal())
+            if (idScene == SceneNames.GAME.ordinal())
                 sceneList_[idScene].setGameScene();
         }
         myEngine_ = GameManager.getInstance().getIEngine();
         myEngine_.setScene(sceneList_[idScene]);
     }
 
-
-    // Method to switch to the previous scene
+    //Activa la escena que está en la posicion del array solicitada
     public void setScene(int idScene) {
         myEngine_.setScene(sceneList_[idScene]);
     }
-    public Scene getScene(int idScene){
+
+    // Devuelve la escena en la posicion del array solicitada
+    public Scene getScene(int idScene) {
         return sceneList_[idScene];
     }
-
-    // Other methods and properties of the SceneManager class can go here
-
 
 }

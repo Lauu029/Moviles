@@ -63,6 +63,7 @@ public class LevelManager {
         passedWorld_ = passedWorld;
     }
 
+    //Desbloquea los niveles de los mundos
     public void nextPassedLevel() {
         if (passedLevel_ + 1 >= diff_.size()) {
             if (passedWorld_ < numWorlds) {
@@ -120,9 +121,7 @@ public class LevelManager {
         this.actualWorld_ = actualWorld;
     }
 
-    // Private constructor to prevent instantiation from outside the class
     private LevelManager() {
-        // Private constructor
     }
 
     public Difficulty getNextLevelDifficulty() {
@@ -132,10 +131,8 @@ public class LevelManager {
             tries_.clear();
             return diff_.get(actualLevel_);
         }
-
     }
 
-    // Initialize the unique instance of SceneManager
     public static void init() {
         instance = new LevelManager();
         instance.tries_=new ArrayList<>();
@@ -145,19 +142,15 @@ public class LevelManager {
         instance.diff_ = instance.read_.geDifficultylevels(instance.actualWorld_);
         instance.numWorlds = instance.read_.getNumWorlds_();
     }
-
+    //Crea un mundo de niveles nuevos
     public void setNewWorld() {
-
         instance.niveles_ = read_.getNumLevels(actualWorld_);
         instance.tema_ = read_.getTematicaWorld(actualWorld_);
         instance.diff_ = read_.geDifficultylevels(actualWorld_);
     }
 
-    // Method to get the unique instance of the class
     public static LevelManager getInstance() {
-        // Returns the unique instance
         return instance;
     }
-    // Method to add a scene to the stack
 
 }
