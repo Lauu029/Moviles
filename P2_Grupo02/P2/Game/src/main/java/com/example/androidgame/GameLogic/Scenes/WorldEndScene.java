@@ -14,6 +14,8 @@ import com.example.androidgame.GameLogic.Managers.LevelManager;
 import com.example.androidgame.GameLogic.Managers.SceneManager;
 import com.example.androidgame.GameLogic.Utils.RewardedAddBehaviour;
 
+import java.util.ArrayList;
+
 public class WorldEndScene extends EndScene {
     private Image coinImage_;
     public WorldEndScene(boolean win, int[] sol, int intentos) {
@@ -32,7 +34,8 @@ public class WorldEndScene extends EndScene {
 
     void GameOver() {
         Graphics graph = iEngine_.getGraphics();
-
+        ArrayList<ArrayList<Integer>> tries= (ArrayList<ArrayList<Integer>>) LevelManager.getInstance().getTries().clone();
+        LevelManager.getInstance().clearTries();
         Button moreTriesButton_ = new Button("+2 intentos", font2_, AssetsManager.getInstance().getButtonColor(),
                 AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor(),
                 180, 60, 15, this.width_ / 2 - (180 / 2), this.height_ / 2 - 100,
@@ -40,7 +43,9 @@ public class WorldEndScene extends EndScene {
             @Override
             public void onClick() {
                 GameScene gs = (GameScene) SceneManager.getInstance().getScene(SceneNames.GAME.ordinal());
+                LevelManager.getInstance().setTries(tries);
                 gs.addTriesToBoard(2);
+
                 iEngine_.getMobile().LoadRewardedAd();
                 waitingForReward_=true;
             }
@@ -53,7 +58,7 @@ public class WorldEndScene extends EndScene {
                 myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                LevelManager.getInstance().clearTries();
+
                 GameManager.getInstance().setLevel(LevelManager.getInstance().getDiff()
                         .get(LevelManager.getInstance().getActualLevel()));
                 SceneManager.getInstance().addScene(new GameScene(true), SceneNames.GAME.ordinal());
@@ -73,6 +78,7 @@ public class WorldEndScene extends EndScene {
                 myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
+
                SceneManager.getInstance().setScene(SceneNames.MENU.ordinal());
             }
         });
