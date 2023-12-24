@@ -36,6 +36,7 @@ public class FileManager {
 
         return fInput_;
     }
+    //te devuelve un array de las carpetas que hay dentro de una carpeta
     public String[] getFolderNamesInFolder(String parentFolderPath) {
         String[] folderNames = null;
 
@@ -56,6 +57,7 @@ public class FileManager {
 
         return folderNames;
     }
+    //metodo para saber si la ruta "path" es una carpeta
     private boolean isDirectory(String path) {
         try {
             // Intenta abrir el elemento como un InputStream
@@ -71,9 +73,9 @@ public class FileManager {
             return true;
         }
 
-        // Si hay algún otro error, asume que no es un directorio
         return false;
     }
+    //te devuelve los files dentro de una carpeta dada
     public TreeMap<String, InputStream> getFilesInFolder(String folderPath) {
         TreeMap<String, InputStream> fileStreamsMap = new TreeMap<>();
 
@@ -86,14 +88,6 @@ public class FileManager {
                     String filePath = folderPath + fileName;
                     InputStream fileStream = myAssetManager_.open(filePath);
                     fileStreamsMap.put(fileName, fileStream);
-
-                    // Realizar operaciones con el InputStream, por ejemplo, leer el contenido del archivo
-                    // ...
-
-                    // No olvides cerrar el InputStream cuando hayas terminado con él
-                    // fileStream.close(); // Puedes cerrar el InputStream aquí o donde lo utilices
-
-                    Log.d("MainActivity", "Abierto y leído: " + filePath);
                 }
             }
         } catch (IOException e) {

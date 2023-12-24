@@ -15,7 +15,7 @@ import android.Manifest;
         import androidx.core.app.NotificationManagerCompat;
         import androidx.work.Worker;
         import androidx.work.WorkerParameters;
-
+//clase para que cuando el work acabe se creee la notificacion
 public class ReminderWorker extends Worker {
 
     public ReminderWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
