@@ -70,11 +70,10 @@ public class WorldEndScene extends EndScene {
         Button menuButton = new Button("Menu", font1_, AssetsManager.getInstance().getButtonColor(),
                 AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor()
                 , 150, 40, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 100,
-                /*SceneNames.LEVEL,*/ myButtonSound_, new ButtonClickListener() {
+                myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                //SceneManager.getInstance().addScene(new MenuScene());
-
+               SceneManager.getInstance().setScene(SceneNames.MENU.ordinal());
             }
         });
         addGameObject(menuButton);
