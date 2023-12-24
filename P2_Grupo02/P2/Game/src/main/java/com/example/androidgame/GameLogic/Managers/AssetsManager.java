@@ -31,7 +31,7 @@ public class AssetsManager {
     private int lineColor_ = 0XFF222222;
     private HashMap<String, int[]> coloresFondo_ = new HashMap<String, int[]>();
     private JSONObject colorPalettesJson_;
-    private int defaultPalette[] = {0xFFFFF0F6, 0XD0FB839B, 0xFFFFFFFF, 0XFF222222};
+    private int defaultPalette[] = {0xFFFFF0F6, 0XD0FB839B, 0xFF000000, 0XFF222222};
     private Engine iEngine_;
     private static AssetsManager instance_;
 
