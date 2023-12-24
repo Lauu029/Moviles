@@ -56,6 +56,7 @@ public class SceneManager {
         if(sceneList_[idScene]==null)
             Log.d("MainActivity","La escena no había sido cargada previamente");
         myEngine_.setScene(sceneList_[idScene]);
+        //sceneList_[idScene].init();
     }
     public Scene getScene(int idScene){
         return sceneList_[idScene];
