@@ -1,5 +1,7 @@
 package com.example.androidgame.GameLogic;
 
+import android.util.Log;
+
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.TouchEvent;

@@ -79,7 +79,6 @@ public class GameScene extends Scene {
         }
         LevelManager.getInstance().setCurrentSolution(mySol); //Guardamos la solucion de ete nivel
 
-
         this.gameBoard_ = new Board(lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_, world_);
         addGameObject(gameBoard_);
         gm_.setBoard(this.gameBoard_);
