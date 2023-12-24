@@ -24,7 +24,6 @@ public class Circle extends GameObject {
     protected int idColor_;
     protected int row_, gameTry_;
     protected boolean isDaltonics_;
-    protected static GameManager gm_;
     protected Image image_;
     private Theme tematica_;
     Boolean world_;
@@ -46,7 +45,6 @@ public class Circle extends GameObject {
     }
 
     public void setImage(String image) {
-
         if (tematica_.getName() != "DEFAULT") {
             String path = AssetsManager.getInstance().getCirleTheme(world_).getPathBolas();
             this.image_ = GameManager.getInstance().getIEngine().getGraphics().newImage(path + image + ".png");
@@ -64,7 +62,6 @@ public class Circle extends GameObject {
     //Render de los círculos dependiendo de si tienen que poner números o no encima de los círculos
     public void render(Graphics graph) {
         graph.setColor(this.color_);
-        //
         if (image_ != null && tematica_.getName()!= "DEFAULT" )
             graph.drawImage(image_, this.posX_ - (radius_), this.posY_ - (radius_)+translateY_, this.radius_ * 2, this.radius_ * 2);
         else graph.drawCircle(this.posX_, this.posY_+translateY_, this.radius_);

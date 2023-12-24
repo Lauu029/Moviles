@@ -66,8 +66,6 @@ public class DifficultyScene extends Scene {
             }
         });
         this.addGameObject(returnButton_);
-        //graph.generateScreenshot(0,0,100,100);
-        //iEngine_.getMobile().shareImage(graph.processImage(),"mi imagen");
     }
 
     @Override

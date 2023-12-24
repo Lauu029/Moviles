@@ -48,7 +48,6 @@ public class ShopScene extends Scene {
 
     @Override
     public void init() {
-        Log.d("MainActivity", "Me leo la tienda");
         myArrowSound_ = iEngine_.getAudio().newSound("arrowButton.wav");
         shopingSound_ = iEngine_.getAudio().newSound("cashPurchase.wav");
 
@@ -96,7 +95,6 @@ public class ShopScene extends Scene {
                 Log.d("MainActivity", String.valueOf(id_));
             }
         });
-        //previousShop_.changeActive(false);
         nextShop_ = new ButtonImage("FlechasDcha.png", 35, 35, width_ / 2 + 120, 5, myArrowSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
@@ -131,7 +129,6 @@ public class ShopScene extends Scene {
         int xText, yText;
         xText = width_ / 2 - 80 + 190 / 2;
         yText = 5 + 35 / 2;
-        //graph.fillRoundRectangle(this.posX_ - 2, this.posY_ - 2, this.width_ + 4, this.height_ + 4, this.arc_);
         graph.setColor(rectangleColor);
         graph.fillRoundRectangle(width_ / 2 - 80, 5, 190, 35, 10);
         graph.setColor(fontColor);
@@ -234,7 +231,6 @@ public class ShopScene extends Scene {
                         yPos = yPos * 2 + 20;
                         xPos = 25;
                     }
-                    Log.d("MainActivity", "Button " + nombre + " loaded");
                 }
                 totalShopItems_[id_] = shopItems_;
             } catch (Exception e) {

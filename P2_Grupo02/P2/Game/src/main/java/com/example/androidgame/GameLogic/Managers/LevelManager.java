@@ -108,7 +108,6 @@ public class LevelManager {
     }
 
     public void setActualLevel(int actualLevel) {
-        //tries_.clear();
         this.actualLevel_ = actualLevel;
     }
 
@@ -157,11 +156,8 @@ public class LevelManager {
     // Method to get the unique instance of the class
     public static LevelManager getInstance() {
         // Returns the unique instance
-
         return instance;
     }
-
-
     // Method to add a scene to the stack
 
 }

@@ -126,13 +126,10 @@ public class WorldEndScene extends EndScene {
         tematica_ = AssetsManager.getInstance().getCirleTheme(true);
         if (tematica_.getName() != "DEFAULT") {
             for (int i = 0; i < sol_.length; i++) {
-                Log.d("OREO", tematica_.getPathBolas() + ("" + (i + 1)) + ".png");
                 Image im = graph.newImage(tematica_.getPathBolas() + ("" + (sol_[i] + 1)) + ".png");
                 images_.add(im);
-
             }
         }
-
     }
     public void render() {
         super.render();
@@ -140,6 +137,7 @@ public class WorldEndScene extends EndScene {
             Graphics graph=GameManager.getInstance().getIEngine().getGraphics();
             graph.drawImage(coinImage_,this.width_ / 2-120,this.height_ / 2-80,60,60);
             graph.setFont(font2_);
+            graph.setColor(0xFF000000);
             graph.drawText("+10 - Total:"+GameManager.getInstance().getCoins(),this.width_ / 2+45,this.height_ / 2-60);
         }
     }

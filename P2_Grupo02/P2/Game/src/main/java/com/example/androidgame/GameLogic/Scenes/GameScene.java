@@ -31,14 +31,12 @@ public class GameScene extends Scene {
     int yIni;
     int yFin;
     boolean canGetReward_;
-    Image backaground_;
     private int upTryPos_, downTryPos_, upRenderPos_, downRenderPos_;
 
     public GameScene(boolean world) {
         super();
         world_ = world;
         canGetReward_ = true;
-
     }
 
     //Inicializa los botones, el tablero y la solución
@@ -137,9 +135,7 @@ public class GameScene extends Scene {
         if (scroll) {
             int speed = yFin - yIni;
             if ((gameBoard_.getUpTryPos() < upRenderPos_ && speed > 0) || (gameBoard_.getDownTryPos() > downRenderPos_ && speed < 0)) {
-
                 gameBoard_.TranslateY(speed);
-
             }
             yIni = yFin;
         }

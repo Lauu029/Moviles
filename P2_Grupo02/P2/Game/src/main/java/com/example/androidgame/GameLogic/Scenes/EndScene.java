@@ -34,7 +34,6 @@ public class EndScene extends Scene {
     protected boolean win_ = false;
     protected ImageProcessingCallback callback;
     protected Theme tematica_;
-    protected boolean canGetReward_;
 
     public EndScene(boolean win, int[] sol, int intentos) {
         super();
@@ -90,7 +89,6 @@ public class EndScene extends Scene {
                 GameManager.getInstance().setLevel(gameInit.getDifficulty());
 
                 SceneManager.getInstance().setScene(SceneNames.DIFFICULTY.ordinal());
-                //scene_ = new LevelScene(engine_, sceneWidth, sceneHeight);
             }
         });
         if(win_){
@@ -135,8 +133,6 @@ public class EndScene extends Scene {
         }
         addGameObject(playAgainButton_);
         addGameObject(buttonDificulty_);
-
-
     }
 
     public void render() {
@@ -158,8 +154,6 @@ public class EndScene extends Scene {
             iEngine_.getGraphics().drawText("codigo:", width_ / 2, 120);
             drawCircles(iEngine_.getGraphics());
         }
-
-
     }
 
     void drawCircles(Graphics graph) {
@@ -182,6 +176,4 @@ public class EndScene extends Scene {
             }
         }
     }
-
-
 }

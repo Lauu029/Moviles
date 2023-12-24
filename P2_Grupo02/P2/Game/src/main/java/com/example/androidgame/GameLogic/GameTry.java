@@ -64,7 +64,6 @@ public class GameTry extends GameObject {
 
         //hints Render
         int columns = (int) Math.ceil((double) solutionSize_ / 2);
-        Log.d("NOTIFI", columns + "");
         int hintsRad = radius / 2;
         int hy = posY_ + translateY_ + height_ / 4;
         int j = 0;

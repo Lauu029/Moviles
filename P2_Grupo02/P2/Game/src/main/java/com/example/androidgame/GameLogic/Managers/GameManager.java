@@ -104,14 +104,6 @@ public class GameManager {
     public int getCoins() {
         return this.coins_;
     }
-//
-//    public Image getBackgroundImage() {
-//        return backgroundImage_;
-//    }
-//
-//    public void setBackgroundImage(Image i) {
-//        backgroundImage_ = i;
-//    }
     public void addCoins(int amount){
         coins_+=amount;
     }
@@ -120,7 +112,6 @@ public class GameManager {
     }
 
     public void saveGameData() {
-        Log.d("GAME","-----llamado a save gameData-------");
         SaveData.saveGameData(myEngine_.getMainActivity(), coins_,
                 AssetsManager.getInstance().getPaletteColor(),
                 LevelManager.getInstance().getPassedWorld(),
@@ -131,7 +122,6 @@ public class GameManager {
 
     // Llamado al iniciar el juego para cargar el progreso del jugador
     public void loadGameData() {
-        Log.d("GAME","-----llamado a load gameData-------");
         SaveData.loadGameData(myEngine_.getMainActivity());
         // Actualiza las variables del GameManager según los datos cargados
         coins_ = getCoins();
