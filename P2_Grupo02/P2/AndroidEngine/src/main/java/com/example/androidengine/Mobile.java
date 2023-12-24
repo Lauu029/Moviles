@@ -138,7 +138,7 @@ public class Mobile {
 
     public void processImage(Bitmap bitmap) {
 
-        shareImage(bitmap, "He superado un nuevo nivel en Mastermind!");
+        shareImage(bitmap, "¡He superado un nuevo nivel en Mastermind!");
     }
     //compartir una imagen
     public void shareImage(Bitmap bitmap, String msj) {
