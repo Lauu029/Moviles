@@ -23,6 +23,7 @@ public class LevelManager {
     private int numWorlds;
     private int savedWorld_;
     private  int savedLevel_;
+    private int savedTotalTries_ = 0;
     private ArrayList<Integer> currentSolution_;
    private ArrayList<ArrayList<Integer>>tries_;
 
@@ -50,6 +51,10 @@ public class LevelManager {
     }
     public ArrayList<ArrayList<Integer>> getTries(){
         return tries_;
+    }
+    public int getTotalTries(){return savedTotalTries_;}
+    public void setTotalTries(int tries){
+        savedTotalTries_ =tries;
     }
     public void clearTries(){
         tries_.clear();

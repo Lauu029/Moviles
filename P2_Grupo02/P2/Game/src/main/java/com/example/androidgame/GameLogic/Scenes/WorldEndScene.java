@@ -12,6 +12,7 @@ import com.example.androidgame.GameLogic.Difficulty;
 import com.example.androidgame.GameLogic.Managers.GameManager;
 import com.example.androidgame.GameLogic.Managers.LevelManager;
 import com.example.androidgame.GameLogic.Managers.SceneManager;
+import com.example.androidgame.GameLogic.Utils.RewardedAddBehaviour;
 
 public class WorldEndScene extends EndScene {
     private Image coinImage_;
@@ -26,6 +27,7 @@ public class WorldEndScene extends EndScene {
             GameManager.getInstance().addCoins(10);
             WinButtons();}
         else GameOver();
+        iEngine_.getMobile().assignRewardPrice(new RewardedAddBehaviour());
     }
 
     void GameOver() {
@@ -37,7 +39,8 @@ public class WorldEndScene extends EndScene {
                 myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-
+                GameScene gs = (GameScene) SceneManager.getInstance().getScene(SceneNames.GAME.ordinal());
+                gs.addTriesToBoard(2);
                 iEngine_.getMobile().LoadRewardedAd();
                 waitingForReward_=true;
             }
@@ -47,9 +50,10 @@ public class WorldEndScene extends EndScene {
         Button retryButton = new Button("Volver a intentar", font1_, AssetsManager.getInstance().getButtonColor(),
                 AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor()
                 , 150, 40, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 20,
-                /* SceneNames.GAME, GameManager.getInstance_().getLevel().getLevelDiff_(),*/ myButtonSound_, new ButtonClickListener() {
+                myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
+                LevelManager.getInstance().clearTries();
                 GameManager.getInstance().setLevel(LevelManager.getInstance().getDiff()
                         .get(LevelManager.getInstance().getActualLevel()));
                 SceneManager.getInstance().addScene(new GameScene(true), SceneNames.GAME.ordinal());

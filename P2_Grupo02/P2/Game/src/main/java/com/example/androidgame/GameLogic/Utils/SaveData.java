@@ -58,7 +58,7 @@ public class SaveData {
             //Guardado de progreso de un nivel
             JSONArray triesArray= new JSONArray();
             ArrayList<ArrayList<Integer>> levelArray= LevelManager.getInstance().getTries();
-
+            jsonObject.put("TotalTries",LevelManager.getInstance().getTotalTries());
             for(int i=0; i<levelArray.size(); i++)
             {
                 JSONArray tryArray=new JSONArray();
@@ -172,6 +172,9 @@ public class SaveData {
             int savedLevel=jsonObject.getInt("playingLevel");
             LevelManager.getInstance().setSavedLevel(savedLevel);
 
+            //Numero total de intentos
+            int savedTotalTries=jsonObject.getInt("TotalTries");
+            LevelManager.getInstance().setTotalTries(savedTotalTries);
             //Nuevo arrayList de intentos
             ArrayList<ArrayList<Integer>> currentTries= new ArrayList<>();
             JSONArray triesArray= jsonObject.getJSONArray("tries");

@@ -43,7 +43,7 @@ public class SceneManager {
                 idScene == SceneNames.FINAL.ordinal()||idScene == SceneNames.WORLD_FINAL.ordinal()||idScene == SceneNames.WORLD.ordinal()) {
             sceneList_[idScene] = scene;
             sceneList_[idScene].init();
-            if(idScene== SceneNames.GAME.ordinal())
+            if(idScene == SceneNames.GAME.ordinal())
                 sceneList_[idScene].setGameScene();
         }
         myEngine_ = GameManager.getInstance().getIEngine();

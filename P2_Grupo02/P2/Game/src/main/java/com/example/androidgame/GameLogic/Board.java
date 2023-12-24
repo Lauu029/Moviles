@@ -186,7 +186,7 @@ public class Board extends GameObject {
     }
 
     public int getTotalTries(){
-        return tries_;
+        return gameTries_.size();
     }
     public void changeDaltonics(boolean dalt) {
         for (GameTry g: gameTries_) {

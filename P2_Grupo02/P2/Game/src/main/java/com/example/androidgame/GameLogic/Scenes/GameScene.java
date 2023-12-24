@@ -32,7 +32,8 @@ public class GameScene extends Scene {
     int yFin;
     boolean canGetReward_;
     Image backaground_;
-    private int upTryPos_,downTryPos_,upRenderPos_,downRenderPos_;
+    private int upTryPos_, downTryPos_, upRenderPos_, downRenderPos_;
+
     public GameScene(boolean world) {
         super();
         world_ = world;
@@ -47,59 +48,54 @@ public class GameScene extends Scene {
         this.lev_ = this.gm_.getLevel();
         mySolution_ = new Solution();
 
-        int actWorld=LevelManager.getInstance().getActualWorld();
-        int savedWorld=LevelManager.getInstance().getSavedWorld();
-        int actLevel= LevelManager.getInstance().getActualLevel();
-        int savedLevel= LevelManager.getInstance().getSavedLevel();
+        int actWorld = LevelManager.getInstance().getActualWorld();
+        int savedWorld = LevelManager.getInstance().getSavedWorld();
+        int actLevel = LevelManager.getInstance().getActualLevel();
+        int savedLevel = LevelManager.getInstance().getSavedLevel();
+        ArrayList<ArrayList<Integer>> savedTries = LevelManager.getInstance().getTries();
+        ArrayList<Integer> savedSol = LevelManager.getInstance().getCurrentSolution();
 
-        ArrayList<ArrayList<Integer>> savedTries= LevelManager.getInstance().getTries();
-        ArrayList<Integer> savedSol= LevelManager.getInstance().getCurrentSolution();
-
-        if(world_ && actWorld == savedWorld && actLevel==savedLevel && savedTries.size()!=0)
-        {
-            int [] sol= new int[savedSol.size()];
-            for(int i=0; i<savedSol.size(); i++)
-            {
-                sol[i]=savedSol.get(i);
+        if (world_ && actWorld == savedWorld && actLevel == savedLevel && savedTries.size() != 0) {
+            int[] sol = new int[savedSol.size()];
+            for (int i = 0; i < savedSol.size(); i++) {
+                sol[i] = savedSol.get(i);
             }
             mySolution_.setSolution(sol);
-        }
-        else
-        {
+        } else {
             mySolution_.createSolution(lev_.isRepeat(), lev_.getSolutionColors(), lev_.getPosibleColors(), lev_.getTries());
         }
 
         //Guardo mi solucion en el level manager
         ArrayList<Integer> mySol = new ArrayList<>();
-        int [] array =mySolution_.getSol();
-        for(int i=0; i<mySolution_.getSol().length;i++)
-        {
-            int num=array[i];
+        int[] array = mySolution_.getSol();
+        for (int i = 0; i < mySolution_.getSol().length; i++) {
+            int num = array[i];
             mySol.add(num);
         }
         LevelManager.getInstance().setCurrentSolution(mySol); //Guardamos la solucion de ete nivel
 
-        this.gameBoard_ = new Board(lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_, world_);
-        addGameObject(gameBoard_);
-        gm_.setBoard(this.gameBoard_);
 
         //En caso de que estemos restaurando una partida
-        if(world_ && actWorld == savedWorld && actLevel==savedLevel && savedTries.size()!=0){
-            for (int i=0; i<savedTries.size(); i++)
-            {
+        if (world_ && actWorld == savedWorld && actLevel == savedLevel && savedTries.size() != 0) {
+            this.gameBoard_ = new Board(lev_.getSolutionColors(), LevelManager.getInstance().getTotalTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_, world_);
+
+            for (int i = 0; i < savedTries.size(); i++) {
                 gameBoard_.getTryByIndex(i).setIdTries(savedTries.get(i));
-                int [] gameTry= new int[savedTries.get(i).size()];
-                for(int j=0; j<gameTry.length; j++)
-                {
-                    gameTry[j]=savedTries.get(i).get(j);
+                int[] gameTry = new int[savedTries.get(i).size()];
+                for (int j = 0; j < gameTry.length; j++) {
+                    gameTry[j] = savedTries.get(i).get(j);
                     gameBoard_.putColor(gameTry[j]);
                 }
                 mySolution_.check(gameTry);
-                gameBoard_.setHints(mySolution_.getCorrectPos(i),mySolution_.getCorrectColor(i),i);
+                gameBoard_.setHints(mySolution_.getCorrectPos(i), mySolution_.getCorrectColor(i), i);
                 gameBoard_.nexTry();
             }
-
+        } else {
+            this.gameBoard_ = new Board(lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_, world_);
         }
+        addGameObject(gameBoard_);
+        gm_.setBoard(this.gameBoard_);
+        LevelManager.getInstance().setTotalTries(gameBoard_.getTotalTries());
         Sound buttonSound = GameManager.getInstance().getIEngine().getAudio().newSound("colorBlindButton.wav");
         this.buttonColorBlind_ = new ButtonColorBlind("eye_open.png", "eye_closed.png",
                 40, 40, this.width_ - 45, 0, buttonSound, new ButtonClickListener() {
@@ -121,19 +117,16 @@ public class GameScene extends Scene {
                 LevelManager.getInstance().clearTries();
                 int idScene;
                 if (!world_)
-                    idScene = SceneNames.DIFFICULTY.ordinal();
+                    SceneManager.getInstance().setScene(SceneNames.DIFFICULTY.ordinal());
                 else
-                    idScene = SceneNames.WORLD.ordinal();
-                SceneManager.getInstance().setScene(idScene);
-
-
+                    SceneManager.getInstance().addScene(new WorldScene(), SceneNames.WORLD.ordinal());
             }
         });
         this.addGameObject(exitLevel_);
-        upTryPos_=gameBoard_.getUpTryPos();
-        downTryPos_=gameBoard_.getDownTryPos();
-        downRenderPos_=gameBoard_.getdownRenderPos();
-        upRenderPos_=gameBoard_.getupRenderPos();
+        upTryPos_ = gameBoard_.getUpTryPos();
+        downTryPos_ = gameBoard_.getDownTryPos();
+        downRenderPos_ = gameBoard_.getdownRenderPos();
+        upRenderPos_ = gameBoard_.getupRenderPos();
     }
 
     /*Comprueba si todas las casillas del intento actual se han llenado con algún color
@@ -143,7 +136,7 @@ public class GameScene extends Scene {
     public void update(double time) {
         if (scroll) {
             int speed = yFin - yIni;
-            if((gameBoard_.getUpTryPos()<upRenderPos_&&speed>0)||(gameBoard_.getDownTryPos()>downRenderPos_&&speed<0)){
+            if ((gameBoard_.getUpTryPos() < upRenderPos_ && speed > 0) || (gameBoard_.getDownTryPos() > downRenderPos_ && speed < 0)) {
 
                 gameBoard_.TranslateY(speed);
 
@@ -159,10 +152,9 @@ public class GameScene extends Scene {
             i++;
         }
         if (isComplete) {
-            if(world_){
-                ArrayList<Integer> tempArray= new ArrayList<>();
-                for(int j=0; j<tempSol.length; j++)
-                {
+            if (world_) {
+                ArrayList<Integer> tempArray = new ArrayList<>();
+                for (int j = 0; j < tempSol.length; j++) {
                     tempArray.add(tempSol[j]);
                 }
                 LevelManager.getInstance().addTries(tempArray);
@@ -176,8 +168,8 @@ public class GameScene extends Scene {
 
             } else if (try_ == gameBoard_.getTotalTries() - 1) {
                 gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
-
                 ChangeEndScene(false, try_);
+
             } else {
                 gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
                 gameBoard_.nexTry();
@@ -220,8 +212,9 @@ public class GameScene extends Scene {
             }
         }
     }
+
     public void addTriesToBoard(int numTries) {
         gameBoard_.addNewTries(numTries);
-        canGetReward_ = false;
+        LevelManager.getInstance().setTotalTries(gameBoard_.getTotalTries());
     }
 }

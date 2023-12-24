@@ -112,6 +112,8 @@ public class EndScene extends Scene {
                     myButtonSound_, new ButtonClickListener() {
                 @Override
                 public void onClick() {
+                    GameScene gs = (GameScene) SceneManager.getInstance().getScene(SceneNames.GAME.ordinal());
+                    gs.addTriesToBoard(2);
                     iEngine_.getMobile().LoadRewardedAd();
                     waitingForReward_ = true;
                 }
@@ -120,7 +122,7 @@ public class EndScene extends Scene {
         }
 
 
-        RewardedAddBehaviour rewardedAddBehaviour = new RewardedAddBehaviour(2);
+        RewardedAddBehaviour rewardedAddBehaviour = new RewardedAddBehaviour();
         iEngine_.getMobile().assignRewardPrice(rewardedAddBehaviour);
         tematica_ = AssetsManager.getInstance().getCirleTheme(false);
         if (tematica_.getName() != "DEFAULT") {
