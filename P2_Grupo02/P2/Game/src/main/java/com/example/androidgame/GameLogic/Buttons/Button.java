@@ -47,7 +47,7 @@ public class Button extends GameObject {
 
             graph.setColor(this.color_);
             graph.fillRoundRectangle(this.posX_, this.posY_, this.width_, this.height_, this.arc_);
-            graph.setColor(textColor_);
+            graph.setColor(AssetsManager.getInstance().getTextColor());
             graph.setFont(this.font_);
             graph.drawText(this.text_, xText, yText);
             graph.setColor(lineColor_);

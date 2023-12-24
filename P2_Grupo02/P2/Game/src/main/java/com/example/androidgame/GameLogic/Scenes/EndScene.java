@@ -139,11 +139,11 @@ public class EndScene extends Scene {
         super.render();
         iEngine_.getGraphics().setColor(0XFF222222);
         this.iEngine_.getGraphics().setFont(font_);
+            iEngine_.getGraphics().setColor(AssetsManager.getInstance().getTextColor());
         if (!win_) {
             iEngine_.getGraphics().drawText("GAME OVER", width_ / 2, 10);
             iEngine_.getGraphics().setFont(font1_);
             iEngine_.getGraphics().drawText("Te has quedado sin intentos", width_ / 2, 50);
-
         } else {
             iEngine_.getGraphics().drawText("ENHORABUENA!!", width_ / 2, 10);
             iEngine_.getGraphics().setFont(font1_);

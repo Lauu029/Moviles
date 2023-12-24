@@ -134,6 +134,7 @@ public class ShopScene extends Scene {
         graph.setColor(fontColor);
         graph.setFont(this.font_);
         graph.drawText(shopName_[id_], xText, yText);
+        graph.setColor(AssetsManager.getInstance().getTextColor());
         graph.drawImage(coinsIcon_, width_ - 60, 50, 40, 40);
         graph.drawText(String.valueOf(GameManager.getInstance().getCoins()), width_ - 40, 100);
     }
