@@ -55,8 +55,9 @@ public class GameTry extends GameObject {
         int margen = (spaceCircles - (dCircle * solutionSize_)) / (solutionSize_ + 1);
         int x = 0;
         int StartX = screenWidth_ / 2 - ((radius * 2) * (solutionSize_ / 2));
+        Font font1_ = GameManager.getInstance().getIEngine().getGraphics().newFont("Lexendt.ttf", 20, false, false);
         for (int i = 0; i < solutionSize_; i++) {
-            tries_[i] = new TryCircle("" + (i + 1), fuente, radius, StartX + ((radius * 2 + 3) * i), posY_ + translateY_ + height_ / 2, myTry_, i, world_);
+            tries_[i] = new TryCircle("" + (i + 1), font1_, radius, StartX + ((radius * 2 + 3) * i), posY_ + translateY_ + height_ / 2, myTry_, i, world_);
             tries_[i].init();
         }
         hintsPosX_ = StartX + ((radius * 2 + 3) * (solutionSize_ - 1)) + radius + 15;

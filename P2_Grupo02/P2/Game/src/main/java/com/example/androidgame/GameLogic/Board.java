@@ -26,7 +26,7 @@ public class Board extends GameObject {
     //para gestionar todos los inputs y renders de la clase tablero
     private ArrayList<GameObject> gameObjectsTable_ = new ArrayList<>();
 
-    private Font font1_, font2_, font3_, circleFont;
+    private Font font1_, font2_, font3_;
     private int hintsPos_;
     private boolean world_;
     //Colores totales que puede llegar a haber en una partida
@@ -135,8 +135,7 @@ public class Board extends GameObject {
     public void init() {
         font2_ = gm_.getIEngine().getGraphics().newFont("Lexendt.ttf", 20, true, false);
         font3_ = gm_.getIEngine().getGraphics().newFont("Lexendt.ttf", 17, false, false);
-        circleFont = GameManager.getInstance().getIEngine().getGraphics().
-                newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
+
     }
 
 
