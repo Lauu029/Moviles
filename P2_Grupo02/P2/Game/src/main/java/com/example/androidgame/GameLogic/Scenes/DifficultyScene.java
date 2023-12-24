@@ -72,7 +72,7 @@ public class DifficultyScene extends Scene {
     public void render() {
         super.render();
         this.iEngine_.getGraphics().setFont(font_);
-        iEngine_.getGraphics().setColor(0xFF000000);
+        iEngine_.getGraphics().setColor(AssetsManager.getInstance().getTextColor());
         iEngine_.getGraphics().drawText("¿En que dificultad quieres jugar?", width_ / 2, 50);
     }
 }
