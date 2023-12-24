@@ -49,6 +49,7 @@ public class AssetsManager {
         return worldbackgrounTheme_;
     }
 
+    // Devuelve la imagen de fondo almacenada, según si es de tipo mundo o no y si es la escena de juego del mundo
     public Image getBackgroundImage(boolean world, boolean worldGameScene) {
         if (!world) {
             if (backgrounTheme_.getBackground() != "") {
@@ -172,6 +173,7 @@ public class AssetsManager {
         setPaletteTheme(color);
     }
 
+    // Lee los colores del array que estan guardados en el json de colores, segñun el color que se le pasa en el parámetro path
     private int[] getColorsArray(String path) {
         if (colorPalettesJson_ != null) {
             JSONObject config = null;
@@ -192,6 +194,7 @@ public class AssetsManager {
         return null;
     }
 
+    // Convierte los números hexadecimales guardados en el json a enteros
     private static int parseHexToInt(String hex) {
         // Quitar el prefijo "0x" si está presente
         hex = hex.substring(2);
@@ -199,6 +202,7 @@ public class AssetsManager {
         return (int) Long.parseLong(hex, 16);
     }
 
+    // Lector de archivos para la paleta de colores
     public JSONObject readFile(InputStream file) {
         try {
             // Lee el contenido del InputStream proporcionado

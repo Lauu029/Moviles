@@ -111,6 +111,7 @@ public class GameManager {
         coins_=coins;
     }
 
+    //Guarda el estado actual de la partida
     public void saveGameData() {
         SaveData.saveGameData(myEngine_.getMainActivity(), coins_,
                 AssetsManager.getInstance().getPaletteColor(),
