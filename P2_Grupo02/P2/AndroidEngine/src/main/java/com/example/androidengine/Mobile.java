@@ -142,13 +142,18 @@ public class Mobile {
     }
     //compartir una imagen
     public void shareImage(Bitmap bitmap, String msj) {
-        String pathBitmap = MediaStore.Images.Media.insertImage(context_.getContentResolver(), bitmap, "titulo", "descripcion");
-        Uri uri = Uri.parse(pathBitmap);
-        Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
-        shareIntent.setType("image/*");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, msj);
-        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-        this.myActivity_.startActivity(Intent.createChooser(shareIntent, "ActicityTitle"));
+        if (bitmap != null && context_ != null) {
+            String pathBitmap = MediaStore.Images.Media.insertImage(context_.getContentResolver(), bitmap, "titulo", "descripcion");
+            Uri uri = Uri.parse(pathBitmap);
+            Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+            shareIntent.setType("image/*");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, msj);
+            shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+            this.myActivity_.startActivity(Intent.createChooser(shareIntent, "ActicityTitle"));
+        }else
+        {
+            Log.w("SHARE", "Se ha producido un error al generar la captura");
+        }
     }
     //se crea un notificacion Chnnel
     private void createNotificationChannel() {
