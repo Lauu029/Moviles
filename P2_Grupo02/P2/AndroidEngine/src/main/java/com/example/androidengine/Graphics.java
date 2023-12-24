@@ -42,8 +42,8 @@ public class Graphics {
     //Método encargado de hacer los calculos necesarios para reescaalar la pantalla a un determinado tamanyo
     protected void resize(float sceneWidth, float sceneHeight) {
         //Obtiene el tamanyo actual
-        height_ = myCanvas_.getHeight();
-        width_ = myCanvas_.getWidth();
+        height_ = myView_.getHeight();
+        width_ = myView_.getWidth();
         //Calcula el factor de escalado para el tamanyo deseado
         float scaleW = (float) width_ / (float) sceneWidth;
         float scaleH = (float) height_ / (float) sceneHeight;

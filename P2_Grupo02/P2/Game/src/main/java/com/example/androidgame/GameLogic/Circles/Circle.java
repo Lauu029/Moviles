@@ -1,12 +1,14 @@
-package com.example.androidgame.GameLogic;
+package com.example.androidgame.GameLogic.Circles;
 
 
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
 import com.example.androidengine.TouchEvent;
+import com.example.androidgame.GameLogic.GameObject;
 import com.example.androidgame.GameLogic.Managers.AssetsManager;
 import com.example.androidgame.GameLogic.Managers.GameManager;
+import com.example.androidgame.GameLogic.Theme;
 
 /* Clase que controla los círculos de forma genérica, con los atributos comunes entre todos
  * los tipos de círculos y una instancia del Game Manager para acceder rápidamente a sus métodos

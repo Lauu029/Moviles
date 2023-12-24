@@ -1,7 +1,9 @@
-package com.example.androidgame.GameLogic;
+package com.example.androidgame.GameLogic.Circles;
 
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
+import com.example.androidgame.GameLogic.Circles.Circle;
+
 /*
  * Clase correspondiente a los círculos de pistas, extiende la clase Círculo que es un Game Object
  * tiene almacenados los posibles colores que puede tomar y se encarga de activar el color del círculo

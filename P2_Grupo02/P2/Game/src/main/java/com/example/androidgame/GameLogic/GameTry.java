@@ -5,6 +5,8 @@ import android.util.Log;
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.TouchEvent;
+import com.example.androidgame.GameLogic.Circles.HintsCircle;
+import com.example.androidgame.GameLogic.Circles.TryCircle;
 import com.example.androidgame.GameLogic.Managers.AssetsManager;
 import com.example.androidgame.GameLogic.Managers.GameManager;
 
