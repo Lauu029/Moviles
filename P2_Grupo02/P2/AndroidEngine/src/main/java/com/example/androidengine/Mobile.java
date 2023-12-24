@@ -140,7 +140,7 @@ public class Mobile {
 
         shareImage(bitmap, "He superado un nuevo nivel en Mastermind!");
     }
-
+    //compartir una imagen
     public void shareImage(Bitmap bitmap, String msj) {
         String pathBitmap = MediaStore.Images.Media.insertImage(context_.getContentResolver(), bitmap, "titulo", "descripcion");
         Uri uri = Uri.parse(pathBitmap);
@@ -150,7 +150,7 @@ public class Mobile {
         shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
         this.myActivity_.startActivity(Intent.createChooser(shareIntent, "ActicityTitle"));
     }
-
+    //se crea un notificacion Chnnel
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is not in the Support Library.
@@ -168,32 +168,8 @@ public class Mobile {
         }
     }
 
-    public void createNotification(int icono) {
-
-        Intent intent = new Intent(context_, myActivity_.getClass());
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.putExtra("notification", true);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context_, 0, intent, PendingIntent.FLAG_IMMUTABLE);
-
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context_, CHANNEL_ID).
-                setSmallIcon(icono).setContentTitle("MASTERMIND").
-                setContentText("GANA 10 MONEDAS SI PULAS ESTA NOTIFICACION").
-                setStyle(new NotificationCompat.BigTextStyle().bigText("Tienes muchos niveles que te esperan")).
-                setPriority(NotificationCompat.PRIORITY_DEFAULT).setContentIntent(pendingIntent);
-
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context_);
-
-// notificationId is a unique int for each notification that you must define.
-        if (ActivityCompat.checkSelfPermission(context_, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            return;
-        }
-        notificationManager.notify(1, builder.build());
-    }
-
+    //Se programa una notificacion dado el tiempo,el timeUnit son si queremos minutos segundos o horas,el icono,
+    //el titulo de la notificacion ,y el texto que queremos que apararezca
     public void programNotification(int time, TimeUnit timeUnit, int icon, String title, String firstText) {
 
         WorkRequest request = new OneTimeWorkRequest.Builder(ReminderWorker.class)

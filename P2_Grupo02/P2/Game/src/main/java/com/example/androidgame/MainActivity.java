@@ -48,12 +48,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void createWorkRequest(long timeDelayInSeconds) {
+        //accedemos a mobile y creamos una notificacion dado estos segundos,este icono ...
         IEngine_.getMobile().programNotification((int)timeDelayInSeconds,TimeUnit.SECONDS,R.drawable.logo,"MASTERMIND","Entra y juega te esperan nuevos niveles!!");
     }
     @Override
     protected void onPause() {
         super.onPause();
         GameManager.getInstance().saveGameData();
+        //metodo para crear una notificación
         createWorkRequest(45);
         IEngine_.pause();
     }
@@ -69,12 +71,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);  // Actualiza el Intent actual con el nuevo Intent recibido
-
         if (getIntent().hasExtra("notification")) {
+            //si es una notificacion con este extra el jugador recibe 5 monedas
             Log.d("NOTIFI", "NOTIFICATION");
             GameManager.getInstance().addCoins(5);
-        } else {
-            Log.d("NOTIFI", "No notification extra found");
         }
     }
 }
