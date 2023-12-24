@@ -1,4 +1,4 @@
-package com.example.androidgame.GameLogic;
+package com.example.androidgame.GameLogic.Circles;
 
 import com.example.androidengine.Font;
 import com.example.androidengine.Sound;

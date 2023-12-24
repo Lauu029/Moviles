@@ -3,6 +3,7 @@ package com.example.androidgame.GameLogic;
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.TouchEvent;
+import com.example.androidgame.GameLogic.Circles.SolutionCircle;
 import com.example.androidgame.GameLogic.Managers.AssetsManager;
 import com.example.androidgame.GameLogic.Managers.GameManager;
 

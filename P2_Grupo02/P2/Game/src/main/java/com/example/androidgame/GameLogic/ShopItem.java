@@ -58,6 +58,7 @@ public class ShopItem extends ButtonImage {
             {
                 graph.drawImage( this.blockedImage_, this.posX_+width_/4, this.posY_+height_/4, width_/2, height_/2);
                 graph.setFont(itemFont_);
+                graph.setColor(0xFF000000);
                 graph.drawText(String.valueOf(price_),(this.posX_+width_/2) - 10,this.posY_+height_+20);
                 graph.drawImage( this.coinImage_, this.posX_+width_/2,this.posY_+height_+10,30,30);
             }

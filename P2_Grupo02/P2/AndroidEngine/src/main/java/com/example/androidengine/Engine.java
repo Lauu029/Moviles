@@ -13,6 +13,7 @@ public class Engine implements Runnable {
     private Thread myRenderThread_; // Hilo para renderizar
     private volatile boolean running_; // Indica si el motor está en funcionamiento
     private IScene myScene_; // Escena actual
+    private IScene pendingScene_;//Escena en espera para el siguiente frame
     private Audio myAudio; // Clase para audio
     private Input myInput_; // Clase para la entrada (input)
     private AssetManager myAssetManager_; //Variable para gestión de assets
@@ -34,6 +35,7 @@ public class Engine implements Runnable {
         myContext_ = myActivity_.getBaseContext();
         mobile_ = new Mobile(myContext_, myActivity_);
         myFileManager_ = new FileManager(myAssetManager_, myContext_);
+        pendingScene_ = null;
     }
 
     // Metodo para reanudar la ejecución del motor
@@ -76,7 +78,7 @@ public class Engine implements Runnable {
         while (this.running_ && this.myView_.getWidth() == 0) ;
 
         long lastFrameTime = System.nanoTime();
-        //boolean isScaled = false;
+        boolean isScaled = false;
         // Bucle de juego principal.
         while (running_) {
             long currentTime = System.nanoTime();
@@ -86,10 +88,9 @@ public class Engine implements Runnable {
             //Tiempo entre frames
             double elapsedTime = (double) nanoElapsedTime / 1.0E9;
             //Reescalado de la escena
-//          if (!isScaled && myGraphics_.getMyCanvas().getHeight() >= 10) {
+//            if (!isScaled && myGraphics_.getMyCanvas().getHeight() >= 10) {
 //                isScaled = true;
-                myGraphics_.resize(myScene_.getWidth_(), myScene_.getHeight_());
-//          }
+//            }
 
             //Reescalado del input dentro de la escena
             for (TouchEvent event : myInput_.getTouchEvent()) {
@@ -97,24 +98,29 @@ public class Engine implements Runnable {
                 event.y -= myGraphics_.getTranslateY_();
                 event.x /= myGraphics_.getScale_();
                 event.y /= myGraphics_.getScale_();
-
-
             }
-            //Gestión de eventos de input
-            this.myScene_.handleInput(myInput_.getTouchEvent());
-            myInput_.myEventsClear();
-            //Update de la escena
-            this.myScene_.update(elapsedTime);
-            //Renderizado de la escena
-            myGraphics_.prepareFrame();
-            myScene_.render();
-            myGraphics_.endFrame();
+            if (myScene_ != null) {
+                //Gestión de eventos de input
+                this.myScene_.handleInput(myInput_.getTouchEvent());
+                myInput_.myEventsClear();
+                //Update de la escena
+                this.myScene_.update(elapsedTime);
+                //Renderizado de la escena
+                myGraphics_.prepareFrame();
+                myScene_.render();
+                myGraphics_.endFrame();
+            }
+            if (pendingScene_ != null) {
+                myScene_ = pendingScene_;
+                myGraphics_.resize(myScene_.getWidth_(), myScene_.getHeight_());
+                pendingScene_ = null;
+            }
         }
     }
 
     //Guardamos e inicializamos la escena que vamos a ejecutar
     public void setScene(IScene myIScene) {
-        this.myScene_ = myIScene;
+        this.pendingScene_ = myIScene;
     }
 
     //Devuelve el objeto que gestiona los gráficos
