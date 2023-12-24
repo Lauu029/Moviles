@@ -32,7 +32,6 @@ public class AssetsManager {
     private HashMap<String, int[]> coloresFondo_ = new HashMap<String, int[]>();
     private JSONObject colorPalettesJson_;
     private int defaultPalette[] = {0xFFFFF0F6, 0XD0FB839B, 0xFFFFFFFF, 0XFF222222};
-    private JSONObject paleteReader;
     private Engine iEngine_;
     private static AssetsManager instance_;
 
@@ -50,16 +49,20 @@ public class AssetsManager {
         return worldbackgrounTheme_;
     }
 
-    public Image getBackgroundImage(boolean world) {
+    public Image getBackgroundImage(boolean world, boolean worldGameScene) {
         if (!world) {
             if (backgrounTheme_.getBackground() != "") {
                 return iEngine_.getGraphics().newImage(backgrounTheme_.getBackground());
             }
-        } else if (worldbackgrounTheme_.getBackground() != "")
+        } else if (worldbackgrounTheme_.getBackground() != "") {
+            if (worldGameScene)
+                return iEngine_.getGraphics().newImage(worldbackgrounTheme_.getGameBackground());
             return iEngine_.getGraphics().newImage(worldbackgrounTheme_.getBackground());
+        }
         return null;
     }
-    public String getBackgroundPath(){
+
+    public String getBackgroundPath() {
         return backgrounTheme_.getBackground();
     }
 

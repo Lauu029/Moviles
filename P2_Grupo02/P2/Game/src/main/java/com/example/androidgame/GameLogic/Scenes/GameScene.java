@@ -188,7 +188,6 @@ public class GameScene extends Scene {
     }
 
     protected void ChangeEndScene(boolean win, int try_) {
-        Log.d("Cojones","Es mundo: "+world_);
         if (!world_) {
             if (win) canGetReward_ = false;
             EndScene end = new EndScene(win, mySolution_.getSol(), try_);

@@ -1,5 +1,7 @@
 package com.example.androidgame.GameLogic.Scenes;
 
+import android.util.Log;
+
 import com.example.androidengine.Engine;
 import com.example.androidengine.IScene;
 import com.example.androidengine.Image;
@@ -15,6 +17,7 @@ public class Scene implements IScene {
     protected int width_, height_;
     protected ArrayList<GameObject> gameObjects_ = new ArrayList<>();
     protected boolean world_ = false;
+    protected boolean isGameScene=false;
     protected Image backgroundImage_ = null;
 
     protected Scene() {
@@ -26,8 +29,8 @@ public class Scene implements IScene {
     @Override
     public void render() {
         iEngine_.getGraphics().clear(AssetsManager.getInstance().getBackgroundColor());
-        if (AssetsManager.getInstance().getBackgroundImage(world_) != null)
-            iEngine_.getGraphics().drawImage(AssetsManager.getInstance().getBackgroundImage(world_),
+        if (AssetsManager.getInstance().getBackgroundImage(world_, isGameScene) != null)
+            iEngine_.getGraphics().drawImage(AssetsManager.getInstance().getBackgroundImage(world_, isGameScene),
                     0, 0, height_, width_);
         for (int i = 0; i < gameObjects_.size(); i++) {
             gameObjects_.get(i).render(iEngine_.getGraphics());
@@ -66,6 +69,10 @@ public class Scene implements IScene {
 
     public void addGameObject(GameObject gm) {
         gameObjects_.add(gm);
+    }
+
+    public void setGameScene(){
+        this.isGameScene=true;
     }
 
 }

@@ -41,14 +41,13 @@ public class SceneManager {
             Log.d("MainActivity", "Nueva wordlScene");
         if (sceneList_[idScene] == null || idScene == SceneNames.GAME.ordinal() ||
                 idScene == SceneNames.FINAL.ordinal()||idScene == SceneNames.WORLD_FINAL.ordinal()||idScene == SceneNames.WORLD.ordinal()) {
-            Log.d("MainActivity","Estoy creando la escena");
             sceneList_[idScene] = scene;
             sceneList_[idScene].init();
+            if(idScene== SceneNames.GAME.ordinal())
+                sceneList_[idScene].setGameScene();
         }
-
         myEngine_ = GameManager.getInstance().getIEngine();
         myEngine_.setScene(sceneList_[idScene]);
-
     }
 
 

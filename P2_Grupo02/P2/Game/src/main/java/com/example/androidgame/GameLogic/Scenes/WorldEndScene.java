@@ -17,6 +17,7 @@ public class WorldEndScene extends EndScene {
     private Image coinImage_;
     public WorldEndScene(boolean win, int[] sol, int intentos) {
         super(win, sol, intentos);
+        world_=true;
     }
 
     @Override
