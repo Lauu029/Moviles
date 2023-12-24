@@ -44,7 +44,6 @@ public class Mobile {
     private Activity myActivity_;
     private static final String CHANNEL_ID = "MasterMind";
     private RewardedAd rewardedAd_;
-    private boolean rewardEarned_;
     private RewardedAddEarned rewardEarnedMethod_;
 
 
@@ -94,7 +93,6 @@ public class Mobile {
     }
 
     public void LoadRewardedAd() {
-        rewardEarned_ = false;
         myActivity_.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -105,7 +103,6 @@ public class Mobile {
                             // Handle the reward.
                             Log.d("MainActivity", "The user earned the reward.");
                             rewardEarnedMethod_.OnRewardedEarned();
-                            rewardEarned_ = true;
                         }
                     });
                 } else {
@@ -115,10 +112,6 @@ public class Mobile {
             }
         });
         loadNewRewardedAd();
-    }
-
-    public boolean hasEarnedReward() {
-        return rewardEarned_;
     }
 
     private void loadNewRewardedAd() {
