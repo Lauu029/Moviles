@@ -2,7 +2,7 @@
    "fondos": {
       "tipo": "Fondos",
       "ruta" : "Shop/Background/",
-      "extension" : ".jpg",
+      "extension" : ".png",
       "ButtonsImages" : ["teletubies", "vacas", "ositos", "Setitas"],
       "precios": [10,10,20,30]
    },

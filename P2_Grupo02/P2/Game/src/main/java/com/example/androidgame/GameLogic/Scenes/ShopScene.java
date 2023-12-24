@@ -176,7 +176,6 @@ public class ShopScene extends Scene {
                 JSONObject config = shopConfig.getJSONObject(type);
                 shopName_[id_] = config.get("tipo").toString();
                 String path = config.get("ruta").toString();
-                String ext = config.get("extension").toString();
                 JSONArray preciosArray = config.getJSONArray("precios");
                 JSONArray buttonsArray = config.getJSONArray("ButtonsImages");
                 int yPos = 130;
@@ -193,7 +192,7 @@ public class ShopScene extends Scene {
                     String nombre = buttonsArray.getString(i);
 
                     int precio=preciosArray.getInt(i);
-                    ShopItem item  = new ShopItem(path + nombre + "Button" + ext, 100, 100, xPos,
+                    ShopItem item  = new ShopItem(path + nombre + "Button.png", 100, 100, xPos,
                             yPos, shopingSound_, shopName_[id_],nombre,precio
                             ,blocked,coins,selected,fuente);
                     //Registramos ese item
@@ -210,7 +209,7 @@ public class ShopScene extends Scene {
                                 Theme theme = new Theme("PURCHASED", "", "", "");
                                 switch (shopName_[id_]) {
                                     case "Fondos":
-                                        theme.setBackground(path + nombre + ext);
+                                        theme.setBackground(path + nombre + ".png");
                                         AssetsManager.getInstance().setBackgroundTheme(theme);
                                         break;
                                     case "Codigos":
