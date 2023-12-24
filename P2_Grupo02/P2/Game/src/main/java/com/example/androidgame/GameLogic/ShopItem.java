@@ -44,9 +44,6 @@ public class ShopItem extends ButtonImage {
             //Solo suena si de verdad lo puede comprar
             GameManager.getInstance().getIEngine().getAudio().playSound(shopingSound_, 0);
             canBuy=true;
-        }else
-        {
-            Log.d("BUY","No tienes dinero o ya esta comprado");
         }
         return canBuy;
     }

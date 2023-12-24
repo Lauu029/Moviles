@@ -27,7 +27,6 @@ public class WorldScene extends Scene {
     private int numberLevel_ = 0;
     int columnas_ = 3;
     private Sound myButtonSound_;
-    ArrayList<ButtonMundo> botones_;
     private Image backaground_;
     private int numWorlds_ = 0;
     int actualWorld_ = 0;
@@ -54,11 +53,8 @@ public class WorldScene extends Scene {
         Button previous_ = new ButtonImage("FlechasIzq.png", 35, 35, width_ / 2 - 120, 15, myArrowSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-
                 actualWorld_ = (actualWorld_ - 1 + numWorlds_) % numWorlds_;
-
                 buttonObjects_.clear();
-
                 loadWorld();
             }
         });
@@ -96,7 +92,6 @@ public class WorldScene extends Scene {
         backaground_ = iEngine_.getGraphics().newImage(imagePath);
         passedWorld_ = LevelManager.getInstance().getPassedWorld();
         passedLevel_ = LevelManager.getInstance().getPassedLevel();
-        Log.d("LEVELLS",passedLevel_+"");
         for (int i = 0; i < niveles_; i++) {
             if (x >= columnas_) {
                 x = 0;
@@ -156,6 +151,5 @@ public class WorldScene extends Scene {
                 if (g.handleInput(event))
                     return;
             }
-
     }
 }

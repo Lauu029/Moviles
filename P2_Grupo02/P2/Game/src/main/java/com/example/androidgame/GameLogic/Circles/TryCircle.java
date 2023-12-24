@@ -17,7 +17,6 @@ public class TryCircle extends Circle {
 
     public TryCircle(String t, Font f, int r, int x, int y, int row_, int id,boolean world) {
         super(t, f, r, x, y, row_,world);
-        Log.d("MainActivity", "fila: "+row_);
         this.idRow_ = id;
         this.hasColor_ = false;
     }
@@ -44,7 +43,6 @@ public class TryCircle extends Circle {
         if (event.type == TouchEvent.TouchEventType.TOUCH_DOWN)
             if (this.posX_ - this.radius_ < event.x && this.posX_ + this.radius_ > event.x
                     && this.posY_+translateY_ - this.radius_ < event.y && this.posY_ +translateY_+ this.radius_ > event.y) {
-                Log.d("MainActivity", "row: "+this.row_+" gametry: "+this.gameTry_);
                 if (this.hasColor_ && this.row_ == this.gameTry_) {
                     this.color_ = 0xFFad909c;
                     this.hasColor_ = false;
@@ -61,7 +59,6 @@ public class TryCircle extends Circle {
         this.idColor_ = id;
         this.text_ = Integer.toString(idColor_);
         this.hasColor_ = true;
-        Log.d("MainActivity","Color: "+hasColor_+" intento: "+gameTry_+ " fila: "+row_);
     }
 
     public boolean hasColor() {

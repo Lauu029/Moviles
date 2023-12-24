@@ -18,7 +18,6 @@ public class Scene implements IScene {
     protected ArrayList<GameObject> gameObjects_ = new ArrayList<>();
     protected boolean world_ = false;
     protected boolean isGameScene=false;
-    protected Image backgroundImage_ = null;
 
     protected Scene() {
         iEngine_ = GameManager.getInstance().getIEngine();

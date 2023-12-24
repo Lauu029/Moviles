@@ -114,7 +114,6 @@ public class LevelReader {
         }
     }
     void readWorld(String path) {
-
         FileManager fileManager = GameManager.getInstance().getIEngine().getFileManager();
         TreeMap<String, InputStream> niveles = fileManager.getFilesInFolder(levelPath + path + "/");
 
@@ -137,7 +136,6 @@ public class LevelReader {
                 throw new RuntimeException(e);
             }
         }
-
         numNiveles.add(diff_.size());
         dificultades.add(diff_);
     }

@@ -32,14 +32,12 @@ public class MenuScene extends Scene {
     private Sound myButtonSound_,maracaSound_;
     private float lastShakeTime=0.0f;
     private  final float SHAKE_THRESHOLD = 10f;
-    GameTry game;
     SensorHandler sensor_;
     public MenuScene() {
         super();
     }
     @Override
     public void init() {
-
         sensor_=new SensorHandler(iEngine_.getMainActivity());
         //creacion de la solucion
         Graphics graph = iEngine_.getGraphics();
@@ -77,12 +75,10 @@ public class MenuScene extends Scene {
                 SceneManager.getInstance().addScene(new ShopScene(), SceneNames.SHOP.ordinal());
             }
         });
-
         addGameObject(playButton_);
         addGameObject(storeButton_);
         addGameObject(mundoButton_);
         myIcon_ = graph.newImage("logo.png");
-
     }
     @Override
     public void render() {
@@ -105,10 +101,8 @@ public class MenuScene extends Scene {
             if ( lastShakeTime > 0.75) {
                lastShakeTime = 0;
                 GameManager.getInstance().getIEngine().getAudio().playSound(maracaSound_, 0);
-
             }
         }
-
 
         for (int i = 0; i < gameObjects_.size(); i++) {
             gameObjects_.get(i).update(time);
@@ -117,12 +111,9 @@ public class MenuScene extends Scene {
     @Override
 
     public void handleInput(ArrayList<TouchEvent> events) {
-
         for (GameObject g : gameObjects_)
             for (TouchEvent event : events)
                 if (g.handleInput(event))
                     return;
     }
-
-
 }

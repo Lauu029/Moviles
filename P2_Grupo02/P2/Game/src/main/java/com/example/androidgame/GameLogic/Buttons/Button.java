@@ -30,7 +30,6 @@ public class Button extends GameObject {
         this.onClickFunction = function;
         this.textColor_ = textColor;
         this.lineColor_ = lineColor;
-
     }
 
     public void update(double time) {

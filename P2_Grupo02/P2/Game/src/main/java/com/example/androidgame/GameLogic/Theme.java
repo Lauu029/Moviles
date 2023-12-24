@@ -41,7 +41,4 @@ public class Theme {
     public Boolean getPurchased() {
         return purchase_;
     }
-    void  setPurchased(boolean purc) {
-         purchase_=purc;
-    }
 }

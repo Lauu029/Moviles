@@ -27,7 +27,6 @@ public class Board extends GameObject {
     private ArrayList<GameObject> gameObjectsTable_ = new ArrayList<>();
 
     private Font font1_, font2_, font3_;
-    private int hintsPos_;
     private boolean world_;
     //Colores totales que puede llegar a haber en una partida
     private int[] totalPossibleColors = new int[]{0xFFFFC0CB, 0xFF87CEEB, 0xFF98FB98, 0xFFFFFF99,
@@ -135,7 +134,6 @@ public class Board extends GameObject {
     public void init() {
         font2_ = gm_.getIEngine().getGraphics().newFont("Lexendt.ttf", 20, true, false);
         font3_ = gm_.getIEngine().getGraphics().newFont("Lexendt.ttf", 17, false, false);
-
     }
 
 
@@ -153,7 +151,6 @@ public class Board extends GameObject {
         }
         upTryPos_+=transY;
         downTryPos_+=transY;
-
     }
     public GameTry getTryByIndex(int index){
         return gameTries_.get(index);
@@ -195,5 +192,4 @@ public class Board extends GameObject {
             s.setDaltonics_(dalt);
         }
     }
-
 }

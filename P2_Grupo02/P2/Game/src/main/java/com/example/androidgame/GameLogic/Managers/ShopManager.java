@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ShopManager {
-    //private Engine iEngine_;
     private static ShopManager instance_;
     private static Map<String, Map<String, Boolean>> itemsState_; //Guarda la seccion a la que pertenece, su nombre y si se ha comprado
     private ShopManager() {
@@ -30,20 +29,14 @@ public class ShopManager {
             Map<String, Boolean> nuevoItem=new HashMap<>();
             itemsState_.put(typeId,nuevoItem);
         }
-        else{ Log.d("SHOP","Ya contiene la seccion: "+typeId);}
         if(itemsState_.containsKey(typeId) && !itemsState_.get(typeId).containsKey(itemId))
         {
             itemsState_.get(typeId).put(itemId, true);
         }
-        else{ Log.d("SHOP","Ya contiene la seccion: "+typeId+" y el objeto "+itemId);}
     }
     public void changeItemState(String typeId, String itemId, boolean locked){
         if(itemsState_.containsKey(typeId) && itemsState_.get(typeId).containsKey(itemId)){
             itemsState_.get(typeId).put(itemId,locked);
-            Log.d("COMPRA","Has comprado en la seccion: "+typeId+" y el objeto "+itemId);
-        }
-        else{
-            Log.d("SHOP","No contiene "+typeId+" y el objeto "+itemId+", no lo puedes comprar");
         }
     }
     public boolean itemIsLocked(String typeId, String itemId){
