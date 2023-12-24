@@ -30,7 +30,7 @@ public class Board extends GameObject {
     private boolean world_;
     //Colores totales que puede llegar a haber en una partida
     private int[] totalPossibleColors = new int[]{0xFFFFC0CB, 0xFF87CEEB, 0xFF98FB98, 0xFFFFFF99,
-            0xFFE6E6FA, 0xFFFFDAB9, 0xFFE7FFAC, 0xFFFF8FAB, 0xFF6FC0AB};
+            0xFFE6E6FA, 0xFFFFDAB9, 0xFFE7FFAC, 0xFFFF8FAB, 0xFF6FC0AB,0xFFFF00FF};
     private int upTryPos_,downTryPos_,upRenderPos_,downRenderPos_;
     public Board(int codeColors_, int tries_, int usableColors, boolean canRepeat_, int scW, int scH, boolean world) {
         gm_ = GameManager.getInstance();
@@ -46,7 +46,7 @@ public class Board extends GameObject {
         this.daltonics_ = false;
         usableColorsCircles_ = new SolutionCircle[usableColors_];
         limitUp = sceneHeight_ / 6 + 10;
-        limitDown = sceneHeight_ - 50;
+        limitDown = sceneHeight_ - 60;
         gameTries_ = new ArrayList<>();
         int offset = limitUp;
         upRenderPos_=55;
