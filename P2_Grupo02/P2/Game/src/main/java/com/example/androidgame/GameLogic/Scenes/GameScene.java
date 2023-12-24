@@ -135,9 +135,6 @@ public class GameScene extends Scene {
         downTryPos_=gameBoard_.getDownTryPos();
         downRenderPos_=gameBoard_.getdownRenderPos();
         upRenderPos_=gameBoard_.getupRenderPos();
-
-
-
     }
 
     /*Comprueba si todas las casillas del intento actual se han llenado con algún color
