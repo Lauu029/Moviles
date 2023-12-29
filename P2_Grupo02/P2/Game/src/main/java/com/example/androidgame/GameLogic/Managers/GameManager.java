@@ -42,6 +42,7 @@ public class GameManager {
         SceneManager.init();
         LevelManager.init();
         ShopManager.init();
+        ContraRelojManager.init();
         return 1;
     }
 

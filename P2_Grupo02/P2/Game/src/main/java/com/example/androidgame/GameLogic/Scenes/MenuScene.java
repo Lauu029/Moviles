@@ -13,6 +13,7 @@ import com.example.androidgame.GameLogic.Difficulty;
 import com.example.androidgame.GameLogic.GameObject;
 import com.example.androidgame.GameLogic.GameTry;
 import com.example.androidgame.GameLogic.Managers.AssetsManager;
+import com.example.androidgame.GameLogic.Managers.ContraRelojManager;
 import com.example.androidgame.GameLogic.Managers.GameManager;
 import com.example.androidgame.GameLogic.Managers.SceneManager;
 import com.example.androidgame.GameLogic.Scenes.DifficultyScene;
@@ -106,6 +107,7 @@ public class MenuScene extends Scene {
         this.iEngine_.getGraphics().setFont(font_);
         iEngine_.getGraphics().drawText("MasterMind", width_ / 2, 30);
         iEngine_.getGraphics().drawImage(myIcon_, this.width_ / 2 - 80 / 2, this.height_ / 2 - 220, 80, 80);
+        iEngine_.getGraphics().drawText(ContraRelojManager.getInstance().getFormattedMaxTime(), width_ / 2, this.height_ );
     }
     @Override
     public void update(double time) {
