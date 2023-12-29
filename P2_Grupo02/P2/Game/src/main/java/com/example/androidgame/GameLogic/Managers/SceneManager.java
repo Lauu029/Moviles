@@ -31,11 +31,11 @@ public class SceneManager {
 
     //Añade una nueva escena, si la escena no es de tipo final, juego o mundo y ya estaba creada simplemente la carga
     public void addScene(Scene scene, int idScene) {
-        if (sceneList_[idScene] == null || idScene == SceneNames.GAME.ordinal() ||
+        if (sceneList_[idScene] == null || idScene == SceneNames.GAME.ordinal() ||idScene == SceneNames.CONTRA.ordinal() ||
                 idScene == SceneNames.FINAL.ordinal() || idScene == SceneNames.WORLD_FINAL.ordinal() || idScene == SceneNames.WORLD.ordinal()) {
             sceneList_[idScene] = scene;
             sceneList_[idScene].init();
-            if (idScene == SceneNames.GAME.ordinal())
+            if (idScene == SceneNames.GAME.ordinal()||idScene == SceneNames.CONTRA.ordinal())
                 sceneList_[idScene].setGameScene();
         }
         myEngine_ = GameManager.getInstance().getIEngine();

@@ -20,23 +20,24 @@ import com.example.androidgame.GameLogic.Solution;
 import java.util.ArrayList;
 
 public class GameScene extends Scene {
-    private Solution mySolution_;
-    private ButtonColorBlind buttonColorBlind_;
-    private Board gameBoard_;
-    private Font font_;
-    private Difficulty lev_;
-    private GameManager gm_;
-    private Sound myCrossSound_;
+    protected Solution mySolution_;
+    protected ButtonColorBlind buttonColorBlind_;
+    protected Board gameBoard_;
+    protected Font font_;
+    protected Difficulty lev_;
+    protected GameManager gm_;
+    protected Sound myCrossSound_;
     boolean scroll = false;
     int yIni;
     int yFin;
     boolean canGetReward_;
     private int upTryPos_, downTryPos_, upRenderPos_, downRenderPos_;
-
-    public GameScene(boolean world) {
+    boolean contra;
+    public GameScene(boolean world,boolean contraReloj) {
         super();
         world_ = world;
         canGetReward_ = true;
+        contra=contraReloj;
     }
 
     //Inicializa los botones, el tablero y la solución
@@ -114,10 +115,14 @@ public class GameScene extends Scene {
             public void onClick() {
                 LevelManager.getInstance().clearTries();
                 int idScene;
-                if (!world_)
-                    SceneManager.getInstance().setScene(SceneNames.DIFFICULTY.ordinal());
-                else
-                    SceneManager.getInstance().addScene(new WorldScene(), SceneNames.WORLD.ordinal());
+                if(contra){
+                    SceneManager.getInstance().setScene(SceneNames.MENU.ordinal());
+                }
+                else if(!world_) SceneManager.getInstance().setScene(SceneNames.DIFFICULTY.ordinal());
+                else   SceneManager.getInstance().addScene(new WorldScene(), SceneNames.WORLD.ordinal());
+
+
+
             }
         });
         this.addGameObject(exitLevel_);

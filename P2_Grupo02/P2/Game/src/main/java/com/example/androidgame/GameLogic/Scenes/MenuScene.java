@@ -9,6 +9,7 @@ import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
 import com.example.androidgame.GameLogic.Buttons.Button;
 import com.example.androidgame.GameLogic.Buttons.ButtonClickListener;
+import com.example.androidgame.GameLogic.Difficulty;
 import com.example.androidgame.GameLogic.GameObject;
 import com.example.androidgame.GameLogic.GameTry;
 import com.example.androidgame.GameLogic.Managers.AssetsManager;
@@ -66,9 +67,26 @@ public class MenuScene extends Scene {
                 SceneManager.getInstance().addScene(new WorldScene(), SceneNames.WORLD.ordinal());
             }
         });
+        Button contra = new Button("ContraReloj", fontButton_,AssetsManager.getInstance().getButtonColor(),
+                AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor()
+                , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 +65, myButtonSound_, new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                sensor_.onResume();
+                ContraRelojScene contra =new ContraRelojScene(world_,0);
+                Difficulty dif = new Difficulty();
+                int codeSize= 2;
+                dif.setSolutionColors(codeSize);
+                dif.setPosibleColors( 2);
+                dif.setTries(10);
+                dif.setRepeat(false);
+                GameManager.getInstance().setLevel(dif);
+                SceneManager.getInstance().addScene(contra, SceneNames.CONTRA.ordinal());
+            }
+        });
         this.storeButton_ = new Button("Personalizar", fontButton_, AssetsManager.getInstance().getLineColor(),
                 AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getButtonColor()
-                , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 120, myButtonSound_, new ButtonClickListener() {
+                , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 130, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
                 sensor_.onResume();
@@ -78,6 +96,7 @@ public class MenuScene extends Scene {
         addGameObject(playButton_);
         addGameObject(storeButton_);
         addGameObject(mundoButton_);
+        addGameObject(contra);
         myIcon_ = graph.newImage("logo.png");
     }
     @Override
