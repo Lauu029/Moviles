@@ -30,7 +30,21 @@ public class GraphicsDesktop implements IGraphics {
     // Constructor de la clase, recibe un JFrame como argumento
     public GraphicsDesktop(JFrame myView){
         this.myView_ =myView;
-
+        int intentos = 100;
+        while (intentos-- > 0) {
+            try {
+                myView_.createBufferStrategy(2);
+                break;
+            } catch (Exception e) {
+            }
+        } // while pidiendo la creación de la buffeStrategy
+        if (intentos == 0) {
+            System.err.println("No pude crear la BufferStrategy");
+            return;
+        } else {
+            // En "modo debug" podríamos querer escribir esto.
+            //System.out.println("BufferStrategy tras " + (100 - intentos) + " intentos.");
+        }
         this.myBufferStrategy_ = this.myView_.getBufferStrategy();
         this.myGraphics2D_ = (Graphics2D) myBufferStrategy_.getDrawGraphics();
 
@@ -38,6 +52,8 @@ public class GraphicsDesktop implements IGraphics {
         width_ = this.myView_.getWidth();
 
         af_ = myGraphics2D_.getTransform();
+
+
     }
 
     @Override
