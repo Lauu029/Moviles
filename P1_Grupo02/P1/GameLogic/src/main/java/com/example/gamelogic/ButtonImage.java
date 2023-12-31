@@ -1,13 +1,8 @@
 package com.example.gamelogic;
 
-import com.example.engine.IGameObject;
 import com.example.engine.IGraphics;
 import com.example.engine.IImage;
-import com.example.engine.IScene;
 import com.example.engine.ISound;
-import com.example.engine.TouchEvent;
-
-import java.io.IOException;
 
 public class ButtonImage extends Button {
     protected IImage buttonImage_;

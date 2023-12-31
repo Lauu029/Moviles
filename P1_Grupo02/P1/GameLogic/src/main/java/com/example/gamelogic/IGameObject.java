@@ -1,4 +1,7 @@
-package com.example.engine;
+package com.example.gamelogic;
+
+import com.example.engine.IGraphics;
+import com.example.engine.TouchEvent;
 
 public interface IGameObject {
     void update(double time); //Actualiza la logica

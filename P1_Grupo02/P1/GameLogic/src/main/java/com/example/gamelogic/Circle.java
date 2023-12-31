@@ -1,7 +1,6 @@
 package com.example.gamelogic;
 
 import com.example.engine.IFont;
-import com.example.engine.IGameObject;
 import com.example.engine.IGraphics;
 import com.example.engine.TouchEvent;
 
