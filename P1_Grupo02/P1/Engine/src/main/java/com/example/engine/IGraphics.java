@@ -24,16 +24,8 @@ public interface IGraphics {
 
     void drawCircle(int cx, int cy, int radius);    //Metodo para pintar un circulo
 
-    int getWidth_(); //Metodo para obtener el ancho
-    int getHeight_(); //Metodo para obtener la altura
-    void translate(float x,float y); //Metodo para desplazar graficos
-    void scale(float x,float y); //Metodo para escalar graficos
-    void save();
-    void restore();
-    void resize(float sceneWidth, float sceneHeight); //Metodo para reescalar graficos
-    public float getScale_(); //Metodo para obtener la escala
-    public float getTranslateX_(); //Metodo para obtener el desplazamiento en X
-    public float getTranslateY_(); //Metodo para obtener el desplazamiento en Y
+
+
 
 
 

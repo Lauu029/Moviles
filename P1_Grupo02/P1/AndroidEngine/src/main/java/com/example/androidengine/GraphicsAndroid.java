@@ -40,8 +40,8 @@ public class GraphicsAndroid implements IGraphics {
     }
 
     //Método encargado de hacer los calculos necesarios para reescaalar la pantalla a un determinado tamanyo
-    @Override
-    public void resize(float sceneWidth, float sceneHeight) {
+
+    protected void resize(float sceneWidth, float sceneHeight) {
         //Obtiene el tamanyo actual
         height_ = myCanvas_.getHeight();
         width_ = myCanvas_.getWidth();
@@ -190,30 +190,30 @@ public class GraphicsAndroid implements IGraphics {
         myCanvas_.drawText(text, centerX, centerY, myPaint_);
     }
     //Metodo que devuelve el ancho del canvas
-    @Override
-    public int getWidth_() {
+
+    protected int getWidth_() {
         return width_;
     }
     //Metodo que devuelve el alto del canvas
-    @Override
-    public int getHeight_() {
+
+    protected int getHeight_() {
         return height_;
     }
     //Metodo para desplazar el canvas
-    @Override
-    public void translate(float x, float y) {
+
+    protected void translate(float x, float y) {
         this.myCanvas_.translate(x, y);
     }
     //Metodo para reescalar el canvas
-    @Override
-    public void scale(float x, float y) {
+
+    protected void scale(float x, float y) {
         this.myCanvas_.scale(x, y);
     }
-    @Override
-    public void save() {}
 
-    @Override
-    public void restore() {}
+    protected void save() {}
+
+
+    protected void restore() {}
     //Metodo que permite comenzar a editar los pixeles del canvas
     public void prepareFrame() {
         while (!this.myHolder_.getSurface().isValid()) ;

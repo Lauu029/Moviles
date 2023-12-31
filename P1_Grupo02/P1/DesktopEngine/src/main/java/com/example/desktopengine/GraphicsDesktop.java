@@ -149,30 +149,30 @@ public class GraphicsDesktop implements IGraphics {
 
     }
     //Metodo que devuelve el ancho de la ventana
-    @Override
-    public int getWidth_() {
+
+    protected int getWidth_() {
         return width_;
     }
     //Metodo que devuelve el alto de la ventana
-    @Override
-    public int getHeight_() {
+
+    protected int getHeight_() {
         return height_;
     }
     //Metodo para desplazar
-    @Override
-    public void translate(float x, float y) {
+
+    protected void translate(float x, float y) {
         this.myGraphics2D_.translate(x,y);
     }
     //Metodo para reescalar
-    @Override
-    public void scale(float x, float y) {
+
+    protected void scale(float x, float y) {
         this.myGraphics2D_.scale((double)x,(double)y);
     }
 
-    @Override
-    public void save() {}
-    @Override
-    public void restore() { }
+
+    protected void save() {}
+
+    protected void restore() { }
     //Prepara un frame para su renderización
     public void prepareFrame() {
         synchronized (this) {
@@ -189,8 +189,8 @@ public class GraphicsDesktop implements IGraphics {
         this.myBufferStrategy_.show();
     }
     //Método encargado de hacer los calculos necesarios para reescaalar la pantalla a un determinado tamanyo
-    @Override
-    public void resize(float sceneWidth, float sceneHeight) {
+
+    protected void resize(float sceneWidth, float sceneHeight) {
         //cogemos el width y height del myview
         width_ = (int) myView_.getWidth();
         height_ = (int) myView_.getHeight();
@@ -226,18 +226,18 @@ public class GraphicsDesktop implements IGraphics {
         myGraphics2D_.setTransform(af);
     }
     //Devuelve el valor del factor de escalado
-    @Override
-    public float getScale_() {
+
+    protected float getScale_() {
         return scale_;
     }
     //Devuelve el valor del factor de desplazamiento en X
-    @Override
-    public float getTranslateX_() {
+
+    protected float getTranslateX_() {
         return translateX_;
     }
     //Devuelve el valor del factor de desplazamiento en Y
-    @Override
-    public float getTranslateY_() {
+
+    protected float getTranslateY_() {
         return translateY_;
     }
 }
