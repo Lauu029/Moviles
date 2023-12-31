@@ -99,6 +99,7 @@ public class MenuScene extends Scene {
         addGameObject(mundoButton_);
         addGameObject(contra);
         myIcon_ = graph.newImage("logo.png");
+        GameManager.getInstance().getIEngine().getAudio().setMute(true);
     }
     @Override
     public void render() {
