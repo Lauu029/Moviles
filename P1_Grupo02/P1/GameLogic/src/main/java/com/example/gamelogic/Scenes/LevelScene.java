@@ -1,4 +1,4 @@
-package com.example.gamelogic;
+package com.example.gamelogic.Scenes;
 
 
 import com.example.engine.IEngine;
@@ -7,21 +7,25 @@ import com.example.engine.IGraphics;
 import com.example.engine.IScene;
 import com.example.engine.ISound;
 import com.example.engine.TouchEvent;
+import com.example.gamelogic.Buttons.Button;
+import com.example.gamelogic.Buttons.ButtonClickListener;
+import com.example.gamelogic.Buttons.ButtonImage;
+import com.example.gamelogic.GameInit;
+import com.example.gamelogic.Managers.GameManager;
+import com.example.gamelogic.GameObject;
+import com.example.gamelogic.LevelDifficulty;
+import com.example.gamelogic.Managers.SceneManager;
 
 import java.util.ArrayList;
 
-public class LevelScene implements IScene {
+public class LevelScene extends Scene {
+    private ArrayList<GameObject> iGameObjects_ = new ArrayList<>();
 
-    private IEngine iEngine_;
-    private ArrayList<IGameObject> iGameObjects_ = new ArrayList<>();
-    private int width_, height_;
     private IFont font_;
     private ISound myButtonSound_;
     private ISound myArrowSound_;
-    public LevelScene(IEngine IEngine, int w, int h) {
-        iEngine_ = IEngine;
-        width_ = w;
-        height_ = h;
+    public LevelScene() {
+        super();
     }
 
     @Override
@@ -50,7 +54,7 @@ public class LevelScene implements IScene {
                 public void onClick() {
                     GameInit gameInit = new GameInit(difficulty_);
                     GameManager.getInstance_().setLevel(gameInit.getDifficulty());
-                    GameManager.getInstance_().changeScene(new GameScene(iEngine_, width_, height_));
+                    SceneManager.getInstance().addScene(new GameScene(), SceneNames.GAME.ordinal());
                 }
             });
 
@@ -60,14 +64,14 @@ public class LevelScene implements IScene {
         ButtonImage returnButton_ = new ButtonImage("flecha.png", 40, 40, 0, 0, myArrowSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                GameManager.getInstance_().changeScene(new MenuScene(iEngine_, width_, height_));
+                SceneManager.getInstance().setScene(SceneNames.MENU.ordinal());
             }
         });
         this.addGameObject(returnButton_);
     }
 
 
-    public void addGameObject(IGameObject gm) {
+    public void addGameObject(GameObject gm) {
         iGameObjects_.add(gm);
     }
 
@@ -83,7 +87,7 @@ public class LevelScene implements IScene {
 
     @Override
     public void handleInput(ArrayList<TouchEvent> events) {
-        for (IGameObject g : iGameObjects_)
+        for (GameObject g : iGameObjects_)
             for (TouchEvent event : events)
                 if (g.handleInput(event))
                     return;

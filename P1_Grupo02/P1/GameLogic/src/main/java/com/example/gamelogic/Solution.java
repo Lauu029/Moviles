@@ -14,7 +14,7 @@ public class Solution {
     private int solutionSize_;
     private int[][] registeredSols_;
 
-    void createSolution(Boolean repeat, int colorGame, int posibleColor, int maxTries) {
+    public void createSolution(Boolean repeat, int colorGame, int posibleColor, int maxTries) {
 
         this.solutionSize_ = colorGame;
         this.sol_ = new int[solutionSize_];
@@ -47,7 +47,7 @@ public class Solution {
         }
     }
 
-    public int[] getSol_() {
+    public int[] getSol() {
         return sol_;
     }
 

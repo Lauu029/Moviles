@@ -1,13 +1,15 @@
-package com.example.gamelogic;
+package com.example.gamelogic.Circles;
 
 import com.example.engine.IFont;
 import com.example.engine.IGraphics;
 import com.example.engine.TouchEvent;
+import com.example.gamelogic.Managers.GameManager;
+import com.example.gamelogic.GameObject;
 
 /* Clase que controla los círculos de forma genérica, con los atributos comunes entre todos
 * los tipos de círculos y una instancia del Game Manager para acceder rápidamente a sus métodos
 * */
-public class Circle implements IGameObject {
+public class Circle extends GameObject {
     protected String text_;
     protected IFont font_;
     protected int color_;
@@ -16,7 +18,7 @@ public class Circle implements IGameObject {
     protected int idColor_;
     protected int row_, gameTry_;
     protected boolean isDaltonics_;
-    protected GameManager gm_;
+    protected int translateY_=0;
 
     public Circle(String t, IFont f, int r, int x, int y, int row_) {
         this.font_ = f;
@@ -26,8 +28,7 @@ public class Circle implements IGameObject {
         this.posY_ = y;
         this.radius_ = r;
         this.row_ = row_;
-        this.gm_ = GameManager.getInstance_();
-        this.isDaltonics_ = gm_.getDaltonic();
+        this.isDaltonics_ = GameManager.getInstance_().getDaltonic();
     }
 
     public void setColor_(int color_) {
@@ -75,5 +76,9 @@ public class Circle implements IGameObject {
 
     public void setDaltonics_(boolean d) {
         this.isDaltonics_ = d;
+    }
+
+    public void TranslateY(int y) {
+        translateY_ += y;
     }
 }

@@ -1,8 +1,9 @@
-package com.example.gamelogic;
+package com.example.gamelogic.Scenes;
 
 public enum SceneNames {
     MENU,
     LEVEL,
+    DIFFICULTY,
     GAME,
     FINAL
 }

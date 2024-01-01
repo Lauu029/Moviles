@@ -1,8 +1,10 @@
-package com.example.gamelogic;
+package com.example.gamelogic.Circles;
 
 import com.example.engine.IFont;
 import com.example.engine.IGraphics;
 import com.example.engine.TouchEvent;
+import com.example.gamelogic.Circles.Circle;
+import com.example.gamelogic.Managers.GameManager;
 
 /* Clase correspondiente a los círculos que forman la solución. Extiende la clase círculo.
  * id_row almacena la posición en la fila en la que está cada círculo para poner la solución y
@@ -38,7 +40,7 @@ public class TryCircle extends Circle {
                     this.color_ = 0xFFad909c;
                     this.hasColor_ = false;
                     this.text_ ="";
-                    gm_.putColorSolution(this.idRow_, -1);
+                    GameManager.getInstance_().putColorSolution(this.idRow_, -1);
                 }
                 return true;
             }

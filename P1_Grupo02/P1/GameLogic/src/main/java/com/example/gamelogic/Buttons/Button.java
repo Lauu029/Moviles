@@ -1,12 +1,15 @@
-package com.example.gamelogic;
+package com.example.gamelogic.Buttons;
 
 import com.example.engine.IFont;
 import com.example.engine.IGraphics;
 import com.example.engine.IScene;
 import com.example.engine.ISound;
 import com.example.engine.TouchEvent;
+import com.example.gamelogic.Managers.GameManager;
+import com.example.gamelogic.GameObject;
+import com.example.gamelogic.Scenes.SceneNames;
 
-public class Button implements IGameObject {
+public class Button extends GameObject {
     private String text_;
     private IFont font_;
     protected IScene scene_ = null;
@@ -15,7 +18,7 @@ public class Button implements IGameObject {
     private SceneNames sceneName_;
     protected ISound mySound_;
     private ButtonClickListener onClickFunction;
-    Button(String t, IFont f, int c, int w, int h, int a, int x, int y, ISound buttonSound, ButtonClickListener function) {
+    public Button(String t, IFont f, int c, int w, int h, int a, int x, int y, ISound buttonSound, ButtonClickListener function) {
         this.text_ = t;
         this.font_ = f;
         this.color_ = c;

@@ -1,7 +1,8 @@
-package com.example.gamelogic;
+package com.example.gamelogic.Circles;
 
 import com.example.engine.IFont;
 import com.example.engine.IGraphics;
+import com.example.gamelogic.Circles.Circle;
 
 /*
  * Clase correspondiente a los círculos de pistas, extiende la clase Círculo que es un Game Object

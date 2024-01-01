@@ -1,16 +1,15 @@
-package com.example.gamelogic;
+package com.example.gamelogic.Buttons;
 
 import com.example.engine.IGraphics;
 import com.example.engine.IImage;
 import com.example.engine.ISound;
-
-import java.io.IOException;
+import com.example.gamelogic.Managers.GameManager;
 
 public class ButtonColorBlind extends ButtonImage {
     private IImage buttonImage_open_;
 
-    ButtonColorBlind(String eyeOpenImage, String eyeClosedImage,int w, int h, int x, int y, ISound buttonSound, ButtonClickListener function) {
-        super(eyeClosedImage ,w,h,x,y,GameManager.getInstance_().getIEngine().getAudio().newSound("daltonicsButton.wav"),function);
+    public ButtonColorBlind(String eyeOpenImage, String eyeClosedImage, int w, int h, int x, int y, ISound buttonSound, ButtonClickListener function) {
+        super(eyeClosedImage ,w,h,x,y, GameManager.getInstance_().getIEngine().getAudio().newSound("daltonicsButton.wav"),function);
         buttonImage_open_ = GameManager.getInstance_().getIEngine().getGraphics().newImage(eyeOpenImage);
     }
 

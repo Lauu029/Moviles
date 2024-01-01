@@ -9,8 +9,8 @@ import android.view.SurfaceView;
 
 
 import com.example.androidengine.EngineAndroid;
-import com.example.gamelogic.GameManager;
-import com.example.gamelogic.MenuScene;
+import com.example.gamelogic.Managers.GameManager;
+import com.example.gamelogic.Scenes.MenuScene;
 
 public class MainActivity extends AppCompatActivity {
     private SurfaceView renderView_;
@@ -25,12 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(this.renderView_);
         IEngineAndroid_ = new EngineAndroid(renderView_);
         GameManager.init(IEngineAndroid_,400,600);
-        MenuScene gm=new MenuScene(IEngineAndroid_,400,600);
-
-        IEngineAndroid_.setScene(gm);
-
         IEngineAndroid_.resume();
-        gm.init();
     }
 
     @Override

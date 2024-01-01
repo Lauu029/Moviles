@@ -1,7 +1,9 @@
-package com.example.gamelogic;
+package com.example.gamelogic.Managers;
 
 import com.example.engine.IEngine;
 import com.example.engine.IScene;
+import com.example.gamelogic.Board;
+import com.example.gamelogic.Difficulty;
 
 public class GameManager {
     private static GameManager instance_;
@@ -28,6 +30,7 @@ public class GameManager {
         instance_.width_ = width;
         instance_.height_ = height;
         instance_.daltonics_ = false;
+        SceneManager.init();
         return 1;
     }
 
@@ -65,7 +68,7 @@ public class GameManager {
         return this.levelDificulty_;
     }
 
-    public int[] getLevelSolution_() {
+    public int[] getLevelSolution() {
         return this.levelSolution_;
     }
 
