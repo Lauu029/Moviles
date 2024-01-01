@@ -17,7 +17,6 @@ import java.util.ArrayList;
 
 public class GameScene extends Scene {
     private Solution mySolution_;
-    private ArrayList<GameObject> iGameObjects_ = new ArrayList<>();
     private ButtonColorBlind buttonColorBlind_;
     private Board gameBoard_;
     private IFont font_;
@@ -37,7 +36,6 @@ public class GameScene extends Scene {
         mySolution_.createSolution(lev_.isRepeat(), lev_.getSolutionColors(), lev_.getPosibleColors(), lev_.getTries());
         this.gameBoard_ = new Board( lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_);
         addGameObject(gameBoard_);
-        gameBoard_.init();
         gm_.setBoard_(this.gameBoard_);
         ISound buttonSound= GameManager.getInstance_().getIEngine().getAudio().newSound("daltonicsButton.wav");
         this.buttonColorBlind_ =new ButtonColorBlind("eye_open.png","eye_closed.png",
@@ -49,7 +47,7 @@ public class GameScene extends Scene {
         });
         addGameObject(buttonColorBlind_);
         iEngine_.getGraphics().setColor(0xFF000000);
-        for (GameObject g : iGameObjects_) {
+        for (GameObject g : gameObjects_) {
             g.init();
         }
         myCrossSound_=iEngine_.getAudio().newSound("crossButton.wav");
@@ -105,6 +103,5 @@ public class GameScene extends Scene {
     protected void ChangeEndScene(boolean win, int try_) {
             EndScene end = new EndScene(win, mySolution_.getSol(), try_);
             SceneManager.getInstance().addScene(end, SceneNames.FINAL.ordinal());
-
     }
 }

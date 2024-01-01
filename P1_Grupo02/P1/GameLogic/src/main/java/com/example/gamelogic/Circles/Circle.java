@@ -6,6 +6,8 @@ import com.example.engine.TouchEvent;
 import com.example.gamelogic.Managers.GameManager;
 import com.example.gamelogic.GameObject;
 
+import sun.security.util.Debug;
+
 /* Clase que controla los círculos de forma genérica, con los atributos comunes entre todos
 * los tipos de círculos y una instancia del Game Manager para acceder rápidamente a sus métodos
 * */

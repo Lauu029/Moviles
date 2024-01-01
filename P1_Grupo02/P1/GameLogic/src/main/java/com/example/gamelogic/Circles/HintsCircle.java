@@ -26,10 +26,11 @@ public class HintsCircle extends Circle {
     }
 
     public void render(IGraphics graph) {
-        super.render(graph);
+        graph.setColor(this.color_);
+        graph.drawCircle(this.posX_, this.posY_+translateY_, this.radius_);
         if (this.color_ == justRightColor) {
             graph.setColor(0xFF000000);
-            graph.drawRoundRectangle(this.posX_ - this.radius_, this.posY_ - this.radius_,
+            graph.drawRoundRectangle(this.posX_ - this.radius_, this.posY_ - this.radius_+translateY_,
                     this.radius_ * 2, this.radius_ * 2, 2 * this.radius_);
         }
     }

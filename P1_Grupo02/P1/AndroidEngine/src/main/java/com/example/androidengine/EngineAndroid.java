@@ -106,7 +106,6 @@ public class EngineAndroid implements IEngine, Runnable {
     @Override
     public void setScene(IScene myIScene) {
         this.myScene_ = myIScene;
-        myScene_.init();
     }
 
     //Devuelve el objeto que gestiona los gráficos

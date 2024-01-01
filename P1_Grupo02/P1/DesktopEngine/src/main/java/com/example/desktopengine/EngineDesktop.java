@@ -113,7 +113,6 @@ public class EngineDesktop implements IEngine, Runnable {
     @Override
     public void setScene(IScene myIScene) {
         this.myScene_ = myIScene; // Establece la escena actual
-        myScene_.init(); // Inicializa la escena
     }
 
     @Override

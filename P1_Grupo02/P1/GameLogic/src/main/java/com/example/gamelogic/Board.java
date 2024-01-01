@@ -162,21 +162,6 @@ public class Board extends GameObject {
         gameTries_.get(acutalTry_).putNewColor(id, totalPossibleColors[id]);
     }
 
-    public void addNewTries(int newTries) {
-        int offset = gameTries_.get(tries_ - 1).getButtonPosition()+10;
-        for (int i = 0; i < newTries; i++) {
-            GameTry g = new GameTry(codeColors_, tries_, 40, limitUp, limitDown);
-            g.init();
-            g.TranslateY(offset);
-            offset += 50;
-            gameTries_.add(g);
-            gameObjectsTable_.add(g);
-            tries_++;
-            downTryPos_+=50;
-        }
-        nexTry();
-    }
-
     public int getTotalTries(){
         return gameTries_.size();
     }

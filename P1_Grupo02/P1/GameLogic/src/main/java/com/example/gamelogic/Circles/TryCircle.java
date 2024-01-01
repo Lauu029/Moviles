@@ -3,7 +3,6 @@ package com.example.gamelogic.Circles;
 import com.example.engine.IFont;
 import com.example.engine.IGraphics;
 import com.example.engine.TouchEvent;
-import com.example.gamelogic.Circles.Circle;
 import com.example.gamelogic.Managers.GameManager;
 
 /* Clase correspondiente a los círculos que forman la solución. Extiende la clase círculo.
@@ -22,10 +21,16 @@ public class TryCircle extends Circle {
     }
 
     public void render(IGraphics graph) {
-        super.render(graph);
+        graph.setColor(this.color_);
+        graph.drawCircle(this.posX_, this.posY_+translateY_, this.radius_);
         if (!this.hasColor_) {
             graph.setColor(0Xff5c3947);
-            graph.drawCircle(this.posX_, this.posY_, this.radius_ / 3);
+            graph.drawCircle(this.posX_, this.posY_+translateY_, this.radius_ / 3);
+
+        } else if (this.isDaltonics_) {
+            graph.setColor(0xFF000000);
+            graph.setFont(this.font_);
+            graph.drawText(this.text_, this.posX_, this.posY_ + translateY_);
         }
     }
 
@@ -35,11 +40,11 @@ public class TryCircle extends Circle {
     public boolean handleInput(TouchEvent event) {
         if (event.type == TouchEvent.TouchEventType.TOUCH_UP)
             if (this.posX_ - this.radius_ < event.x && this.posX_ + this.radius_ > event.x
-                    && this.posY_ - this.radius_ < event.y && this.posY_ + this.radius_ > event.y) {
+                    && this.posY_+translateY_ - this.radius_ < event.y && this.posY_ +translateY_+ this.radius_ > event.y)  {
                 if (this.hasColor_ && this.row_ == this.gameTry_) {
                     this.color_ = 0xFFad909c;
                     this.hasColor_ = false;
-                    this.text_ ="";
+                    this.text_ = "";
                     GameManager.getInstance_().putColorSolution(this.idRow_, -1);
                 }
                 return true;
