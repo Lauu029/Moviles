@@ -18,7 +18,7 @@ public class SoundDesktop implements ISound {
     private AudioInputStream myAudioStream_;
     // Constructor de la clase
     public SoundDesktop(String file) {
-        int maxSounds=60;
+        int maxSounds=10;
         myFreeSounds_ = new ArrayList<Clip>(); //inicializa la lista que contiene los sonidos disponibles
         myUsedSounds_ = new ArrayList<Clip>(); //inicializa la lista donde esten los sonidos en uso
         try {
@@ -37,15 +37,24 @@ public class SoundDesktop implements ISound {
             e.printStackTrace(); // Imprime la traza de la excepcion
         }
     }
+    //Metodo que quita un CLip del array de sonidos libres, lo agrega al de sonidos en uso y lo devuelve
+    private Clip checkForAudioCLip(){
+        Clip c= myFreeSounds_.remove(myFreeSounds_.size() - 1);//Quitamos un sonido libre
+        myUsedSounds_.add(c); //Lo agregamos a los sonidos en uso
+        return c;
+    }
     // Método para obtener un Clip de sonido que no este en uso
     public Clip getFreeClip(){
         if(!myFreeSounds_.isEmpty()) { //Si hay hueco para crear un nuevo sonido
-            Clip c= myFreeSounds_.remove(myFreeSounds_.size() - 1);//Quitamos un sonido libre
-            myUsedSounds_.add(c); //Lo agregamos a los sonidos en uso
-            return c;
+            return checkForAudioCLip();
         } else {
-            System.out.print("No hay mas clips disponibles\n");
-            return null;
+            if(!myUsedSounds_.isEmpty())
+            {
+                Clip oldCLip=myUsedSounds_.get(0);
+                returnClip(oldCLip);
+                return checkForAudioCLip();
+            }
+            else return null;
         }
     }
     // Método para devolver un Clip de sonido que se haya usado
@@ -55,7 +64,8 @@ public class SoundDesktop implements ISound {
                 myUsedSounds_.remove(c); //Lo eliminamos de la lista de usados
             try {
                 myAudioStream_.reset(); //Reestablecemos el flujo de audio
-                c.open(myAudioStream_); //Abrimos el clip (por si ha sido cerrado con un stopSound)
+                if(!c.isOpen())
+                    c.open(myAudioStream_); //Abrimos el clip (por si ha sido cerrado con un stopSound)
             } catch (LineUnavailableException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {
