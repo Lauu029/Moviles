@@ -155,6 +155,12 @@ public class Mobile {
             Log.w("SHARE", "Se ha producido un error al generar la captura");
         }
     }
+    public void loadWeb(String web){
+        Uri uri = Uri.parse(web);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+
+        this.myActivity_.startActivity(intent);
+    }
     //se crea un notificacion Chnnel
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.androidengine.NDKManager;
 import com.example.androidgame.GameLogic.Managers.AssetsManager;
+import com.example.androidgame.GameLogic.Managers.ContraRelojManager;
 import com.example.androidgame.GameLogic.Managers.GameManager;
 import com.example.androidgame.GameLogic.Managers.LevelManager;
 import com.example.androidgame.GameLogic.Managers.ShopManager;
@@ -81,7 +82,7 @@ public class SaveData {
                 solArray.put(savedSol.get(i));
             }
             jsonObject.put("solution",solArray);
-
+            jsonObject.put("maxTime", ContraRelojManager.getInstance().maxTime);
             String jsonString = jsonObject.toString();
             FileOutputStream fileOutputStream = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
             fileOutputStream.write(jsonString.getBytes());
@@ -199,6 +200,8 @@ public class SaveData {
                 savedSolution.add(solArray.getInt(i));
             }
             LevelManager.getInstance().setCurrentSolution(savedSolution);
+            int maxTime=jsonObject.getInt("maxTime");
+            ContraRelojManager.getInstance().maxTime=maxTime;
 
         } catch (JSONException | IOException e) {
             e.printStackTrace();

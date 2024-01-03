@@ -9,6 +9,7 @@ import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
 import com.example.androidgame.GameLogic.Buttons.Button;
 import com.example.androidgame.GameLogic.Buttons.ButtonClickListener;
+import com.example.androidgame.GameLogic.Buttons.ButtonImage;
 import com.example.androidgame.GameLogic.Difficulty;
 import com.example.androidgame.GameLogic.GameObject;
 import com.example.androidgame.GameLogic.GameTry;
@@ -94,9 +95,17 @@ public class MenuScene extends Scene {
                 SceneManager.getInstance().addScene(new ShopScene(), SceneNames.SHOP.ordinal());
             }
         });
+
+        ButtonImage shareButton_ = new ButtonImage("share.png",50, 50, this.width_ / 2 - 50 / 2, this.height_ / 2 + 180, myButtonSound_, new ButtonClickListener() {
+            @Override
+            public void onClick() {
+               GameManager.getInstance().getIEngine().getMobile().loadWeb("https://polyhaven.com/hdris");
+            }
+        });
         addGameObject(playButton_);
         addGameObject(storeButton_);
         addGameObject(mundoButton_);
+        addGameObject(shareButton_);
         addGameObject(contra);
         myIcon_ = graph.newImage("logo.png");
         GameManager.getInstance().getIEngine().getAudio().setMute(true);

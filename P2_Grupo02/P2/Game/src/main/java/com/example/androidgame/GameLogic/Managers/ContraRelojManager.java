@@ -8,12 +8,13 @@ import com.example.androidgame.GameLogic.Utils.SaveData;
 
 public class ContraRelojManager {
     private static ContraRelojManager instance_;
-    double maxTime=0;
+    public double maxTime=0;
     private double time=900;
     private ContraRelojManager() {
 
         // Constructor privado
     }
+
     public void updateMaxTime(double times){
         if(times>maxTime)maxTime=time;
     }
