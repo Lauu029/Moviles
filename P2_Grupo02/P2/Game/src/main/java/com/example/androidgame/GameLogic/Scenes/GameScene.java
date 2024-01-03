@@ -33,6 +33,9 @@ public class GameScene extends Scene {
     boolean canGetReward_;
     private int upTryPos_, downTryPos_, upRenderPos_, downRenderPos_;
     boolean contra;
+    int click;
+    float clickTime=0;
+    boolean pista=false;
     public GameScene(boolean world,boolean contraReloj) {
         super();
         world_ = world;
@@ -144,6 +147,9 @@ public class GameScene extends Scene {
             }
             yIni = yFin;
         }
+        if(click>0){
+            clickTime+=time;
+        }
         int[] tempSol = gm_.getLevelSolution();
         int i = 0;
         boolean isComplete = true;
@@ -151,6 +157,14 @@ public class GameScene extends Scene {
             if (tempSol[i] == -1)
                 isComplete = false;
             i++;
+        }
+        if(pista&&!isComplete){
+            pista=false;
+
+            int id=mySolution_.getSol()[i-1];
+            gameBoard_.putColor(id);
+
+
         }
         if (isComplete) {
             if (world_) {
@@ -203,12 +217,26 @@ public class GameScene extends Scene {
         super.handleInput(events);
         for (TouchEvent event : events) {
             if (event.type == TouchEvent.TouchEventType.TOUCH_DOWN) {
+
                 if (!scroll)
                     yIni = event.y;
             } else if (event.type == TouchEvent.TouchEventType.TOUCH_DRAG) {
                 scroll = true;
                 yFin = event.y;
             } else if (event.type == TouchEvent.TouchEventType.TOUCH_UP) {
+                click++;
+                if(clickTime<=0.5){
+                    if(click==2){
+                        Log.d("PISTA","DOBLE CLICK");
+                        clickTime=0;
+                        click=0;
+                        pista=true;
+                    }
+                }
+                else{
+                    clickTime=0;
+                    click=0;
+                }
                 scroll = false;
             }
         }

@@ -27,7 +27,7 @@ public class GameTry extends GameObject {
     int translateY_;
     int minY_, maxY_;
     private Font fuente;
-
+    int colorChange=0;
     private boolean world_;
 
     GameTry(int solutionSize, int numTries, int height, boolean world, int minY, int maxY) {
@@ -158,9 +158,14 @@ public class GameTry extends GameObject {
             pos++;
         }
     }
+    public int getColorIT(){
+        return colorChange;
+    }
 
     public void putNewColor(int id, int color) {
+        colorChange=0;
         for (int i = 0; i < tries_.length; i++) {
+            colorChange+=1;
             if (!tries_[i].hasColor()) {
                 tries_[i].setColor(color, id);
                 tries_[i].setImage("" + (id + 1));
@@ -168,6 +173,7 @@ public class GameTry extends GameObject {
                 break;
             }
         }
+        colorChange=0;
     }
     public int getButtonPosition(){
         return translateY_+height_;

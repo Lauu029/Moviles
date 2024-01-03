@@ -158,7 +158,9 @@ public class Board extends GameObject {
     public int getAcutalTry_() {
         return acutalTry_;
     }
-
+    int getColorId(){
+       return gameTries_.get(acutalTry_).getColorIT();
+    }
     public void putNewColor(int id, int color) {
         gameTries_.get(acutalTry_).putNewColor(id, color);
     }
