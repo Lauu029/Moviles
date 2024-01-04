@@ -27,7 +27,7 @@ public class AssetsManager {
     private String paletteColor_ = "DEFAULT";
     private int backgroundColor_ = 0xFFFFF0F6;
     private int buttonColor_ = 0XD0FB839B;
-    private int textColor_ = 0xFFFFFFFF;
+    private int textColor_ = 0xFF000000;
     private int lineColor_ = 0XFF222222;
     private HashMap<String, int[]> coloresFondo_ = new HashMap<String, int[]>();
     private JSONObject colorPalettesJson_;

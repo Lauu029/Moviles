@@ -1,7 +1,6 @@
 package com.example.androidgame.GameLogic.Utils;
 
 
-
 import com.example.androidengine.FileManager;
 import com.example.androidgame.GameLogic.Difficulty;
 import com.example.androidgame.GameLogic.Managers.GameManager;
@@ -57,6 +56,7 @@ public class LevelReader {
             numWorlds_++;
         }
     }
+
     private JSONObject readJsonFromInputStream(InputStream inp) {
         try {
             // Lee el contenido del InputStream proporcionado
@@ -94,6 +94,7 @@ public class LevelReader {
     }
 
     private Difficulty readDifficultyFromJson(InputStream inp) {
+        Difficulty dif = new Difficulty();
         try {
             JSONObject jsonObject = readJsonFromInputStream(inp);
 
@@ -102,17 +103,20 @@ public class LevelReader {
             int attempts = jsonObject.getInt("attempts");
             boolean repeat = jsonObject.getBoolean("repeat");
 
-            Difficulty dif = new Difficulty();
+
             dif.setSolutionColors(codeSize);
             dif.setPosibleColors(codeOpt);
             dif.setTries(attempts);
             dif.setRepeat(repeat);
-
-            return dif;
         } catch (JSONException e) {
-            throw new RuntimeException(e);
+            dif.setSolutionColors(1);
+            dif.setPosibleColors(1);
+            dif.setTries(1);
+            dif.setRepeat(false);
         }
+        return dif;
     }
+
     void readWorld(String path) {
         FileManager fileManager = GameManager.getInstance().getIEngine().getFileManager();
         TreeMap<String, InputStream> niveles = fileManager.getFilesInFolder(levelPath + path + "/");

@@ -109,7 +109,7 @@ public class Graphics {
     }
     //Dibuja una imagen en una determinada posicion a partir de un rectangulo origen y otro destino
     public void drawImage(Image image, int posX, int posY, int height, int widht) {
-        if (image.isVisible()) {
+        if (image.isVisible() && image.getImage() != null) {
             Rect src = new Rect();
             src.left = 0;
             src.top = 0;

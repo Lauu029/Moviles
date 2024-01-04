@@ -136,11 +136,13 @@ public class LevelManager {
     public static void init() {
         instance = new LevelManager();
         instance.tries_=new ArrayList<>();
+        instance.currentSolution_= new ArrayList<>();
         instance.read_.readWorlds("world1");
         instance.niveles_ = instance.read_.getNumLevels(instance.actualWorld_);
         instance.tema_ = instance.read_.getTematicaWorld(instance.actualWorld_);
         instance.diff_ = instance.read_.geDifficultylevels(instance.actualWorld_);
         instance.numWorlds = instance.read_.getNumWorlds_();
+
     }
     //Crea un mundo de niveles nuevos
     public void setNewWorld() {
