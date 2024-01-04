@@ -91,7 +91,7 @@ public class EndScene extends Scene {
                 SceneManager.getInstance().setScene(SceneNames.DIFFICULTY.ordinal());
             }
         });
-        if(win_){
+        if (win_) {
             shareRecordButton_ = new Button("Compartir", font1_, AssetsManager.getInstance().getButtonColor(),
                     AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor(),
                     150, 50, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 100,
@@ -103,17 +103,19 @@ public class EndScene extends Scene {
             });
             addGameObject(shareRecordButton_);
         }
-        if(!win_){
-            buttonReward_ = new Button("Nuevas pistas", font1_, AssetsManager.getInstance().getButtonColor(),
+        if (!win_) {
+            buttonReward_ = new Button("+2 Intentos", font1_, AssetsManager.getInstance().getButtonColor(),
                     AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor(),
                     150, 50, 35, this.width_ / 2 - (150 / 2), this.height_ / 2 + 100,
-                    myButtonSound_, new ButtonClickListener() {
+                    myButtonSound_, null);
+            buttonReward_.setAction(new ButtonClickListener() {
                 @Override
                 public void onClick() {
                     GameScene gs = (GameScene) SceneManager.getInstance().getScene(SceneNames.GAME.ordinal());
                     gs.addTriesToBoard(2);
                     iEngine_.getMobile().LoadRewardedAd();
                     waitingForReward_ = true;
+                    buttonReward_.changeActive(false);
                 }
             });
             addGameObject(buttonReward_);
@@ -139,7 +141,7 @@ public class EndScene extends Scene {
         super.render();
         iEngine_.getGraphics().setColor(0XFF222222);
         this.iEngine_.getGraphics().setFont(font_);
-            iEngine_.getGraphics().setColor(AssetsManager.getInstance().getTextColor());
+        iEngine_.getGraphics().setColor(AssetsManager.getInstance().getTextColor());
         if (!win_) {
             iEngine_.getGraphics().drawText("GAME OVER", width_ / 2, 10);
             iEngine_.getGraphics().setFont(font1_);
