@@ -41,7 +41,7 @@ public class FileManager {
     public FileInputStream getFileInputStream(String f) {
         FileInputStream fInput_=null;
         try {
-            myContext_.openFileInput(f);
+            fInput_=myContext_.openFileInput(f);
 
         } catch (IOException e) {
 

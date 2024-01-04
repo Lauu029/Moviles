@@ -106,7 +106,7 @@ public class SaveData {
 
     public static void loadGameData() {
         try {
-            FileInputStream fileInputStream =GameManager.getInstance().getIEngine().getFileManager().getFileInputStream(FILENAME);
+            FileInputStream fileInputStream = GameManager.getInstance().getIEngine().getFileManager().getFileInputStream(FILENAME);
 
             int size = fileInputStream.available();
             byte[] buffer = new byte[size];
