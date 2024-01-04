@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
@@ -159,7 +160,11 @@ public class Mobile {
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is not in the Support Library.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if(ContextCompat.checkSelfPermission(context_,Manifest.permission.POST_NOTIFICATIONS)
+        != PackageManager.PERMISSION_GRANTED){
+            myActivity_.requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 12345);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ){
             CharSequence name = context_.getString(R.string.channel_name);
             String description = context_.getString(R.string.channel_description);
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
@@ -171,6 +176,7 @@ public class Mobile {
             NotificationManager notificationManager = (NotificationManager) context_.getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.createNotificationChannel(channel);
         }
+
     }
 
     //Se programa una notificacion dado el tiempo,el timeUnit son si queremos minutos segundos o horas,el icono,

@@ -37,7 +37,6 @@ public class ReminderWorker extends Worker {
         intent.putExtra("notification", true);
         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE );
 
-
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), notifications_channel_id)
                 .setSmallIcon(notifications_icon)
                 .setContentTitle(title)
