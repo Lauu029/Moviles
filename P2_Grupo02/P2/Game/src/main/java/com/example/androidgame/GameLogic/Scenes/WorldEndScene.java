@@ -20,7 +20,6 @@ public class WorldEndScene extends EndScene {
     private Image coinImage_;
     public WorldEndScene(boolean win, int[] sol, int intentos) {
         super(win, sol, intentos);
-        world_=true;
     }
 
     @Override
@@ -61,7 +60,7 @@ public class WorldEndScene extends EndScene {
 
                 GameManager.getInstance().setLevel(LevelManager.getInstance().getDiff()
                         .get(LevelManager.getInstance().getActualLevel()));
-                SceneManager.getInstance().addScene(new GameScene(true), SceneNames.GAME.ordinal());
+                SceneManager.getInstance().addScene(new GameScene(), SceneNames.GAME.ordinal());
             }
         });
         addGameObject(retryButton);
@@ -112,7 +111,7 @@ public class WorldEndScene extends EndScene {
                     GameManager.getInstance().setLevel(difNextLevel);
                     Engine engine_ = GameManager.getInstance().getIEngine();
                     engine_.getAudio().playSound(myButtonSound_, 0);
-                    SceneManager.getInstance().addScene(new GameScene(true), SceneNames.GAME.ordinal());
+                    SceneManager.getInstance().addScene(new GameScene(), SceneNames.GAME.ordinal());
                 }
             });
             addGameObject(nextLevelButton);

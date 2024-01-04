@@ -75,7 +75,7 @@ public class EndScene extends Scene {
                 GameManager.getInstance().setLevel(gameInit.getDifficulty());
                 Engine engine_ = GameManager.getInstance().getIEngine();
                 engine_.getAudio().playSound(myButtonSound_, 0);
-                SceneManager.getInstance().addScene(new GameScene(false), SceneNames.GAME.ordinal());
+                SceneManager.getInstance().addScene(new GameScene(), SceneNames.GAME.ordinal());
             }
         });
 

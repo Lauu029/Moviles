@@ -20,23 +20,20 @@ import com.example.androidgame.GameLogic.Solution;
 import java.util.ArrayList;
 
 public class GameScene extends Scene {
-    private Solution mySolution_;
-    private ButtonColorBlind buttonColorBlind_;
-    private Board gameBoard_;
-    private Font font_;
-    private Difficulty lev_;
-    private GameManager gm_;
-    private Sound myCrossSound_;
-    boolean scroll = false;
-    int yIni;
-    int yFin;
-    boolean canGetReward_;
-    private int upTryPos_, downTryPos_, upRenderPos_, downRenderPos_;
+    protected Solution mySolution_;
+    protected ButtonColorBlind buttonColorBlind_;
+    protected Board gameBoard_;
+    protected Font font_;
+    protected Difficulty lev_;
+    protected GameManager gm_;
+    protected Sound myCrossSound_;
+    protected boolean scroll = false;
+    protected int yIni;
+    protected int yFin;
+    protected int upTryPos_, downTryPos_, upRenderPos_, downRenderPos_;
 
-    public GameScene(boolean world) {
+    public GameScene() {
         super();
-        world_ = world;
-        canGetReward_ = true;
     }
 
     //Inicializa los botones, el tablero y la solución
@@ -46,54 +43,13 @@ public class GameScene extends Scene {
         this.lev_ = this.gm_.getLevel();
         mySolution_ = new Solution();
 
-        int actWorld = LevelManager.getInstance().getActualWorld();
-        int savedWorld = LevelManager.getInstance().getSavedWorld();
-        int actLevel = LevelManager.getInstance().getActualLevel();
-        int savedLevel = LevelManager.getInstance().getSavedLevel();
-        ArrayList<ArrayList<Integer>> savedTries = LevelManager.getInstance().getTries();
-        ArrayList<Integer> savedSol = LevelManager.getInstance().getCurrentSolution();
+        createSolution();
+        createGameBoard();
 
-        if (world_ && actWorld == savedWorld && actLevel == savedLevel && savedTries.size() != 0) {
-            int[] sol = new int[savedSol.size()];
-            for (int i = 0; i < savedSol.size(); i++) {
-                sol[i] = savedSol.get(i);
-            }
-            mySolution_.setSolution(sol);
-        } else {
-            mySolution_.createSolution(lev_.isRepeat(), lev_.getSolutionColors(), lev_.getPosibleColors(), lev_.getTries());
-        }
-
-        //Guardo mi solucion en el level manager
-        ArrayList<Integer> mySol = new ArrayList<>();
-        int[] array = mySolution_.getSol();
-        for (int i = 0; i < mySolution_.getSol().length; i++) {
-            int num = array[i];
-            mySol.add(num);
-        }
-        LevelManager.getInstance().setCurrentSolution(mySol); //Guardamos la solucion de ete nivel
-
-        //En caso de que estemos restaurando una partida
-        if (world_ && actWorld == savedWorld && actLevel == savedLevel && savedTries.size() != 0) {
-            this.gameBoard_ = new Board(lev_.getSolutionColors(), LevelManager.getInstance().getTotalTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_, world_);
-
-            for (int i = 0; i < savedTries.size(); i++) {
-                gameBoard_.getTryByIndex(i).setIdTries(savedTries.get(i));
-                int[] gameTry = new int[savedTries.get(i).size()];
-                for (int j = 0; j < gameTry.length; j++) {
-                    gameTry[j] = savedTries.get(i).get(j);
-                    gameBoard_.putColor(gameTry[j]);
-                }
-                mySolution_.check(gameTry);
-
-                gameBoard_.setHints(mySolution_.getCorrectPos(i), mySolution_.getCorrectColor(i), i);
-                gameBoard_.nexTry();
-            }
-        } else {
-            this.gameBoard_ = new Board(lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_, world_);
-        }
         addGameObject(gameBoard_);
         gm_.setBoard(this.gameBoard_);
-        LevelManager.getInstance().setTotalTries(gameBoard_.getTotalTries());
+
+
         Sound buttonSound = GameManager.getInstance().getIEngine().getAudio().newSound("colorBlindButton.wav");
         this.buttonColorBlind_ = new ButtonColorBlind("eye_open.png", "eye_closed.png",
                 40, 40, this.width_ - 45, 0, buttonSound, new ButtonClickListener() {
@@ -112,12 +68,7 @@ public class GameScene extends Scene {
                 myCrossSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                LevelManager.getInstance().clearTries();
-                int idScene;
-                if (!world_)
-                    SceneManager.getInstance().setScene(SceneNames.DIFFICULTY.ordinal());
-                else
-                    SceneManager.getInstance().addScene(new WorldScene(), SceneNames.WORLD.ordinal());
+                changeSceneExit();
             }
         });
         this.addGameObject(exitLevel_);
@@ -125,6 +76,12 @@ public class GameScene extends Scene {
         downTryPos_ = gameBoard_.getDownTryPos();
         downRenderPos_ = gameBoard_.getdownRenderPos();
         upRenderPos_ = gameBoard_.getupRenderPos();
+    }
+    protected void createSolution(){
+        mySolution_.createSolution(lev_.isRepeat(), lev_.getSolutionColors(), lev_.getPosibleColors(), lev_.getTries());
+    }
+    protected void createGameBoard(){
+        this.gameBoard_ = new Board(lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_, false);
     }
 
     /*Comprueba si todas las casillas del intento actual se han llenado con algún color
@@ -139,58 +96,14 @@ public class GameScene extends Scene {
             }
             yIni = yFin;
         }
-        int[] tempSol = gm_.getLevelSolution();
-        int i = 0;
-        boolean isComplete = true;
-        while (i < tempSol.length && isComplete) {
-            if (tempSol[i] == -1)
-                isComplete = false;
-            i++;
-        }
-        if (isComplete) {
-            if (world_) {
-                ArrayList<Integer> tempArray = new ArrayList<>();
-                for (int j = 0; j < tempSol.length; j++) {
-                    tempArray.add(tempSol[j]);
-                }
-                LevelManager.getInstance().addTries(tempArray);
-            }
-
-            mySolution_.check(tempSol);
-            int try_ = this.gameBoard_.getAcutalTry_();
-            if (mySolution_.getCorrectPos(try_) == this.lev_.getSolutionColors()) {
-                ChangeEndScene(true, try_);
-                LevelManager.getInstance().clearTries();
-
-            } else if (try_ == gameBoard_.getTotalTries() - 1) {
-                gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
-                ChangeEndScene(false, try_);
-
-            } else {
-                gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
-                gameBoard_.nexTry();
-            }
-        }
+        checkSolution();
         super.update(time);
     }
 
     protected void ChangeEndScene(boolean win, int try_) {
-        if (!world_) {
-            if (win) canGetReward_ = false;
-            EndScene end = new EndScene(win, mySolution_.getSol(), try_);
-            SceneManager.getInstance().addScene(end, SceneNames.FINAL.ordinal());
-        } else {
-            WorldEndScene worldEnd = new WorldEndScene(win, mySolution_.getSol(), try_);
-            SceneManager.getInstance().addScene(worldEnd, SceneNames.WORLD_FINAL.ordinal());
-        }
-    }
 
-    @Override
-    public void render() {
-        super.render();
-        for (int i = 0; i < gameObjects_.size(); i++) {
-            gameObjects_.get(i).render(iEngine_.getGraphics());
-        }
+        EndScene end = new EndScene(win, mySolution_.getSol(), try_);
+        SceneManager.getInstance().addScene(end, SceneNames.FINAL.ordinal());
     }
 
     @Override
@@ -208,9 +121,38 @@ public class GameScene extends Scene {
             }
         }
     }
-
+    protected void changeSceneExit(){
+        SceneManager.getInstance().setScene(SceneNames.DIFFICULTY.ordinal());
+    }
     public void addTriesToBoard(int numTries) {
         gameBoard_.addNewTries(numTries);
         LevelManager.getInstance().setTotalTries(gameBoard_.getTotalTries());
+    }
+    protected void checkSolution(){
+        int[] tempSol = gm_.getLevelSolution();
+        int i = 0;
+        boolean isComplete = true;
+        while (i < tempSol.length && isComplete) {
+            if (tempSol[i] == -1)
+                isComplete = false;
+            i++;
+        }
+        if (isComplete) {
+
+            mySolution_.check(tempSol);
+            int try_ = this.gameBoard_.getAcutalTry_();
+            if (mySolution_.getCorrectPos(try_) == this.lev_.getSolutionColors()) {
+                ChangeEndScene(true, try_);
+                LevelManager.getInstance().clearTries();
+
+            } else if (try_ == gameBoard_.getTotalTries() - 1) {
+                gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
+                ChangeEndScene(false, try_);
+
+            } else {
+                gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
+                gameBoard_.nexTry();
+            }
+        }
     }
 }

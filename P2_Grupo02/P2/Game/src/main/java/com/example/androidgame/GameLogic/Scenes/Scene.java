@@ -16,7 +16,6 @@ public class Scene implements IScene {
     protected Engine iEngine_;
     protected int width_, height_;
     protected ArrayList<GameObject> gameObjects_ = new ArrayList<>();
-    protected boolean world_ = false;
     protected boolean isGameScene=false;
 
     protected Scene() {
@@ -28,8 +27,8 @@ public class Scene implements IScene {
     @Override
     public void render() {
         iEngine_.getGraphics().clear(AssetsManager.getInstance().getBackgroundColor());
-        if (AssetsManager.getInstance().getBackgroundImage(world_, isGameScene) != null)
-            iEngine_.getGraphics().drawImage(AssetsManager.getInstance().getBackgroundImage(world_, isGameScene),
+        if (AssetsManager.getInstance().getBackgroundImage(false, isGameScene) != null)
+            iEngine_.getGraphics().drawImage(AssetsManager.getInstance().getBackgroundImage(false, isGameScene),
                     0, 0, height_, width_);
         for (int i = 0; i < gameObjects_.size(); i++) {
             gameObjects_.get(i).render(iEngine_.getGraphics());
