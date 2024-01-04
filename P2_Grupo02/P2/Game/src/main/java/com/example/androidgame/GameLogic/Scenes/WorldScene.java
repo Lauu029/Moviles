@@ -111,7 +111,7 @@ public class WorldScene extends Scene {
                     if (!finalBlocked) {
                         LevelManager.getInstance().setActualLevel(finalI);
                         GameManager.getInstance().setLevel(diff.get(finalI));
-                        SceneManager.getInstance().addScene(new GameScene(), SceneNames.GAME.ordinal());
+                        SceneManager.getInstance().addScene(new WorldGameScene(), SceneNames.WORLD_SCENE.ordinal());
                     }
                 }
             }));

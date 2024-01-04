@@ -50,8 +50,8 @@ public class WorldGameScene extends GameScene{
     @Override
     public void render() {
         iEngine_.getGraphics().clear(AssetsManager.getInstance().getBackgroundColor());
-        if (AssetsManager.getInstance().getBackgroundImage(true, isGameScene) != null)
-            iEngine_.getGraphics().drawImage(AssetsManager.getInstance().getBackgroundImage(true, isGameScene),
+        if (AssetsManager.getInstance().getBackgroundImage(true, true) != null)
+            iEngine_.getGraphics().drawImage(AssetsManager.getInstance().getBackgroundImage(true, true),
                     0, 0, height_, width_);
         for (int i = 0; i < gameObjects_.size(); i++) {
             gameObjects_.get(i).render(iEngine_.getGraphics());

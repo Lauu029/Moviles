@@ -41,7 +41,7 @@ public class WorldEndScene extends EndScene {
                 myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                GameScene gs = (GameScene) SceneManager.getInstance().getScene(SceneNames.GAME.ordinal());
+                WorldGameScene gs = (WorldGameScene) SceneManager.getInstance().getScene(SceneNames.WORLD_SCENE.ordinal());
                 LevelManager.getInstance().setTries(tries);
                 gs.addTriesToBoard(2);
 
@@ -60,7 +60,7 @@ public class WorldEndScene extends EndScene {
 
                 GameManager.getInstance().setLevel(LevelManager.getInstance().getDiff()
                         .get(LevelManager.getInstance().getActualLevel()));
-                SceneManager.getInstance().addScene(new GameScene(), SceneNames.GAME.ordinal());
+                SceneManager.getInstance().addScene(new WorldGameScene(), SceneNames.WORLD_SCENE.ordinal());
             }
         });
         addGameObject(retryButton);
@@ -99,7 +99,7 @@ public class WorldEndScene extends EndScene {
         addGameObject(shareRecordButton_);
         Difficulty difNextLevel = LevelManager.getInstance().getNextLevelDifficulty();
 
-        if (LevelManager.getInstance().getActualWorld() == LevelManager.getInstance().getPassedWorld() && LevelManager.getInstance().getActualLevel() >= LevelManager.getInstance().getPassedLevel())
+        if (LevelManager.getInstance().getActualWorld() == LevelManager.getInstance().getPassedWorld() && LevelManager.getInstance().getActualLevel() > LevelManager.getInstance().getPassedLevel())
             LevelManager.getInstance().nextPassedLevel();
         if (difNextLevel != null) {
             Button nextLevelButton = new Button("Siguiente Nivel", font1_, AssetsManager.getInstance().getButtonColor(),
@@ -111,7 +111,7 @@ public class WorldEndScene extends EndScene {
                     GameManager.getInstance().setLevel(difNextLevel);
                     Engine engine_ = GameManager.getInstance().getIEngine();
                     engine_.getAudio().playSound(myButtonSound_, 0);
-                    SceneManager.getInstance().addScene(new GameScene(), SceneNames.GAME.ordinal());
+                    SceneManager.getInstance().addScene(new WorldGameScene(), SceneNames.WORLD_SCENE.ordinal());
                 }
             });
             addGameObject(nextLevelButton);
