@@ -100,10 +100,14 @@ public class FileManager {
     }
 
 
-    public OutputStream getOutputStream(String f) {
+    public OutputStream getOutputStream(String f,boolean privateMode) {
         OutputStream fOutput_;
         try {
-            fOutput_ = new FileOutputStream(f);
+            if(privateMode)
+            {
+                fOutput_ = myContext_.openFileOutput(f,myContext_.MODE_PRIVATE);
+            }
+            else fOutput_ = new FileOutputStream(f);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }

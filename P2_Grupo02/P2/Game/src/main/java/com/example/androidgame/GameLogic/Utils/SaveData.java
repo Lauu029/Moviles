@@ -16,6 +16,8 @@ import org.json.JSONObject;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -25,7 +27,7 @@ public class SaveData {
     private static final String HASHFILE= "hash_data.json";
     private static String codigo1_="GARBANZOS";
     private static String codigo2="BUSTAMANTE";
-    public static void saveGameData(Context context, int coins, String palette, int currWorld, int currLevel,
+    public static void saveGameData(int coins, String palette, int currWorld, int currLevel,
                                     String backgroundPath, String codePath) {
         JSONObject jsonObject = new JSONObject();
 
@@ -83,7 +85,8 @@ public class SaveData {
             jsonObject.put("solution",solArray);
 
             String jsonString = jsonObject.toString();
-            FileOutputStream fileOutputStream = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
+            OutputStream fileOutputStream =GameManager.getInstance().getIEngine().getFileManager().getOutputStream(FILENAME,true);
+            //context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
             fileOutputStream.write(jsonString.getBytes());
             fileOutputStream.close();
 
@@ -94,7 +97,7 @@ public class SaveData {
             String finalHash=NDKManager.generateHash(segundoHash);
 
             //Lo guardamos en otro archivo
-            FileOutputStream hashOutputStream = context.openFileOutput(HASHFILE, Context.MODE_PRIVATE);
+            OutputStream hashOutputStream = GameManager.getInstance().getIEngine().getFileManager().getOutputStream(HASHFILE,true);
             hashOutputStream.write(finalHash.getBytes());
             hashOutputStream.close();
 
@@ -103,9 +106,10 @@ public class SaveData {
         }
     }
 
-    public static void loadGameData(Context context) {
+    public static void loadGameData() {
         try {
-            FileInputStream fileInputStream = context.openFileInput(FILENAME);
+            InputStream fileInputStream =GameManager.getInstance().getIEngine().getFileManager().getInputStream(FILENAME);
+
             int size = fileInputStream.available();
             byte[] buffer = new byte[size];
             fileInputStream.read(buffer);
@@ -122,7 +126,7 @@ public class SaveData {
             String finalHash=NDKManager.generateHash(segundoHash);
 
             //Leer el archivo de hash
-            FileInputStream hashInputStream = context.openFileInput(HASHFILE);
+            InputStream hashInputStream =GameManager.getInstance().getIEngine().getFileManager().getInputStream(HASHFILE);
             int sizeHash = hashInputStream.available();
             byte[] bufferHash = new byte[sizeHash];
             hashInputStream.read(bufferHash);

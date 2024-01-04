@@ -113,7 +113,7 @@ public class GameManager {
 
     //Guarda el estado actual de la partida
     public void saveGameData() {
-        SaveData.saveGameData(myEngine_.getMainActivity(), coins_,
+        SaveData.saveGameData(coins_,
                 AssetsManager.getInstance().getPaletteColor(),
                 LevelManager.getInstance().getPassedWorld(),
                 LevelManager.getInstance().getPassedLevel(),
@@ -123,7 +123,7 @@ public class GameManager {
 
     // Llamado al iniciar el juego para cargar el progreso del jugador
     public void loadGameData() {
-        SaveData.loadGameData(myEngine_.getMainActivity());
+        SaveData.loadGameData();
         // Actualiza las variables del GameManager según los datos cargados
         coins_ = getCoins();
     }
