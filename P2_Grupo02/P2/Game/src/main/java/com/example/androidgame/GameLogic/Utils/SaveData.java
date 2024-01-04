@@ -116,18 +116,22 @@ public class SaveData {
 
             //Leer el archivo de hash
             FileInputStream hashInputStream = GameManager.getInstance().getIEngine().getFileManager().getFileInputStream(HASHFILE);
-            int sizeHash = hashInputStream.available();
-            byte[] bufferHash = new byte[sizeHash];
-            hashInputStream.read(bufferHash);
-            hashInputStream.close();
-            String hashString = new String(bufferHash, "UTF-8");
+            if(hashInputStream!=null)
+            {
+                int sizeHash = hashInputStream.available();
+                byte[] bufferHash = new byte[sizeHash];
+                hashInputStream.read(bufferHash);
+                hashInputStream.close();
+                String hashString = new String(bufferHash, "UTF-8");
 
-            //Si intenta cambiar los datos le endeudamos con 100 monedas
-            if (!finalHash.equals(hashString)) {
-                GameManager.getInstance().setCoins(-100);
-            } else {
-                int coins = jsonObject.getInt("coins");
-                GameManager.getInstance().setCoins(coins);
+                //Si intenta cambiar los datos le endeudamos con 100 monedas
+                if (!finalHash.equals(hashString)) {
+                    GameManager.getInstance().setCoins(-100);
+                } else {
+                    int coins = jsonObject.getInt("coins");
+                    GameManager.getInstance().setCoins(coins);
+                }
+
             }
 
             String paletteStr = jsonObject.getString("palette");

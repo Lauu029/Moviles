@@ -72,7 +72,6 @@ public class GameScene extends Scene {
         }
         LevelManager.getInstance().setCurrentSolution(mySol); //Guardamos la solucion de ete nivel
 
-
         //En caso de que estemos restaurando una partida
         if (world_ && actWorld == savedWorld && actLevel == savedLevel && savedTries.size() != 0) {
             this.gameBoard_ = new Board(lev_.getSolutionColors(), LevelManager.getInstance().getTotalTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_, world_);
@@ -85,6 +84,7 @@ public class GameScene extends Scene {
                     gameBoard_.putColor(gameTry[j]);
                 }
                 mySolution_.check(gameTry);
+
                 gameBoard_.setHints(mySolution_.getCorrectPos(i), mySolution_.getCorrectColor(i), i);
                 gameBoard_.nexTry();
             }
