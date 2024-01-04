@@ -23,8 +23,6 @@ public class SaveData {
 
     private static final String FILENAME = "saved_data.json";
     private static final String HASHFILE= "hash_data.json";
-    private static String codigo1_="GARBANZOS";
-    private static String codigo2="BUSTAMANTE";
     public static void saveGameData(int coins, String palette, int currWorld, int currLevel,
                                     String backgroundPath, String codePath) {
         JSONObject jsonObject = new JSONObject();
@@ -89,10 +87,7 @@ public class SaveData {
             fileOutputStream.close();
 
             //Vamos a generar el hash
-            String primerHash= codigo1_+jsonString;
-            String hashJSON= NDKManager.generateHash(primerHash);
-            String segundoHash= codigo2+hashJSON;
-            String finalHash=NDKManager.generateHash(segundoHash);
+            String finalHash=NDKManager.generateHashHMAC(jsonString);
 
             //Lo guardamos en otro archivo
             FileOutputStream hashOutputStream = GameManager.getInstance().getIEngine().getFileManager().getFileOutputStream(HASHFILE,true);
@@ -118,10 +113,7 @@ public class SaveData {
 
             //Aqui volvemos a hacer el hash
             //Vamos a generar el hash
-            String primerHash= codigo1_+jsonString;
-            String hashJSON= NDKManager.generateHash(primerHash);
-            String segundoHash= codigo2+hashJSON;
-            String finalHash=NDKManager.generateHash(segundoHash);
+            String finalHash=NDKManager.generateHashHMAC(jsonString);
 
             //Leer el archivo de hash
             FileInputStream hashInputStream =GameManager.getInstance().getIEngine().getFileManager().getFileInputStream(HASHFILE);

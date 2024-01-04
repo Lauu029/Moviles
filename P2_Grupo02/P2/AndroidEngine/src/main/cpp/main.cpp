@@ -9,7 +9,9 @@ using namespace picosha2;
 
 extern "C"
 JNIEXPORT jstring JNICALL
+
 Java_com_example_androidengine_NDKManager_generateHash(JNIEnv *env, jclass clazz, jstring data) {
+
     jboolean isCopy;
     const char *convertedValue = env->GetStringUTFChars(data, &isCopy);
 
@@ -20,4 +22,25 @@ Java_com_example_androidengine_NDKManager_generateHash(JNIEnv *env, jclass clazz
     env->ReleaseStringUTFChars(data,convertedValue);
 
     return env->NewStringUTF(hex_str.c_str());
+}
+
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_com_example_androidengine_NDKManager_generateHashHMAC(JNIEnv *env, jclass clazz,
+                                                           jstring data) {
+
+    //jstring codigo2= (jstring) "BUSTAMANTE";
+    const char *convertedData = env->GetStringUTFChars(data, nullptr);
+    const char *codigo1 = "GARBANZOS";
+
+    // Concatenar las dos cadenas
+    string concatenatedData = string(codigo1) + convertedData;
+
+    jstring firstHash=Java_com_example_androidengine_NDKManager_generateHash(env, clazz, env->NewStringUTF(concatenatedData.c_str()));
+    const char *convertedData2= env->GetStringUTFChars(firstHash, nullptr);
+    const char *codigo2 = "BUSTAMANTE";
+
+    string concatenatedData2 = string(codigo2) + convertedData2;
+    return Java_com_example_androidengine_NDKManager_generateHash(env, clazz, env->NewStringUTF(concatenatedData2.c_str()));
+
 }
