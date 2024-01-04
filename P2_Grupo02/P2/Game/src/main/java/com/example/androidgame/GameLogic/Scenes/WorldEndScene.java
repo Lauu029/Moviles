@@ -28,7 +28,7 @@ public class WorldEndScene extends EndScene {
             GameManager.getInstance().addCoins(10);
             WinButtons();}
         else GameOver();
-        iEngine_.getMobile().assignRewardPrice(new RewardedAddBehaviour());
+        iEngine_.getMobile().assignRewardPrice(new RewardedAddBehaviour(true));
     }
 
     void GameOver() {
@@ -38,17 +38,19 @@ public class WorldEndScene extends EndScene {
         Button moreTriesButton_ = new Button("+2 intentos", font2_, AssetsManager.getInstance().getButtonColor(),
                 AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor(),
                 180, 60, 15, this.width_ / 2 - (180 / 2), this.height_ / 2 - 100,
-                myButtonSound_, new ButtonClickListener() {
+                myButtonSound_,null
+        );
+        moreTriesButton_.setAction(new ButtonClickListener() {
             @Override
             public void onClick() {
                 WorldGameScene gs = (WorldGameScene) SceneManager.getInstance().getScene(SceneNames.WORLD_SCENE.ordinal());
-                LevelManager.getInstance().setTries(tries);
                 gs.addTriesToBoard(2);
-
                 iEngine_.getMobile().LoadRewardedAd();
-                waitingForReward_=true;
+                waitingForReward_ = true;
+                moreTriesButton_.changeActive(false);
             }
         });
+        addGameObject(moreTriesButton_);
         addGameObject(moreTriesButton_);
 
         Button retryButton = new Button("Volver a intentar", font1_, AssetsManager.getInstance().getButtonColor(),

@@ -122,7 +122,7 @@ public class EndScene extends Scene {
         }
 
 
-        RewardedAddBehaviour rewardedAddBehaviour = new RewardedAddBehaviour();
+        RewardedAddBehaviour rewardedAddBehaviour = new RewardedAddBehaviour(false);
         iEngine_.getMobile().assignRewardPrice(rewardedAddBehaviour);
         tematica_ = AssetsManager.getInstance().getCirleTheme(false);
         if (tematica_.getName() != "DEFAULT") {
