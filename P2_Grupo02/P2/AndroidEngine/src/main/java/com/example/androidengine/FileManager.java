@@ -112,20 +112,6 @@ public class FileManager {
         return fileStreamsMap;
     }
 
-
-    public OutputStream getOutputStream(String f,boolean privateMode) {
-        OutputStream fOutput_;
-        try {
-            if(privateMode)
-            {
-                fOutput_ = myContext_.openFileOutput(f,myContext_.MODE_PRIVATE);
-            }
-            else fOutput_ = new FileOutputStream(f);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        return fOutput_;
-    }
     public FileOutputStream getFileOutputStream(String f,boolean privateMode) {
         FileOutputStream fOutput_=null;
         try {
