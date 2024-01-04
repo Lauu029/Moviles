@@ -10,6 +10,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 import java.util.Arrays;
 import java.util.TreeMap;
@@ -34,6 +36,17 @@ public class FileManager {
         }
 
 
+        return fInput_;
+    }
+    public FileInputStream getFileInputStream(String f) {
+        FileInputStream fInput_=null;
+        try {
+            myContext_.openFileInput(f);
+
+        } catch (IOException e) {
+
+            throw new RuntimeException(e);
+        }
         return fInput_;
     }
     //te devuelve un array de las carpetas que hay dentro de una carpeta
@@ -106,6 +119,19 @@ public class FileManager {
             if(privateMode)
             {
                 fOutput_ = myContext_.openFileOutput(f,myContext_.MODE_PRIVATE);
+            }
+            else fOutput_ = new FileOutputStream(f);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return fOutput_;
+    }
+    public FileOutputStream getFileOutputStream(String f,boolean privateMode) {
+        FileOutputStream fOutput_=null;
+        try {
+            if(privateMode)
+            {
+                fOutput_ =myContext_.openFileOutput(f, Context.MODE_PRIVATE);
             }
             else fOutput_ = new FileOutputStream(f);
         } catch (FileNotFoundException e) {

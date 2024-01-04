@@ -16,8 +16,6 @@ import org.json.JSONObject;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -85,7 +83,7 @@ public class SaveData {
             jsonObject.put("solution",solArray);
 
             String jsonString = jsonObject.toString();
-            OutputStream fileOutputStream =GameManager.getInstance().getIEngine().getFileManager().getOutputStream(FILENAME,true);
+            FileOutputStream fileOutputStream =GameManager.getInstance().getIEngine().getFileManager().getFileOutputStream(FILENAME,true);
             //context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
             fileOutputStream.write(jsonString.getBytes());
             fileOutputStream.close();
@@ -97,7 +95,7 @@ public class SaveData {
             String finalHash=NDKManager.generateHash(segundoHash);
 
             //Lo guardamos en otro archivo
-            OutputStream hashOutputStream = GameManager.getInstance().getIEngine().getFileManager().getOutputStream(HASHFILE,true);
+            FileOutputStream hashOutputStream = GameManager.getInstance().getIEngine().getFileManager().getFileOutputStream(HASHFILE,true);
             hashOutputStream.write(finalHash.getBytes());
             hashOutputStream.close();
 
@@ -108,7 +106,7 @@ public class SaveData {
 
     public static void loadGameData() {
         try {
-            InputStream fileInputStream =GameManager.getInstance().getIEngine().getFileManager().getInputStream(FILENAME);
+            FileInputStream fileInputStream =GameManager.getInstance().getIEngine().getFileManager().getFileInputStream(FILENAME);
 
             int size = fileInputStream.available();
             byte[] buffer = new byte[size];
@@ -126,7 +124,7 @@ public class SaveData {
             String finalHash=NDKManager.generateHash(segundoHash);
 
             //Leer el archivo de hash
-            InputStream hashInputStream =GameManager.getInstance().getIEngine().getFileManager().getInputStream(HASHFILE);
+            FileInputStream hashInputStream =GameManager.getInstance().getIEngine().getFileManager().getFileInputStream(HASHFILE);
             int sizeHash = hashInputStream.available();
             byte[] bufferHash = new byte[sizeHash];
             hashInputStream.read(bufferHash);
