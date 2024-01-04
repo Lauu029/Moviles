@@ -1,0 +1,13 @@
+(todos estos cambios están igual que en la práctica 2)
+Se ha creado la clase gametry que se encarga de gestionar cada intento de cada partida(está igual que en la práctica 2), la clase board tiene guardados los
+objetos "gametry" y se encarga de actualizarlos cuando es necesario.
+Se ha cambiado la forma de crear/cambiar de escenas, ahora están en un array y solo se crean escenas nuevas si son de tipo game o endgame. Se guardan en un array.
+Añadida clase SceneManager.
+Todas las escenas heredan de la clase Scene que implementa Iscene.
+Se han reorganizado las clases de la lógica en carpetas.
+Se ha refactorizado graphics para no dar acceso a la lógica a todos los métodos.
+Se ha cambiado la forma de gestionar los botones para que al crearlos se indique cual es su acción al presionarlos. 
+Cambios en la gestión de input (iguales que la p2)
+Cambios en los sonidos (recupera el sonido más antiguo usado si se han acabado los sonidos de la pool)
+Cambiados los textos para que tenga el mismo comportamiento tanto en pc como en Android.
+Se ha alineado el ojo con el círculo de salir del nivel.
