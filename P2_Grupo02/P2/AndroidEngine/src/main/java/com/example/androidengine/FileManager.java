@@ -44,8 +44,7 @@ public class FileManager {
             fInput_=myContext_.openFileInput(f);
 
         } catch (IOException e) {
-
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
         }
         return fInput_;
     }
