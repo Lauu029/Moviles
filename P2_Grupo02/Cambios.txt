@@ -1,0 +1,9 @@
+Creación de una escena de juego de mundo (WorldGameScene) que implementa las escenas de juego de nivel diferenciandolas de las escenas de juego rápido
+Cambio en Graphics para que compruebe si la imagen es null en el método drawImage
+Cambio del texto que se veía blanco al principio (cambio de asignación en la variable textColor de assetmanager)
+Quitado mundo vacío
+Cambios en la clase solución (método setsolution)
+Cambio del nombre de botón de nuevas pistas y desactivación la primera vez que lo pulsas(para que no cargue dos veces el anuncio)
+Cambio en savedata para que no dependa de la plataforma (creación del método getFileOutputStream en fileManager y getFileInputStream y eliminado metodo getOutputStream)
+Refactorizado HMAC para evitar llamarlo dos veces( creado método generateHashHMAC)
+Creada una variable en shop que guarda el número total de tiendas

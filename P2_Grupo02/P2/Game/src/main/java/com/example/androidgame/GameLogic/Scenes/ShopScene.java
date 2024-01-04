@@ -45,7 +45,7 @@ public class ShopScene extends Scene {
     public ShopScene() {
         super();
     }
-
+    private int NSHOPS= 3;
     @Override
     public void init() {
         myArrowSound_ = iEngine_.getAudio().newSound("arrowButton.wav");
@@ -56,7 +56,7 @@ public class ShopScene extends Scene {
         rectangleColor = AssetsManager.getInstance().getButtonColor();
         fontColor = AssetsManager.getInstance().getTextColor();
         gameObjects_.add(noneButton_);
-        totalShopItems_ = (ArrayList<ShopItem>[]) new ArrayList[3];
+        totalShopItems_ = (ArrayList<ShopItem>[]) new ArrayList[NSHOPS];
         InputStream file = iEngine_.getFileManager().getInputStream("Shop/Shops.json");
         shopConfig = readShopConfig(file);
         initializeNudeButtonFunctions();
@@ -80,9 +80,9 @@ public class ShopScene extends Scene {
                     Log.d("MainActivity", "id= " + id_ + " pointer: " + i);
                     totalShopItems_[id_].get(i).changeActive(false);
                 }
-                if (id_ == 0) id_ = 2;
+                if (id_ == 0) id_ = NSHOPS-1;
                 else
-                    id_ = (id_ - 1) % 3;
+                    id_ = (id_ - 1) % NSHOPS;
                 noneButton_.setAction(nullButtonFunctions[id_]);
                 if (!itemsLoaded_[id_]) {
                     getShopTypeData(textShops_[id_]);
@@ -101,7 +101,7 @@ public class ShopScene extends Scene {
                 for (int i = 0; i < totalShopItems_[id_].size(); i++) {
                     totalShopItems_[id_].get(i).changeActive(false);
                 }
-                id_ = (id_ + 1) % 3;
+                id_ = (id_ + 1) % NSHOPS;
                 noneButton_.setAction(nullButtonFunctions[id_]);
                 if (!itemsLoaded_[id_]) {
                     getShopTypeData(textShops_[id_]);
@@ -227,7 +227,7 @@ public class ShopScene extends Scene {
                     xPos += 130;
                     shopItems_.add(item);
                     addGameObject(item);
-                    step = (step + 1) % 3;
+                    step = (step + 1) % NSHOPS;
                     if (step == 0) {
                         yPos = yPos * 2 + 20;
                         xPos = 25;
@@ -242,7 +242,7 @@ public class ShopScene extends Scene {
     }
 
     private void initializeNudeButtonFunctions() {
-        nullButtonFunctions = new ButtonClickListener[3];
+        nullButtonFunctions = new ButtonClickListener[NSHOPS];
         nullButtonFunctions[0] = new ButtonClickListener() {
             @Override
             public void onClick() {
