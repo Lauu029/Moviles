@@ -106,7 +106,8 @@ public class Engine implements Runnable {
                 //Update de la escena
                 this.myScene_.update(elapsedTime);
                 //Renderizado de la escena
-                myGraphics_.prepareFrame();
+                if (myGraphics_ != null)
+                    myGraphics_.prepareFrame();
                 myScene_.render();
                 myGraphics_.endFrame();
             }
