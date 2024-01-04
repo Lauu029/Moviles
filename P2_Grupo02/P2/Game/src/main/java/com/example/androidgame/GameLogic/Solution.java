@@ -23,9 +23,13 @@ public class Solution {
 
         sol_=sol;
         for (int i = 0; i < solutionSize_; i++) {
-            Map<Integer, Boolean> s = new HashMap<>();
-            s.put(i, false);
-            solution.put(sol[i], s);
+            if (solution.containsKey(sol[i]))
+                solution.get(sol[i]).put(i, false);
+            else {
+                Map<Integer, Boolean> s = new HashMap<>();
+                s.put(i, false);
+                solution.put(sol[i], s);
+            }
         }
     }
     public void createSolution(Boolean repeat, int colorGame, int posibleColor, int maxTries) {
