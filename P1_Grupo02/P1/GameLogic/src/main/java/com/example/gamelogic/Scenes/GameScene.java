@@ -50,6 +50,7 @@ public class GameScene extends Scene {
         if(isSavedGame_)
         {
             System.out.println("El juego esta guardado");
+            gm_.setFinalSolution(gm_.getSavedSolution_());
             mySolution_.setSolution(gm_.getSavedSolution_());
         }else
         {
@@ -70,6 +71,8 @@ public class GameScene extends Scene {
                 {
                     this.gameBoard_.putColor(savedMat[i][j]);
                 }
+                mySolution_.check(savedMat[i]);
+                this.gameBoard_.setNewHints(mySolution_.getCorrectPos(i),mySolution_.getCorrectColor(i));
                 this.gameBoard_.nexTry();
             }
         }
