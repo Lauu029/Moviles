@@ -4,6 +4,7 @@ import com.example.engine.IEngine;
 import com.example.engine.IFont;
 import com.example.engine.ISound;
 import com.example.gamelogic.Board;
+import com.example.gamelogic.Buttons.Button;
 import com.example.gamelogic.Buttons.ButtonClickListener;
 import com.example.gamelogic.Buttons.ButtonColorBlind;
 import com.example.gamelogic.Buttons.ButtonImage;
@@ -23,17 +24,32 @@ public class GameScene extends Scene {
     private Difficulty lev_;
     private GameManager gm_;
     private ISound myCrossSound_;
+    private Button cheatButton_;
+    private int timesPressed;
     public GameScene() {
         super();
     }
+    private double timeSinceFirst;
+    boolean canCheat,hasCheated,finishedCheating;
     //Inicializa los botones, el tablero y la solución
     @Override
     public void init() {
+        canCheat=true;
+        hasCheated=false;
+        timesPressed=0;
+        finishedCheating=false;
         this.font_ = iEngine_.getGraphics().newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
         this.gm_ = GameManager.getInstance_();
         this.lev_ = this.gm_.getLevel();
         mySolution_ = new Solution();
         mySolution_.createSolution(lev_.isRepeat(), lev_.getSolutionColors(), lev_.getPosibleColors(), lev_.getTries());
+
+        int [] print=mySolution_.getSol();
+        for (int i=0; i<print.length; i++){
+            System.out.println(print[i]);
+        }
+
+        gm_.setFinalSolution(mySolution_.getSol());
         this.gameBoard_ = new Board( lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_);
         addGameObject(gameBoard_);
         gm_.setBoard_(this.gameBoard_);
@@ -59,6 +75,38 @@ public class GameScene extends Scene {
             }
         });
         this.addGameObject(exitLevel_);
+        this.cheatButton_ = new Button("Cheat",font_, 0XFFFB839B
+                , 100, 50, 35, this.width_-100, this.height_-150, buttonSound, new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                timesPressed++;
+
+                if(timeSinceFirst<=1)
+                {
+                    System.out.println("Puede pulsar aun");
+                    if(timesPressed>=3)
+                    {
+                        System.out.println("Cheat");
+                        canCheat=true;
+                        cheat();
+                        timeSinceFirst=0.0;
+                        timesPressed=0;
+                    }
+                    else{
+                        canCheat=false;
+                    }
+                }
+                else
+                {
+                    System.out.println("Ya no puede pulsar");
+                    canCheat=false;
+                    timeSinceFirst=0.0;
+                    timesPressed=0;
+                }
+            }
+        });
+
+        addGameObject(cheatButton_);
     }
 
     @Override
@@ -74,6 +122,10 @@ public class GameScene extends Scene {
      * ni se ha acabado crea nuevas pistas en la clase tablero y avanza al siguiente intento*/
     @Override
     public void update(double time) {
+        if(timesPressed>=1)
+        {
+            timeSinceFirst+=time;
+        }
         int[] tempSol = gm_.getLevelSolution();
         int i = 0;
         boolean isComplete = true;
@@ -86,6 +138,7 @@ public class GameScene extends Scene {
 
             mySolution_.check(tempSol);
             int try_ = this.gameBoard_.getAcutalTry_();
+
             if (mySolution_.getCorrectPos(try_) == this.lev_.getSolutionColors()) {
                 ChangeEndScene(true, try_);
 
@@ -98,10 +151,36 @@ public class GameScene extends Scene {
                 gameBoard_.nexTry();
             }
         }
+        if(hasCheated && isComplete)
+        {
+            finishedCheating=true;
+        }
+
         super.update(time);
     }
     protected void ChangeEndScene(boolean win, int try_) {
             EndScene end = new EndScene(win, mySolution_.getSol(), try_);
             SceneManager.getInstance().addScene(end, SceneNames.FINAL.ordinal());
+    }
+    void cheat() {
+
+        int[] tempSol = gm_.getLevelSolution();
+        int j = 0;
+        boolean empty = true;
+        while (j < tempSol.length && empty) {
+            if (tempSol[j] != -1)
+                empty = false;
+            j++;
+        }
+        if(empty && (canCheat && finishedCheating || canCheat&&!hasCheated))
+        {
+            gm_.resetLevelSolution();
+            int[] finalSolution = this.mySolution_.getSol();
+            for (int i = 0; i < finalSolution.length - 1; i++) {
+                gameBoard_.putColor(finalSolution[i]);
+            }
+            hasCheated=true;
+            finishedCheating=false;
+        }
     }
 }

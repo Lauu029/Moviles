@@ -13,6 +13,7 @@ public class GameManager {
     private Difficulty levelDificulty_;
     private Board board_;
     private int[] levelSolution_;
+    private int[] finalSolution_;
     private boolean daltonics_;
 
     private GameManager() {
@@ -94,4 +95,11 @@ public class GameManager {
     public boolean getDaltonic(){
         return this.daltonics_;
     }
+    public void setFinalSolution(int [] finalSol){
+        finalSolution_=finalSol;
+    }
+    public int[] getFinalSolution(){
+        return finalSolution_;
+    }
+
 }
