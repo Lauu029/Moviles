@@ -6,7 +6,7 @@ import com.example.gamelogic.Scenes.Scene;
 import com.example.gamelogic.Scenes.SceneNames;
 
 public class SceneManager {
-    private Scene[] sceneList_ = {null, null, null, null, null, null, null, null};
+    private Scene[] sceneList_ = {null, null, null, null, null, null, null, null,null};
     // Unique instance of the class
     private static SceneManager instance;
     private IEngine myEngine_;

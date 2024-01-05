@@ -69,7 +69,7 @@ public class GameScene extends Scene {
                 myCrossSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                SceneManager.getInstance().setScene(SceneNames.DIFFICULTY.ordinal());
+                SceneManager.getInstance().addScene(new SaveScene(),SceneNames.SAVE.ordinal());
             }
         });
         this.addGameObject(exitLevel_);
