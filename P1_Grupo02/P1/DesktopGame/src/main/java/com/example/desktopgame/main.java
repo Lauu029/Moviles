@@ -2,10 +2,12 @@ package com.example.desktopgame;
 
 
 import com.example.desktopengine.EngineDesktop;
+import com.example.desktopengine.FileDesktop;
 import com.example.gamelogic.Managers.GameManager;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 
 import javax.swing.JFrame;
 
@@ -22,7 +24,8 @@ public class main {
 
 
         EngineDesktop IEngineDesktop = new EngineDesktop(myView_);
-        GameManager.init(IEngineDesktop,400,600);
+        FileDesktop IFileDesktop= new FileDesktop();
+        GameManager.init(IEngineDesktop,IFileDesktop,400,600);
         IEngineDesktop.resume();
     }
 

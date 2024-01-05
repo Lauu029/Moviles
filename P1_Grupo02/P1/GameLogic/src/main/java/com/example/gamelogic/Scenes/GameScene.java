@@ -1,6 +1,7 @@
 package com.example.gamelogic.Scenes;
 
 import com.example.engine.IEngine;
+import com.example.engine.IFile;
 import com.example.engine.IFont;
 import com.example.engine.ISound;
 import com.example.gamelogic.Board;
@@ -23,6 +24,7 @@ public class GameScene extends Scene {
     private ButtonColorBlind buttonColorBlind_;
     private Board gameBoard_;
     private IFont font_;
+    private IFile filePath;
     private Difficulty lev_;
     private GameManager gm_;
     private ISound myCrossSound_;

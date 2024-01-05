@@ -1,6 +1,7 @@
 package com.example.gamelogic.Managers;
 
 import com.example.engine.IEngine;
+import com.example.engine.IFile;
 import com.example.engine.IScene;
 import com.example.gamelogic.Board;
 import com.example.gamelogic.Circles.TryCircle;
@@ -15,6 +16,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class GameManager {
+    private String savePath;
     private static GameManager instance_;
     private IEngine myEngine_;
     private IScene actualScene_;
@@ -39,13 +41,14 @@ public class GameManager {
     }
 
 
-    public static int init(IEngine engine, int width, int height) {
+    public static int init(IEngine engine, IFile file, int width, int height) {
         instance_ = new GameManager();
         instance_.myEngine_ = engine;
         instance_.width_ = width;
         instance_.height_ = height;
         instance_.daltonics_ = false;
         instance_.isSaved=false;
+        instance_.savePath=file.getPath();
         SceneManager.init();
         return 1;
     }
@@ -163,7 +166,7 @@ public class GameManager {
         }
         System.out.print("] ");
         try {
-            FileWriter fileWriter = new FileWriter("Assets/Saved/saved_game.txt");
+            FileWriter fileWriter = new FileWriter(savePath+"saved_game.txt");
 
             BufferedWriter buff = new BufferedWriter(fileWriter);
 
@@ -196,14 +199,14 @@ public class GameManager {
     public void readSavedFile(){
         try
         {
-            File f= new File("Assets/Saved/saved_game.txt");
+            File f= new File(savePath+"saved_game.txt");
             if(f.exists()&& f.length()==0)
             {
                 isSaved=false;
                 return;
             }
             isSaved=true;
-            FileReader fileReader = new FileReader("Assets/Saved/saved_game.txt");
+            FileReader fileReader = new FileReader(savePath+"saved_game.txt");
             BufferedReader buffReader = new BufferedReader(fileReader);
 
             String line=buffReader.readLine();
