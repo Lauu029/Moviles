@@ -16,6 +16,8 @@ import com.example.gamelogic.Solution;
 
 import java.util.ArrayList;
 
+import jdk.internal.net.http.common.Log;
+
 public class GameScene extends Scene {
     private Solution mySolution_;
     private ButtonColorBlind buttonColorBlind_;
@@ -40,18 +42,37 @@ public class GameScene extends Scene {
         this.font_ = iEngine_.getGraphics().newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
         this.gm_ = GameManager.getInstance_();
         this.lev_ = this.gm_.getLevel();
+
+        gm_.readSavedFile();
+        isSavedGame_=gm_.isSaved();
+
         mySolution_ = new Solution();
-        mySolution_.createSolution(lev_.isRepeat(), lev_.getSolutionColors(), lev_.getPosibleColors(), lev_.getTries());
-
-        int [] print=mySolution_.getSol();
-        for (int i=0; i<print.length; i++){
-            System.out.println(print[i]);
+        if(isSavedGame_)
+        {
+            System.out.println("El juego esta guardado");
+            mySolution_.setSolution(gm_.getSavedSolution_());
+        }else
+        {
+            System.out.println("El juego no esta guardado");
+            mySolution_.createSolution(lev_.isRepeat(), lev_.getSolutionColors(), lev_.getPosibleColors(), lev_.getTries());
+            gm_.setFinalSolution(mySolution_.getSol());
         }
-
-        gm_.setFinalSolution(mySolution_.getSol());
         this.gameBoard_ = new Board( lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_);
+
         addGameObject(gameBoard_);
         gm_.setBoard_(this.gameBoard_);
+        if(isSavedGame_)
+        {
+            int [][] savedMat=gm_.getSavedMatrix();
+            for(int i=0; i<savedMat.length; i++)
+            {
+                for(int j=0; j<savedMat[0].length; j++)
+                {
+                    this.gameBoard_.putColor(savedMat[i][j]);
+                }
+                this.gameBoard_.nexTry();
+            }
+        }
         ISound buttonSound= GameManager.getInstance_().getIEngine().getAudio().newSound("daltonicsButton.wav");
         this.buttonColorBlind_ =new ButtonColorBlind("eye_open.png","eye_closed.png",
                 40, 40, this.width_ - 45, 0,buttonSound, new ButtonClickListener() {
@@ -103,7 +124,7 @@ public class GameScene extends Scene {
         });
 
         addGameObject(cheatButton_);
-        gm_.readSavedFile();
+
     }
 
     @Override

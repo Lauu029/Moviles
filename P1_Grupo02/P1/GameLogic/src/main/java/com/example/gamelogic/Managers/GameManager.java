@@ -29,6 +29,7 @@ public class GameManager {
     private Board savedBoard_;
     private int savedTries;
     private int [][] savedMatrix;
+    boolean isSaved;
     private GameManager() {
         // Constructor privado
     }
@@ -44,6 +45,7 @@ public class GameManager {
         instance_.width_ = width;
         instance_.height_ = height;
         instance_.daltonics_ = false;
+        instance_.isSaved=false;
         SceneManager.init();
         return 1;
     }
@@ -52,7 +54,7 @@ public class GameManager {
         this.actualScene_ = scene;
         myEngine_.setScene(scene);
     }
-
+    public boolean isSaved(){return isSaved;}
     public int getwidth() {
         return width_;
     }
@@ -111,8 +113,12 @@ public class GameManager {
     public void setFinalSolution(int [] finalSol){
         finalSolution_=finalSol;
     }
+    public int[][] getSavedMatrix(){return  savedMatrix;}
     public int[] getFinalSolution(){
         return finalSolution_;
+    }
+    public int[] getSavedSolution_(){
+        return savedSolution_;
     }
     public void saveGameProgress() throws IOException {
         int [] savedSolution= finalSolution_;
@@ -190,6 +196,13 @@ public class GameManager {
     public void readSavedFile(){
         try
         {
+            File f= new File("Assets/saved_game.txt");
+            if(f.exists()&& f.length()==0)
+            {
+                isSaved=false;
+                return;
+            }
+            isSaved=true;
             FileReader fileReader = new FileReader("Assets/saved_game.txt");
             BufferedReader buffReader = new BufferedReader(fileReader);
 
