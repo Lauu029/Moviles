@@ -30,14 +30,12 @@ public class GameScene extends Scene {
         super();
     }
     private double timeSinceFirst;
-    boolean canCheat,hasCheated,finishedCheating;
+    boolean canCheat;
     //Inicializa los botones, el tablero y la solución
     @Override
     public void init() {
         canCheat=true;
-        hasCheated=false;
         timesPressed=0;
-        finishedCheating=false;
         this.font_ = iEngine_.getGraphics().newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
         this.gm_ = GameManager.getInstance_();
         this.lev_ = this.gm_.getLevel();
@@ -151,11 +149,6 @@ public class GameScene extends Scene {
                 gameBoard_.nexTry();
             }
         }
-        if(hasCheated && isComplete)
-        {
-            finishedCheating=true;
-        }
-
         super.update(time);
     }
     protected void ChangeEndScene(boolean win, int try_) {
@@ -172,15 +165,13 @@ public class GameScene extends Scene {
                 empty = false;
             j++;
         }
-        if(empty && (canCheat && finishedCheating || canCheat&&!hasCheated))
+        if(empty && canCheat)
         {
             gm_.resetLevelSolution();
             int[] finalSolution = this.mySolution_.getSol();
             for (int i = 0; i < finalSolution.length - 1; i++) {
                 gameBoard_.putColor(finalSolution[i]);
             }
-            hasCheated=true;
-            finishedCheating=false;
         }
     }
 }
