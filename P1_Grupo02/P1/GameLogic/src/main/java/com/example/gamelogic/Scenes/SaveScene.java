@@ -7,8 +7,10 @@ import com.example.engine.ISound;
 import com.example.gamelogic.Buttons.Button;
 import com.example.gamelogic.Buttons.ButtonClickListener;
 import com.example.gamelogic.IGameObject;
+import com.example.gamelogic.Managers.GameManager;
 import com.example.gamelogic.Managers.SceneManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class SaveScene extends Scene{
@@ -31,7 +33,9 @@ public class SaveScene extends Scene{
                 , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2-100, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                
+                try{
+                GameManager.getInstance_().saveGameProgress();
+                }catch (IOException e){}
             }
         });
         this.exitButton_ = new Button("No", font_, 0XFFFB839B

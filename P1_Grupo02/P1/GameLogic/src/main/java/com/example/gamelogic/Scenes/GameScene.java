@@ -31,6 +31,7 @@ public class GameScene extends Scene {
     }
     private double timeSinceFirst;
     boolean canCheat;
+    boolean isSavedGame_;
     //Inicializa los botones, el tablero y la solución
     @Override
     public void init() {
@@ -69,6 +70,7 @@ public class GameScene extends Scene {
                 myCrossSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
+                gm_.setSavedBoard(gameBoard_);
                 SceneManager.getInstance().addScene(new SaveScene(),SceneNames.SAVE.ordinal());
             }
         });
@@ -78,13 +80,10 @@ public class GameScene extends Scene {
             @Override
             public void onClick() {
                 timesPressed++;
-
                 if(timeSinceFirst<=1)
                 {
-                    System.out.println("Puede pulsar aun");
                     if(timesPressed>=3)
                     {
-                        System.out.println("Cheat");
                         canCheat=true;
                         cheat();
                         timeSinceFirst=0.0;
@@ -96,7 +95,6 @@ public class GameScene extends Scene {
                 }
                 else
                 {
-                    System.out.println("Ya no puede pulsar");
                     canCheat=false;
                     timeSinceFirst=0.0;
                     timesPressed=0;
@@ -105,6 +103,7 @@ public class GameScene extends Scene {
         });
 
         addGameObject(cheatButton_);
+        gm_.readSavedFile();
     }
 
     @Override

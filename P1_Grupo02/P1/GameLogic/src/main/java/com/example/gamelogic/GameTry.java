@@ -171,4 +171,7 @@ public class GameTry extends GameObject {
             try_.setDaltonics_(dalt);
         }
     }
+    public TryCircle [] getTries(){
+        return tries_;
+    }
 }

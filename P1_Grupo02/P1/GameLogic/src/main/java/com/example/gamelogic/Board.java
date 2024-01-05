@@ -165,6 +165,9 @@ public class Board extends GameObject {
     public int getTotalTries(){
         return gameTries_.size();
     }
+    public int getLastUsedTry(){
+        return acutalTry_;
+    }
     public void changeDaltonics(boolean dalt) {
         for (GameTry g: gameTries_) {
             g.changeDaltonics(dalt);
@@ -172,5 +175,8 @@ public class Board extends GameObject {
         for(SolutionCircle s : usableColorsCircles_){
             s.setDaltonics_(dalt);
         }
+    }
+    public int getTrySize(){
+        return gameTries_.size();
     }
 }

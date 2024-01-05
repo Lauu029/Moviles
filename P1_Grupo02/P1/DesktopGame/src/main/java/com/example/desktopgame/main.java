@@ -4,6 +4,9 @@ package com.example.desktopgame;
 import com.example.desktopengine.EngineDesktop;
 import com.example.gamelogic.Managers.GameManager;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JFrame;
 
 public class main {

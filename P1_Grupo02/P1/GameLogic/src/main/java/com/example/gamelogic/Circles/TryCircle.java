@@ -62,4 +62,5 @@ public class TryCircle extends Circle {
     public boolean hasColor() {
         return this.hasColor_;
     }
+    public int getId(){return idColor_;}
 }
