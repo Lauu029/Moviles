@@ -2,6 +2,7 @@ package com.example.androidgame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.SurfaceView;
@@ -9,6 +10,7 @@ import android.view.SurfaceView;
 
 
 import com.example.androidengine.EngineAndroid;
+import com.example.androidengine.FileAndroid;
 import com.example.gamelogic.Managers.GameManager;
 import com.example.gamelogic.Scenes.MenuScene;
 
@@ -24,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
         this.renderView_ = new SurfaceView(this);
         setContentView(this.renderView_);
         IEngineAndroid_ = new EngineAndroid(renderView_);
-        GameManager.init(IEngineAndroid_,400,600);
+        FileAndroid f= new FileAndroid(this);
+        GameManager.init(IEngineAndroid_,f,400,600);
         IEngineAndroid_.resume();
     }
 

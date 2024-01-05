@@ -1,5 +1,7 @@
-Intentos: 2
+Intentos: 4
 Solucion:  2 1 0 3
 Matriz: 
  0 1 2 3
  1 1 2 2
+ 0 1 1 1
+ 2 1 0 2

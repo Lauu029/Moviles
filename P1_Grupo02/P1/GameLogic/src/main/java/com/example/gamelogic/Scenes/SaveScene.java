@@ -35,6 +35,8 @@ public class SaveScene extends Scene{
             public void onClick() {
                 try{
                 GameManager.getInstance_().saveGameProgress();
+                SceneManager.getInstance().setScene(SceneNames.MENU.ordinal());
+
                 }catch (IOException e){}
             }
         });

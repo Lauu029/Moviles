@@ -166,7 +166,7 @@ public class GameManager {
         }
         System.out.print("] ");
         try {
-            FileWriter fileWriter = new FileWriter(savePath+"saved_game.txt");
+            FileWriter fileWriter = new FileWriter(savePath);
 
             BufferedWriter buff = new BufferedWriter(fileWriter);
 
@@ -199,14 +199,14 @@ public class GameManager {
     public void readSavedFile(){
         try
         {
-            File f= new File(savePath+"saved_game.txt");
+            File f= new File(savePath);
             if(f.exists()&& f.length()==0)
             {
                 isSaved=false;
                 return;
             }
             isSaved=true;
-            FileReader fileReader = new FileReader(savePath+"saved_game.txt");
+            FileReader fileReader = new FileReader(savePath);
             BufferedReader buffReader = new BufferedReader(fileReader);
 
             String line=buffReader.readLine();
