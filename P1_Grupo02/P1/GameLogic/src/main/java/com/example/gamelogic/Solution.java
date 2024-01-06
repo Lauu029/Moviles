@@ -1,5 +1,7 @@
 package com.example.gamelogic;
 
+import com.example.gamelogic.Managers.GameManager;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -82,6 +84,7 @@ public class Solution {
                     System.out.println("Posicion correcta: "+temp[0]);
                     System.out.println("Id correcto: "+temp[1]);
                     posAndColor_.add(temp);
+                    GameManager.getInstance_().putColorSolution(i,possible_sol[i]);
                     //si ha sido combrobado antes es porque hay una casila con el mismo color pero no en la misma pos
                     solution.get(possible_sol[i]).put(i, true);
                 } else {

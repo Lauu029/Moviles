@@ -24,7 +24,7 @@ public class MenuScene extends Scene {
     private IFont fontButton_;
     private IImage myIcon_;
     private ISound myButtonSound_;
-    private boolean nuevoAspecto,mute;
+    private boolean nuevoAspecto,mute,modoFacil;
     public MenuScene() {
         super();
     }
@@ -35,6 +35,7 @@ public class MenuScene extends Scene {
         IGraphics graph = iEngine_.getGraphics();
         nuevoAspecto=false;
         mute=false;
+        modoFacil=false;
         this.font_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 40, true, true);
         graph.setFont(this.font_);
 
@@ -62,6 +63,8 @@ public class MenuScene extends Scene {
                 System.out.println("Pulsado texto menu: "+nuevoAspecto);
                 mute=!mute;
                 iEngine_.getAudio().muteAllSound(mute);
+                modoFacil=!modoFacil;
+                GameManager.getInstance_().setModoFacil(modoFacil);
             }
         });
         addGameObject(tituloButton);
