@@ -7,6 +7,7 @@ import javax.sound.sampled.Clip;
 
 public class AudioDesktop implements IAudio {
     // Implementacion de la interfaz IAudio
+    boolean isMuted=false;
     private Clip usedClip_; //Clip que va a ser usado
     // Metodo para crear un nuevo objeto de sonido (SoundDesktop)
     @Override
@@ -19,16 +20,19 @@ public class AudioDesktop implements IAudio {
     @Override
     public void playSound(ISound sound, int loop) {
 
-        SoundDesktop dSound = (SoundDesktop) sound; // Convierte el objeto ISound a SoundDesktop
-        usedClip_ = dSound.getFreeClip(); // Obtiene el clip de sonido asociado
+        if(!isMuted)
+        {
+            SoundDesktop dSound = (SoundDesktop) sound; // Convierte el objeto ISound a SoundDesktop
+            usedClip_ = dSound.getFreeClip(); // Obtiene el clip de sonido asociado
 
-        if (usedClip_ != null && usedClip_.isOpen()) { // Verifica si el clip no es nulo
+            if (usedClip_ != null && usedClip_.isOpen()) { // Verifica si el clip no es nulo
 
-            if (loop != 0) {
-                usedClip_.loop(Clip.LOOP_CONTINUOUSLY); // Reproduce en bucle si loop no es igual a 0
+                if (loop != 0) {
+                    usedClip_.loop(Clip.LOOP_CONTINUOUSLY); // Reproduce en bucle si loop no es igual a 0
+                }
+                usedClip_.setFramePosition(0); // Establece la posicion de reproduccion al principio
+                usedClip_.start(); // Inicia la reproducción del sonido
             }
-            usedClip_.setFramePosition(0); // Establece la posicion de reproduccion al principio
-            usedClip_.start(); // Inicia la reproducción del sonido
         }
     }
 
@@ -42,5 +46,10 @@ public class AudioDesktop implements IAudio {
             usedClip_.close(); // Cierra el clip para liberar recursos
             dSound.returnClip(usedClip_);
         }
+    }
+
+    @Override
+    public void muteAllSound(boolean mute) {
+        isMuted=mute;
     }
 }
