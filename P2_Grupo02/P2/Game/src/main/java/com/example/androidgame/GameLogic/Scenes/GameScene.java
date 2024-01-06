@@ -210,6 +210,7 @@ public class GameScene extends Scene {
                     if(GameManager.getInstance().getNivelesContrarreloj()==GameManager.getInstance().getPasadosContrarreloj())
                     {
                         Log.d("CONTRARRELOJ","Has pasado todos los nveles en contrarreloj!");
+                        gm_.setBestTimeInSecs(gm_.getContrarrelojDuration()-gm_.getTimeLeft());
                         SceneManager.getInstance().setScene(SceneNames.MENU.ordinal());
                     }
                     else //Le pasamos a un nivel mas dificil

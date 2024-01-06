@@ -26,6 +26,7 @@ public class GameManager {
     private float minutosContrarreloj_;
     private float timeLeft_;
     private float totalTimePassed_;
+    private float bestTimeInSecs_;
     private GameManager() {
         // Constructor privado
     }
@@ -49,6 +50,8 @@ public class GameManager {
         instance_.minutosContrarreloj_=3;
         instance_.totalTimePassed_=0;
         instance_.timeLeft_= instance_.minutosContrarreloj_*60;
+        instance_.bestTimeInSecs_= instance_.timeLeft_;
+
         AssetsManager.init( instance_.myEngine_);
         SceneManager.init();
         LevelManager.init();
@@ -148,5 +151,9 @@ public class GameManager {
         timeLeft_-=totalTimePassed_;
         return timeLeft_;
     }
+    public void setBestTimeInSecs(float best){bestTimeInSecs_=best;}
+    public float getBestTimeInSecs(){return bestTimeInSecs_;}
+
+    public float getContrarrelojDuration(){return minutosContrarreloj_*60;}
 
 }

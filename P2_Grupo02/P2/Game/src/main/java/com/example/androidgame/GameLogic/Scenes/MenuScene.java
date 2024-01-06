@@ -106,6 +106,21 @@ public class MenuScene extends Scene {
         this.iEngine_.getGraphics().setFont(font_);
         iEngine_.getGraphics().drawText("MasterMind", width_ / 2, 30);
         iEngine_.getGraphics().drawImage(myIcon_, this.width_ / 2 - 80 / 2, this.height_ / 2 - 220, 80, 80);
+
+        float timeRecord=GameManager.getInstance().getBestTimeInSecs();
+        float seconds=timeRecord%60;
+        float minutes=(timeRecord%3600)/60;
+        if(minutes<10)
+        {
+            iEngine_.getGraphics().drawText("0"+Math.round(minutes),width_ / 2-30, 170 );
+        }
+        else iEngine_.getGraphics().drawText(String.valueOf(Math.round(minutes)), width_ / 2-30, 170);
+        iEngine_.getGraphics().drawText(":",width_ / 2, 170 );
+        if(seconds<10)
+        {
+            iEngine_.getGraphics().drawText("0"+Math.round(seconds), width_ / 2+30, 170);
+        }
+        else iEngine_.getGraphics().drawText(String.valueOf(Math.round(seconds)),width_ / 2+30, 170 );
     }
     @Override
     public void update(double time) {
