@@ -158,5 +158,12 @@ public class GameManager {
     public float getBestTimeInSecs(){return bestTimeInSecs_;}
 
     public float getContrarrelojDuration(){return minutosContrarreloj_*60;}
-
+    public void reset()
+    {
+        pasadosContrarreloj_=0;
+        nivelesContrarreloj_=4;
+        minutosContrarreloj_=3;
+        totalTimePassed_=0;
+        timeLeft_= minutosContrarreloj_*60;
+    }
 }

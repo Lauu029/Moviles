@@ -36,6 +36,7 @@ public class MenuScene extends Scene {
     private Sound myButtonSound_,maracaSound_;
     private float lastShakeTime=0.0f;
     private  final float SHAKE_THRESHOLD = 10f;
+    float timeRecord;
     SensorHandler sensor_;
     public MenuScene() {
         super();
@@ -86,6 +87,7 @@ public class MenuScene extends Scene {
             public void onClick() {
                 sensor_.onResume();
                 GameManager.getInstance().setContrarreloj(true);
+                GameManager.getInstance().reset();
                 Log.d("CONTRARRELOJ","Has entrado en modo contrarreloj");
                 GameInit gameInit = new GameInit(LevelDifficulty.FACIL);
                 GameManager.getInstance().setLevel(gameInit.getDifficulty());
@@ -98,6 +100,7 @@ public class MenuScene extends Scene {
         addGameObject(contrarrelojButton_);
 
         myIcon_ = graph.newImage("logo.png");
+
     }
     @Override
     public void render() {
@@ -107,7 +110,8 @@ public class MenuScene extends Scene {
         iEngine_.getGraphics().drawText("MasterMind", width_ / 2, 30);
         iEngine_.getGraphics().drawImage(myIcon_, this.width_ / 2 - 80 / 2, this.height_ / 2 - 220, 80, 80);
 
-        float timeRecord=GameManager.getInstance().getBestTimeInSecs();
+        timeRecord=GameManager.getInstance().getBestTimeInSecs();
+
         float seconds=timeRecord%60;
         float minutes=(timeRecord%3600)/60;
         if(minutes<10)
