@@ -151,7 +151,10 @@ public class GameManager {
         timeLeft_-=totalTimePassed_;
         return timeLeft_;
     }
-    public void setBestTimeInSecs(float best){bestTimeInSecs_=best;}
+    public void setBestTimeInSecs(float best){
+        if(best<bestTimeInSecs_)
+            bestTimeInSecs_=best;
+    }
     public float getBestTimeInSecs(){return bestTimeInSecs_;}
 
     public float getContrarrelojDuration(){return minutosContrarreloj_*60;}
