@@ -1,6 +1,8 @@
 package com.example.androidgame.GameLogic.Scenes;
 
 
+import android.util.Log;
+
 import com.example.androidengine.Font;
 import com.example.androidengine.Graphics;
 import com.example.androidengine.Image;
@@ -9,8 +11,10 @@ import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
 import com.example.androidgame.GameLogic.Buttons.Button;
 import com.example.androidgame.GameLogic.Buttons.ButtonClickListener;
+import com.example.androidgame.GameLogic.GameInit;
 import com.example.androidgame.GameLogic.GameObject;
 import com.example.androidgame.GameLogic.GameTry;
+import com.example.androidgame.GameLogic.LevelDifficulty;
 import com.example.androidgame.GameLogic.Managers.AssetsManager;
 import com.example.androidgame.GameLogic.Managers.GameManager;
 import com.example.androidgame.GameLogic.Managers.SceneManager;
@@ -23,7 +27,7 @@ import com.example.androidgame.GameLogic.Scenes.WorldScene;
 import java.util.ArrayList;
 
 public class MenuScene extends Scene {
-    private Button playButton_;
+    private Button playButton_,contrarrelojButton_;
     private Button storeButton_;
     private Button mundoButton_;
     private Font font_;
@@ -75,9 +79,24 @@ public class MenuScene extends Scene {
                 SceneManager.getInstance().addScene(new ShopScene(), SceneNames.SHOP.ordinal());
             }
         });
+        this.contrarrelojButton_ = new Button("Contrarreloj", fontButton_, AssetsManager.getInstance().getButtonColor(),
+                AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getLineColor(),
+                150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 60, myButtonSound_, new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                sensor_.onResume();
+                GameManager.getInstance().setContrarreloj(true);
+                Log.d("CONTRARRELOJ","Has entrado en modo contrarreloj");
+                GameInit gameInit = new GameInit(LevelDifficulty.FACIL);
+                GameManager.getInstance().setLevel(gameInit.getDifficulty());
+                SceneManager.getInstance().addScene(new GameScene(), SceneNames.GAME.ordinal());
+            }
+        });
         addGameObject(playButton_);
         addGameObject(storeButton_);
         addGameObject(mundoButton_);
+        addGameObject(contrarrelojButton_);
+
         myIcon_ = graph.newImage("logo.png");
     }
     @Override

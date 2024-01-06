@@ -11,6 +11,8 @@ import com.example.androidgame.GameLogic.Buttons.ButtonClickListener;
 import com.example.androidgame.GameLogic.Buttons.ButtonColorBlind;
 import com.example.androidgame.GameLogic.Buttons.ButtonImage;
 import com.example.androidgame.GameLogic.Difficulty;
+import com.example.androidgame.GameLogic.GameInit;
+import com.example.androidgame.GameLogic.LevelDifficulty;
 import com.example.androidgame.GameLogic.Managers.GameManager;
 import com.example.androidgame.GameLogic.GameObject;
 import com.example.androidgame.GameLogic.Managers.LevelManager;
@@ -31,7 +33,13 @@ public class GameScene extends Scene {
     protected int yIni;
     protected int yFin;
     protected int upTryPos_, downTryPos_, upRenderPos_, downRenderPos_;
-
+    protected boolean contrarreloj_;
+    protected float timerInicial_;
+    protected float levelDuration_;
+    protected LevelDifficulty[] diff = {LevelDifficulty.FACIL,
+            LevelDifficulty.MEDIO,
+            LevelDifficulty.DIFICIL,
+            LevelDifficulty.IMPOSIBLE};
     public GameScene() {
         super();
     }
@@ -42,13 +50,18 @@ public class GameScene extends Scene {
         this.gm_ = GameManager.getInstance();
         this.lev_ = this.gm_.getLevel();
         mySolution_ = new Solution();
-
+        contrarreloj_=GameManager.getInstance().getContrarreloj();
         createSolution();
         createGameBoard();
 
         addGameObject(gameBoard_);
         gm_.setBoard(this.gameBoard_);
-
+        if(contrarreloj_)
+        {
+            timerInicial_=gm_.getTimeLeft();
+            levelDuration_=0.0f;
+            Log.d("CONTRARRELOJ","TIEMPO PARA ESTE NIVEL EN SEGUNDOS: "+timerInicial_);
+        }
 
         Sound buttonSound = GameManager.getInstance().getIEngine().getAudio().newSound("colorBlindButton.wav");
         this.buttonColorBlind_ = new ButtonColorBlind("eye_open.png", "eye_closed.png",
@@ -68,7 +81,8 @@ public class GameScene extends Scene {
                 myCrossSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                changeSceneExit();
+                if(!contrarreloj_)
+                    changeSceneExit();
             }
         });
         this.addGameObject(exitLevel_);
@@ -79,6 +93,14 @@ public class GameScene extends Scene {
     }
     protected void createSolution(){
         mySolution_.createSolution(lev_.isRepeat(), lev_.getSolutionColors(), lev_.getPosibleColors(), lev_.getTries());
+        Log.d("CONTRARRELOJ","La solucion es: ");
+        int [] tempSol=mySolution_.getSol();
+        for(int i=0; i<tempSol.length; i++)
+        {
+            int n=tempSol[i];
+            String s= String.valueOf(n);
+            Log.d("CONTRARRELOJ",s);
+        }
     }
     protected void createGameBoard(){
         this.gameBoard_ = new Board(lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_, false);
@@ -89,6 +111,12 @@ public class GameScene extends Scene {
      * si se ha ganado el juego o perdido por superar el numero de  intentos y si no se ha ganado
      * ni se ha acabado crea nuevas pistas en la clase tablero y avanza al siguiente intento*/
     public void update(double time) {
+        levelDuration_+=time;
+        if(timerInicial_<=0)
+        {
+            Log.d("CONTRARRELOJ","No queda mas tiempo: "+levelDuration_);
+            SceneManager.getInstance().setScene(SceneNames.MENU.ordinal());
+        }
         if (scroll) {
             int speed = yFin - yIni;
             if ((gameBoard_.getUpTryPos() < upRenderPos_ && speed > 0) || (gameBoard_.getDownTryPos() > downRenderPos_ && speed < 0)) {
@@ -141,18 +169,63 @@ public class GameScene extends Scene {
 
             mySolution_.check(tempSol);
             int try_ = this.gameBoard_.getAcutalTry_();
-            if (mySolution_.getCorrectPos(try_) == this.lev_.getSolutionColors()) {
-                ChangeEndScene(true, try_);
-                LevelManager.getInstance().clearTries();
+            if(!contrarreloj_)
+            {
+                if (mySolution_.getCorrectPos(try_) == this.lev_.getSolutionColors()) {
+                    ChangeEndScene(true, try_);
+                    LevelManager.getInstance().clearTries();
 
-            } else if (try_ == gameBoard_.getTotalTries() - 1) {
-                gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
-                ChangeEndScene(false, try_);
+                } else if (try_ == gameBoard_.getTotalTries() - 1) {
+                    gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
+                    ChangeEndScene(false, try_);
 
-            } else {
-                gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
-                gameBoard_.nexTry();
+                } else {
+                    gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
+                    gameBoard_.nexTry();
+                }
             }
+            else
+            {
+                if (mySolution_.getCorrectPos(try_) == this.lev_.getSolutionColors()) {
+                    LevelManager.getInstance().clearTries();
+                    GameManager.getInstance().passedContrarreloj();
+                    if(GameManager.getInstance().getNivelesContrarreloj()==GameManager.getInstance().getPasadosContrarreloj())
+                    {
+                        Log.d("CONTRARRELOJ","Has pasado todos los nveles en contrarreloj!");
+                        SceneManager.getInstance().setScene(SceneNames.MENU.ordinal());
+                    }
+                    else //Le pasamos a un nivel mas dificil
+                    {
+                        Log.d("CONTRARRELOJ","Pasas a un nivel mas dificil");
+                        Log.d("CONTRARRELOJ","Has tardado: "+levelDuration_+" segundos");
+
+                        gm_.setTimePassedInLevel(levelDuration_);
+                        GameInit gameInit = new GameInit(diff[GameManager.getInstance().getPasadosContrarreloj()]);
+                        GameManager.getInstance().setLevel(gameInit.getDifficulty());
+                        SceneManager.getInstance().addScene(new GameScene(), SceneNames.GAME.ordinal());
+
+
+                    }
+
+                } else if (try_ == gameBoard_.getTotalTries() - 1) {
+                    gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
+                    //Le pasamos a un nivel de la misma dificultad
+                    LevelManager.getInstance().clearTries();
+                    Log.d("CONTRARRELOJ","Pasas a un nivel igual de dificil");
+                    Log.d("CONTRARRELOJ","Has tardado: "+levelDuration_+" segundos");
+
+                    gm_.setTimePassedInLevel(levelDuration_);
+
+                    GameInit gameInit = new GameInit(diff[GameManager.getInstance().getPasadosContrarreloj()]);
+                    GameManager.getInstance().setLevel(gameInit.getDifficulty());
+                    SceneManager.getInstance().addScene(new GameScene(), SceneNames.GAME.ordinal());
+
+                } else {
+                    gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
+                    gameBoard_.nexTry();
+                }
+            }
+
         }
     }
 }

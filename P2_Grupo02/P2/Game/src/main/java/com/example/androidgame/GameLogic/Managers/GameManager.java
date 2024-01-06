@@ -20,7 +20,12 @@ public class GameManager {
     private boolean daltonics_;
     private int coins_;
     private Image backgroundImage_;
-
+    private boolean contrarreloj_;
+    private int pasadosContrarreloj_;
+    private int nivelesContrarreloj_;
+    private float minutosContrarreloj_;
+    private float timeLeft_;
+    private float totalTimePassed_;
     private GameManager() {
         // Constructor privado
     }
@@ -38,6 +43,12 @@ public class GameManager {
         instance_.daltonics_ = false;
         instance_.coins_ = 100;
         instance_.backgroundImage_ = null;
+        instance_.contrarreloj_=false;
+        instance_.pasadosContrarreloj_=0;
+        instance_.nivelesContrarreloj_=4;
+        instance_.minutosContrarreloj_=3;
+        instance_.totalTimePassed_=0;
+        instance_.timeLeft_= instance_.minutosContrarreloj_*60;
         AssetsManager.init( instance_.myEngine_);
         SceneManager.init();
         LevelManager.init();
@@ -127,4 +138,15 @@ public class GameManager {
         // Actualiza las variables del GameManager según los datos cargados
         coins_ = getCoins();
     }
+    public void setContrarreloj(boolean active){contrarreloj_=active;}
+    public boolean getContrarreloj(){return contrarreloj_;}
+    public int getPasadosContrarreloj(){return pasadosContrarreloj_;}
+    public void passedContrarreloj(){pasadosContrarreloj_++;}
+    public int getNivelesContrarreloj(){ return  nivelesContrarreloj_;}
+    public void setTimePassedInLevel(float t){totalTimePassed_=t;}
+    public float getTimeLeft(){
+        timeLeft_-=totalTimePassed_;
+        return timeLeft_;
+    }
+
 }
