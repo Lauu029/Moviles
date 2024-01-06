@@ -154,19 +154,14 @@ public class GameTry extends GameObject {
     }
 
     public void putNewColor(int id, int color) {
-
         for (int i = 0; i < tries_.length; i++) {
-                if (!tries_[i].hasColor()) {
-                    tries_[i].setColor(color, id);
-                    GameManager.getInstance_().putColorSolution(i, id);
-                    break;
-                }
+            if (!tries_[i].hasColor()) {
+                tries_[i].setColor(color, id);
+                System.out.println("Color id: "+color);
+                GameManager.getInstance_().putColorSolution(i, id);
+                break;
+            }
         }
-    }
-    public void putCheatColor(int pos, int logicColor,int renderColor) {
-        tries_[pos].setColor(renderColor,pos);
-        GameManager.getInstance_().putColorSolutionCheat(pos, logicColor);
-
     }
     public int getButtonPosition(){
         return translateY_+height_;

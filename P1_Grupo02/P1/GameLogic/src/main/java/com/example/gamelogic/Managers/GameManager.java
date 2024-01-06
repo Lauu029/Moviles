@@ -14,7 +14,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class GameManager {
     private String savePath;
@@ -33,8 +32,7 @@ public class GameManager {
     private int savedTries;
     private int [][] savedMatrix;
     boolean isSaved;
-    boolean nuevoAspecto_,modoFacil_;
-    ArrayList<int[]> correctPos_=new ArrayList<>();
+    boolean nuevoAspecto_;
     private GameManager() {
         // Constructor privado
     }
@@ -53,12 +51,10 @@ public class GameManager {
         instance_.isSaved=false;
         instance_.savePath=file.getPath();
         instance_.nuevoAspecto_=false;
-        instance_.modoFacil_=false;
         SceneManager.init();
         return 1;
     }
-    public void setModoFacil(boolean f){modoFacil_=f;}
-    public boolean getModoFacil(){return modoFacil_;}
+
     public void changeScene(IScene scene) {
         this.actualScene_ = scene;
         myEngine_.setScene(scene);
@@ -92,33 +88,21 @@ public class GameManager {
     public Difficulty getLevel() {
         return this.levelDificulty_;
     }
-    public void setCorrectPos(ArrayList<int[]>correct){correctPos_=correct;}
+
     public int[] getLevelSolution() {
         return this.levelSolution_;
     }
 
     public void resetLevelSolution() {
         for (int i = 0; i < levelSolution_.length; i++) {
-                this.levelSolution_[i] = -1;
-        }
-        if(modoFacil_)
-        {
-            for(int i=0; i<correctPos_.size(); i++)
-            {
-                int [] arr=correctPos_.get(i);
-                int pos=arr[0];
-                int id=arr[1];
-                levelSolution_[pos]=id;
-            }
+            this.levelSolution_[i] = -1;
         }
     }
 
     public void putColorSolution(int id, int color_id) {
         this.levelSolution_[id] = color_id;
     }
-    public void putColorSolutionCheat(int id, int color_id) {
-        this.levelSolution_[id] = color_id;
-    }
+
     public void changeDaltonicsMode() {
         this.daltonics_ = !this.daltonics_;
         this.board_.changeDaltonics(this.daltonics_);

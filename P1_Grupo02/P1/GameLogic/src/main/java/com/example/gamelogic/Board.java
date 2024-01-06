@@ -14,7 +14,7 @@ public class Board extends GameObject {
     private int codeColors_, usableColors_, tries_;
     private boolean canRepeat_;
     private boolean daltonics_;
-    private int acutalTry_,cheatTry_;
+    private int acutalTry_;
     private int limitUp, limitDown;
     //Lógica de espacio y dimensiones en la pantalla
     private int sceneWidth_, sceneHeight_;
@@ -38,7 +38,6 @@ public class Board extends GameObject {
         this.usableColors_ = usableColors;
         this.canRepeat_ = canRepeat_;
         this.acutalTry_ = 0;
-        this.cheatTry_=0;
         this.sceneWidth_ = scW;
         this.sceneHeight_ = scH;
         this.daltonics_ = false;
@@ -77,16 +76,9 @@ public class Board extends GameObject {
      * actualicen la información del intento actual de la partida*/
     public void nexTry() {
         acutalTry_++;
-        if(!GameManager.getInstance_().getModoFacil())
-            gm_.resetLevelSolution();
+        gm_.resetLevelSolution();
         for (int i = 0; i < this.tries_; i++) {
             gameTries_.get(i).setGameTry(acutalTry_);
-        }
-    }
-    public void nexTryCheat() {
-        cheatTry_++;
-        for (int i = 0; i < this.tries_; i++) {
-            gameTries_.get(i).setGameTry(cheatTry_);
         }
     }
     public void setActualTry(int num){acutalTry_=num;}
@@ -169,9 +161,7 @@ public class Board extends GameObject {
     public void putColor(int id) {
         gameTries_.get(acutalTry_).putNewColor(id, totalPossibleColors[id]);
     }
-    public void cheatColor(int idTry,int colorId) {
-        gameTries_.get(acutalTry_).putCheatColor(idTry,colorId, totalPossibleColors[colorId]);
-    }
+
     public int getTotalTries(){
         return gameTries_.size();
     }

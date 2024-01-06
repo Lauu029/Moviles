@@ -10,7 +10,6 @@ import com.example.gamelogic.Buttons.ButtonClickListener;
 import com.example.gamelogic.Buttons.ButtonColorBlind;
 import com.example.gamelogic.Buttons.ButtonImage;
 import com.example.gamelogic.Difficulty;
-import com.example.gamelogic.GameTry;
 import com.example.gamelogic.Managers.GameManager;
 import com.example.gamelogic.Managers.SceneManager;
 import com.example.gamelogic.GameObject;
@@ -169,21 +168,20 @@ public class GameScene extends Scene {
             mySolution_.check(tempSol);
             int try_ = this.gameBoard_.getAcutalTry_();
             ArrayList<int[]> posAndColor= mySolution_.getPosAndColor();
-            GameManager.getInstance_().setCorrectPos(posAndColor);
-            int leftTries=gameBoard_.getTotalTries()-try_;
-            for(int j=0; j<leftTries-1;j++)
+            for(int j=0; j<gameBoard_.getTotalTries()-try_;j++)
             {
-                gameBoard_.nexTryCheat();
                 for(int k=0; k<posAndColor.size();k++)
                 {
-                    gameBoard_.cheatColor(posAndColor.get(k)[0],posAndColor.get(k)[1]);
+                    gameBoard_.putColor(posAndColor.get(k)[1]);
                 }
+                gameBoard_.nexTry();
             }
-            //gameBoard_.setActualTry(gameBoard_.getTotalTries()-leftTries);
+            gameBoard_.setActualTry(try_);
+
             if (mySolution_.getCorrectPos(try_) == this.lev_.getSolutionColors()) {
                 ChangeEndScene(true, try_);
 
-            } else if (!GameManager.getInstance_().getModoFacil()&&try_ == gameBoard_.getTotalTries() - 1) {
+            } else if (try_ == gameBoard_.getTotalTries() - 1) {
                 gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
                 ChangeEndScene(false, try_);
 
