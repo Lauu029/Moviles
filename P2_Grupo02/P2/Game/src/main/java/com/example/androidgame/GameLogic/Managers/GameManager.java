@@ -1,8 +1,6 @@
 package com.example.androidgame.GameLogic.Managers;
 
 
-import android.util.Log;
-
 import com.example.androidengine.Engine;
 import com.example.androidengine.Image;
 import com.example.androidgame.GameLogic.Board;
@@ -118,7 +116,9 @@ public class GameManager {
                 LevelManager.getInstance().getPassedWorld(),
                 LevelManager.getInstance().getPassedLevel(),
                 AssetsManager.getInstance().getBackgroundPath(),
-                AssetsManager.getInstance().getCirleTheme(false).getPathBolas());
+                AssetsManager.getInstance().getCirleTheme(false).getPathBolas(),
+                SceneManager.getInstance().getIdActualScene(),
+                GameManager.getInstance().getLevel());
     }
 
     // Llamado al iniciar el juego para cargar el progreso del jugador

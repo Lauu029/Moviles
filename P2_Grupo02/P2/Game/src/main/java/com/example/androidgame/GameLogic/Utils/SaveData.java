@@ -3,9 +3,12 @@ package com.example.androidgame.GameLogic.Utils;
 import android.content.Context;
 
 import com.example.androidengine.NDKManager;
+import com.example.androidgame.GameLogic.Difficulty;
+import com.example.androidgame.GameLogic.LevelDifficulty;
 import com.example.androidgame.GameLogic.Managers.AssetsManager;
 import com.example.androidgame.GameLogic.Managers.GameManager;
 import com.example.androidgame.GameLogic.Managers.LevelManager;
+import com.example.androidgame.GameLogic.Managers.SceneManager;
 import com.example.androidgame.GameLogic.Managers.ShopManager;
 import com.example.androidgame.GameLogic.Theme;
 
@@ -25,7 +28,7 @@ public class SaveData {
     private static final String HASHFILE = "hash_data.json";
 
     public static void saveGameData(int coins, String palette, int currWorld, int currLevel,
-                                    String backgroundPath, String codePath) {
+                                    String backgroundPath, String codePath, int scene, Difficulty diff) {
         JSONObject jsonObject = new JSONObject();
 
         try {
@@ -35,6 +38,13 @@ public class SaveData {
             jsonObject.put("level", currLevel);
             jsonObject.put("background", backgroundPath);
             jsonObject.put("codes", codePath);
+            jsonObject.put("scene", scene);
+            JSONArray difficultyArray = new JSONArray();
+            difficultyArray.put(diff.isRepeat());
+            difficultyArray.put(diff.getTries());
+            difficultyArray.put(diff.getSolutionColors());
+            difficultyArray.put(diff.getPosibleColors());
+            jsonObject.put("Difficulty", difficultyArray);
             //Para registrar el map que contiene la informacion sobre los objetos comprados en la tienda
             JSONObject sectionItem = new JSONObject();
             JSONArray shopArray = new JSONArray();
@@ -116,8 +126,7 @@ public class SaveData {
 
             //Leer el archivo de hash
             FileInputStream hashInputStream = GameManager.getInstance().getIEngine().getFileManager().getFileInputStream(HASHFILE);
-            if(hashInputStream!=null)
-            {
+            if (hashInputStream != null) {
                 int sizeHash = hashInputStream.available();
                 byte[] bufferHash = new byte[sizeHash];
                 hashInputStream.read(bufferHash);
@@ -160,7 +169,6 @@ public class SaveData {
                     ShopManager.getInstance().changeItemState(typeId, itemId, false);
                 }
             }
-
             //Leemos la informacion acerca de la partida guardada
             int savedWorld = jsonObject.getInt("playingWorld");
             LevelManager.getInstance().setSavedWorld(savedWorld);
@@ -184,6 +192,15 @@ public class SaveData {
             }
             LevelManager.getInstance().setTries(currentTries);
 
+            JSONArray levelDifArray = jsonObject.getJSONArray("Difficulty");
+            Difficulty dif = new Difficulty();
+            dif.setRepeat(levelDifArray.getBoolean(0));
+            dif.setTries(levelDifArray.getInt(1));
+            dif.setSolutionColors(levelDifArray.getInt(2));
+            dif.setPosibleColors(levelDifArray.getInt(3));
+            GameManager.getInstance().setLevel(dif);
+            int savedScene = jsonObject.getInt("scene");
+            SceneManager.getInstance().setScene(savedScene);
             //Reestablecemos la solucion guardada
             JSONArray solArray = jsonObject.getJSONArray("solution");
             ArrayList<Integer> savedSolution = new ArrayList<>();

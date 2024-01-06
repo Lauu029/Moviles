@@ -93,7 +93,8 @@ public class WorldGameScene extends GameScene{
     @Override
     protected void changeSceneExit(){
         LevelManager.getInstance().clearTries();
-        SceneManager.getInstance().addScene(new WorldScene(), SceneNames.WORLD.ordinal());
+        SceneManager.getInstance().addScene(new SaveDataScene(true), SceneNames.SAVE_SCENE.ordinal());
+        //SceneManager.getInstance().addScene(new WorldScene(), SceneNames.WORLD.ordinal());
     }
     @Override
     protected void ChangeEndScene(boolean win, int try_) {

@@ -8,5 +8,6 @@ public enum SceneNames {
     FINAL,
     WORLD_FINAL,
     SHOP,
-    WORLD_SCENE
+    WORLD_SCENE,
+    SAVE_SCENE
 }
