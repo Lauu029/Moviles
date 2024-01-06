@@ -127,7 +127,25 @@ public class GameScene extends Scene {
         checkSolution();
         super.update(time);
     }
+    public void render(){
+        super.render();
 
+        float totalSecs=timerInicial_-levelDuration_;
+        float minutes = (totalSecs % 3600) / 60;
+        float seconds = totalSecs % 60;
+        if(minutes<10)
+        {
+            iEngine_.getGraphics().drawText("0"+Math.round(minutes), (width_ / 2)-10, height_/2-220);
+        }
+        else iEngine_.getGraphics().drawText(String.valueOf(Math.round(minutes)), (width_ / 2)-10, height_/2-220);
+        iEngine_.getGraphics().drawText(":", (width_ / 2), height_/2-220);
+        if(seconds<10)
+        {
+            iEngine_.getGraphics().drawText("0"+Math.round(seconds), (width_ / 2)+10, height_/2-220);
+        }
+        else iEngine_.getGraphics().drawText(String.valueOf(Math.round(seconds)), (width_ / 2)+10, height_/2-220);
+
+    }
     protected void ChangeEndScene(boolean win, int try_) {
 
         EndScene end = new EndScene(win, mySolution_.getSol(), try_);
