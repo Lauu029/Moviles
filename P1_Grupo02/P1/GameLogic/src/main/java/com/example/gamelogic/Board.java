@@ -81,7 +81,7 @@ public class Board extends GameObject {
             gameTries_.get(i).setGameTry(acutalTry_);
         }
     }
-
+    public void setActualTry(int num){acutalTry_=num;}
     //Coloca las pistas para el siguiente intento dependiendo de la cantidad de colores y posiciones correctas
     public void setNewHints(int correctPositions, int correctColors) {
         gameTries_.get(acutalTry_).setNewHints(correctPositions, correctColors);

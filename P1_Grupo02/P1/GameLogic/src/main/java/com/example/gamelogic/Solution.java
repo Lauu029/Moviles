@@ -13,7 +13,7 @@ public class Solution {
     private int actualTry_ = 0;
     private int correctPos_ = 0, correctColor_ = 0;
     private int solutionSize_;
-
+    private ArrayList<int[]> posAndColor_=new ArrayList<>(); //Guarda posicion y color (id) de los circulos que van siendo correctos
     private ArrayList<int[]> registeredSols_ = new ArrayList<>();
 
     public void setSolution (int []sol){
@@ -61,7 +61,7 @@ public class Solution {
             sol_[i] = color;
         }
     }
-
+    public ArrayList<int[]> getPosAndColor(){return posAndColor_;}
     public int[] getSol() {
         return sol_;
     }
@@ -76,6 +76,12 @@ public class Solution {
                 Map<Integer, Boolean> value = solution.get(possible_sol[i]);
                 if (value.containsKey(i)) {
                     correctPos_++;
+                    int [] temp= new int[2];
+                    temp[0]=i;
+                    temp[1]=possible_sol[i];
+                    System.out.println("Posicion correcta: "+temp[0]);
+                    System.out.println("Id correcto: "+temp[1]);
+                    posAndColor_.add(temp);
                     //si ha sido combrobado antes es porque hay una casila con el mismo color pero no en la misma pos
                     solution.get(possible_sol[i]).put(i, true);
                 } else {
