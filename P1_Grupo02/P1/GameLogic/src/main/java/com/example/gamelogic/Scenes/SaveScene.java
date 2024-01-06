@@ -33,11 +33,11 @@ public class SaveScene extends Scene{
                 , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2-100, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                try{
-                GameManager.getInstance_().saveGameProgress();
+                //try{
+                //GameManager.getInstance_().saveGameProgress();
                 SceneManager.getInstance().setScene(SceneNames.MENU.ordinal());
 
-                }catch (IOException e){}
+                //}catch (IOException e){}
             }
         });
         this.exitButton_ = new Button("No", font_, 0XFFFB839B

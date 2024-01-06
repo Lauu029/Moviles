@@ -52,8 +52,8 @@ public class MenuScene extends Scene {
 
         myIcon_ = graph.newImage("cerebro.png");
 
-        this.tituloButton = new ButtonText("MasterMind", fontButton_,0x00000000,
-                500, 150, (width_ / 2)-250, 50, myButtonSound_, new ButtonClickListener() {
+        this.tituloButton = new ButtonText("MasterMind", fontButton_,0XFF222222,
+                50, 50, (width_ / 2)-25, (height_/2)-200, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
                 nuevoAspecto=!nuevoAspecto;

@@ -45,7 +45,7 @@ public class GameScene extends Scene {
         this.gm_ = GameManager.getInstance_();
         this.lev_ = this.gm_.getLevel();
 
-        gm_.readSavedFile();
+        //gm_.readSavedFile();
         isSavedGame_=gm_.isSaved();
 
         mySolution_ = new Solution();
