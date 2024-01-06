@@ -105,8 +105,9 @@ public class EndScene extends Scene {
         int x = (width_ - totalCircleWidth) / 2;
         for (int i = 0; i < sol_.length; i++) {
             graph.setColor(totalPossibleColors_[sol_[i]]);
-            graph.drawCircle(x + i * (radius * 2 + offset) + radius, 150 + radius, radius);
-
+            if(!GameManager.getInstance_().getNuevoAspecto())
+                graph.drawCircle(x + i * (radius * 2 + offset) + radius, 150 + radius, radius);
+            else graph.fillRoundRectangle(x + i * (radius * 2 + offset) + radius, 150 + radius, radius,radius,0);
             if (GameManager.getInstance_().getDaltonic()) {
                 graph.setColor(0xFF000000);
                 graph.setFont(this.font1_);

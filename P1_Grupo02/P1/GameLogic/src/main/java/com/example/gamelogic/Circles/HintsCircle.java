@@ -27,10 +27,14 @@ public class HintsCircle extends Circle {
 
     public void render(IGraphics graph) {
         graph.setColor(this.color_);
-        graph.drawCircle(this.posX_, this.posY_+translateY_, this.radius_);
+        nuevoAspecto=gm.getNuevoAspecto();
+        if(!nuevoAspecto)
+            graph.drawCircle(this.posX_, this.posY_+translateY_, this.radius_);
+        else graph.fillRoundRectangle(this.posX_,this.posY_+translateY_,this.radius_,this.radius_,0);
         if (this.color_ == justRightColor) {
             graph.setColor(0xFF000000);
-            graph.drawRoundRectangle(this.posX_ - this.radius_, this.posY_ - this.radius_+translateY_,
+            if(!nuevoAspecto)
+                graph.drawRoundRectangle(this.posX_ - this.radius_, this.posY_ - this.radius_+translateY_,
                     this.radius_ * 2, this.radius_ * 2, 2 * this.radius_);
         }
     }

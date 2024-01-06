@@ -32,6 +32,7 @@ public class GameManager {
     private int savedTries;
     private int [][] savedMatrix;
     boolean isSaved;
+    boolean nuevoAspecto_;
     private GameManager() {
         // Constructor privado
     }
@@ -49,6 +50,7 @@ public class GameManager {
         instance_.daltonics_ = false;
         instance_.isSaved=false;
         instance_.savePath=file.getPath();
+        instance_.nuevoAspecto_=false;
         SceneManager.init();
         return 1;
     }
@@ -123,6 +125,8 @@ public class GameManager {
     public int[] getSavedSolution_(){
         return savedSolution_;
     }
+    public boolean getNuevoAspecto(){ return nuevoAspecto_;}
+    public void setNuevoAspecto(boolean b){nuevoAspecto_=b;}
     public void saveGameProgress() throws IOException {
         int [] savedSolution= finalSolution_;
         int numActualTry=savedBoard_.getLastUsedTry();

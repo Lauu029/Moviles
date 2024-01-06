@@ -22,11 +22,15 @@ public class TryCircle extends Circle {
 
     public void render(IGraphics graph) {
         graph.setColor(this.color_);
-        graph.drawCircle(this.posX_, this.posY_+translateY_, this.radius_);
+        nuevoAspecto=gm.getNuevoAspecto();
+        if(!nuevoAspecto)
+            graph.drawCircle(this.posX_, this.posY_+translateY_, this.radius_);
+        else graph.fillRoundRectangle(posX_-radius_/2,posY_+translateY_-radius_/2,radius_,radius_,0);
         if (!this.hasColor_) {
             graph.setColor(0Xff5c3947);
-            graph.drawCircle(this.posX_, this.posY_+translateY_, this.radius_ / 3);
-
+            if(!nuevoAspecto)
+                graph.drawCircle(this.posX_, this.posY_+translateY_, this.radius_ / 3);
+            else graph.fillRoundRectangle(posX_-((radius_/3)/2),posY_+translateY_-((radius_/3)/2),radius_/3,radius_/3,0);
         } else if (this.isDaltonics_) {
             graph.setColor(0xFF000000);
             graph.setFont(this.font_);

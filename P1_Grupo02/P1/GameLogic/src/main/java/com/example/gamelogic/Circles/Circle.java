@@ -21,7 +21,8 @@ public class Circle extends GameObject {
     protected int row_, gameTry_;
     protected boolean isDaltonics_;
     protected int translateY_=0;
-
+    protected boolean nuevoAspecto;
+    protected GameManager gm;
     public Circle(String t, IFont f, int r, int x, int y, int row_) {
         this.font_ = f;
         this.text_ = t;
@@ -30,7 +31,9 @@ public class Circle extends GameObject {
         this.posY_ = y;
         this.radius_ = r;
         this.row_ = row_;
-        this.isDaltonics_ = GameManager.getInstance_().getDaltonic();
+        gm=GameManager.getInstance_();
+        this.isDaltonics_ = gm.getDaltonic();
+
     }
 
     public void setColor_(int color_) {
@@ -50,7 +53,10 @@ public class Circle extends GameObject {
     @Override
     public void render(IGraphics graph) {
         graph.setColor(this.color_);
-        graph.drawCircle(this.posX_, this.posY_, this.radius_);
+        nuevoAspecto=gm.getNuevoAspecto();
+        if(!nuevoAspecto)
+            graph.drawCircle(this.posX_, this.posY_, this.radius_);
+        else graph.fillRoundRectangle(posX_,posY_,radius_,radius_,0);
         if (this.isDaltonics_) {
             graph.setColor(0xFF000000);
             graph.setFont(this.font_);

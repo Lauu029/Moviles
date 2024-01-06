@@ -103,7 +103,8 @@ public class GraphicsDesktop implements IGraphics {
     @Override
     public void drawImage(IImage iimage, int posX, int posY, int height, int widht) {
         ImageDesktop dimage=(ImageDesktop)iimage;
-        myGraphics2D_.drawImage(dimage.getImage_(),posX,posY,posX+widht,posY+height,0,0,dimage.getWidth(),dimage.getHeight(),null);
+        if(dimage!=null)
+            myGraphics2D_.drawImage(dimage.getImage_(),posX,posY,posX+widht,posY+height,0,0,dimage.getWidth(),dimage.getHeight(),null);
     }
     //Establece el color con el que se va a pintar
     @Override

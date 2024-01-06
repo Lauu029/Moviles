@@ -10,6 +10,7 @@ public class ImageDesktop implements IImage {
 
     // Constructor de la clase, recibe una instancia de Image como argumento
     ImageDesktop(Image image){
+
         this.image_ = image;  // Asigna la instancia de Image al atributo image_
     }
 
