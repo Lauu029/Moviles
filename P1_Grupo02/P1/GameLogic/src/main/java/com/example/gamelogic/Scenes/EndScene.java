@@ -69,7 +69,7 @@ public class EndScene extends Scene {
                         GameInit gameInit = new GameInit(GameManager.getInstance_().getLevel().getLevelDiff_());
                         GameManager.getInstance_().setLevel(gameInit.getDifficulty());
 
-                        SceneManager.getInstance().setScene(SceneNames.DIFFICULTY.ordinal());
+                        SceneManager.getInstance().addScene(new LevelScene(), SceneNames.LEVEL.ordinal());
                     }
                 });
 

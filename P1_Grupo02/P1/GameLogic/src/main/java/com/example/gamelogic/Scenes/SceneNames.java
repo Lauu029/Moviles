@@ -5,5 +5,6 @@ public enum SceneNames {
     LEVEL,
     DIFFICULTY,
     GAME,
-    FINAL
+    FINAL,
+    CONTINUE
 }

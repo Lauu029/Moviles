@@ -65,6 +65,9 @@ public class Circle extends GameObject {
     public void setIdColor_(int id) {
         this.idColor_ = id;
     }
+    public int getIdColor_() {
+        return this.idColor_ ;
+    }
 
     @Override
     public boolean handleInput(TouchEvent event) {

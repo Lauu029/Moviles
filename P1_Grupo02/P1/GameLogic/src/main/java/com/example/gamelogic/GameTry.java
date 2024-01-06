@@ -38,7 +38,9 @@ public class GameTry extends GameObject {
         fuente = GameManager.getInstance_().getIEngine().getGraphics().newFont("Hexenkoetel-qZRv1.ttf", height, false, false);
         solutionSize_ = solutionSize;
     }
-
+    public TryCircle[]getTries(){
+        return tries_;
+    }
     @Override
     public void init() {
         int offsetX = height_;

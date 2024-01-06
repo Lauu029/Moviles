@@ -10,10 +10,13 @@ import com.example.engine.TouchEvent;
 import com.example.gamelogic.Buttons.Button;
 import com.example.gamelogic.Buttons.ButtonClickListener;
 import com.example.gamelogic.Managers.GameManager;
+import com.example.gamelogic.Managers.SaveManager;
 import com.example.gamelogic.Managers.SceneManager;
 import com.example.gamelogic.IGameObject;
 
 import java.util.ArrayList;
+
+import sun.java2d.loops.DrawGlyphListAA;
 
 public class MenuScene extends Scene {
     private ArrayList<IGameObject> GameObjects_ = new ArrayList<>();
@@ -43,8 +46,17 @@ public class MenuScene extends Scene {
                 SceneManager.getInstance().addScene(new LevelScene(), SceneNames.DIFFICULTY.ordinal());
             }
         });
+        Button ButtonS = new Button("Continue", fontButton_, 0XFFFB839B
+                , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 90, myButtonSound_, new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                if(SaveManager.getInstance().isSaved())
+                SceneManager.getInstance().addScene(new ContinueScene(), SceneNames.CONTINUE.ordinal());
+            }
+        });
 
         addGameObject(playButton_);
+        addGameObject(ButtonS);
 
         myIcon_ = graph.newImage("cerebro.png");
 

@@ -31,6 +31,7 @@ public class GameManager {
         instance_.height_ = height;
         instance_.daltonics_ = false;
         SceneManager.init();
+        SaveManager.init();
         return 1;
     }
 

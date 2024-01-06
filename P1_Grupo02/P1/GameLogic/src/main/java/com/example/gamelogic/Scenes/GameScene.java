@@ -9,6 +9,7 @@ import com.example.gamelogic.Buttons.ButtonColorBlind;
 import com.example.gamelogic.Buttons.ButtonImage;
 import com.example.gamelogic.Difficulty;
 import com.example.gamelogic.Managers.GameManager;
+import com.example.gamelogic.Managers.SaveManager;
 import com.example.gamelogic.Managers.SceneManager;
 import com.example.gamelogic.GameObject;
 import com.example.gamelogic.Solution;
@@ -16,14 +17,14 @@ import com.example.gamelogic.Solution;
 import java.util.ArrayList;
 
 public class GameScene extends Scene {
-    private Solution mySolution_;
-    private ButtonColorBlind buttonColorBlind_;
-    private Board gameBoard_;
-    private IFont font_;
-    private Difficulty lev_;
-    private GameManager gm_;
-    private ISound myCrossSound_;
-    public GameScene() {
+    protected Solution mySolution_;
+    protected ButtonColorBlind buttonColorBlind_;
+    protected Board gameBoard_;
+    protected IFont font_;
+    protected Difficulty lev_;
+    protected GameManager gm_;
+    protected ISound myCrossSound_;
+    protected GameScene() {
         super();
     }
     //Inicializa los botones, el tablero y la solución
@@ -33,9 +34,14 @@ public class GameScene extends Scene {
         this.gm_ = GameManager.getInstance_();
         this.lev_ = this.gm_.getLevel();
         mySolution_ = new Solution();
-        mySolution_.createSolution(lev_.isRepeat(), lev_.getSolutionColors(), lev_.getPosibleColors(), lev_.getTries());
+
+            mySolution_.createSolution(lev_.isRepeat(), lev_.getSolutionColors(), lev_.getPosibleColors(), lev_.getTries());
+
+
         this.gameBoard_ = new Board( lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_);
         addGameObject(gameBoard_);
+
+
         gm_.setBoard_(this.gameBoard_);
         ISound buttonSound= GameManager.getInstance_().getIEngine().getAudio().newSound("daltonicsButton.wav");
         this.buttonColorBlind_ =new ButtonColorBlind("eye_open.png","eye_closed.png",
@@ -55,7 +61,16 @@ public class GameScene extends Scene {
                 myCrossSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
+
+                SaveManager.getInstance().setSolution(mySolution_.getSol());
+                SaveManager.getInstance().setmatrizJuego(gameBoard_.getBoard());
+                SaveManager.getInstance().setRepeat(lev_.isRepeat());
+                SaveManager.getInstance().setSolutionColors(lev_.getSolutionColors());
+                SaveManager.getInstance().setPosiblecolors(lev_.getPosibleColors());
+                SaveManager.getInstance().setTries(lev_.getTries());
+                SaveManager.getInstance().setSaved(true);
                 SceneManager.getInstance().setScene(SceneNames.DIFFICULTY.ordinal());
+
             }
         });
         this.addGameObject(exitLevel_);
