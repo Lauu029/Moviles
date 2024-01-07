@@ -62,6 +62,7 @@ public class MenuScene extends Scene {
                 System.out.println("Pulsado texto menu: "+nuevoAspecto);
                 mute=!mute;
                 iEngine_.getAudio().muteAllSound(mute);
+                GameManager.getInstance_().setEasyMode(true);
             }
         });
         addGameObject(tituloButton);

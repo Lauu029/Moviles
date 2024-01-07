@@ -1,5 +1,7 @@
 package com.example.gamelogic;
 
+import com.example.gamelogic.Managers.GameManager;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,7 +17,9 @@ public class Solution {
     private int solutionSize_;
 
     private ArrayList<int[]> registeredSols_ = new ArrayList<>();
+    private ArrayList<int[]> correctArray_ = new ArrayList<>();
 
+    public ArrayList<int[]> getCorrectArray(){return correctArray_;}
     public void setSolution (int []sol){
         solutionSize_=sol.length;
 
@@ -76,6 +80,11 @@ public class Solution {
                 Map<Integer, Boolean> value = solution.get(possible_sol[i]);
                 if (value.containsKey(i)) {
                     correctPos_++;
+                    int [] arr=new int[2];
+                    arr[0]=i;
+                    arr[1]=possible_sol[i];
+                    correctArray_.add(arr);
+                    GameManager.getInstance_().setAllCorrects(correctArray_);
                     //si ha sido combrobado antes es porque hay una casila con el mismo color pero no en la misma pos
                     solution.get(possible_sol[i]).put(i, true);
                 } else {

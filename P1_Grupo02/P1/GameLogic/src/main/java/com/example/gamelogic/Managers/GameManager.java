@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class GameManager {
     private String savePath;
@@ -33,6 +34,12 @@ public class GameManager {
     private int [][] savedMatrix;
     boolean isSaved;
     boolean nuevoAspecto_;
+    private ArrayList<int[]> allCorrects= new ArrayList<>();
+    boolean easyMode;
+    public boolean getEasyMode(){return easyMode;}
+    public  void setEasyMode(boolean m){easyMode=m;}
+    public ArrayList<int[]> getAllCorrects(){return allCorrects;}
+    public void setAllCorrects(ArrayList<int[]> c){allCorrects=c;}
     private GameManager() {
         // Constructor privado
     }
@@ -51,6 +58,7 @@ public class GameManager {
         instance_.isSaved=false;
         instance_.savePath=file.getPath();
         instance_.nuevoAspecto_=false;
+        instance_.easyMode=false;
         SceneManager.init();
         return 1;
     }
@@ -97,6 +105,24 @@ public class GameManager {
         for (int i = 0; i < levelSolution_.length; i++) {
             this.levelSolution_[i] = -1;
         }
+        if(easyMode)
+        {
+
+            for(int i=0; i<allCorrects.size();i++)
+            {
+                int [] elem=allCorrects.get(i);
+                int pos=elem[0];
+                int idColor=elem[1];
+                levelSolution_[pos]=idColor;
+
+            }
+            System.out.print("En el GameManager tengo guardadas las coluciones: ");
+            for(int j=0; j<levelSolution_.length; j++){
+                System.out.print(levelSolution_[j]);
+            }
+            System.out.println("");
+        }
+        System.out.println("");
     }
 
     public void putColorSolution(int id, int color_id) {

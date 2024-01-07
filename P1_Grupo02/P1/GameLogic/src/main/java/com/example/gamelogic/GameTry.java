@@ -163,6 +163,10 @@ public class GameTry extends GameObject {
             }
         }
     }
+    public void putNewColorEasy(int id, int logicColor, int renderColor)
+    {
+        tries_[id].setColor(renderColor,logicColor);
+    }
     public int getButtonPosition(){
         return translateY_+height_;
     }

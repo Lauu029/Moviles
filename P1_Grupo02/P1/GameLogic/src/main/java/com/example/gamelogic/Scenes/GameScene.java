@@ -54,11 +54,19 @@ public class GameScene extends Scene {
             System.out.println("El juego esta guardado");
             gm_.setFinalSolution(gm_.getSavedSolution_());
             mySolution_.setSolution(gm_.getSavedSolution_());
+
         }else
         {
             System.out.println("El juego no esta guardado");
             mySolution_.createSolution(lev_.isRepeat(), lev_.getSolutionColors(), lev_.getPosibleColors(), lev_.getTries());
             gm_.setFinalSolution(mySolution_.getSol());
+            System.out.print("Mi solucion es: ");
+            int [] temp=mySolution_.getSol();
+            for(int i=0; i<temp.length;i++)
+            {
+                System.out.print(temp[i]);
+            }
+            System.out.print("");
         }
         this.gameBoard_ = new Board( lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_);
 
@@ -160,6 +168,15 @@ public class GameScene extends Scene {
         if (isComplete) {
 
             mySolution_.check(tempSol);
+            if(GameManager.getInstance_().getEasyMode())
+            {
+                ArrayList<int[]> corrects=mySolution_.getCorrectArray();
+                for(int j=0; j<corrects.size(); j++)
+                {
+                    int[] arr =corrects.get(j);
+                    gameBoard_.setEasyTry(arr[0],arr[1]);
+                }
+            }
             int try_ = this.gameBoard_.getAcutalTry_();
 
             if (mySolution_.getCorrectPos(try_) == this.lev_.getSolutionColors()) {

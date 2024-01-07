@@ -89,6 +89,13 @@ public class Board extends GameObject {
     public void setHints(int correctPositions, int correctColors, int myTry) {
         gameTries_.get(myTry).setNewHints(correctPositions, correctColors);
     }
+    public void setEasyTry(int id,int color)
+    {
+        for(int i=0; i<getTotalTries()-acutalTry_; i++)
+        {
+            gameTries_.get(i).putNewColorEasy(id,color,totalPossibleColors[color]);
+        }
+    }
     public int getUpTryPos(){
         return upTryPos_;
     }
