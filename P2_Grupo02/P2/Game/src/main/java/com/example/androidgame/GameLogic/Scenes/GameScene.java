@@ -161,7 +161,6 @@ public class GameScene extends Scene {
                     if (correctPositions[j] != -1)
                         gameBoard_.forcePutColor(j, correctPositions[j]);
                 }
-                mySolution_.resetCorrectPositionsValues();
             }
         }
     }

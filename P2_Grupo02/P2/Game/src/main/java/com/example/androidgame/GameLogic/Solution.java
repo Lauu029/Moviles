@@ -74,11 +74,6 @@ public class Solution {
     public int[] getCorrectPositionsValues(){
         return correctPositionsValues;
     }
-    public void resetCorrectPositionsValues(){
-        for (int i = 0; i < correctPositionsValues.length; i++) {
-            correctPositionsValues[i]=-1;
-        }
-    }
     public void check(int[] possible_sol) {
         correctPos_ = 0;
         correctColor_ = 0;
