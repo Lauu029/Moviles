@@ -42,7 +42,7 @@ public class SceneManager {
 
     //Activa la escena que está en la posicion del array solicitada
     public void setScene(int idScene) {
-        if(sceneList_[idScene]!=null)
+
         myEngine_.setScene(sceneList_[idScene]);
 
     }

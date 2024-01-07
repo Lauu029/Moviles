@@ -53,8 +53,7 @@ public class EndScene extends Scene {
                 this.width_ / 2 - 150 / 2, this.height_ / 2 - 50, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                GameInit gameInit = new GameInit(GameManager.getInstance_().getLevel().getLevelDiff_());
-                GameManager.getInstance_().setLevel(gameInit.getDifficulty());
+               GameManager.getInstance_().resetLevelSolution();
                 IEngine engine_ = GameManager.getInstance_().getIEngine();
                 engine_.getAudio().playSound(myButtonSound_, 0);
                 SceneManager.getInstance().addScene(new GameScene(), SceneNames.GAME.ordinal());
@@ -66,10 +65,9 @@ public class EndScene extends Scene {
                 new ButtonClickListener() {
                     @Override
                     public void onClick() {
-                        GameInit gameInit = new GameInit(GameManager.getInstance_().getLevel().getLevelDiff_());
-                        GameManager.getInstance_().setLevel(gameInit.getDifficulty());
 
-                        SceneManager.getInstance().addScene(new LevelScene(), SceneNames.LEVEL.ordinal());
+
+                        SceneManager.getInstance().setScene(SceneNames.DIFFICULTY.ordinal());
                     }
                 });
 

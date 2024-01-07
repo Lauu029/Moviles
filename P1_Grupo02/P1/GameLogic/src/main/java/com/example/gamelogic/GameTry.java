@@ -164,6 +164,12 @@ public class GameTry extends GameObject {
             }
         }
     }
+    public void putNewColorPosition(int id, int color,int pos) {
+
+        tries_[pos].setColor(color, id);
+        GameManager.getInstance_().putColorSolution(pos, id);
+
+    }
     public int getButtonPosition(){
         return translateY_+height_;
     }

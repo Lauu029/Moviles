@@ -5,7 +5,14 @@ import com.example.gamelogic.Scenes.MenuScene;
 import com.example.gamelogic.Scenes.Scene;
 import com.example.gamelogic.Scenes.SceneNames;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
+
+import netscape.javascript.JSObject;
+
 
 public class SaveManager {
 
@@ -79,5 +86,13 @@ public class SaveManager {
 
     public void setPosiblecolors(int posiblecolors) {
         this.posiblecolors = posiblecolors;
+    }
+    void saveData(){
+
+
+
+    }
+    void ReadData(){
+        FileInputStream file= GameManager.getInstance_().getIEngine().getFileInputStream("saved.json");
     }
 }

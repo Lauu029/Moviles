@@ -7,6 +7,9 @@ import com.example.engine.IInput;
 import com.example.engine.IScene;
 import com.example.engine.TouchEvent;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
 import javax.swing.JFrame;
 
 public class EngineDesktop implements IEngine, Runnable {
@@ -128,6 +131,17 @@ public class EngineDesktop implements IEngine, Runnable {
     @Override
     public IAudio getAudio() {
         return this.myAudio_; // Devuelve la clase de audio
+    }
+
+    @Override
+    public FileInputStream getFileInputStream(String s) {
+
+        return null;
+    }
+
+    @Override
+    public FileOutputStream getFileOutputStream(String s) {
+        return null;
     }
 
     @Override

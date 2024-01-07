@@ -1,5 +1,6 @@
 package com.example.androidengine;
 
+import android.content.Context;
 import android.content.res.AssetManager;
 import android.media.SoundPool;
 import android.view.SurfaceView;
@@ -10,6 +11,10 @@ import com.example.engine.IEngine;
 import com.example.engine.IInput;
 import com.example.engine.IScene;
 import com.example.engine.TouchEvent;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 public class EngineAndroid implements IEngine, Runnable {
     private GraphicsAndroid myGraphics_; // Clase para graficos
@@ -25,6 +30,7 @@ public class EngineAndroid implements IEngine, Runnable {
     // Constructor de la clase
     public EngineAndroid(SurfaceView myView) {
         this.myView_ = myView; // Asigna la ventana proporcionada
+
         running_ = false; // Inicializa el motor como no en funcionamiento
         myInput_ = new InputAndroid(this.myView_); // Inicializa la clase de entrada (input)
         myAssetManager_ = myView.getContext().getAssets(); //Obtiene la referencia a los assets
@@ -124,6 +130,28 @@ public class EngineAndroid implements IEngine, Runnable {
     @Override
     public IAudio getAudio() {
         return this.myAudio;
+    }
+
+    @Override
+    public FileInputStream getFileInputStream(String s) {
+        try {
+
+            FileInputStream file= this.myView_.getContext().openFileInput(s);
+            return file;
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public FileOutputStream getFileOutputStream(String s) {
+        try {
+            FileOutputStream file=this.myView_.getContext().openFileOutput(s, Context.MODE_PRIVATE);
+            return file;
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     //Devuelve la escena que se esta ejecutando

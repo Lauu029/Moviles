@@ -1,7 +1,7 @@
 package com.example.gamelogic;
 
 public class Difficulty {
-    LevelDifficulty levelDiff_;
+
     private boolean repeat;
     private int tries;
     private int solutionColors;
@@ -19,17 +19,12 @@ public class Difficulty {
         return tries;
     }
 
-    public LevelDifficulty getLevelDiff_() {
-        return levelDiff_;
-    }
 
     public boolean isRepeat() {
         return repeat;
     }
 
-    public void setLevelDiff_(LevelDifficulty levelDiff_) {
-        this.levelDiff_ = levelDiff_;
-    }
+
 
     public void setPosibleColors(int posibleColors_) {
         this.posiblecolors = posibleColors_;

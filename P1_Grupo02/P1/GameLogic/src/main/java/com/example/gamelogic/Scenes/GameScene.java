@@ -24,6 +24,7 @@ public class GameScene extends Scene {
     protected Difficulty lev_;
     protected GameManager gm_;
     protected ISound myCrossSound_;
+    private  boolean easyMode=true;
     protected GameScene() {
         super();
     }
@@ -111,12 +112,26 @@ public class GameScene extends Scene {
             } else {
                 gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
                 gameBoard_.nexTry();
+                if(easyMode){
+                    int[] corrPos=mySolution_.getPosCorrects();
+                    for(int j=0;j<corrPos.length;j++){
+                        if(corrPos[j]!=-1){
+                            gameBoard_.putNewColorPosition(corrPos[j],j);
+                        }
+                    }
+
+                }
             }
         }
         super.update(time);
     }
     protected void ChangeEndScene(boolean win, int try_) {
+            SaveManager.getInstance().setSaved(false);
             EndScene end = new EndScene(win, mySolution_.getSol(), try_);
             SceneManager.getInstance().addScene(end, SceneNames.FINAL.ordinal());
+    }
+
+    public void setEasyMode(boolean easyMode) {
+        this.easyMode = easyMode;
     }
 }
