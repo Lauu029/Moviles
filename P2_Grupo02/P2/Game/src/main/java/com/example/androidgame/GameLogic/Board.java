@@ -162,6 +162,9 @@ public class Board extends GameObject {
     public void putNewColor(int id, int color) {
         gameTries_.get(acutalTry_).putNewColor(id, color);
     }
+    public void forcePutColor(int pos, int id){
+        gameTries_.get(acutalTry_).forcePutColor(pos, id, totalPossibleColors[id]);
+    }
     public void putColor(int id) {
         gameTries_.get(acutalTry_).putNewColor(id, totalPossibleColors[id]);
     }

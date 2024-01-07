@@ -158,7 +158,11 @@ public class GameTry extends GameObject {
             pos++;
         }
     }
-
+    public void forcePutColor(int pos, int id, int color){
+        tries_[pos].setColor(color, id);
+        tries_[pos].setImage("" + (id + 1));
+        GameManager.getInstance().putColorSolution(pos, id);
+    }
     public void putNewColor(int id, int color) {
         for (int i = 0; i < tries_.length; i++) {
             if (!tries_[i].hasColor()) {

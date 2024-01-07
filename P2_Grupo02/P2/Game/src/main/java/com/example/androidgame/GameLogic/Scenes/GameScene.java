@@ -77,10 +77,12 @@ public class GameScene extends Scene {
         downRenderPos_ = gameBoard_.getdownRenderPos();
         upRenderPos_ = gameBoard_.getupRenderPos();
     }
-    protected void createSolution(){
+
+    protected void createSolution() {
         mySolution_.createSolution(lev_.isRepeat(), lev_.getSolutionColors(), lev_.getPosibleColors(), lev_.getTries());
     }
-    protected void createGameBoard(){
+
+    protected void createGameBoard() {
         this.gameBoard_ = new Board(lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_, false);
     }
 
@@ -121,14 +123,17 @@ public class GameScene extends Scene {
             }
         }
     }
-    protected void changeSceneExit(){
+
+    protected void changeSceneExit() {
         SceneManager.getInstance().setScene(SceneNames.DIFFICULTY.ordinal());
     }
+
     public void addTriesToBoard(int numTries) {
         gameBoard_.addNewTries(numTries);
         LevelManager.getInstance().setTotalTries(gameBoard_.getTotalTries());
     }
-    protected void checkSolution(){
+
+    protected void checkSolution() {
         int[] tempSol = gm_.getLevelSolution();
         int i = 0;
         boolean isComplete = true;
@@ -138,7 +143,6 @@ public class GameScene extends Scene {
             i++;
         }
         if (isComplete) {
-
             mySolution_.check(tempSol);
             int try_ = this.gameBoard_.getAcutalTry_();
             if (mySolution_.getCorrectPos(try_) == this.lev_.getSolutionColors()) {
@@ -150,8 +154,14 @@ public class GameScene extends Scene {
                 ChangeEndScene(false, try_);
 
             } else {
+                int[] correctPositions = mySolution_.getCorrectPositionsValues();
                 gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
                 gameBoard_.nexTry();
+                for (int j = 0; j < correctPositions.length; j++) {
+                    if (correctPositions[j] != -1)
+                        gameBoard_.forcePutColor(j, correctPositions[j]);
+                }
+                mySolution_.resetCorrectPositionsValues();
             }
         }
     }

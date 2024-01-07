@@ -15,13 +15,12 @@ public class Solution {
     private int actualTry_ = 0;
     private int correctPos_ = 0, correctColor_ = 0;
     private int solutionSize_;
-
+    private int[] correctPositionsValues;
     private ArrayList<int[]> registeredSols_ = new ArrayList<>();
 
-    public void setSolution (int []sol){
-        solutionSize_=sol.length;
-
-        sol_=sol;
+    public void setSolution(int[] sol) {
+        solutionSize_ = sol.length;
+        sol_ = sol;
         for (int i = 0; i < solutionSize_; i++) {
             if (solution.containsKey(sol[i]))
                 solution.get(sol[i]).put(i, false);
@@ -32,10 +31,15 @@ public class Solution {
             }
         }
     }
+
     public void createSolution(Boolean repeat, int colorGame, int posibleColor, int maxTries) {
 
         this.solutionSize_ = colorGame;
         this.sol_ = new int[solutionSize_];
+        this.correctPositionsValues= new int[solutionSize_];
+        for (int i = 0; i < solutionSize_; i++) {
+            correctPositionsValues[i]=-1;
+        }
         // Definir el rango (por ejemplo, de 1 a 100)
         int min = 0;
         int max = posibleColor - 1;
@@ -67,7 +71,14 @@ public class Solution {
     public int[] getSol() {
         return sol_;
     }
-
+    public int[] getCorrectPositionsValues(){
+        return correctPositionsValues;
+    }
+    public void resetCorrectPositionsValues(){
+        for (int i = 0; i < correctPositionsValues.length; i++) {
+            correctPositionsValues[i]=-1;
+        }
+    }
     public void check(int[] possible_sol) {
         correctPos_ = 0;
         correctColor_ = 0;
@@ -78,6 +89,7 @@ public class Solution {
                 Map<Integer, Boolean> value = solution.get(possible_sol[i]);
                 if (value.containsKey(i)) {
                     correctPos_++;
+                    correctPositionsValues[i]=possible_sol[i];
                     //si ha sido combrobado antes es porque hay una casila con el mismo color pero no en la misma pos
                     solution.get(possible_sol[i]).put(i, true);
                 } else {
