@@ -91,7 +91,7 @@ public class Board extends GameObject {
     }
     public void setEasyTry(int id,int color)
     {
-        for(int i=0; i<getTotalTries()-acutalTry_; i++)
+        for(int i=acutalTry_; i<getTotalTries(); i++)
         {
             gameTries_.get(i).putNewColorEasy(id,color,totalPossibleColors[color]);
         }

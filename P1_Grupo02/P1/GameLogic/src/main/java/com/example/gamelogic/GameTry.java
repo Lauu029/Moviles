@@ -157,7 +157,6 @@ public class GameTry extends GameObject {
         for (int i = 0; i < tries_.length; i++) {
             if (!tries_[i].hasColor()) {
                 tries_[i].setColor(color, id);
-                System.out.println("Color id: "+color);
                 GameManager.getInstance_().putColorSolution(i, id);
                 break;
             }
