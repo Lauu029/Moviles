@@ -38,6 +38,7 @@ public class GameScene extends Scene {
     private double timeSinceFirst;
     boolean canCheat;
     boolean isSavedGame_;
+    int [][] savedMat_;
     //Inicializa los botones, el tablero y la solución
     @Override
     public void init() {
@@ -47,15 +48,19 @@ public class GameScene extends Scene {
         this.gm_ = GameManager.getInstance_();
         this.lev_ = this.gm_.getLevel();
 
-        //gm_.readSavedFile();
-        isSavedGame_=gm_.isSaved();
+        //Lee del archivo de guardado
+        String readData=FileManager.getInstance_().getFile().readFile();
+        FileManager.getInstance_().setSavedContent(readData);
+
+        if(readData==""){
+            isSavedGame_=false;
+        }else isSavedGame_=true;
 
         mySolution_ = new Solution();
         if(isSavedGame_)
         {
             System.out.println("El juego esta guardado");
-            gm_.setFinalSolution(gm_.getSavedSolution_());
-            mySolution_.setSolution(gm_.getSavedSolution_());
+            getSavedData();
 
         }else
         {
@@ -68,7 +73,7 @@ public class GameScene extends Scene {
             {
                 System.out.print(temp[i]);
             }
-            System.out.print("");
+            System.out.println("");
         }
         this.gameBoard_ = new Board( lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_);
 
@@ -76,14 +81,13 @@ public class GameScene extends Scene {
         gm_.setBoard_(this.gameBoard_);
         if(isSavedGame_)
         {
-            int [][] savedMat=gm_.getSavedMatrix();
-            for(int i=0; i<savedMat.length; i++)
+            for(int i=0; i<savedMat_.length; i++)
             {
-                for(int j=0; j<savedMat[0].length; j++)
+                for(int j=0; j<savedMat_[0].length; j++)
                 {
-                    this.gameBoard_.putColor(savedMat[i][j]);
+                    this.gameBoard_.putColor(savedMat_[i][j]);
                 }
-                mySolution_.check(savedMat[i]);
+                mySolution_.check(savedMat_[i]);
                 this.gameBoard_.setNewHints(mySolution_.getCorrectPos(i),mySolution_.getCorrectColor(i));
                 this.gameBoard_.nexTry();
             }
@@ -249,7 +253,6 @@ public class GameScene extends Scene {
                 data+="-";
         }
         FileManager.getInstance_().setSavedContent(data);
-        getSavedData();
     }
     void getSavedData(){
         String datos=FileManager.getInstance_().getSavedContent();
@@ -264,17 +267,18 @@ public class GameScene extends Scene {
         {
             sol[i]=Integer.valueOf(eachSol[i]);
         }
+        mySolution_.setSolution(sol);//PONE LA SOLUCION-----------------------------------------------
 
         String matrixString=datosArray[3];
         String [] filas=matrixString.split("-");
-        //String [][] stringMatrix=new String[filas.length][eachSol.length];
-        int [][] solutionMatrix=new int[filas.length][eachSol.length];
+
+        savedMat_=new int[filas.length][eachSol.length]; //PONE LA MATRIZ DE JUEGO------------------------
         for(int i=0; i< filas.length; i++)
         {
             for(int j=0; j<eachSol.length; j++)
             {
                String [] arr=filas[i].split(":");
-                solutionMatrix[i][j]=Integer.valueOf(arr[j]);
+                savedMat_[i][j]=Integer.valueOf(arr[j]);
             }
         }
     }

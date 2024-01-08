@@ -32,7 +32,7 @@ public class GameManager {
     private Board savedBoard_;
     private int savedTries;
     private int [][] savedMatrix;
-    boolean isSaved;
+
     boolean nuevoAspecto_;
     private ArrayList<int[]> allCorrects= new ArrayList<>();
     boolean easyMode;
@@ -55,7 +55,7 @@ public class GameManager {
         instance_.width_ = width;
         instance_.height_ = height;
         instance_.daltonics_ = false;
-        instance_.isSaved=false;
+
         //instance_.savePath=file.getPath();
         instance_.nuevoAspecto_=false;
         instance_.easyMode=false;
@@ -67,7 +67,7 @@ public class GameManager {
         this.actualScene_ = scene;
         myEngine_.setScene(scene);
     }
-    public boolean isSaved(){return isSaved;}
+
     public int getwidth() {
         return width_;
     }
@@ -137,13 +137,7 @@ public class GameManager {
     public void setFinalSolution(int [] finalSol){
         finalSolution_=finalSol;
     }
-    public int[][] getSavedMatrix(){return  savedMatrix;}
-    public int[] getFinalSolution(){
-        return finalSolution_;
-    }
-    public int[] getSavedSolution_(){
-        return savedSolution_;
-    }
+
     public boolean getNuevoAspecto(){ return nuevoAspecto_;}
     public void setNuevoAspecto(boolean b){nuevoAspecto_=b;}
     public void saveGameProgress() throws IOException {

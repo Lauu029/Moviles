@@ -47,6 +47,7 @@ public class SaveScene extends Scene{
                 , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 -20, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
+
                 SceneManager.getInstance().setScene(SceneNames.GAME.ordinal());
             }
         });
