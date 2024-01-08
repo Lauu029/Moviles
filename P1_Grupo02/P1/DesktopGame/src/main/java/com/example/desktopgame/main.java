@@ -24,8 +24,8 @@ public class main {
 
 
         EngineDesktop IEngineDesktop = new EngineDesktop(myView_);
-        FileDesktop IFileDesktop= new FileDesktop();
-        GameManager.init(IEngineDesktop,IFileDesktop,400,600);
+        FileDesktop IFileDesktop= new FileDesktop("Assets/Saved/saved_game.txt");
+        GameManager.init(IEngineDesktop,400,600);
         IEngineDesktop.resume();
     }
 

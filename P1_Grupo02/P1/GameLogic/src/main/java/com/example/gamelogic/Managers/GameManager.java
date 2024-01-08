@@ -49,14 +49,14 @@ public class GameManager {
     }
 
 
-    public static int init(IEngine engine, IFile file, int width, int height) {
+    public static int init(IEngine engine, int width, int height) {
         instance_ = new GameManager();
         instance_.myEngine_ = engine;
         instance_.width_ = width;
         instance_.height_ = height;
         instance_.daltonics_ = false;
         instance_.isSaved=false;
-        instance_.savePath=file.getPath();
+        //instance_.savePath=file.getPath();
         instance_.nuevoAspecto_=false;
         instance_.easyMode=false;
         SceneManager.init();
@@ -114,15 +114,8 @@ public class GameManager {
                 int pos=elem[0];
                 int idColor=elem[1];
                 levelSolution_[pos]=idColor;
-
             }
-            System.out.print("En el GameManager tengo guardadas las coluciones: ");
-            for(int j=0; j<levelSolution_.length; j++){
-                System.out.print(levelSolution_[j]);
-            }
-            System.out.println("");
         }
-        System.out.println("");
     }
 
     public void putColorSolution(int id, int color_id) {
@@ -227,48 +220,5 @@ public class GameManager {
         }
     }
     public void readSavedFile(){
-        try
-        {
-            File f= new File(savePath);
-            if(f.exists()&& f.length()==0)
-            {
-                isSaved=false;
-                return;
-            }
-            isSaved=true;
-            FileReader fileReader = new FileReader(savePath);
-            BufferedReader buffReader = new BufferedReader(fileReader);
-
-            String line=buffReader.readLine();
-            savedTries=Integer.parseInt(line.split(":")[1].trim());
-
-            line=buffReader.readLine();
-
-            String [] solucion=line.split(":")[1].trim().split(" ");
-            savedSolution_ = new int[solucion.length];
-            for (int i=0; i<solucion.length;i++)
-            {
-                savedSolution_[i]=Integer.parseInt(solucion[i]);
-            }
-            line=buffReader.readLine(); //ignoramos lo de matriz
-            savedMatrix= new int[savedTries][savedSolution_.length-1];
-            for(int i=0; i<savedTries; i++)
-            {
-                line=buffReader.readLine();
-                String [] fila=line.trim().split(" ");
-                savedMatrix[i] = new int[fila.length];
-                for (int j=0; j<fila.length; j++)
-                {
-                    savedMatrix[i][j]=Integer.parseInt(fila[j]);
-                }
-            }
-            buffReader.close();
-            fileReader.close();
-        }
-        catch (IOException e)
-        {
-
-        }
-
     }
 }

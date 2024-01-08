@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
         this.renderView_ = new SurfaceView(this);
         setContentView(this.renderView_);
         IEngineAndroid_ = new EngineAndroid(renderView_);
-        FileAndroid f= new FileAndroid(this);
-        GameManager.init(IEngineAndroid_,f,400,600);
+        //FileAndroid f= new FileAndroid(this);
+        GameManager.init(IEngineAndroid_,400,600);
         IEngineAndroid_.resume();
     }
 

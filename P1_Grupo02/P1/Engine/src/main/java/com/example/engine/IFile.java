@@ -1,5 +1,7 @@
 package com.example.engine;
 
 public interface IFile {
-    String getPath();
+
+    String readFile();
+    void writeFile(String data);
 }
