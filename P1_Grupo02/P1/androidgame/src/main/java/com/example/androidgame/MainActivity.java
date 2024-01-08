@@ -32,10 +32,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         IEngineAndroid_.pause();
+        GameManager.getInstance_().saveData();
     }
     @Override
     protected void onResume() {
         super.onResume();
         IEngineAndroid_.resume();
+        GameManager.getInstance_().readData();
+
     }
 }

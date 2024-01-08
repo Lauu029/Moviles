@@ -8,6 +8,7 @@ import com.example.engine.IScene;
 import com.example.engine.TouchEvent;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import javax.swing.JFrame;
@@ -136,12 +137,23 @@ public class EngineDesktop implements IEngine, Runnable {
     @Override
     public FileInputStream getFileInputStream(String s) {
 
-        return null;
+        try {
+            return new FileInputStream(s);
+        } catch (FileNotFoundException e) {
+            return null;
+        }
+
     }
 
     @Override
     public FileOutputStream getFileOutputStream(String s) {
-        return null;
+
+        try {
+            return new FileOutputStream(s);
+        } catch (FileNotFoundException e) {
+           return null;
+        }
+
     }
 
     @Override

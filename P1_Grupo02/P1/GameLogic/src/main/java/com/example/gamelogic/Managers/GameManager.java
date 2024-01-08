@@ -95,4 +95,10 @@ public class GameManager {
     public boolean getDaltonic(){
         return this.daltonics_;
     }
+    public void saveData(){
+        SaveManager.getInstance().saveData();
+    }
+    public void readData(){
+        SaveManager.getInstance().ReadData();
+    }
 }

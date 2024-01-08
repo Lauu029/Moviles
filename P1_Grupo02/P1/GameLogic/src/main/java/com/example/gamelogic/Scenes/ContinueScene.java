@@ -62,14 +62,15 @@ public class ContinueScene extends GameScene {
                 myCrossSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                SaveManager.getInstance().setSolution(mySolution_.getSol());
-                SaveManager.getInstance().setmatrizJuego(gameBoard_.getBoard());
-                SaveManager.getInstance().setSaved(true);
-                SceneManager.getInstance().setScene(SceneNames.DIFFICULTY.ordinal());
+                changeExit();
 
             }
         });
         this.addGameObject(exitLevel_);
+    }
+    @Override
+    public void changeExit() {
+        SceneManager.getInstance().setScene(SceneNames.MENU.ordinal());
     }
 
 }

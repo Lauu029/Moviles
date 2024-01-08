@@ -149,7 +149,7 @@ public class EngineAndroid implements IEngine, Runnable {
             FileOutputStream file=this.myView_.getContext().openFileOutput(s, Context.MODE_PRIVATE);
             return file;
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            return null;
         }
 
     }

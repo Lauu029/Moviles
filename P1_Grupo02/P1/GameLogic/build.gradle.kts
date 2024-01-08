@@ -8,4 +8,6 @@ java {
 }
 dependencies {
     implementation(project(mapOf("path" to ":Engine")))
+    implementation ("com.google.code.gson:gson:2.8.8")
+
 }

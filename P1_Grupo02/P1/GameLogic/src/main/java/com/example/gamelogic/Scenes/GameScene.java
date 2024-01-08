@@ -62,21 +62,24 @@ public class GameScene extends Scene {
                 myCrossSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
+                changeExit();
 
-                SaveManager.getInstance().setSolution(mySolution_.getSol());
-                SaveManager.getInstance().setmatrizJuego(gameBoard_.getBoard());
-                SaveManager.getInstance().setRepeat(lev_.isRepeat());
-                SaveManager.getInstance().setSolutionColors(lev_.getSolutionColors());
-                SaveManager.getInstance().setPosiblecolors(lev_.getPosibleColors());
-                SaveManager.getInstance().setTries(lev_.getTries());
-                SaveManager.getInstance().setSaved(true);
-                SceneManager.getInstance().setScene(SceneNames.DIFFICULTY.ordinal());
 
             }
         });
         this.addGameObject(exitLevel_);
     }
 
+    public void changeExit() {
+        SaveManager.getInstance().setSolution(mySolution_.getSol());
+        SaveManager.getInstance().setmatrizJuego(gameBoard_.getBoard());
+        SaveManager.getInstance().setRepeat(lev_.isRepeat());
+        SaveManager.getInstance().setSolutionColors(lev_.getSolutionColors());
+        SaveManager.getInstance().setPosiblecolors(lev_.getPosibleColors());
+        SaveManager.getInstance().setTries(lev_.getTries());
+        SaveManager.getInstance().setSaved(true);
+        SceneManager.getInstance().setScene(SceneNames.DIFFICULTY.ordinal());
+    }
     @Override
     public void render() {
         super.render();
