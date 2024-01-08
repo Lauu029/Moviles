@@ -30,7 +30,7 @@ public class FileDesktop implements IFile {
             readString=builder.toString();
         }catch(IOException e)
         {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         return readString;
