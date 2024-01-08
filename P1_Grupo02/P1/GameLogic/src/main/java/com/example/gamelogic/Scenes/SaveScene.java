@@ -7,6 +7,7 @@ import com.example.engine.ISound;
 import com.example.gamelogic.Buttons.Button;
 import com.example.gamelogic.Buttons.ButtonClickListener;
 import com.example.gamelogic.IGameObject;
+import com.example.gamelogic.Managers.FileManager;
 import com.example.gamelogic.Managers.GameManager;
 import com.example.gamelogic.Managers.SceneManager;
 
@@ -35,6 +36,8 @@ public class SaveScene extends Scene{
             public void onClick() {
                 //try{
                 //GameManager.getInstance_().saveGameProgress();
+                String s=FileManager.getInstance_().getSavedContent();
+                FileManager.getInstance_().getFile().writeFile(s);
                 SceneManager.getInstance().setScene(SceneNames.MENU.ordinal());
 
                 //}catch (IOException e){}

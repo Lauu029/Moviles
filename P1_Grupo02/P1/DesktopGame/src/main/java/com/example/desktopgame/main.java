@@ -3,6 +3,7 @@ package com.example.desktopgame;
 
 import com.example.desktopengine.EngineDesktop;
 import com.example.desktopengine.FileDesktop;
+import com.example.gamelogic.Managers.FileManager;
 import com.example.gamelogic.Managers.GameManager;
 
 import java.awt.event.WindowAdapter;
@@ -25,6 +26,7 @@ public class main {
 
         EngineDesktop IEngineDesktop = new EngineDesktop(myView_);
         FileDesktop IFileDesktop= new FileDesktop("Assets/Saved/saved_game.txt");
+        FileManager.init(IFileDesktop);
         GameManager.init(IEngineDesktop,400,600);
         IEngineDesktop.resume();
     }

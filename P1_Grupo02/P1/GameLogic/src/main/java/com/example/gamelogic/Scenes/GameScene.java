@@ -9,7 +9,9 @@ import com.example.gamelogic.Buttons.Button;
 import com.example.gamelogic.Buttons.ButtonClickListener;
 import com.example.gamelogic.Buttons.ButtonColorBlind;
 import com.example.gamelogic.Buttons.ButtonImage;
+import com.example.gamelogic.Circles.TryCircle;
 import com.example.gamelogic.Difficulty;
+import com.example.gamelogic.Managers.FileManager;
 import com.example.gamelogic.Managers.GameManager;
 import com.example.gamelogic.Managers.SceneManager;
 import com.example.gamelogic.GameObject;
@@ -104,7 +106,7 @@ public class GameScene extends Scene {
                 myCrossSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                gm_.setSavedBoard(gameBoard_);
+                setSavedData();
                 SceneManager.getInstance().addScene(new SaveScene(),SceneNames.SAVE.ordinal());
             }
         });
@@ -213,6 +215,66 @@ public class GameScene extends Scene {
             int[] finalSolution = this.mySolution_.getSol();
             for (int i = 0; i < finalSolution.length - 1; i++) {
                 gameBoard_.putColor(finalSolution[i]);
+            }
+        }
+    }
+    void setSavedData()
+    {
+        String data="";
+        int numTriesTot=gameBoard_.getTotalTries();
+        data+=numTriesTot;
+        data+=";";
+        int actualTry=gameBoard_.getAcutalTry_();
+        data+=actualTry;
+        data+=";";
+        int [] solution=mySolution_.getSol();
+        for(int i=0; i<solution.length;i++)
+        {
+            data+=solution[i];
+            if(i!=solution.length-1)
+                data+=":";
+        }
+        int circleTries=gameBoard_.getTryByIndex(0).getTries().length;
+        data+=";";
+        for(int i=0; i<actualTry;i++)
+        {
+            for(int j=0; j<circleTries;j++)
+            {
+                TryCircle[] tries=gameBoard_.getTryByIndex(i).getTries();
+                data+=tries[j].getId();
+                if(j!=circleTries-1)
+                    data+=":";
+            }
+            if(i!=actualTry-1)
+                data+="-";
+        }
+        FileManager.getInstance_().setSavedContent(data);
+        getSavedData();
+    }
+    void getSavedData(){
+        String datos=FileManager.getInstance_().getSavedContent();
+        String [] datosArray=datos.split(";");
+        int numTriesTot=Integer.valueOf(datosArray[0]);
+        int actualTry=Integer.valueOf(datosArray[1]);
+        String solString=datosArray[2];
+        String [] eachSol=solString.split(":");
+        //Convertir a numeros
+        int [] sol=new int[eachSol.length];
+        for(int i=0; i<eachSol.length; i++)
+        {
+            sol[i]=Integer.valueOf(eachSol[i]);
+        }
+
+        String matrixString=datosArray[3];
+        String [] filas=matrixString.split("-");
+        //String [][] stringMatrix=new String[filas.length][eachSol.length];
+        int [][] solutionMatrix=new int[filas.length][eachSol.length];
+        for(int i=0; i< filas.length; i++)
+        {
+            for(int j=0; j<eachSol.length; j++)
+            {
+               String [] arr=filas[i].split(":");
+                solutionMatrix[i][j]=Integer.valueOf(arr[j]);
             }
         }
     }

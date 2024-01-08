@@ -11,6 +11,7 @@ import android.view.SurfaceView;
 
 import com.example.androidengine.EngineAndroid;
 import com.example.androidengine.FileAndroid;
+import com.example.gamelogic.Managers.FileManager;
 import com.example.gamelogic.Managers.GameManager;
 import com.example.gamelogic.Scenes.MenuScene;
 
@@ -26,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
         this.renderView_ = new SurfaceView(this);
         setContentView(this.renderView_);
         IEngineAndroid_ = new EngineAndroid(renderView_);
-        //FileAndroid f= new FileAndroid(this);
+        FileAndroid f= new FileAndroid(this.getAssets(),"Saved/saved_game.txt");
+        FileManager.init(f);
         GameManager.init(IEngineAndroid_,400,600);
         IEngineAndroid_.resume();
     }
