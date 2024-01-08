@@ -3,10 +3,12 @@ package com.example.desktopengine;
 import com.example.engine.IFile;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 
@@ -19,15 +21,17 @@ public class FileDesktop implements IFile {
     public String readFile() {
         String readString="";
         try {
-            InputStream inputStream= new BufferedInputStream(new FileInputStream(path_));
-            StringBuilder builder= new StringBuilder();
-            byte[] buff=new byte[1024];
-            int bytesRead;
-            while((bytesRead=inputStream.read(buff))!=-1)
-            {
-                builder.append(new String(buff,0,bytesRead, StandardCharsets.UTF_8));
+            InputStream inputStream= new FileInputStream(path_);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line);
             }
-            readString=builder.toString();
+            reader.close();
+
+            return stringBuilder.toString();
         }catch(IOException e)
         {
             //e.printStackTrace();
@@ -49,5 +53,21 @@ public class FileDesktop implements IFile {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void emptyFile() {
+        try
+        {
+            String empty="";
+            OutputStream outputStream = new FileOutputStream(path_);
+            byte[] datos=empty.getBytes();
+            outputStream.write(datos);
+            outputStream.close();
+
+        }catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 }

@@ -7,6 +7,7 @@ import com.example.engine.ISound;
 import com.example.gamelogic.Buttons.Button;
 import com.example.gamelogic.Buttons.ButtonClickListener;
 import com.example.gamelogic.GameInit;
+import com.example.gamelogic.Managers.FileManager;
 import com.example.gamelogic.Managers.GameManager;
 import com.example.gamelogic.Managers.SceneManager;
 
@@ -35,6 +36,7 @@ public class EndScene extends Scene {
 
     public void init() {
         //creacion de la solucion
+
         IGraphics graph = iEngine_.getGraphics();
         if (win_)
             this.font_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 40, true, true);
@@ -44,6 +46,7 @@ public class EndScene extends Scene {
         font2_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 30, false, false);
         myButtonSound_ = iEngine_.getAudio().newSound("buttonClicked.wav");
         initButtons();
+        FileManager.getInstance_().getFile().emptyFile();
     }
 
     protected void initButtons() {

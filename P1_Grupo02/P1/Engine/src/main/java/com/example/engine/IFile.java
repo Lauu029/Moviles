@@ -4,4 +4,5 @@ public interface IFile {
 
     String readFile();
     void writeFile(String data);
+    void emptyFile();
 }
