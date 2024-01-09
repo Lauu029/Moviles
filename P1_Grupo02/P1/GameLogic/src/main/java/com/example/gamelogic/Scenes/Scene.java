@@ -47,7 +47,6 @@ public class Scene implements IScene {
     public int getWidth_() {
         return width_;
     }
-
     @Override
     public void handleInput(ArrayList<TouchEvent> events) {
         for (GameObject g : gameObjects_)

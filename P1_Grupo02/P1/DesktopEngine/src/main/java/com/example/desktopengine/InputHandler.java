@@ -4,20 +4,22 @@ import com.example.engine.TouchEvent;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-public class InputHandler implements MouseListener {
+public class InputHandler implements MouseListener, MouseMotionListener {
     private ArrayList<TouchEvent> myTouchEvent_;  // Lista de eventos táctiles
     private ArrayList<TouchEvent> myPendingEvents_;  // Lista de eventos pendientes
     private ArrayList<TouchEvent> usedEvents_;  // Lista de eventos en uso
     private ArrayList<TouchEvent> freeEvents_;  // Lista de eventos libres
-    private int maxEvents_ = 10;  // Numero máximo de eventos en el pool
+    private int maxEvents_ = 100;  // Numero máximo de eventos en el pool
 
     // Constructor de la clase, recibe un JFrame como argumento
     InputHandler(JFrame jframe) {
         jframe.addMouseListener(this);  // Registra esta instancia como MouseListener en el JFrame
+        jframe.addMouseMotionListener(this);  // Registra esta instancia como MouseListener en el JFrame
         myTouchEvent_ = new ArrayList<TouchEvent>();  // Inicializa la lista de eventos táctiles
         myPendingEvents_ = new ArrayList<TouchEvent>();  // Inicializa la lista de eventos pendientes
         usedEvents_ = new ArrayList<TouchEvent>();  // Inicializa la lista de eventos en uso
@@ -96,5 +98,22 @@ public class InputHandler implements MouseListener {
     // Limpia la lista de eventos pendientes
     public void myPendingEventsClear() {
         myPendingEvents_.clear();
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent mouseEvent) {
+        TouchEvent event = getEvent();
+        event.x = mouseEvent.getX();
+        event.y = mouseEvent.getY();
+        event.type = TouchEvent.TouchEventType.TOUCH_DRAG;
+        synchronized (this) {
+            myPendingEvents_.add(event);
+        }
+        returnObject(event);
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent mouseEvent) {
+
     }
 }
