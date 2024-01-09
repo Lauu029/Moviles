@@ -10,12 +10,12 @@ import java.util.Random;
 
 public class Solution {
     private Map<Integer, Map<Integer, Boolean>> solution = new HashMap<>();
-    private int[] sol_;
+    private int [] sol_;
     private boolean win_ = false;
     private int actualTry_ = 0;
     private int correctPos_ = 0, correctColor_ = 0;
     private int solutionSize_;
-    private int[] correctPositionsValues;
+    private int [] correctPositionsValues;
     private ArrayList<int[]> registeredSols_ = new ArrayList<>();
 
     public void setSolution(int[] sol) {

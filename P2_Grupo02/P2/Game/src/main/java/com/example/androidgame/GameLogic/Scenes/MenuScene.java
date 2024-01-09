@@ -19,6 +19,7 @@ import com.example.androidgame.GameLogic.Scenes.Scene;
 import com.example.androidgame.GameLogic.Scenes.SceneNames;
 import com.example.androidgame.GameLogic.Scenes.ShopScene;
 import com.example.androidgame.GameLogic.Scenes.WorldScene;
+import com.example.androidgame.GameLogic.chronoMode.ChronoGameScene;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,7 @@ public class MenuScene extends Scene {
     private Button playButton_;
     private Button storeButton_;
     private Button mundoButton_;
+    private Button contrarrelojButton_;
     private Font font_;
     private Font fontButton_;
     private Image myIcon_;
@@ -68,13 +70,23 @@ public class MenuScene extends Scene {
         });
         this.storeButton_ = new Button("Personalizar", fontButton_, AssetsManager.getInstance().getLineColor(),
                 AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getButtonColor()
-                , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 120, myButtonSound_, new ButtonClickListener() {
+                , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 180, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
                 sensor_.onResume();
                 SceneManager.getInstance().addScene(new ShopScene(), SceneNames.SHOP.ordinal());
             }
         });
+        this.contrarrelojButton_ = new Button("Contrarreloj", fontButton_, AssetsManager.getInstance().getLineColor(),
+                AssetsManager.getInstance().getTextColor(),AssetsManager.getInstance().getButtonColor()
+                , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 70, myButtonSound_, new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                sensor_.onResume();
+                SceneManager.getInstance().addScene(new ChronoGameScene(0,15*60), SceneNames.GAME.ordinal());
+            }
+        });
+        addGameObject(contrarrelojButton_);
         addGameObject(playButton_);
         addGameObject(storeButton_);
         addGameObject(mundoButton_);

@@ -26,6 +26,7 @@ public class EndScene extends Scene {
     protected Font font_, font1_, font2_;
     protected int tries_;
     protected Sound myButtonSound_;
+    protected String endText_;
     protected boolean waitingForReward_;
     protected int[] totalPossibleColors_ = new int[]{0xFFFFC0CB, 0xFF87CEEB, 0xFF98FB98, 0xFFFFFF99,
             0xFFE6E6FA, 0xFFFFDAB9, 0xFFE7FFAC, 0xFFFF8FAB, 0xFF6FC0AB};
@@ -42,12 +43,17 @@ public class EndScene extends Scene {
         this.sol_ = sol;
         waitingForReward_ = false;
         tries_ = intentos;
+        endText_ = "Te has quedado sin intentos";
         callback = new ImageProcessingCallback() {
             @Override
             public void processImage(Bitmap bitmap) {
                 iEngine_.getMobile().processImage(bitmap);
             }
         };
+    }
+
+    public void changeEndText(String newText) {
+        endText_ = newText;
     }
 
     public void init() {
@@ -62,7 +68,6 @@ public class EndScene extends Scene {
         myButtonSound_ = iEngine_.getAudio().newSound("buttonClicked.wav");
         initButtons();
     }
-
     protected void initButtons() {
         Button buttonDificulty_, buttonReward_, playAgainButton_, shareRecordButton_;
         Graphics graph = iEngine_.getGraphics();
@@ -121,7 +126,6 @@ public class EndScene extends Scene {
             addGameObject(buttonReward_);
         }
 
-
         RewardedAddBehaviour rewardedAddBehaviour = new RewardedAddBehaviour(false);
         iEngine_.getMobile().assignRewardPrice(rewardedAddBehaviour);
         tematica_ = AssetsManager.getInstance().getCirleTheme(false);
@@ -145,7 +149,7 @@ public class EndScene extends Scene {
         if (!win_) {
             iEngine_.getGraphics().drawText("GAME OVER", width_ / 2, 10);
             iEngine_.getGraphics().setFont(font1_);
-            iEngine_.getGraphics().drawText("Te has quedado sin intentos", width_ / 2, 50);
+            iEngine_.getGraphics().drawText(endText_, width_ / 2, 50);
         } else {
             iEngine_.getGraphics().drawText("ENHORABUENA!!", width_ / 2, 10);
             iEngine_.getGraphics().setFont(font1_);

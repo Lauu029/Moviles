@@ -10,20 +10,43 @@ import com.example.androidgame.GameLogic.Managers.GameManager;
  * almacene el color y lo coloque en la posición correspondiente*/
 public class SolutionCircle extends Circle {
     private Sound myButtonSound_;
-    public SolutionCircle(String t, Font f, int r, int x, int y, int row_,boolean world) {
-        super(t, f, r, x, y, row_,world);
-        myButtonSound_= GameManager.getInstance().getIEngine().getAudio().newSound("circleSound.wav");
+    private double cheatTime = 100;
+    private int timesTouched = 0;
+    private boolean canCheat = true;
+
+    public SolutionCircle(String t, Font f, int r, int x, int y, int row_, boolean world) {
+        super(t, f, r, x, y, row_, world);
+        myButtonSound_ = GameManager.getInstance().getIEngine().getAudio().newSound("circleSound.wav");
     }
 
     public boolean handleInput(TouchEvent event) {
         if (event.type == TouchEvent.TouchEventType.TOUCH_UP)
             if (this.posX_ - this.radius_ < event.x && this.posX_ + this.radius_ > event.x
                     && this.posY_ - this.radius_ < event.y && this.posY_ + this.radius_ > event.y) {
+                if (canCheat && cheatTime > 3) {
+                    cheatTime = 0;
+                    timesTouched = 0;
+                }
+                if (canCheat)
+                    timesTouched++;
                 GameManager.getInstance().getIEngine().getAudio().stopSound(myButtonSound_);
                 GameManager.getInstance().takeColor(this.color_, this.idColor_);
-                GameManager.getInstance().getIEngine().getAudio().playSound(myButtonSound_,0);
+                GameManager.getInstance().getIEngine().getAudio().playSound(myButtonSound_, 0);
                 return true;
             }
         return false;
+    }
+
+    @Override
+    public void update(double time) {
+        cheatTime += time;
+        if (canCheat && timesTouched == 3) {
+            canCheat=false;
+            GameManager.getInstance().activateCheating();
+        }
+    }
+
+    public void cheats(boolean cheat){
+        canCheat=cheat;
     }
 }

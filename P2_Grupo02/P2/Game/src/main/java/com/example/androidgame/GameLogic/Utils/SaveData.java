@@ -153,7 +153,7 @@ public class SaveData {
             LevelManager.getInstance().setPassedLevel(level);
 
             String backgroundImage = jsonObject.getString("background");
-            AssetsManager.getInstance().setBackgroundTheme(new Theme("PURCHASED", backgroundImage, "", ""));
+            AssetsManager.getInstance().setBackgroundTheme(new Theme(paletteName, backgroundImage, "", ""));
 
             String codesPath = jsonObject.getString("codes");
             AssetsManager.getInstance().setCirleTheme(new Theme("PURCHASED", "", "", codesPath), false);

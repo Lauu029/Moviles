@@ -1,10 +1,13 @@
 package com.example.androidgame.GameLogic.Managers;
 
 
+import android.util.Log;
+
 import com.example.androidengine.Engine;
 import com.example.androidengine.Image;
 import com.example.androidgame.GameLogic.Board;
 import com.example.androidgame.GameLogic.Difficulty;
+import com.example.androidgame.GameLogic.Solution;
 import com.example.androidgame.GameLogic.Utils.SaveData;
 
 public class GameManager {
@@ -14,10 +17,12 @@ public class GameManager {
     private int width_, height_;
     private Difficulty levelDificulty_;
     private Board board_;
-    private int [] levelSolution_;
+    private int[] levelSolution_;
     private boolean daltonics_;
     private int coins_;
     private Image backgroundImage_;
+    private Solution sol_;
+    private double record_ = 0;
 
     private GameManager() {
         // Constructor privado
@@ -27,6 +32,9 @@ public class GameManager {
         return instance_;
     }
 
+    public void setSolution(Solution s) {
+        sol_ = s;
+    }
 
     public static int init(Engine engine, int width, int height) {
         instance_ = new GameManager();
@@ -36,7 +44,7 @@ public class GameManager {
         instance_.daltonics_ = false;
         instance_.coins_ = 100;
         instance_.backgroundImage_ = null;
-        AssetsManager.init( instance_.myEngine_);
+        AssetsManager.init(instance_.myEngine_);
         SceneManager.init();
         LevelManager.init();
         ShopManager.init();
@@ -102,11 +110,13 @@ public class GameManager {
     public int getCoins() {
         return this.coins_;
     }
-    public void addCoins(int amount){
-        coins_+=amount;
+
+    public void addCoins(int amount) {
+        coins_ += amount;
     }
-    public void setCoins(int coins){
-        coins_=coins;
+
+    public void setCoins(int coins) {
+        coins_ = coins;
     }
 
     //Guarda el estado actual de la partida
@@ -126,5 +136,17 @@ public class GameManager {
         SaveData.loadGameData();
         // Actualiza las variables del GameManager según los datos cargados
         coins_ = getCoins();
+    }
+
+    public void activateCheating() {
+        int[] realSolution = sol_.getSol();
+        for (int i = 0; i < realSolution.length; i++) {
+            board_.forcePutColor(i, realSolution[i]);
+        }
+        sol_.check(realSolution);
+        board_.nexTry();
+    }
+    void setNewRecord(double time){
+        record_=time;
     }
 }

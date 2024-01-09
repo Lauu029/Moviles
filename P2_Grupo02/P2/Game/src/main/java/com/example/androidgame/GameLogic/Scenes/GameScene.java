@@ -1,6 +1,7 @@
 package com.example.androidgame.GameLogic.Scenes;
 
 import android.util.Log;
+import android.widget.Chronometer;
 
 import com.example.androidengine.Font;
 import com.example.androidengine.Image;
@@ -31,6 +32,9 @@ public class GameScene extends Scene {
     protected int yIni;
     protected int yFin;
     protected int upTryPos_, downTryPos_, upRenderPos_, downRenderPos_;
+    protected Chronometer chrono;
+    private float chronoTime = 60;
+    protected boolean easyMode_ = true;
 
     public GameScene() {
         super();
@@ -42,13 +46,11 @@ public class GameScene extends Scene {
         this.gm_ = GameManager.getInstance();
         this.lev_ = this.gm_.getLevel();
         mySolution_ = new Solution();
-
         createSolution();
         createGameBoard();
 
         addGameObject(gameBoard_);
         gm_.setBoard(this.gameBoard_);
-
 
         Sound buttonSound = GameManager.getInstance().getIEngine().getAudio().newSound("colorBlindButton.wav");
         this.buttonColorBlind_ = new ButtonColorBlind("eye_open.png", "eye_closed.png",
@@ -80,6 +82,7 @@ public class GameScene extends Scene {
 
     protected void createSolution() {
         mySolution_.createSolution(lev_.isRepeat(), lev_.getSolutionColors(), lev_.getPosibleColors(), lev_.getTries());
+        GameManager.getInstance().setSolution(mySolution_);
     }
 
     protected void createGameBoard() {
@@ -91,6 +94,7 @@ public class GameScene extends Scene {
      * si se ha ganado el juego o perdido por superar el numero de  intentos y si no se ha ganado
      * ni se ha acabado crea nuevas pistas en la clase tablero y avanza al siguiente intento*/
     public void update(double time) {
+        chronoTime -= time;
         if (scroll) {
             int speed = yFin - yIni;
             if ((gameBoard_.getUpTryPos() < upRenderPos_ && speed > 0) || (gameBoard_.getDownTryPos() > downRenderPos_ && speed < 0)) {
@@ -100,10 +104,22 @@ public class GameScene extends Scene {
         }
         checkSolution();
         super.update(time);
+        if (chronoTime <= 0) {
+            EndScene end = new EndScene(false, mySolution_.getSol(), 0);
+            end.changeEndText("Se acabó el tiempo!!");
+            SceneManager.getInstance().addScene(end, SceneNames.FINAL.ordinal());
+        }
+    }
+
+    @Override
+    public void render() {
+        super.render();
+//        iEngine_.getGraphics().setColor(0xFF000000);
+//        String timeText = String.valueOf((int)chronoTime);
+//        iEngine_.getGraphics().drawText(timeText, width_ / 2, 80);
     }
 
     protected void ChangeEndScene(boolean win, int try_) {
-
         EndScene end = new EndScene(win, mySolution_.getSol(), try_);
         SceneManager.getInstance().addScene(end, SceneNames.FINAL.ordinal());
     }
@@ -157,10 +173,11 @@ public class GameScene extends Scene {
                 int[] correctPositions = mySolution_.getCorrectPositionsValues();
                 gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
                 gameBoard_.nexTry();
+                if(easyMode_){
                 for (int j = 0; j < correctPositions.length; j++) {
                     if (correctPositions[j] != -1)
                         gameBoard_.forcePutColor(j, correctPositions[j]);
-                }
+                }}
             }
         }
     }

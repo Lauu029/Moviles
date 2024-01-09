@@ -30,8 +30,9 @@ public class Board extends GameObject {
     private boolean world_;
     //Colores totales que puede llegar a haber en una partida
     private int[] totalPossibleColors = new int[]{0xFFFFC0CB, 0xFF87CEEB, 0xFF98FB98, 0xFFFFFF99,
-            0xFFE6E6FA, 0xFFFFDAB9, 0xFFE7FFAC, 0xFFFF8FAB, 0xFF6FC0AB,0xFFFF00FF};
-    private int upTryPos_,downTryPos_,upRenderPos_,downRenderPos_;
+            0xFFE6E6FA, 0xFFFFDAB9, 0xFFE7FFAC, 0xFFFF8FAB, 0xFF6FC0AB, 0xFFFF00FF};
+    private int upTryPos_, downTryPos_, upRenderPos_, downRenderPos_;
+
     public Board(int codeColors_, int tries_, int usableColors, boolean canRepeat_, int scW, int scH, boolean world) {
         gm_ = GameManager.getInstance();
         world_ = world;
@@ -49,10 +50,10 @@ public class Board extends GameObject {
         limitDown = sceneHeight_ - 60;
         gameTries_ = new ArrayList<>();
         int offset = limitUp;
-        upRenderPos_=55;
-        downRenderPos_=sceneHeight_ - 50;
+        upRenderPos_ = 55;
+        downRenderPos_ = sceneHeight_ - 50;
 
-        upTryPos_=offset;
+        upTryPos_ = offset;
         for (int i = 0; i < tries_; i++) {
             GameTry g = new GameTry(codeColors_, i, 40, world, limitUp, limitDown);
             g.init();
@@ -61,7 +62,7 @@ public class Board extends GameObject {
             gameTries_.add(g);
             gameObjectsTable_.add(g);
         }
-        downTryPos_=offset-10;
+        downTryPos_ = offset - 10;
         int circleRad_ = 20;
         offset = 4;
         int totalCircleWidth = usableColors_ * (circleRad_ * 2 + offset); // Ancho total de todos los círculos
@@ -73,6 +74,12 @@ public class Board extends GameObject {
             usableColorsCircles_[i].setImage("" + (i + 1));
             usableColorsCircles_[i].setIdColor_(i);
             gameObjectsTable_.add(usableColorsCircles_[i]);
+        }
+    }
+
+    public void disableCheats(boolean cheats) {
+        for (SolutionCircle s : usableColorsCircles_) {
+            s.cheats(cheats);
         }
     }
 
@@ -90,21 +97,27 @@ public class Board extends GameObject {
     public void setNewHints(int correctPositions, int correctColors) {
         gameTries_.get(acutalTry_).setNewHints(correctPositions, correctColors);
     }
+
     public void setHints(int correctPositions, int correctColors, int myTry) {
         gameTries_.get(myTry).setNewHints(correctPositions, correctColors);
     }
-    public int getUpTryPos(){
+
+    public int getUpTryPos() {
         return upTryPos_;
     }
-    public int getDownTryPos(){
+
+    public int getDownTryPos() {
         return downTryPos_;
     }
-    public int getdownRenderPos(){
+
+    public int getdownRenderPos() {
         return limitDown;
     }
-    public int getupRenderPos(){
+
+    public int getupRenderPos() {
         return limitUp;
     }
+
     @Override
     public void update(double time) {
         for (int i = 0; i < gameTries_.size(); i++) {
@@ -149,12 +162,14 @@ public class Board extends GameObject {
         for (int i = 0; i < gameTries_.size(); i++) {
             gameTries_.get(i).TranslateY(transY);
         }
-        upTryPos_+=transY;
-        downTryPos_+=transY;
+        upTryPos_ += transY;
+        downTryPos_ += transY;
     }
-    public GameTry getTryByIndex(int index){
+
+    public GameTry getTryByIndex(int index) {
         return gameTries_.get(index);
     }
+
     public int getAcutalTry_() {
         return acutalTry_;
     }
@@ -162,15 +177,17 @@ public class Board extends GameObject {
     public void putNewColor(int id, int color) {
         gameTries_.get(acutalTry_).putNewColor(id, color);
     }
-    public void forcePutColor(int pos, int id){
+
+    public void forcePutColor(int pos, int id) {
         gameTries_.get(acutalTry_).forcePutColor(pos, id, totalPossibleColors[id]);
     }
+
     public void putColor(int id) {
         gameTries_.get(acutalTry_).putNewColor(id, totalPossibleColors[id]);
     }
 
     public void addNewTries(int newTries) {
-        int offset = gameTries_.get(tries_ - 1).getButtonPosition()+10;
+        int offset = gameTries_.get(tries_ - 1).getButtonPosition() + 10;
         for (int i = 0; i < newTries; i++) {
             GameTry g = new GameTry(codeColors_, tries_, 40, world_, limitUp, limitDown);
             g.init();
@@ -179,19 +196,20 @@ public class Board extends GameObject {
             gameTries_.add(g);
             gameObjectsTable_.add(g);
             tries_++;
-            downTryPos_+=50;
+            downTryPos_ += 50;
         }
         nexTry();
     }
 
-    public int getTotalTries(){
+    public int getTotalTries() {
         return gameTries_.size();
     }
+
     public void changeDaltonics(boolean dalt) {
-        for (GameTry g: gameTries_) {
+        for (GameTry g : gameTries_) {
             g.changeDaltonics(dalt);
         }
-        for(SolutionCircle s : usableColorsCircles_){
+        for (SolutionCircle s : usableColorsCircles_) {
             s.setDaltonics_(dalt);
         }
     }
