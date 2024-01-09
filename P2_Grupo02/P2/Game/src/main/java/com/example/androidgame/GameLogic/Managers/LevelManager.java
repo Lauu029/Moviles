@@ -144,6 +144,11 @@ public class LevelManager {
         instance.numWorlds = instance.read_.getNumWorlds_();
 
     }
+    public void changeShortcutTheme()
+    {
+        instance.tema_ = instance.read_.getTematicaWorld(instance.passedWorld_);
+
+    }
     //Crea un mundo de niveles nuevos
     public void setNewWorld() {
         instance.niveles_ = read_.getNumLevels(actualWorld_);

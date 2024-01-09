@@ -42,7 +42,10 @@ public class WorldScene extends Scene {
         graph.setFont(this.font_);
         shortcut_=GameManager.getInstance().getShortcut();
         if(shortcut_){
-            actualWorld_=LevelManager.getInstance().getPassedWorld();
+            //actualWorld_=LevelManager.getInstance().getPassedWorld();
+
+
+            //return;
         }
         Sound myArrowSound_ = iEngine_.getAudio().newSound("arrowButton.wav");
         ButtonImage returnButton_ = new ButtonImage("flecha.png", 40, 40, 0, 0, myArrowSound_, new ButtonClickListener() {

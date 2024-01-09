@@ -11,6 +11,7 @@ import com.example.androidengine.Sound;
 import com.example.androidengine.TouchEvent;
 import com.example.androidgame.GameLogic.Buttons.Button;
 import com.example.androidgame.GameLogic.Buttons.ButtonClickListener;
+import com.example.androidgame.GameLogic.Difficulty;
 import com.example.androidgame.GameLogic.GameInit;
 import com.example.androidgame.GameLogic.GameObject;
 import com.example.androidgame.GameLogic.GameTry;
@@ -24,6 +25,7 @@ import com.example.androidgame.GameLogic.Scenes.Scene;
 import com.example.androidgame.GameLogic.Scenes.SceneNames;
 import com.example.androidgame.GameLogic.Scenes.ShopScene;
 import com.example.androidgame.GameLogic.Scenes.WorldScene;
+import com.example.androidgame.GameLogic.Theme;
 
 import java.util.ArrayList;
 
@@ -102,7 +104,14 @@ public class MenuScene extends Scene {
             public void onClick() {
                 sensor_.onResume();
                 GameManager.getInstance().setShortcut(true);
-                SceneManager.getInstance().addScene(new WorldScene(), SceneNames.WORLD.ordinal());
+                //SceneManager.getInstance().addScene(new WorldScene(), SceneNames.WORLD.ordinal());
+                LevelManager.getInstance().changeShortcutTheme();
+                Theme tema=LevelManager.getInstance().getTema();
+                AssetsManager.getInstance().setWorldTheme(tema);
+                LevelManager.getInstance().setActualLevel(LevelManager.getInstance().getPassedLevel());
+                ArrayList<Difficulty> diff = LevelManager.getInstance().getDiff();
+                GameManager.getInstance().setLevel(diff.get(LevelManager.getInstance().getPassedLevel()));
+                SceneManager.getInstance().addScene(new WorldGameScene(), SceneNames.WORLD_SCENE.ordinal());
             }
         });
         addGameObject(playButton_);
