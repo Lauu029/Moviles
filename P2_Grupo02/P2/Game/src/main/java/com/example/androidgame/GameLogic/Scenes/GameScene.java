@@ -111,11 +111,13 @@ public class GameScene extends Scene {
      * si se ha ganado el juego o perdido por superar el numero de  intentos y si no se ha ganado
      * ni se ha acabado crea nuevas pistas en la clase tablero y avanza al siguiente intento*/
     public void update(double time) {
-        levelDuration_+=time;
-        if(timerInicial_<=0)
-        {
-            Log.d("CONTRARRELOJ","No queda mas tiempo: "+levelDuration_);
-            SceneManager.getInstance().setScene(SceneNames.MENU.ordinal());
+        if(contrarreloj_)
+        {   levelDuration_+=time;
+            if(timerInicial_<=0)
+            {
+                Log.d("CONTRARRELOJ","No queda mas tiempo: "+levelDuration_);
+                SceneManager.getInstance().setScene(SceneNames.MENU.ordinal());
+            }
         }
         if (scroll) {
             int speed = yFin - yIni;
