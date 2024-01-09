@@ -3,6 +3,7 @@ package com.example.gamelogic.Scenes;
 import com.example.engine.IEngine;
 import com.example.engine.IFont;
 import com.example.engine.ISound;
+import com.example.engine.TouchEvent;
 import com.example.gamelogic.Board;
 import com.example.gamelogic.Buttons.ButtonClickListener;
 import com.example.gamelogic.Buttons.ButtonColorBlind;
@@ -23,6 +24,10 @@ public class GameScene extends Scene {
     private Difficulty lev_;
     private GameManager gm_;
     private ISound myCrossSound_;
+    protected boolean scroll = false;
+    protected int yIni;
+    protected int yFin;
+    protected int upTryPos_, downTryPos_, upRenderPos_, downRenderPos_;
     public GameScene() {
         super();
     }
@@ -59,6 +64,10 @@ public class GameScene extends Scene {
             }
         });
         this.addGameObject(exitLevel_);
+        upTryPos_ = gameBoard_.getUpTryPos();
+        downTryPos_ = gameBoard_.getDownTryPos();
+        downRenderPos_ = gameBoard_.getdownRenderPos();
+        upRenderPos_ = gameBoard_.getupRenderPos();
     }
 
     @Override
@@ -74,6 +83,13 @@ public class GameScene extends Scene {
      * ni se ha acabado crea nuevas pistas en la clase tablero y avanza al siguiente intento*/
     @Override
     public void update(double time) {
+        if (scroll) {
+            int speed = yFin - yIni;
+            if ((gameBoard_.getUpTryPos() < upRenderPos_ && speed > 0) || (gameBoard_.getDownTryPos() > downRenderPos_ && speed < 0)) {
+                gameBoard_.TranslateY(speed);
+            }
+            yIni = yFin;
+        }
         int[] tempSol = gm_.getLevelSolution();
         int i = 0;
         boolean isComplete = true;
@@ -99,6 +115,21 @@ public class GameScene extends Scene {
             }
         }
         super.update(time);
+    }
+    @Override
+    public void handleInput(ArrayList<TouchEvent> events) {
+        super.handleInput(events);
+        for (TouchEvent event : events) {
+            if (event.type == TouchEvent.TouchEventType.TOUCH_DOWN) {
+                if (!scroll)
+                    yIni = event.y;
+            } else if (event.type == TouchEvent.TouchEventType.TOUCH_DRAG) {
+                scroll = true;
+                yFin = event.y;
+            } else if (event.type == TouchEvent.TouchEventType.TOUCH_UP) {
+                scroll = false;
+            }
+        }
     }
     protected void ChangeEndScene(boolean win, int try_) {
             EndScene end = new EndScene(win, mySolution_.getSol(), try_);
