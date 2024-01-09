@@ -87,14 +87,14 @@ public class Mobile {
                                 // Called when ad is dismissed.
                                 // Set the ad reference to null so you don't show the ad a second time.
                                 Log.d("COJONES", "Ad dismissed fullscreen content.");
-                                mInterstitialAd = null;
+
                             }
 
                             @Override
                             public void onAdFailedToShowFullScreenContent(AdError adError) {
                                 // Called when ad fails to show.
                                 Log.e("COJONES", "Ad failed to show fullscreen content.");
-                                mInterstitialAd = null;
+
                             }
 
                             @Override
@@ -218,14 +218,14 @@ public class Mobile {
                                         // Called when ad is dismissed.
                                         // Set the ad reference to null so you don't show the ad a second time.
                                         Log.d("COJONES", "Ad dismissed fullscreen content.");
-                                        mInterstitialAd = null;
+
                                     }
 
                                     @Override
                                     public void onAdFailedToShowFullScreenContent(AdError adError) {
                                         // Called when ad fails to show.
                                         Log.e("COJONES", "Ad failed to show fullscreen content.");
-                                        mInterstitialAd = null;
+
                                     }
 
                                     @Override
