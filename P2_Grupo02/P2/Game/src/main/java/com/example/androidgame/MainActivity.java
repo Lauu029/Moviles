@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         GameManager.init(IEngine_, 400, 600);
         IEngine_.resume();
+
         onNewIntent(getIntent());
 
     }
