@@ -33,14 +33,17 @@ public class WorldScene extends Scene {
     int passedLevel_ = 0;
     int passedWorld_ = 0;
     protected ArrayList<GameObject> buttonObjects_ = new ArrayList<>();
-
+    private boolean shortcut_;
     @Override
     public void init() {
         buttonObjects_.clear();
         Graphics graph = iEngine_.getGraphics();
         this.font_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 40, true, true);
         graph.setFont(this.font_);
-
+        shortcut_=GameManager.getInstance().getShortcut();
+        if(shortcut_){
+            actualWorld_=LevelManager.getInstance().getPassedWorld();
+        }
         Sound myArrowSound_ = iEngine_.getAudio().newSound("arrowButton.wav");
         ButtonImage returnButton_ = new ButtonImage("flecha.png", 40, 40, 0, 0, myArrowSound_, new ButtonClickListener() {
             @Override

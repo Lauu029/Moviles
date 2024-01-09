@@ -17,6 +17,7 @@ import com.example.androidgame.GameLogic.GameTry;
 import com.example.androidgame.GameLogic.LevelDifficulty;
 import com.example.androidgame.GameLogic.Managers.AssetsManager;
 import com.example.androidgame.GameLogic.Managers.GameManager;
+import com.example.androidgame.GameLogic.Managers.LevelManager;
 import com.example.androidgame.GameLogic.Managers.SceneManager;
 import com.example.androidgame.GameLogic.Scenes.DifficultyScene;
 import com.example.androidgame.GameLogic.Scenes.Scene;
@@ -27,7 +28,7 @@ import com.example.androidgame.GameLogic.Scenes.WorldScene;
 import java.util.ArrayList;
 
 public class MenuScene extends Scene {
-    private Button playButton_,contrarrelojButton_;
+    private Button playButton_,contrarrelojButton_,skipLevelButton_;
     private Button storeButton_;
     private Button mundoButton_;
     private Font font_;
@@ -94,11 +95,21 @@ public class MenuScene extends Scene {
                 SceneManager.getInstance().addScene(new GameScene(), SceneNames.GAME.ordinal());
             }
         });
+        this.skipLevelButton_= new Button("Skip", fontButton_, AssetsManager.getInstance().getButtonColor(),
+                AssetsManager.getInstance().getTextColor(), AssetsManager.getInstance().getLineColor(), 50, 50, 0,
+                this.width_ - 50, this.height_ / 2, myButtonSound_, new ButtonClickListener() {
+            @Override
+            public void onClick() {
+                sensor_.onResume();
+                GameManager.getInstance().setShortcut(true);
+                SceneManager.getInstance().addScene(new WorldScene(), SceneNames.WORLD.ordinal());
+            }
+        });
         addGameObject(playButton_);
         addGameObject(storeButton_);
         addGameObject(mundoButton_);
         addGameObject(contrarrelojButton_);
-
+        addGameObject(skipLevelButton_);
         myIcon_ = graph.newImage("logo.png");
 
     }

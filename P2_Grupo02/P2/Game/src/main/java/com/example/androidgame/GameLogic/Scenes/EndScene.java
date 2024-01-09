@@ -165,7 +165,8 @@ public class EndScene extends Scene {
         int x = (width_ - totalCircleWidth) / 2;
         for (int i = 0; i < sol_.length; i++) {
             if (tematica_.getName() != "DEFAULT") {
-                graph.drawImage(images_.get(i), x + i * (radius * 2 + offset), 150, radius * 2, radius * 2);
+                if(images_.get(i)!=null)
+                    graph.drawImage(images_.get(i), x + i * (radius * 2 + offset), 150, radius * 2, radius * 2);
             } else {
                 graph.setColor(totalPossibleColors_[sol_[i]]);
                 graph.drawCircle(x + i * (radius * 2 + offset) + radius, 150 + radius, radius);

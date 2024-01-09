@@ -27,6 +27,7 @@ public class GameManager {
     private float timeLeft_;
     private float totalTimePassed_;
     private float bestTimeInSecs_;
+    private boolean shortcut_;
     private GameManager() {
         // Constructor privado
     }
@@ -51,14 +52,15 @@ public class GameManager {
         instance_.totalTimePassed_=0;
         instance_.timeLeft_= instance_.minutosContrarreloj_*60;
         instance_.bestTimeInSecs_= instance_.timeLeft_;
-
+        instance_.shortcut_=false;
         AssetsManager.init( instance_.myEngine_);
         SceneManager.init();
         LevelManager.init();
         ShopManager.init();
         return 1;
     }
-
+    public void setShortcut(boolean s){shortcut_=s;}
+    public boolean getShortcut(){return shortcut_;}
     public int getWidth() {
         return width_;
     }
