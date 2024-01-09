@@ -1,5 +1,6 @@
 package com.example.gamelogic;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -8,12 +9,32 @@ import java.util.Random;
 public class Solution {
     private Map<Integer, Map<Integer, Boolean>> solution = new HashMap<>();
     private int[] sol_;
+    private int[] posCorrects;
     private boolean win_ = false;
     private int actualTry_ = 0;
     private int correctPos_ = 0, correctColor_ = 0;
     private int solutionSize_;
-    private int[][] registeredSols_;
+    private ArrayList<int[]> registeredSols_=new ArrayList<>();
+    public void setSolution(int[]sol){
+        sol_=sol;
+        this.solutionSize_=sol.length;
+        posCorrects=new int[solutionSize_];
+        for(int i=0;i<solutionSize_;i++){
+            posCorrects[i]=-1;
+        }
+        for (int i = 0; i < solutionSize_; i++) {
 
+            if (solution.containsKey(sol[i]))
+                solution.get(sol[i]).put(i, false);
+            else {
+                Map<Integer, Boolean> s = new HashMap<>();
+                s.put(i, false);
+                solution.put(sol[i], s);
+            }
+
+
+        }
+    }
     public void createSolution(Boolean repeat, int colorGame, int posibleColor, int maxTries) {
 
         this.solutionSize_ = colorGame;
@@ -21,12 +42,15 @@ public class Solution {
         // Definir el rango (por ejemplo, de 1 a 100)
         int min = 0;
         int max = posibleColor - 1;
-
+        posCorrects=new int[solutionSize_];
+        for(int i=0;i<solutionSize_;i++){
+            posCorrects[i]=-1;
+        }
         // Crear una instancia de Random
         Random rand = new Random();
         //aqui se guardan las soluciones para luego ser renderizadas,registerSols[x][0] hara ref a la posiciones correctas,
         //registerSols[x][1] hara ref a lod colores correctos
-        this.registeredSols_ = new int[maxTries][2];
+
         // Generar un número aleatorio en el rango
 
         for (int i = 0; i < solutionSize_; i++) {
@@ -61,6 +85,7 @@ public class Solution {
                 Map<Integer, Boolean> value = solution.get(possible_sol[i]);
                 if (value.containsKey(i)) {
                     correctPos_++;
+                    posCorrects[i]=possible_sol[i];
                     //si ha sido combrobado antes es porque hay una casila con el mismo color pero no en la misma pos
                     solution.get(possible_sol[i]).put(i, true);
                 } else {
@@ -83,19 +108,23 @@ public class Solution {
             }
         }
         if (correctPos_ == solutionSize_) win_ = true;
-        registeredSols_[actualTry_][0] = correctPos_;
-        registeredSols_[actualTry_][1] = correctColor_;
-
+        int[]sl=new int[2];
+        sl[0]=correctPos_;
+        sl[1]=correctColor_;
+        registeredSols_.add(sl);
         resetMap();
         actualTry_++;
     }
+    public int[]getPosCorrects(){
+        return posCorrects;
+    }
 
     public int getCorrectPos(int try_) {
-        return registeredSols_[try_][0];
+        return registeredSols_.get(try_)[0];
     }
 
     public int getCorrectColor(int try_) {
-        return registeredSols_[try_][1];
+        return registeredSols_.get(try_)[1];
     }
 
     private void resetMap() {
@@ -109,7 +138,7 @@ public class Solution {
             }
         }
         correctColor_ = 0;
-        correctPos_ = 0;
+        correctPos_=0;
     }
 
 
