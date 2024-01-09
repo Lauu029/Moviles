@@ -154,7 +154,19 @@ public class Board extends GameObject {
     public int getAcutalTry_() {
         return acutalTry_;
     }
+    public int[][]getBoard(){
+        int[][] board=new int[acutalTry_][codeColors_];
+        for(int i=0;i<acutalTry_;i++){
+            for(int j=0;j<codeColors_;j++){
+                board[i][j]=gameTries_.get(i).getTries()[j].getIdColor_();
+            }
+        }
+        return board;
 
+    }
+    public void putNewColorPosition(int id,int pos){
+        gameTries_.get(acutalTry_).putNewColorPosition(id, totalPossibleColors[id], pos);
+    }
     public void putNewColor(int id, int color) {
         gameTries_.get(acutalTry_).putNewColor(id, color);
     }

@@ -38,7 +38,9 @@ public class GameTry extends GameObject {
         fuente = GameManager.getInstance_().getIEngine().getGraphics().newFont("Hexenkoetel-qZRv1.ttf", height, false, false);
         solutionSize_ = solutionSize;
     }
-
+    public TryCircle[]getTries(){
+        return tries_;
+    }
     @Override
     public void init() {
         int offsetX = height_;
@@ -161,6 +163,12 @@ public class GameTry extends GameObject {
                 break;
             }
         }
+    }
+    public void putNewColorPosition(int id, int color,int pos) {
+
+        tries_[pos].setColor(color, id);
+        GameManager.getInstance_().putColorSolution(pos, id);
+
     }
     public int getButtonPosition(){
         return translateY_+height_;

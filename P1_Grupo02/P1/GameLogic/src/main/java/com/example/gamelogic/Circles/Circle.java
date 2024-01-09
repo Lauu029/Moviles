@@ -61,7 +61,9 @@ public class Circle extends GameObject {
     @Override
     public void init() {
     }
-
+    public int getIdColor_(){
+        return idColor_;
+    }
     public void setIdColor_(int id) {
         this.idColor_ = id;
     }
