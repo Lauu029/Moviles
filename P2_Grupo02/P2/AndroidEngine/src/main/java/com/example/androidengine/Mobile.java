@@ -189,9 +189,70 @@ public class Mobile {
                 }
             }
         });
+        loadNewLoadIntertitial();
 
     }
+    private void loadNewLoadIntertitial() {
+        myActivity_.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                InterstitialAd.load(context_, "ca-app-pub-3940256099942544/1033173712", adRequest_,
+                        new InterstitialAdLoadCallback() {
+                            @Override
+                            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                                // The mInterstitialAd reference will be null until
+                                // an ad is loaded.
+                                mInterstitialAd = interstitialAd;
+                                Log.i("COJONES", "inter on Ad Loaded");
+                                if(mInterstitialAd!=null)Log.d("COJONES", "VIVA LA VIDA");
 
+                                mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
+                                    @Override
+                                    public void onAdClicked() {
+                                        // Called when a click is recorded for an ad.
+                                        Log.d("COJONES", "Ad was clicked.");
+                                    }
+
+                                    @Override
+                                    public void onAdDismissedFullScreenContent() {
+                                        // Called when ad is dismissed.
+                                        // Set the ad reference to null so you don't show the ad a second time.
+                                        Log.d("COJONES", "Ad dismissed fullscreen content.");
+                                        mInterstitialAd = null;
+                                    }
+
+                                    @Override
+                                    public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                        // Called when ad fails to show.
+                                        Log.e("COJONES", "Ad failed to show fullscreen content.");
+                                        mInterstitialAd = null;
+                                    }
+
+                                    @Override
+                                    public void onAdImpression() {
+                                        // Called when an impression is recorded for an ad.
+                                        Log.d("COJONES", "Ad recorded an impression.");
+                                    }
+
+                                    @Override
+                                    public void onAdShowedFullScreenContent() {
+                                        // Called when ad is shown.
+                                        Log.d("COJONES", "Ad showed fullscreen content.");
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                                // Handle the error
+                                Log.d("COJONES", "No se ha cargado");
+                                mInterstitialAd = null;
+                            }
+                        });
+
+            }
+        });
+    }
 
     private void loadNewRewardedAd() {
         myActivity_.runOnUiThread(new Runnable() {

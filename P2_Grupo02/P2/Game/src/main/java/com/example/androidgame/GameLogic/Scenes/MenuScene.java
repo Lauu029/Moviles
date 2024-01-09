@@ -72,11 +72,11 @@ public class MenuScene extends Scene {
             @Override
             public void onClick() {
                 sensor_.onResume();
-
+                GameManager.getInstance().getIEngine().getMobile().LoadIntertitialAdd();
                 SceneManager.getInstance().addScene(new ShopScene(), SceneNames.SHOP.ordinal());
             }
         });
-        GameManager.getInstance().getIEngine().getMobile().LoadIntertitialAdd();
+
         addGameObject(playButton_);
         addGameObject(storeButton_);
         addGameObject(mundoButton_);
