@@ -47,7 +47,7 @@ public class MenuScene extends Scene {
         graph.setFont(this.font_);
 
         fontButton_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 20, false, false);
-        myButtonSound_ = iEngine_.getAudio().newSound("menuButton.wav");
+        myButtonSound_ = iEngine_.getAudio().newSound("LasDivinas.wav");
         maracaSound_ = iEngine_.getAudio().newSound("maraca.mp3");
 
         this.playButton_ = new Button("Partida Rapida", fontButton_, AssetsManager.getInstance().getButtonColor(),
@@ -83,7 +83,8 @@ public class MenuScene extends Scene {
             @Override
             public void onClick() {
                 sensor_.onResume();
-                SceneManager.getInstance().addScene(new ChronoGameScene(0,15*60), SceneNames.GAME.ordinal());
+               // SceneManager.getInstance().addScene(new ChronoGameScene(0,15*60), SceneNames.GAME.ordinal());
+                iEngine_.getAudio().changeSoundPlaying();
             }
         });
         addGameObject(contrarrelojButton_);

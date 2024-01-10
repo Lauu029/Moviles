@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.androidengine.Engine;
 import com.example.androidengine.Image;
+import com.example.androidengine.Sound;
 import com.example.androidgame.GameLogic.Board;
 import com.example.androidgame.GameLogic.Difficulty;
 import com.example.androidgame.GameLogic.Solution;
@@ -13,7 +14,7 @@ import com.example.androidgame.GameLogic.Utils.SaveData;
 public class GameManager {
     private static GameManager instance_;
     private Engine myEngine_;
-
+private Sound cancion_;
     private int width_, height_;
     private Difficulty levelDificulty_;
     private Board board_;
@@ -44,10 +45,13 @@ public class GameManager {
         instance_.daltonics_ = false;
         instance_.coins_ = 100;
         instance_.backgroundImage_ = null;
+        instance_.cancion_= instance_.myEngine_.getAudio().newSound("LasDivinas.wav");
+        instance_.myEngine_.getAudio().playSound(instance_.cancion_,0);
         AssetsManager.init(instance_.myEngine_);
         SceneManager.init();
         LevelManager.init();
         ShopManager.init();
+
         return 1;
     }
 
