@@ -10,6 +10,7 @@ import com.example.engine.TouchEvent;
 import com.example.gamelogic.Buttons.Button;
 import com.example.gamelogic.Buttons.ButtonClickListener;
 import com.example.gamelogic.Buttons.ButtonText;
+import com.example.gamelogic.Managers.AudioManager;
 import com.example.gamelogic.Managers.GameManager;
 import com.example.gamelogic.Managers.SceneManager;
 import com.example.gamelogic.IGameObject;
@@ -23,7 +24,7 @@ public class MenuScene extends Scene {
     private IFont font_;
     private IFont fontButton_;
     private IImage myIcon_;
-    private ISound myButtonSound_;
+    private ISound myButtonSound_,menuMusic_;
     private boolean nuevoAspecto,mute;
     public MenuScene() {
         super();
@@ -46,6 +47,7 @@ public class MenuScene extends Scene {
             @Override
             public void onClick() {
                 SceneManager.getInstance().addScene(new LevelScene(), SceneNames.DIFFICULTY.ordinal());
+                AudioManager.getInstance_().pauseSceneMusic(SceneNames.MENU);
             }
         });
 
@@ -66,7 +68,14 @@ public class MenuScene extends Scene {
             }
         });
         addGameObject(tituloButton);
-
+        menuMusic_ = iEngine_.getAudio().newSound("musicaMenu.wav");
+        AudioManager.getInstance_().setAudioEngine(iEngine_.getAudio());
+        AudioManager.getInstance_().addSceneMusic(SceneNames.MENU,menuMusic_);
+        AudioManager.getInstance_().playSceneMusic(SceneNames.MENU);
+    }
+    @Override
+    public void restart(){
+        AudioManager.getInstance_().unPauseSceneMusic(SceneNames.MENU);
     }
 
     @Override

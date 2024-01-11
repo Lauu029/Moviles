@@ -37,7 +37,10 @@ public class Scene implements IScene {
     public void init() {
 
     }
+    @Override
+    public void restart() {
 
+    }
     @Override
     public int getHeight_() {
         return height_;
