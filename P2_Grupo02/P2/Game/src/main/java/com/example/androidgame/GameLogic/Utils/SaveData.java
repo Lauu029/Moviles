@@ -25,11 +25,12 @@ public class SaveData {
     private static final String HASHFILE = "hash_data.json";
 
     public static void saveGameData(int coins, String palette, int currWorld, int currLevel,
-                                    String backgroundPath, String codePath) {
+                                    String backgroundPath, String codePath, int lives) {
         JSONObject jsonObject = new JSONObject();
 
         try {
             jsonObject.put("coins", coins);
+            jsonObject.put("lives", lives);
             jsonObject.put("palette", palette);
             jsonObject.put("world", currWorld);
             jsonObject.put("level", currLevel);
@@ -191,6 +192,9 @@ public class SaveData {
                 savedSolution.add(solArray.getInt(i));
             }
             LevelManager.getInstance().setCurrentSolution(savedSolution);
+
+            int lives = jsonObject.getInt("lives");
+            GameManager.getInstance().setCurrentLives_(lives);
 
         } catch (JSONException | IOException e) {
             e.printStackTrace();

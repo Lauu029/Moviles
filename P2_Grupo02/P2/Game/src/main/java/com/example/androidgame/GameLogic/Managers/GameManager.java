@@ -62,6 +62,7 @@ public class GameManager {
         return 1;
     }
     public void resetCurrentLives(){currentLives_=5;}
+    public void setCurrentLives_(int l){currentLives_=l;}
     public int getCurrentLives(){return currentLives_;}
     public void lostLife(){
         if(currentLives_-1>=0)
@@ -142,7 +143,7 @@ public class GameManager {
                 LevelManager.getInstance().getPassedWorld(),
                 LevelManager.getInstance().getPassedLevel(),
                 AssetsManager.getInstance().getBackgroundPath(),
-                AssetsManager.getInstance().getCirleTheme(false).getPathBolas());
+                AssetsManager.getInstance().getCirleTheme(false).getPathBolas(),currentLives_);
     }
 
     // Llamado al iniciar el juego para cargar el progreso del jugador
@@ -150,6 +151,7 @@ public class GameManager {
         SaveData.loadGameData();
         // Actualiza las variables del GameManager según los datos cargados
         coins_ = getCoins();
+        currentLives_=getCurrentLives();
     }
     public void setContrarreloj(boolean active){contrarreloj_=active;}
     public boolean getContrarreloj(){return contrarreloj_;}
