@@ -113,6 +113,7 @@ public class EndScene extends Scene {
                 public void onClick() {
                     GameScene gs = (GameScene) SceneManager.getInstance().getScene(SceneNames.GAME.ordinal());
                     gs.addTriesToBoard(2);
+                    GameManager.getInstance().gotLife();
                     iEngine_.getMobile().LoadRewardedAd();
                     waitingForReward_ = true;
                     buttonReward_.changeActive(false);
@@ -146,6 +147,8 @@ public class EndScene extends Scene {
             iEngine_.getGraphics().drawText("GAME OVER", width_ / 2, 10);
             iEngine_.getGraphics().setFont(font1_);
             iEngine_.getGraphics().drawText("Te has quedado sin intentos", width_ / 2, 50);
+            iEngine_.getGraphics().drawText("Lives: "+GameManager.getInstance().getCurrentLives(),(width_ / 2),70);
+
         } else {
             iEngine_.getGraphics().drawText("ENHORABUENA!!", width_ / 2, 10);
             iEngine_.getGraphics().setFont(font1_);

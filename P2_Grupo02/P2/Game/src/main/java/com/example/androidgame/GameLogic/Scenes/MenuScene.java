@@ -145,6 +145,8 @@ public class MenuScene extends Scene {
             iEngine_.getGraphics().drawText("0"+Math.round(seconds), width_ / 2+30, 170);
         }
         else iEngine_.getGraphics().drawText(String.valueOf(Math.round(seconds)),width_ / 2+30, 170 );
+        iEngine_.getGraphics().drawText("Lives: "+GameManager.getInstance().getCurrentLives(),(width_ / 2),height_-100);
+
     }
     @Override
     public void update(double time) {

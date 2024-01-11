@@ -28,6 +28,7 @@ public class GameManager {
     private float totalTimePassed_;
     private float bestTimeInSecs_;
     private boolean shortcut_;
+    int currentLives_;
     private GameManager() {
         // Constructor privado
     }
@@ -52,6 +53,7 @@ public class GameManager {
         instance_.totalTimePassed_=0;
         instance_.timeLeft_= instance_.minutosContrarreloj_*60;
         instance_.bestTimeInSecs_= instance_.timeLeft_;
+        instance_.currentLives_=5;
         instance_.shortcut_=false;
         AssetsManager.init( instance_.myEngine_);
         SceneManager.init();
@@ -59,6 +61,12 @@ public class GameManager {
         ShopManager.init();
         return 1;
     }
+    public void resetCurrentLives(){currentLives_=5;}
+    public int getCurrentLives(){return currentLives_;}
+    public void lostLife(){
+        if(currentLives_-1>=0)
+            currentLives_--;}
+    public void gotLife(){currentLives_++;}
     public void setShortcut(boolean s){shortcut_=s;}
     public boolean getShortcut(){return shortcut_;}
     public int getWidth() {

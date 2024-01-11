@@ -146,11 +146,12 @@ public class GameScene extends Scene {
             iEngine_.getGraphics().drawText("0"+Math.round(seconds), (width_ / 2)+10, height_/2-220);
         }
         else iEngine_.getGraphics().drawText(String.valueOf(Math.round(seconds)), (width_ / 2)+10, height_/2-220);
-
+        //iEngine_.getGraphics().drawText("Lives: "+GameManager.getInstance().getCurrentLives(),(width_ / 2),height_/2-240);
     }
     protected void ChangeEndScene(boolean win, int try_) {
 
         EndScene end = new EndScene(win, mySolution_.getSol(), try_);
+        if(!win) GameManager.getInstance().lostLife();
         SceneManager.getInstance().addScene(end, SceneNames.FINAL.ordinal());
     }
 
