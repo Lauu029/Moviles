@@ -41,18 +41,4 @@ public class AudioManager {
             audioEngine_.stopSound(sound);
         }
     }
-    public void pauseSceneMusic(SceneNames nombre){
-        if(musicMap_.containsKey(nombre))
-        {
-            ISound sound= musicMap_.get(nombre);
-            audioEngine_.pauseSound(sound);
-        }
-    }
-    public void unPauseSceneMusic(SceneNames nombre){
-        if(musicMap_.containsKey(nombre))
-        {
-            ISound sound= musicMap_.get(nombre);
-            audioEngine_.unPauseSound(sound);
-        }
-    }
 }

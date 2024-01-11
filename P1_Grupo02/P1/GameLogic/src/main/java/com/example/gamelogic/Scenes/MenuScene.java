@@ -47,7 +47,7 @@ public class MenuScene extends Scene {
             @Override
             public void onClick() {
                 SceneManager.getInstance().addScene(new LevelScene(), SceneNames.DIFFICULTY.ordinal());
-                AudioManager.getInstance_().pauseSceneMusic(SceneNames.MENU);
+                //AudioManager.getInstance_().stopSceneMusic(SceneNames.MENU);
             }
         });
 
@@ -72,10 +72,11 @@ public class MenuScene extends Scene {
         AudioManager.getInstance_().setAudioEngine(iEngine_.getAudio());
         AudioManager.getInstance_().addSceneMusic(SceneNames.MENU,menuMusic_);
         AudioManager.getInstance_().playSceneMusic(SceneNames.MENU);
+
     }
     @Override
     public void restart(){
-        AudioManager.getInstance_().unPauseSceneMusic(SceneNames.MENU);
+        //AudioManager.getInstance_().playSceneMusic(SceneNames.MENU);
     }
 
     @Override
