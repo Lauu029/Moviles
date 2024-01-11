@@ -29,7 +29,7 @@ public class ShopScene extends Scene {
     private Sound myArrowSound_, shopingSound_;
     private ButtonImage backButton_;
     private Font font_;
-    private String[] textShops_ = {"fondos", "codigos", "colores"};
+    private String[] textShops_ = {"fondos", "codigos", "colores","extra"};
     private String[] shopName_;
     private ButtonImage previousShop_, nextShop_;
     private ArrayList<ShopItem>[] totalShopItems_;
@@ -40,12 +40,12 @@ public class ShopScene extends Scene {
     private JSONObject shopConfig;
 
     private ButtonImage noneButton_;
-    private boolean[] itemsLoaded_ = {false, false, false};
+    private boolean[] itemsLoaded_ = {false, false, false,false};
     private ShopItem selectedItem_;
     public ShopScene() {
         super();
     }
-    private int NSHOPS= 3;
+    private int NSHOPS= 4;
     @Override
     public void init() {
         myArrowSound_ = iEngine_.getAudio().newSound("arrowButton.wav");
@@ -148,6 +148,7 @@ public class ShopScene extends Scene {
     }
 
     public JSONObject readShopConfig(InputStream file) {
+
         try {
             // Lee el contenido del InputStream proporcionado
             BufferedReader reader = new BufferedReader(new InputStreamReader(file));

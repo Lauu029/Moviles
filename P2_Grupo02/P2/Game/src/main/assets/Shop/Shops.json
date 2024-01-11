@@ -20,5 +20,12 @@
       "ButtonsImages" : ["Animals","Vegetables","Origami","Japo"],
       "numBotones" : 5,
       "precios": [20,25,10,20]
+   },
+   "extra": {
+      "tipo": "Extra",
+      "ruta" : "Shop/Extras/",
+      "extension" : ".png",
+      "ButtonsImages" : ["fondo"],
+      "precios": [1]
    }
 }
