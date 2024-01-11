@@ -92,12 +92,20 @@ public class WorldGameScene extends GameScene{
                 gameBoard_.nexTry();
             }
         } else {
+            LevelManager.getInstance().clearTries();
             this.gameBoard_ = new Board(lev_.getSolutionColors(), lev_.getTries(), lev_.getPosibleColors(), lev_.isRepeat(), width_, height_, true);
         }
     }
     @Override
     protected void changeSceneExit(){
-        LevelManager.getInstance().clearTries();
+        //LevelManager.getInstance().clearTries();
+        actWorld=LevelManager.getInstance().getActualWorld();
+
+        LevelManager.getInstance().setSavedWorld(actWorld);
+        actLevel =LevelManager.getInstance().getActualLevel();
+        LevelManager.getInstance().setSavedLevel(actLevel);
+
+        savedSol = LevelManager.getInstance().getCurrentSolution();
         SceneManager.getInstance().addScene(new WorldScene(), SceneNames.WORLD.ordinal());
         GameManager.getInstance().setIdScene(-1);
     }

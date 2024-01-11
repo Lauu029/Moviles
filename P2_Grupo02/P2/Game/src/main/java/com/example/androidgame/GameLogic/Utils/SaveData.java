@@ -208,7 +208,8 @@ public class SaveData {
                 LevelManager.getInstance().setNewWorld();
                 GameManager.getInstance().setLevel(diff.get(LevelManager.getInstance().getSavedLevel()));
                 Theme tema = LevelManager.getInstance().getTema();
-                
+
+
                 AssetsManager.getInstance().setWorldTheme(tema);
                 SceneManager.getInstance().addScene(world2, SceneNames.WORLD_SCENE.ordinal());
             }
