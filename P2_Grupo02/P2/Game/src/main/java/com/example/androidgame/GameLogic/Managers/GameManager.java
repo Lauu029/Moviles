@@ -19,6 +19,7 @@ public class GameManager {
     private int [] levelSolution_;
     private boolean daltonics_;
     private int coins_;
+    private int idScene=-1;
     private Image backgroundImage_;
 
     private GameManager() {
@@ -126,5 +127,13 @@ public class GameManager {
         SaveData.loadGameData();
         // Actualiza las variables del GameManager según los datos cargados
         coins_ = getCoins();
+    }
+
+    public int getIdScene() {
+        return idScene;
+    }
+
+    public void setIdScene(int idScene) {
+        this.idScene = idScene;
     }
 }

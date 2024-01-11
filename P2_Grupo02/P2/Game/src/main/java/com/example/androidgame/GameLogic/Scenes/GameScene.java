@@ -26,11 +26,13 @@ public class GameScene extends Scene {
     protected Font font_;
     protected Difficulty lev_;
     protected GameManager gm_;
+
     protected Sound myCrossSound_;
     protected boolean scroll = false;
     protected int yIni;
     protected int yFin;
     protected int upTryPos_, downTryPos_, upRenderPos_, downRenderPos_;
+
 
     public GameScene() {
         super();

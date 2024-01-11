@@ -15,12 +15,15 @@ public class Solution {
     private int actualTry_ = 0;
     private int correctPos_ = 0, correctColor_ = 0;
     private int solutionSize_;
-
+    int[]correctP;
     private ArrayList<int[]> registeredSols_ = new ArrayList<>();
 
     public void setSolution (int []sol){
         solutionSize_=sol.length;
-
+        correctP=new int[solutionSize_];
+        for(int i=0;i<correctP.length;i++){
+            correctP[i]=-1;
+        }
         sol_=sol;
         for (int i = 0; i < solutionSize_; i++) {
             if (solution.containsKey(sol[i]))
@@ -35,6 +38,10 @@ public class Solution {
     public void createSolution(Boolean repeat, int colorGame, int posibleColor, int maxTries) {
 
         this.solutionSize_ = colorGame;
+        correctP=new int[solutionSize_];
+        for(int i=0;i<correctP.length;i++){
+            correctP[i]=-1;
+        }
         this.sol_ = new int[solutionSize_];
         // Definir el rango (por ejemplo, de 1 a 100)
         int min = 0;
@@ -71,6 +78,7 @@ public class Solution {
     public void check(int[] possible_sol) {
         correctPos_ = 0;
         correctColor_ = 0;
+
         for (int i = 0; i < possible_sol.length; i++) {
             //si la solucion real contiene el color
             if (solution.containsKey(possible_sol[i])) {
@@ -78,6 +86,8 @@ public class Solution {
                 Map<Integer, Boolean> value = solution.get(possible_sol[i]);
                 if (value.containsKey(i)) {
                     correctPos_++;
+                    correctP[i]=sol_[i];
+
                     //si ha sido combrobado antes es porque hay una casila con el mismo color pero no en la misma pos
                     solution.get(possible_sol[i]).put(i, true);
                 } else {
@@ -105,6 +115,9 @@ public class Solution {
 
         resetMap();
         actualTry_++;
+    }
+    public int[]getCorrect(){
+        return correctP;
     }
 
     public int getCorrectPos(int try_) {

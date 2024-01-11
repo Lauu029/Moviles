@@ -165,6 +165,9 @@ public class Board extends GameObject {
     public void putColor(int id) {
         gameTries_.get(acutalTry_).putNewColor(id, totalPossibleColors[id]);
     }
+    public void putColorPos(int id,int pos) {
+        gameTries_.get(acutalTry_).putNewColorPos(id, totalPossibleColors[id],pos);
+    }
 
     public void addNewTries(int newTries) {
         int offset = gameTries_.get(tries_ - 1).getButtonPosition()+10;

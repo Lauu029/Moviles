@@ -2,10 +2,12 @@ package com.example.androidgame.GameLogic.Scenes;
 
 import com.example.androidgame.GameLogic.Board;
 import com.example.androidgame.GameLogic.Managers.AssetsManager;
+import com.example.androidgame.GameLogic.Managers.GameManager;
 import com.example.androidgame.GameLogic.Managers.LevelManager;
 import com.example.androidgame.GameLogic.Managers.SceneManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class WorldGameScene extends GameScene{
     private int actWorld;
@@ -14,11 +16,12 @@ public class WorldGameScene extends GameScene{
     private int savedLevel;
     private ArrayList<ArrayList<Integer>> savedTries;
     ArrayList<Integer> savedSol;
+
     public WorldGameScene() {
         super();
     }
     public void init() {
-
+        GameManager.getInstance().setIdScene(SceneNames.WORLD_SCENE.ordinal());
         actWorld=LevelManager.getInstance().getActualWorld();
         savedWorld = LevelManager.getInstance().getSavedWorld();
         actLevel =LevelManager.getInstance().getActualLevel();
@@ -26,6 +29,8 @@ public class WorldGameScene extends GameScene{
         savedTries = LevelManager.getInstance().getTries();
         savedSol = LevelManager.getInstance().getCurrentSolution();
         super.init();
+
+
         saveSolution();
         LevelManager.getInstance().setTotalTries(gameBoard_.getTotalTries());
 
@@ -94,11 +99,13 @@ public class WorldGameScene extends GameScene{
     protected void changeSceneExit(){
         LevelManager.getInstance().clearTries();
         SceneManager.getInstance().addScene(new WorldScene(), SceneNames.WORLD.ordinal());
+        GameManager.getInstance().setIdScene(-1);
     }
     @Override
     protected void ChangeEndScene(boolean win, int try_) {
         WorldEndScene worldEnd = new WorldEndScene(win, mySolution_.getSol(), try_);
         SceneManager.getInstance().addScene(worldEnd, SceneNames.WORLD_FINAL.ordinal());
+        GameManager.getInstance().setIdScene(-1);
     }
     @Override
     protected void checkSolution(){
@@ -119,6 +126,8 @@ public class WorldGameScene extends GameScene{
             LevelManager.getInstance().addTries(tempArray);
 
             mySolution_.check(tempSol);
+            int[]corr=mySolution_.getCorrect();
+
             int try_ = this.gameBoard_.getAcutalTry_();
             if (mySolution_.getCorrectPos(try_) == this.lev_.getSolutionColors()) {
                 ChangeEndScene(true, try_);
@@ -131,6 +140,11 @@ public class WorldGameScene extends GameScene{
             } else {
                 gameBoard_.setNewHints(mySolution_.getCorrectPos(try_), mySolution_.getCorrectColor(try_));
                 gameBoard_.nexTry();
+                for(int j=0;j<corr.length;j++){
+                    if(corr[j]!=-1){
+                        gameBoard_.putColorPos(corr[j],j);
+                    }
+                }
             }
         }
     }

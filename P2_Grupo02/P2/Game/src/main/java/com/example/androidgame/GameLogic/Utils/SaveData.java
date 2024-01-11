@@ -3,10 +3,14 @@ package com.example.androidgame.GameLogic.Utils;
 import android.content.Context;
 
 import com.example.androidengine.NDKManager;
+import com.example.androidgame.GameLogic.Difficulty;
 import com.example.androidgame.GameLogic.Managers.AssetsManager;
 import com.example.androidgame.GameLogic.Managers.GameManager;
 import com.example.androidgame.GameLogic.Managers.LevelManager;
+import com.example.androidgame.GameLogic.Managers.SceneManager;
 import com.example.androidgame.GameLogic.Managers.ShopManager;
+import com.example.androidgame.GameLogic.Scenes.SceneNames;
+import com.example.androidgame.GameLogic.Scenes.WorldGameScene;
 import com.example.androidgame.GameLogic.Theme;
 
 import org.json.JSONArray;
@@ -29,6 +33,7 @@ public class SaveData {
         JSONObject jsonObject = new JSONObject();
 
         try {
+            jsonObject.put("idScene", GameManager.getInstance().getIdScene());
             jsonObject.put("coins", coins);
             jsonObject.put("palette", palette);
             jsonObject.put("world", currWorld);
@@ -134,6 +139,8 @@ public class SaveData {
 
             }
 
+
+
             String paletteStr = jsonObject.getString("palette");
             String paletteName = String.valueOf(paletteStr);
             AssetsManager.getInstance().addNewPalette(paletteName);
@@ -191,6 +198,20 @@ public class SaveData {
                 savedSolution.add(solArray.getInt(i));
             }
             LevelManager.getInstance().setCurrentSolution(savedSolution);
+            int idScene = jsonObject.getInt("idScene");
+            GameManager.getInstance().setIdScene(idScene);
+            if(idScene== SceneNames.WORLD_SCENE.ordinal()){
+                WorldGameScene world2=new WorldGameScene();
+                ArrayList<Difficulty> diff = LevelManager.getInstance().getDiff();
+                LevelManager.getInstance().setActualLevel(LevelManager.getInstance().getSavedLevel());
+                LevelManager.getInstance().setActualWorld(LevelManager.getInstance().getSavedWorld());
+                LevelManager.getInstance().setNewWorld();
+                GameManager.getInstance().setLevel(diff.get(LevelManager.getInstance().getSavedLevel()));
+                Theme tema = LevelManager.getInstance().getTema();
+                
+                AssetsManager.getInstance().setWorldTheme(tema);
+                SceneManager.getInstance().addScene(world2, SceneNames.WORLD_SCENE.ordinal());
+            }
 
         } catch (JSONException | IOException e) {
             e.printStackTrace();
