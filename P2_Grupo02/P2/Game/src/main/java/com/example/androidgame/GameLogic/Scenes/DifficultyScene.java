@@ -50,9 +50,11 @@ public class DifficultyScene extends Scene {
                     100 * i + 100, myButtonSound_, new ButtonClickListener() {
                 @Override
                 public void onClick() {
-                    GameInit gameInit = new GameInit(diff[finalI]);
-                    GameManager.getInstance().setLevel(gameInit.getDifficulty());
-                    SceneManager.getInstance().addScene(new GameScene(), SceneNames.GAME.ordinal());
+                    if(GameManager.getInstance().hasEnoughLives()) {
+                        GameInit gameInit = new GameInit(diff[finalI]);
+                        GameManager.getInstance().setLevel(gameInit.getDifficulty());
+                        SceneManager.getInstance().addScene(new GameScene(), SceneNames.GAME.ordinal());
+                    }
                 }
             });
 

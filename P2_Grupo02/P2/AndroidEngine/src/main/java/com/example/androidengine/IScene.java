@@ -10,6 +10,7 @@ public interface IScene {
     void update(double time);
     //inicializacion de la escena
     void init() ;
+    void restart();
     //altura de la escena
     int getHeight_();
     //ancho de la escena

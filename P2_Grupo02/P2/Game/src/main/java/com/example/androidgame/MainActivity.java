@@ -76,5 +76,9 @@ public class MainActivity extends AppCompatActivity {
             Log.d("NOTIFI", "NOTIFICATION");
             GameManager.getInstance().addCoins(5);
         }
+        if (getIntent().hasExtra("lives")) {
+            Log.d("VIDA", "SUMA VIDAS");
+            GameManager.getInstance().resetCurrentLives();
+        }
     }
 }

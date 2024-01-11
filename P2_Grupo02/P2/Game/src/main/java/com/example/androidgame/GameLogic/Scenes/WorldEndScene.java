@@ -45,6 +45,7 @@ public class WorldEndScene extends EndScene {
             public void onClick() {
                 WorldGameScene gs = (WorldGameScene) SceneManager.getInstance().getScene(SceneNames.WORLD_SCENE.ordinal());
                 gs.addTriesToBoard(2);
+                GameManager.getInstance().gotLife();
                 iEngine_.getMobile().LoadRewardedAd();
                 waitingForReward_ = true;
                 moreTriesButton_.changeActive(false);
@@ -148,6 +149,9 @@ public class WorldEndScene extends EndScene {
             graph.drawText("+10 - Total:"+GameManager.getInstance().getCoins(),this.width_ / 2+45,this.height_ / 2-60);
         }
     }
-
+    @Override
+    public void restart(){
+        GameManager.getInstance().checkLives();
+    }
 
 }

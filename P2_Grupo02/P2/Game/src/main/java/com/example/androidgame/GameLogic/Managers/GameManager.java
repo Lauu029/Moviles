@@ -8,6 +8,9 @@ import com.example.androidengine.Image;
 import com.example.androidgame.GameLogic.Board;
 import com.example.androidgame.GameLogic.Difficulty;
 import com.example.androidgame.GameLogic.Utils.SaveData;
+import com.example.androidgame.R;
+
+import java.util.concurrent.TimeUnit;
 
 public class GameManager {
     private static GameManager instance_;
@@ -63,6 +66,15 @@ public class GameManager {
     }
     public void resetCurrentLives(){currentLives_=5;}
     public void setCurrentLives_(int l){currentLives_=l;}
+    public boolean hasEnoughLives(){return currentLives_>0;}
+    public void checkLives(){
+        if(currentLives_<=0)
+        {
+            Log.d("VIDA","HE LLEGADO A CURRLIVES<0");
+            myEngine_.getMobile().programRewardedNotification(20, TimeUnit.SECONDS,
+                    R.drawable.logo,"MASTERMIND","Tus vidas se han regenerado, ¡Entra a jugar!");
+        }
+    }
     public int getCurrentLives(){return currentLives_;}
     public void lostLife(){
         if(currentLives_-1>=0)

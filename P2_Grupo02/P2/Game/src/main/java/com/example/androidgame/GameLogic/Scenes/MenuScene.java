@@ -61,8 +61,10 @@ public class MenuScene extends Scene {
                 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 -80, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                sensor_.onResume();
-                SceneManager.getInstance().addScene(new DifficultyScene(), SceneNames.DIFFICULTY.ordinal());
+                if(GameManager.getInstance().hasEnoughLives())
+                {   sensor_.onResume();
+                    SceneManager.getInstance().addScene(new DifficultyScene(), SceneNames.DIFFICULTY.ordinal());
+                }
             }
         });
         this.mundoButton_ = new Button("Explorar Mundos", fontButton_,AssetsManager.getInstance().getButtonColor(),
@@ -70,8 +72,10 @@ public class MenuScene extends Scene {
                 , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 , myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                sensor_.onResume();
-                SceneManager.getInstance().addScene(new WorldScene(), SceneNames.WORLD.ordinal());
+                if(GameManager.getInstance().hasEnoughLives()) {
+                    sensor_.onResume();
+                    SceneManager.getInstance().addScene(new WorldScene(), SceneNames.WORLD.ordinal());
+                }
             }
         });
         this.storeButton_ = new Button("Personalizar", fontButton_, AssetsManager.getInstance().getLineColor(),
@@ -88,13 +92,15 @@ public class MenuScene extends Scene {
                 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 + 60, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                sensor_.onResume();
-                GameManager.getInstance().setContrarreloj(true);
-                GameManager.getInstance().reset();
-                Log.d("CONTRARRELOJ","Has entrado en modo contrarreloj");
-                GameInit gameInit = new GameInit(LevelDifficulty.FACIL);
-                GameManager.getInstance().setLevel(gameInit.getDifficulty());
-                SceneManager.getInstance().addScene(new GameScene(), SceneNames.GAME.ordinal());
+                if(GameManager.getInstance().hasEnoughLives()) {
+                    sensor_.onResume();
+                    GameManager.getInstance().setContrarreloj(true);
+                    GameManager.getInstance().reset();
+                    Log.d("CONTRARRELOJ", "Has entrado en modo contrarreloj");
+                    GameInit gameInit = new GameInit(LevelDifficulty.FACIL);
+                    GameManager.getInstance().setLevel(gameInit.getDifficulty());
+                    SceneManager.getInstance().addScene(new GameScene(), SceneNames.GAME.ordinal());
+                }
             }
         });
         this.skipLevelButton_= new Button("Skip", fontButton_, AssetsManager.getInstance().getButtonColor(),
@@ -102,16 +108,18 @@ public class MenuScene extends Scene {
                 this.width_ - 50, this.height_ / 2, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                sensor_.onResume();
-                GameManager.getInstance().setShortcut(true);
-                //SceneManager.getInstance().addScene(new WorldScene(), SceneNames.WORLD.ordinal());
-                LevelManager.getInstance().changeShortcutTheme();
-                Theme tema=LevelManager.getInstance().getTema();
-                AssetsManager.getInstance().setWorldTheme(tema);
-                LevelManager.getInstance().setActualLevel(LevelManager.getInstance().getPassedLevel());
-                ArrayList<Difficulty> diff = LevelManager.getInstance().getDiff();
-                GameManager.getInstance().setLevel(diff.get(LevelManager.getInstance().getPassedLevel()));
-                SceneManager.getInstance().addScene(new WorldGameScene(), SceneNames.WORLD_SCENE.ordinal());
+                if(GameManager.getInstance().hasEnoughLives()) {
+                    sensor_.onResume();
+                    GameManager.getInstance().setShortcut(true);
+                    //SceneManager.getInstance().addScene(new WorldScene(), SceneNames.WORLD.ordinal());
+                    LevelManager.getInstance().changeShortcutTheme();
+                    Theme tema = LevelManager.getInstance().getTema();
+                    AssetsManager.getInstance().setWorldTheme(tema);
+                    LevelManager.getInstance().setActualLevel(LevelManager.getInstance().getPassedLevel());
+                    ArrayList<Difficulty> diff = LevelManager.getInstance().getDiff();
+                    GameManager.getInstance().setLevel(diff.get(LevelManager.getInstance().getPassedLevel()));
+                    SceneManager.getInstance().addScene(new WorldGameScene(), SceneNames.WORLD_SCENE.ordinal());
+                }
             }
         });
         addGameObject(playButton_);

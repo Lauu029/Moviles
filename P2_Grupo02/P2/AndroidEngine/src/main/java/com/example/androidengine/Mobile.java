@@ -197,6 +197,24 @@ public class Mobile {
         // Programa la tarea para ser ejecutada por el WorkManager
         WorkManager.getInstance(this.myActivity_.getApplicationContext()).enqueue(request);
     }
+    public void programRewardedNotification(int time, TimeUnit timeUnit, int icon, String title, String firstText) {
+
+        WorkRequest request = new OneTimeWorkRequest.Builder(RewardedNotification.class)
+                .setInitialDelay(time, timeUnit)
+                .setInputData(new Data.Builder()
+                        .putString("title", title)
+                        .putString("firstText", firstText)
+                        .putInt("notifications_icon", icon)
+                        .putString("notifications_channel_id", CHANNEL_ID)
+                        .putString("package_name", myActivity_.getPackageName())
+                        .build())
+                .build();
+
+        // Programa la tarea para ser ejecutada por el WorkManager
+        WorkManager.getInstance(this.myActivity_.getApplicationContext()).enqueue(request);
+        Log.d("VIDA","HE LLEGADO A programRewardedNotification");
+
+    }
 
     public void sendWork(WorkRequest work) {
         WorkManager.getInstance(this.myActivity_.getApplicationContext()).enqueue(work);

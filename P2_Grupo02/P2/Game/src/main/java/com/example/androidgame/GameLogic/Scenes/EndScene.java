@@ -61,8 +61,12 @@ public class EndScene extends Scene {
         font2_ = graph.newFont("Hexenkoetel-qZRv1.ttf", 30, false, false);
         myButtonSound_ = iEngine_.getAudio().newSound("buttonClicked.wav");
         initButtons();
+        restart();
     }
-
+    @Override
+    public void restart(){
+        GameManager.getInstance().checkLives();
+    }
     protected void initButtons() {
         Button buttonDificulty_, buttonReward_, playAgainButton_, shareRecordButton_;
         Graphics graph = iEngine_.getGraphics();
@@ -71,11 +75,13 @@ public class EndScene extends Scene {
                 , 150, 50, 35, this.width_ / 2 - 150 / 2, this.height_ / 2 - 50, myButtonSound_, new ButtonClickListener() {
             @Override
             public void onClick() {
-                GameInit gameInit = new GameInit(GameManager.getInstance().getLevel().getLevelDiff_());
-                GameManager.getInstance().setLevel(gameInit.getDifficulty());
-                Engine engine_ = GameManager.getInstance().getIEngine();
-                engine_.getAudio().playSound(myButtonSound_, 0);
-                SceneManager.getInstance().addScene(new GameScene(), SceneNames.GAME.ordinal());
+                if(GameManager.getInstance().hasEnoughLives()) {
+                    GameInit gameInit = new GameInit(GameManager.getInstance().getLevel().getLevelDiff_());
+                    GameManager.getInstance().setLevel(gameInit.getDifficulty());
+                    Engine engine_ = GameManager.getInstance().getIEngine();
+                    engine_.getAudio().playSound(myButtonSound_, 0);
+                    SceneManager.getInstance().addScene(new GameScene(), SceneNames.GAME.ordinal());
+                }
             }
         });
 

@@ -2,6 +2,7 @@ package com.example.androidgame.GameLogic.Scenes;
 
 import com.example.androidgame.GameLogic.Board;
 import com.example.androidgame.GameLogic.Managers.AssetsManager;
+import com.example.androidgame.GameLogic.Managers.GameManager;
 import com.example.androidgame.GameLogic.Managers.LevelManager;
 import com.example.androidgame.GameLogic.Managers.SceneManager;
 
@@ -98,6 +99,7 @@ public class WorldGameScene extends GameScene{
     @Override
     protected void ChangeEndScene(boolean win, int try_) {
         WorldEndScene worldEnd = new WorldEndScene(win, mySolution_.getSol(), try_);
+        if(!win) GameManager.getInstance().lostLife();
         SceneManager.getInstance().addScene(worldEnd, SceneNames.WORLD_FINAL.ordinal());
     }
     @Override
